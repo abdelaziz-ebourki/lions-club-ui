@@ -19,14 +19,14 @@ export const forumHandlers = [
     return HttpResponse.json(filtered);
   }),
 
-  http.get("/api/forum/:categoryId/:threadId", ({ params }) => {
-    const thread = threads.find((t) => t.id === params.threadId);
+  http.get("/api/forum/threads/:id", ({ params }) => {
+    const thread = threads.find((t) => t.id === params.id);
     if (!thread) return new HttpResponse(null, { status: 404 });
     return HttpResponse.json(thread);
   }),
 
-  http.get("/api/forum/threads/:id", ({ params }) => {
-    const thread = threads.find((t) => t.id === params.id);
+  http.get("/api/forum/:categoryId/:threadId", ({ params }) => {
+    const thread = threads.find((t) => t.id === params.threadId);
     if (!thread) return new HttpResponse(null, { status: 404 });
     return HttpResponse.json(thread);
   }),
