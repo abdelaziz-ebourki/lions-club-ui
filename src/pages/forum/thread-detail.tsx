@@ -1,19 +1,72 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
-import type { ForumReply } from "@/types";
+import { useAuth } from "@/contexts/auth";
+import type { ForumThread, ForumReply } from "@/types";
+import { ThreadHeader } from "@/components/forum/thread-header";
+import { ReplyList } from "@/components/forum/reply-list";
+import { ReplyForm } from "@/components/forum/reply-form";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeft } from "lucide-react";
 
 export function ThreadDetailPage() {
-  const { threadId, categoryId } = useParams<{ threadId: string; categoryId: string }>();
+  const { categoryId, threadId } = useParams<{ categoryId: string; threadId: string }>();
+  const { isAuthenticated, isAdmin } = useAuth();
+  const queryClient = useQueryClient();
+  const [replyMeta, setReplyMeta] = useState<{ parentReplyId?: string; quotedAuthor?: string }>({});
 
-  const { data: posts, isLoading } = useQuery<ForumReply[]>({
-    queryKey: ["forum-thread", categoryId, threadId],
-    queryFn: () => api.get(`/forum/${categoryId}/${threadId}`),
+  const { data, isLoading } = useQuery({
+    queryKey: ["forum-thread-detail", categoryId, threadId],
+    queryFn: async () => {
+      const [thread, replies] = await Promise.all([
+        api.get<ForumThread>(`/forum/${categoryId}/${threadId}`),
+        api.get<ForumReply[]>(`/forum/replies?threadId=${threadId}`),
+      ]);
+      return { thread, replies };
+    },
     enabled: !!threadId,
   });
+
+  const replyMutation = useMutation({
+    mutationFn: (body: { content: string; parentReplyId?: string }) =>
+      api.post("/forum/replies", { ...body, threadId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["forum-thread-detail", categoryId, threadId] });
+      setReplyMeta({});
+    },
+  });
+
+  const handleReply = (parentReplyId: string, quotedAuthor: string) => {
+    setReplyMeta({ parentReplyId, quotedAuthor });
+  };
+
+  const handleSubmitReply = async (body: { content: string; parentReplyId?: string }) => {
+    await replyMutation.mutateAsync(body);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+        <Skeleton className="h-8 w-96" />
+        <Skeleton className="mt-4 h-4 w-64" />
+        <Skeleton className="mt-8 h-32 w-full" />
+        <Skeleton className="mt-4 h-32 w-full" />
+      </div>
+    );
+  }
+
+  if (!data?.thread) {
+    return (
+      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+        <h1 className="font-heading text-h3">Thread not found</h1>
+        <Link to={`/forum/${categoryId}`} className="mt-4 inline-block">
+          <Button>Back to Threads</Button>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -23,34 +76,21 @@ export function ThreadDetailPage() {
         </Button>
       </Link>
 
-      {isLoading ? (
-        <div className="flex flex-col gap-6">
-          <Skeleton className="h-8 w-96" />
-          <Skeleton className="h-32 w-full" />
-          <Skeleton className="h-32 w-full" />
-        </div>
-      ) : (
-        <div className="flex flex-col gap-6">
-          {posts?.map((post) => (
-            <article key={post.id} className="rounded-lg border bg-card p-6 shadow-sm">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary font-heading font-bold">
-                  {post.author.charAt(0)}
-                </div>
-                <div>
-                  <p className="font-heading text-base font-semibold">
-                    {post.author}
-                  </p>
-                  <p className="text-body-sm text-muted-foreground">
-                    {post.createdAt}
-                  </p>
-                </div>
-              </div>
-              <div className="text-body text-muted-foreground leading-relaxed">
-                {post.content}
-              </div>
-            </article>
-          ))}
+      <ThreadHeader thread={data.thread} isAdmin={isAdmin} />
+
+      <ReplyList
+        replies={data.replies}
+        isAuthenticated={isAuthenticated}
+        onReply={handleReply}
+      />
+
+      {isAuthenticated && (
+        <div className="mt-8">
+          <ReplyForm
+            onSubmit={handleSubmitReply}
+            parentReplyId={replyMeta.parentReplyId}
+            quotedAuthor={replyMeta.quotedAuthor}
+          />
         </div>
       )}
     </div>
