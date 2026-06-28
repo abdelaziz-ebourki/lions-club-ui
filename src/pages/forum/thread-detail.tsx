@@ -26,7 +26,7 @@ export function ThreadDetailPage() {
       ]);
       return { thread, replies };
     },
-    enabled: !!threadId,
+    enabled: !!categoryId && !!threadId,
   });
 
   const replyMutation = useMutation({
