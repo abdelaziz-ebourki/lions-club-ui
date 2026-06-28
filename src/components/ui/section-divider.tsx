@@ -1,4 +1,4 @@
-import { LionMark } from "@/components/ui/lion-mark";
+import { LionMark } from "./lion-mark";
 
 export function SectionDivider() {
   return (

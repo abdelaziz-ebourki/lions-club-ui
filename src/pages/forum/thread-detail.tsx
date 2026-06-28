@@ -10,7 +10,7 @@ export function ThreadDetailPage() {
   const { threadId, categoryId } = useParams<{ threadId: string; categoryId: string }>();
 
   const { data: posts, isLoading } = useQuery<ForumReply[]>({
-    queryKey: ["forum-thread", threadId],
+    queryKey: ["forum-thread", categoryId, threadId],
     queryFn: () => api.get(`/forum/${categoryId}/${threadId}`),
     enabled: !!threadId,
   });
