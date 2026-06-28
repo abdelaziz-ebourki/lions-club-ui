@@ -64,6 +64,7 @@ export interface ForumReply {
   content: string;
   createdAt: string;
   updatedAt?: string;
+  parentReplyId?: string;
 }
 
 export interface PageMeta {

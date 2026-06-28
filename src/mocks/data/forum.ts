@@ -93,6 +93,7 @@ export const replies: ForumReply[] = [
     content:
       "Excited to be part of this new platform. The forum looks great!",
     createdAt: "2026-01-16T09:00:00Z",
+    parentReplyId: "reply-1",
   },
   {
     id: "reply-3",
