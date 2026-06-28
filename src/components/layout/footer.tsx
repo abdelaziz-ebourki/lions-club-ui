@@ -45,14 +45,14 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2.5">
               <img src="/logo.png" alt="" className="h-8 w-8 rounded-full" width={32} height={32} />
-              <h3 className="font-heading text-lg font-bold text-primary">
+              <h3 className="font-heading text-lg font-semibold text-primary">
                 {siteConfig.name}
               </h3>
             </div>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="mt-2 text-sm text-muted-foreground font-body">
               {siteConfig.description}
             </p>
-            <p className="mt-1 text-xs font-medium italic text-accent">
+            <p className="mt-1 text-xs font-display uppercase tracking-widest text-accent">
               {siteConfig.tagline}
             </p>
           </div>

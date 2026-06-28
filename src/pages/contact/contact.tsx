@@ -21,7 +21,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 import { siteConfig } from "@/config";
 
@@ -37,23 +36,23 @@ type ContactFormData = z.infer<typeof contactSchema>;
 const faqs = [
   {
     q: "How can I become a member?",
-    a: "You can attend one of our events or contact us through this form. We welcome new members who share our passion for community service.",
+    a: "Attend one of our projects or send us a message through this form. We welcome new members who share our passion for community service — no experience needed.",
   },
   {
     q: "Do I need prior volunteering experience?",
-    a: "Not at all! We welcome everyone regardless of experience. We provide training and guidance for all our activities.",
+    a: "Not at all. We provide training and guidance for every project. The only requirement is showing up.",
   },
   {
     q: "How often does the club meet?",
-    a: "We hold general meetings twice a month, with additional project-specific meetings as needed. Check our events page for the schedule.",
+    a: "General meetings happen twice a month, with project-specific meetings as needed. Check our projects page for the schedule.",
   },
   {
     q: "Can I donate to support your projects?",
-    a: "Yes! We welcome donations that support our community initiatives. Contact us for more information on how to contribute.",
+    a: "Yes — donations directly fund our community initiatives. Contact us and we'll walk you through how to contribute.",
   },
   {
     q: "Are there membership fees?",
-    a: "Yes, there is a nominal annual membership fee that goes toward administrative costs and supporting our service projects.",
+    a: "A nominal annual fee covers administrative costs and supports our service projects. No one is turned away for inability to pay.",
   },
 ];
 
@@ -76,17 +75,17 @@ export function ContactPage() {
 
   return (
     <>
-      <section className="border-b bg-muted/30">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <section className="border-b bg-muted/50">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <Badge variant="outline" className="mb-4 border-accent text-accent">
-              Contact
-            </Badge>
-            <h1 className="font-heading text-4xl font-bold tracking-tight sm:text-5xl">
+            <p className="font-display text-overline text-accent mb-4">
               Get in Touch
+            </p>
+            <h1 className="font-heading text-h1 text-foreground">
+              Let's Talk
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Have a question, suggestion, or want to get involved? We'd love
+            <p className="mt-4 text-body-lg text-muted-foreground">
+              Questions, suggestions, or want to get involved? We'd love
               to hear from you.
             </p>
           </div>
@@ -98,12 +97,15 @@ export function ContactPage() {
           <div className="lg:col-span-3">
             <Card>
               <CardHeader>
-                <CardTitle className="font-heading text-2xl">
-                  Send us a Message
+                <p className="font-display text-overline text-accent mb-1">
+                  Message
+                </p>
+                <CardTitle className="font-heading text-h3">
+                  Send Us a Message
                 </CardTitle>
-                <CardDescription>
-                  Fill out the form below and we'll get back to you as soon as
-                  possible.
+                <CardDescription className="text-body">
+                  Fill out the form below and we'll get back to you as soon
+                  as possible.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -165,15 +167,18 @@ export function ContactPage() {
           <div className="flex flex-col gap-6 lg:col-span-2">
             <Card>
               <CardHeader>
-                <CardTitle className="font-heading text-xl">
-                  Contact Info
+                <p className="font-display text-overline text-accent mb-1">
+                  Contact
+                </p>
+                <CardTitle className="font-heading text-h4">
+                  How to Reach Us
                 </CardTitle>
               </CardHeader>
-              <CardContent className="flex flex-col gap-4 text-sm">
+              <CardContent className="flex flex-col gap-4 text-body-sm">
                 <div className="flex items-start gap-3">
                   <Mail className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
                   <div>
-                    <p className="font-medium">Email</p>
+                    <p className="font-medium font-body">Email</p>
                     <p className="text-muted-foreground">
                       {siteConfig.email}
                     </p>
@@ -182,7 +187,7 @@ export function ContactPage() {
                 <div className="flex items-start gap-3">
                   <Phone className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
                   <div>
-                    <p className="font-medium">Phone</p>
+                    <p className="font-medium font-body">Phone</p>
                     <p className="text-muted-foreground">
                       {siteConfig.phone}
                     </p>
@@ -191,7 +196,7 @@ export function ContactPage() {
                 <div className="flex items-start gap-3">
                   <MapPin className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
                   <div>
-                    <p className="font-medium">Address</p>
+                    <p className="font-medium font-body">Address</p>
                     <p className="text-muted-foreground">
                       {siteConfig.address}
                     </p>
@@ -202,18 +207,21 @@ export function ContactPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="font-heading text-xl">
+                <p className="font-display text-overline text-accent mb-1">
                   FAQ
+                </p>
+                <CardTitle className="font-heading text-h4">
+                  Common Questions
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <Accordion className="w-full">
                   {faqs.map((faq, i) => (
                     <AccordionItem key={i} value={`faq-${i}`}>
-                      <AccordionTrigger className="text-sm text-left">
+                      <AccordionTrigger className="text-body-sm text-left">
                         {faq.q}
                       </AccordionTrigger>
-                      <AccordionContent className="text-sm text-muted-foreground">
+                      <AccordionContent className="text-body-sm text-muted-foreground">
                         {faq.a}
                       </AccordionContent>
                     </AccordionItem>

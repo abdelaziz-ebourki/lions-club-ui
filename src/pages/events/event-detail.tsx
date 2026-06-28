@@ -19,7 +19,7 @@ export function EventDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
         <Skeleton className="h-8 w-64" />
         <Skeleton className="mt-4 h-4 w-96" />
         <Skeleton className="mt-8 h-48 w-full" />
@@ -29,35 +29,35 @@ export function EventDetailPage() {
 
   if (!event) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:px-8">
-        <h1 className="font-heading text-2xl font-bold">Event not found</h1>
+      <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
+        <h1 className="font-heading text-h3">Project not found</h1>
         <Link to="/events" className="mt-4 inline-block">
-          <Button>Back to Events</Button>
+          <Button>Browse Projects</Button>
         </Link>
       </div>
     );
   }
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <article className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
       <Link to="/events">
         <Button variant="ghost" className="mb-8">
-          <ArrowLeft data-icon="inline-start" /> All Events
+          <ArrowLeft data-icon="inline-start" /> All Projects
         </Button>
       </Link>
 
-      <Badge variant="outline" className="mb-4 border-accent text-accent">
+      <Badge variant="accent" className="mb-4">
         {event.category}
       </Badge>
       <Badge variant="secondary" className="mb-4 ml-2 capitalize">
         {event.status}
       </Badge>
 
-      <h1 className="font-heading text-4xl font-bold tracking-tight">
+      <h1 className="font-heading text-h1 text-foreground">
         {event.title}
       </h1>
 
-      <div className="mt-6 flex flex-wrap gap-6 text-sm text-muted-foreground">
+      <div className="mt-6 flex flex-wrap gap-6 text-body-sm text-muted-foreground">
         <div className="flex items-center gap-2">
           <Calendar className="size-4" aria-hidden="true" />
           {event.date}
@@ -73,9 +73,9 @@ export function EventDetailPage() {
       </div>
 
       <Separator className="my-8" />
-      <p className="text-lg leading-relaxed text-muted-foreground">
-        {event.description}
-      </p>
+      <div className="text-body-lg text-muted-foreground leading-relaxed space-y-4">
+        <p>{event.description}</p>
+      </div>
     </article>
   );
 }

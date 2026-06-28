@@ -1,90 +1,85 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "@/contexts/auth";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { Link } from "react-router-dom";
+import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { FieldGroup, Field, FieldLabel } from "@/components/ui/field";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle } from "lucide-react";
+import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
+
+const loginSchema = z.object({
+  email: z.string().email("Enter a valid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
 
 export function LoginPage() {
-  const { login } = useAuth();
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const form = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: "", password: "" },
+  });
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-    try {
-      await login(email, password);
-      navigate("/admin");
-    } catch {
-      setError("Invalid email or password");
-    } finally {
-      setLoading(false);
-    }
+  const mutation = useMutation({
+    mutationFn: (data: LoginFormData) => api.post("/auth/login", data),
+    onSuccess: () => {
+      window.location.reload();
+    },
+  });
+
+  function onSubmit(data: LoginFormData) {
+    mutation.mutate(data, {
+      onError: (error) => {
+        toast.error(error instanceof Error ? error.message : "Invalid email or password");
+      },
+    });
   }
 
   return (
-    <section className="mx-auto max-w-md px-4 py-20 sm:px-6">
-      <Card>
+    <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
+      <Card className="w-full">
         <CardHeader className="text-center">
-          <CardTitle className="font-heading text-2xl">Sign In</CardTitle>
-          <CardDescription>
-            Access your account to manage the club
+          <p className="font-display text-overline text-accent mb-1">
+            Welcome Back
+          </p>
+          <CardTitle className="font-heading text-h3">Sign In</CardTitle>
+          <CardDescription className="text-body-sm">
+            Sign in to your account to manage projects and connect with members.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            {error && (
-              <Alert variant="destructive">
-                <AlertCircle className="size-4" />
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-            <FieldGroup className="gap-4">
-              <Field>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
+            <FieldGroup>
+              <Field data-invalid={!!form.formState.errors.email}>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="admin@lionsclub.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  autoComplete="email"
-                />
+                <FieldContent>
+                  <Input id="email" type="email" placeholder="your@email.com" aria-invalid={!!form.formState.errors.email} {...form.register("email")} autoComplete="email" spellCheck={false} />
+                  <FieldError errors={[form.formState.errors.email]} />
+                </FieldContent>
               </Field>
-              <Field>
+              <Field data-invalid={!!form.formState.errors.password}>
                 <FieldLabel htmlFor="password">Password</FieldLabel>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="admin123"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  autoComplete="current-password"
-                />
+                <FieldContent>
+                  <Input id="password" type="password" placeholder="Enter your password" aria-invalid={!!form.formState.errors.password} {...form.register("password")} autoComplete="current-password" />
+                  <FieldError errors={[form.formState.errors.password]} />
+                </FieldContent>
               </Field>
             </FieldGroup>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Signing in..." : "Sign In"}
+            <Button type="submit" disabled={mutation.isPending}>
+              {mutation.isPending ? "Signing in..." : "Sign In"}
             </Button>
           </form>
-          <p className="mt-4 text-center text-sm text-muted-foreground">
+          <p className="mt-4 text-center text-body-sm text-muted-foreground">
             Don't have an account?{" "}
-            <Link to="/register" className="text-accent hover:underline">
-              Register
+            <Link to="/register" className="text-primary underline underline-offset-4 hover:text-accent">
+              Register here
             </Link>
           </p>
         </CardContent>
       </Card>
-    </section>
+    </div>
   );
 }
