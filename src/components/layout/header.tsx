@@ -19,7 +19,7 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2.5">
           <img src="/logo.png" alt="" className="h-8 w-8 rounded-full" width={32} height={32} />
-          <span className="font-heading text-xl font-bold tracking-tight text-primary">
+          <span className="font-heading text-xl font-semibold text-primary">
             {siteConfig.name}
           </span>
         </Link>

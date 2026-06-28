@@ -1,94 +1,59 @@
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "@/contexts/auth";
-import { Button } from "@/components/ui/button";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import {
-  LayoutDashboard,
-  Calendar,
-  Users,
-  MessageSquare,
-  MessageCircle,
-  LogOut,
-  ArrowLeft,
-} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { LayoutDashboard, Calendar, MessageSquare, Users, Mail, LogOut } from "lucide-react";
 
-const sidebarNav = [
+const adminNav = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Events", href: "/admin/events", icon: Calendar },
+  { label: "Forum", href: "/admin/forum", icon: MessageSquare },
   { label: "Members", href: "/admin/members", icon: Users },
-  { label: "Messages", href: "/admin/messages", icon: MessageSquare },
-  { label: "Forum", href: "/admin/forum", icon: MessageCircle },
+  { label: "Messages", href: "/admin/messages", icon: Mail },
 ];
 
 export function AdminLayout() {
-  const { user, isAdmin, logout } = useAuth();
   const location = useLocation();
-  const navigate = useNavigate();
-
-  if (!user || !isAdmin) {
-    return (
-      <div className="mx-auto max-w-md px-4 py-20 text-center sm:px-6">
-        <h1 className="font-heading text-2xl font-bold">Access Denied</h1>
-        <p className="mt-2 text-muted-foreground">
-          You need to be logged in as admin to access this area.
-        </p>
-        <Link to="/login" className="mt-4 inline-block">
-          <Button>Sign In</Button>
-        </Link>
-      </div>
-    );
-  }
 
   return (
-    <div className="mx-auto flex max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:px-8">
-      <aside className="hidden w-56 shrink-0 md:block">
-        <div className="sticky top-24 flex flex-col gap-1">
-          <p className="mb-4 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Admin Panel
-          </p>
-          {sidebarNav.map((item) => {
+    <div className="mx-auto flex min-h-[60vh] max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:px-8">
+      <aside className="hidden w-64 shrink-0 flex-col gap-2 md:flex">
+        <div className="mb-6">
+          <p className="font-display text-overline text-accent">Admin</p>
+          <h2 className="font-heading text-h4 mt-1 text-foreground">Manage</h2>
+        </div>
+        <nav className="flex flex-col gap-1">
+          {adminNav.map((item) => {
             const Icon = item.icon;
+            const isActive = location.pathname === item.href;
             return (
               <Link
                 key={item.href}
                 to={item.href}
                 className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-muted",
-                  location.pathname === item.href
-                    ? "bg-muted text-primary"
-                    : "text-muted-foreground"
+                  "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  isActive
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 )}
               >
-                <Icon className="size-4" aria-hidden="true" />
+                <Icon className="size-4" />
                 {item.label}
               </Link>
             );
           })}
-          <div className="pt-4">
-            <Link to="/">
-              <Button variant="ghost" size="sm" className="w-full justify-start">
-                <ArrowLeft data-icon="inline-start" />
-                Back to site
-              </Button>
-            </Link>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="w-full justify-start text-destructive"
-              onClick={() => {
-                logout();
-                navigate("/");
-              }}
-            >
-              <LogOut data-icon="inline-start" />
-              Sign Out
+        </nav>
+        <div className="mt-auto pt-8">
+          <Link to="/">
+            <Button variant="ghost" size="sm" className="w-full justify-start gap-3">
+              <LogOut className="size-4" />
+              Back to Site
             </Button>
-          </div>
+          </Link>
         </div>
       </aside>
-      <div className="flex-1 min-w-0">
+      <main className="flex-1 min-w-0">
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 }

@@ -1,115 +1,191 @@
-import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useParams, useNavigate } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 import type { Event } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { FieldGroup, Field, FieldLabel } from "@/components/ui/field";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
-interface EventFormProps {
-  event: Event | null;
-  onSuccess: () => void;
-}
+const eventSchema = z.object({
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
+  date: z.string().min(1, "Date is required"),
+  time: z.string().min(1, "Time is required"),
+  location: z.string().min(3, "Location is required"),
+  category: z.string().min(1, "Category is required"),
+  status: z.enum(["upcoming", "past"]),
+});
 
-export function EventForm({ event, onSuccess }: EventFormProps) {
+type EventFormData = z.infer<typeof eventSchema>;
+
+export function EventFormPage() {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [form, setForm] = useState({
-    title: event?.title ?? "",
-    description: event?.description ?? "",
-    date: event?.date ?? "",
-    time: event?.time ?? "",
-    location: event?.location ?? "",
-    category: event?.category ?? "",
-    status: event?.status ?? "upcoming",
+  const isEditing = !!id;
+
+  const { data: event } = useQuery<Event>({
+    queryKey: ["event", id],
+    queryFn: () => api.get(`/events/${id}`),
+    enabled: isEditing,
+  });
+
+  const form = useForm<EventFormData>({
+    resolver: zodResolver(eventSchema),
+    values: event ? {
+      title: event.title,
+      description: event.description,
+      date: event.date,
+      time: event.time,
+      location: event.location,
+      category: event.category,
+      status: (event.status === "upcoming" ? "upcoming" : "past") as "upcoming" | "past",
+    } : undefined,
+    defaultValues: !isEditing ? {
+      title: "", description: "", date: "", time: "",
+      location: "", category: "", status: "upcoming",
+    } : undefined,
   });
 
   const mutation = useMutation({
-    mutationFn: () =>
-      event
-        ? api.put(`/events/${event.id}`, form)
-        : api.post("/events", form),
+    mutationFn: (data: EventFormData) =>
+      isEditing ? api.put(`/events/${id!}`, data) : api.post("/events", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["events"] });
-      toast.success(event ? "Event updated" : "Event created");
-      onSuccess();
+      toast.success(isEditing ? "Project updated successfully." : "Project created successfully.");
+      navigate("/admin/events");
     },
-    onError: () => toast.error("Failed to save event"),
+    onError: () => toast.error("Failed to save project."),
   });
 
+  function onSubmit(data: EventFormData) {
+    mutation.mutate(data);
+  }
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        mutation.mutate();
-      }}
-      className="flex flex-col gap-4"
-    >
-      <FieldGroup className="gap-4">
-        <Field>
-          <FieldLabel htmlFor="title">Title</FieldLabel>
-          <Input
-            id="title"
-            value={form.title}
-            onChange={(e) => setForm({ ...form, title: e.target.value })}
-            required
-            autoComplete="off"
-          />
-        </Field>
-        <Field>
-          <FieldLabel htmlFor="desc">Description</FieldLabel>
-          <Input
-            id="desc"
-            value={form.description}
-            onChange={(e) => setForm({ ...form, description: e.target.value })}
-            autoComplete="off"
-          />
-        </Field>
-        <div className="grid grid-cols-2 gap-4">
-          <Field>
-            <FieldLabel htmlFor="date">Date</FieldLabel>
-            <Input
-              id="date"
-              type="date"
-              value={form.date}
-              onChange={(e) => setForm({ ...form, date: e.target.value })}
-              required
-              autoComplete="off"
-            />
-          </Field>
-          <Field>
-            <FieldLabel htmlFor="time">Time</FieldLabel>
-            <Input
-              id="time"
-              type="time"
-              value={form.time}
-              onChange={(e) => setForm({ ...form, time: e.target.value })}
-              autoComplete="off"
-            />
-          </Field>
-        </div>
-        <Field>
-          <FieldLabel htmlFor="location">Location</FieldLabel>
-          <Input
-            id="location"
-            value={form.location}
-            onChange={(e) => setForm({ ...form, location: e.target.value })}
-            autoComplete="off"
-          />
-        </Field>
-        <Field>
-          <FieldLabel htmlFor="category">Category</FieldLabel>
-          <Input
-            id="category"
-            value={form.category}
-            onChange={(e) => setForm({ ...form, category: e.target.value })}
-            autoComplete="off"
-          />
-        </Field>
-      </FieldGroup>
-      <Button type="submit" disabled={mutation.isPending} className="w-full">
-        {mutation.isPending ? "Saving..." : event ? "Update Event" : "Create Event"}
-      </Button>
-    </form>
+    <div>
+      <Link to="/admin/events">
+        <Button variant="ghost" className="mb-8">
+          <ArrowLeft data-icon="inline-start" /> Back to Events
+        </Button>
+      </Link>
+
+      <div className="mb-8">
+        <p className="font-display text-overline text-accent">
+          {isEditing ? "Edit" : "New"} Project
+        </p>
+        <h1 className="font-heading text-h2 mt-1 text-foreground">
+          {isEditing ? "Edit Project" : "Create Project"}
+        </h1>
+      </div>
+
+      <div className="max-w-2xl">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
+          <FieldGroup>
+            <Field data-invalid={!!form.formState.errors.title}>
+              <FieldLabel htmlFor="title">Title</FieldLabel>
+              <FieldContent>
+                <Input id="title" placeholder="Event title" aria-invalid={!!form.formState.errors.title} {...form.register("title")} />
+                <FieldError errors={[form.formState.errors.title]} />
+              </FieldContent>
+            </Field>
+            <Field data-invalid={!!form.formState.errors.description}>
+              <FieldLabel htmlFor="description">Description</FieldLabel>
+              <FieldContent>
+                <Textarea id="description" placeholder="Describe the event" rows={4} aria-invalid={!!form.formState.errors.description} {...form.register("description")} />
+                <FieldError errors={[form.formState.errors.description]} />
+              </FieldContent>
+            </Field>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field data-invalid={!!form.formState.errors.date}>
+                <FieldLabel htmlFor="date">Date</FieldLabel>
+                <FieldContent>
+                  <Input id="date" type="date" aria-invalid={!!form.formState.errors.date} {...form.register("date")} />
+                  <FieldError errors={[form.formState.errors.date]} />
+                </FieldContent>
+              </Field>
+              <Field data-invalid={!!form.formState.errors.time}>
+                <FieldLabel htmlFor="time">Time</FieldLabel>
+                <FieldContent>
+                  <Input id="time" type="time" aria-invalid={!!form.formState.errors.time} {...form.register("time")} />
+                  <FieldError errors={[form.formState.errors.time]} />
+                </FieldContent>
+              </Field>
+            </div>
+            <Field data-invalid={!!form.formState.errors.location}>
+              <FieldLabel htmlFor="location">Location</FieldLabel>
+              <FieldContent>
+                <Input id="location" placeholder="Event location" aria-invalid={!!form.formState.errors.location} {...form.register("location")} />
+                <FieldError errors={[form.formState.errors.location]} />
+              </FieldContent>
+            </Field>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field data-invalid={!!form.formState.errors.category}>
+                <FieldLabel htmlFor="category">Category</FieldLabel>
+                <FieldContent>
+                  <Controller
+                    name="category"
+                    control={form.control}
+                    render={({ field }) => (
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger aria-label="Category">
+                          <SelectValue placeholder="Select category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Health">Health</SelectItem>
+                          <SelectItem value="Environment">Environment</SelectItem>
+                          <SelectItem value="Youth">Youth</SelectItem>
+                          <SelectItem value="Community">Community</SelectItem>
+                          <SelectItem value="Fundraiser">Fundraiser</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                  <FieldError errors={[form.formState.errors.category]} />
+                </FieldContent>
+              </Field>
+              <Field data-invalid={!!form.formState.errors.status}>
+                <FieldLabel htmlFor="status">Status</FieldLabel>
+                <FieldContent>
+                  <Controller
+                    name="status"
+                    control={form.control}
+                    render={({ field }) => (
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger aria-label="Status">
+                          <SelectValue placeholder="Select status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="upcoming">Upcoming</SelectItem>
+                          <SelectItem value="past">Past</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                  <FieldError errors={[form.formState.errors.status]} />
+                </FieldContent>
+              </Field>
+            </div>
+          </FieldGroup>
+          <Button type="submit" disabled={mutation.isPending} className="w-full sm:w-auto">
+            {mutation.isPending ? "Saving..." : isEditing ? "Update Project" : "Create Project"}
+          </Button>
+        </form>
+      </div>
+    </div>
   );
 }

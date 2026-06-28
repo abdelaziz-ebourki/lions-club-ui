@@ -17,10 +17,10 @@ import { RegisterPage } from "@/pages/auth/register";
 import { NotFoundPage } from "@/pages/not-found";
 
 const EventDetailPage = lazy(() => import("@/pages/events/event-detail").then(m => ({ default: m.EventDetailPage })));
-const ThreadListPage = lazy(() => import("@/pages/forum/threads").then(m => ({ default: m.ThreadListPage })));
+const ThreadListPage = lazy(() => import("@/pages/forum/threads").then(m => ({ default: m.ThreadsPage })));
 const ThreadDetailPage = lazy(() => import("@/pages/forum/thread-detail").then(m => ({ default: m.ThreadDetailPage })));
 const AdminLayout = lazy(() => import("@/pages/admin/admin-layout").then(m => ({ default: m.AdminLayout })));
-const DashboardPage = lazy(() => import("@/pages/admin/dashboard").then(m => ({ default: m.DashboardPage })));
+const DashboardPage = lazy(() => import("@/pages/admin/dashboard").then(m => ({ default: m.AdminDashboardPage })));
 const AdminEventsPage = lazy(() => import("@/pages/admin/admin-events").then(m => ({ default: m.AdminEventsPage })));
 const AdminMembersPage = lazy(() => import("@/pages/admin/admin-members").then(m => ({ default: m.AdminMembersPage })));
 const AdminMessagesPage = lazy(() => import("@/pages/admin/admin-messages").then(m => ({ default: m.AdminMessagesPage })));

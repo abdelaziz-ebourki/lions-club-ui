@@ -1,104 +1,105 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "@/contexts/auth";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { Link } from "react-router-dom";
+import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { FieldGroup, Field, FieldLabel } from "@/components/ui/field";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle } from "lucide-react";
+import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
+
+const registerSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Enter a valid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords do not match",
+  path: ["confirmPassword"],
+});
+
+type RegisterFormData = z.infer<typeof registerSchema>;
 
 export function RegisterPage() {
-  const { register } = useAuth();
-  const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const form = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
+  });
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-    try {
-      await register(name, email, password);
-      navigate("/admin");
-    } catch {
-      setError("Registration failed. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+  const mutation = useMutation({
+    mutationFn: (data: Omit<RegisterFormData, "confirmPassword">) => api.post("/auth/register", data),
+    onSuccess: () => {
+      window.location.reload();
+    },
+  });
+
+  function onSubmit({ confirmPassword: _unused, ...data }: RegisterFormData) {
+    void _unused;
+    mutation.mutate(data, {
+      onError: (error) => {
+        toast.error(error instanceof Error ? error.message : "Registration failed. Please try again.");
+      },
+    });
   }
 
   return (
-    <section className="mx-auto max-w-md px-4 py-20 sm:px-6">
-      <Card>
+    <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
+      <Card className="w-full">
         <CardHeader className="text-center">
-          <CardTitle className="font-heading text-2xl">Create Account</CardTitle>
-          <CardDescription>
-            Register to join the Lions Club FSBM community
+          <p className="font-display text-overline text-accent mb-1">
+            Join Us
+          </p>
+          <CardTitle className="font-heading text-h3">Create an Account</CardTitle>
+          <CardDescription className="text-body-sm">
+            Register to join projects, participate in discussions, and connect with fellow members.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            {error && (
-              <Alert variant="destructive">
-                <AlertCircle className="size-4" />
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-            <FieldGroup className="gap-4">
-              <Field>
-                <FieldLabel htmlFor="name">Full Name</FieldLabel>
-                <Input
-                  id="name"
-                  placeholder="Your name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  autoComplete="name"
-                />
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
+            <FieldGroup>
+              <Field data-invalid={!!form.formState.errors.name}>
+                <FieldLabel htmlFor="name">Name</FieldLabel>
+                <FieldContent>
+                  <Input id="name" placeholder="Your full name" aria-invalid={!!form.formState.errors.name} {...form.register("name")} autoComplete="name" />
+                  <FieldError errors={[form.formState.errors.name]} />
+                </FieldContent>
               </Field>
-              <Field>
+              <Field data-invalid={!!form.formState.errors.email}>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  autoComplete="email"
-                  spellCheck={false}
-                />
+                <FieldContent>
+                  <Input id="email" type="email" placeholder="your@email.com" aria-invalid={!!form.formState.errors.email} {...form.register("email")} autoComplete="email" spellCheck={false} />
+                  <FieldError errors={[form.formState.errors.email]} />
+                </FieldContent>
               </Field>
-              <Field>
+              <Field data-invalid={!!form.formState.errors.password}>
                 <FieldLabel htmlFor="password">Password</FieldLabel>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  minLength={6}
-                  autoComplete="new-password"
-                />
+                <FieldContent>
+                  <Input id="password" type="password" placeholder="At least 6 characters" aria-invalid={!!form.formState.errors.password} {...form.register("password")} autoComplete="new-password" />
+                  <FieldError errors={[form.formState.errors.password]} />
+                </FieldContent>
+              </Field>
+              <Field data-invalid={!!form.formState.errors.confirmPassword}>
+                <FieldLabel htmlFor="confirmPassword">Confirm Password</FieldLabel>
+                <FieldContent>
+                  <Input id="confirmPassword" type="password" placeholder="Repeat your password" aria-invalid={!!form.formState.errors.confirmPassword} {...form.register("confirmPassword")} autoComplete="new-password" />
+                  <FieldError errors={[form.formState.errors.confirmPassword]} />
+                </FieldContent>
               </Field>
             </FieldGroup>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Creating account..." : "Create Account"}
+            <Button type="submit" disabled={mutation.isPending}>
+              {mutation.isPending ? "Creating account..." : "Create Account"}
             </Button>
           </form>
-          <p className="mt-4 text-center text-sm text-muted-foreground">
+          <p className="mt-4 text-center text-body-sm text-muted-foreground">
             Already have an account?{" "}
-            <Link to="/login" className="text-accent hover:underline">
+            <Link to="/login" className="text-primary underline underline-offset-4 hover:text-accent">
               Sign in
             </Link>
           </p>
         </CardContent>
       </Card>
-    </section>
+    </div>
   );
 }
