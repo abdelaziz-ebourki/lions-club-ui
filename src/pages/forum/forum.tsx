@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type { ForumCategory } from "@/types";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -28,16 +27,16 @@ export function ForumPage() {
 
   return (
     <>
-      <section className="border-b bg-muted/30">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <section className="border-b bg-muted/50">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <Badge variant="outline" className="mb-4 border-accent text-accent">
-              Forum
-            </Badge>
-            <h1 className="font-heading text-4xl font-bold tracking-tight sm:text-5xl">
-              Community Forum
+            <p className="font-display text-overline text-accent mb-4">
+              Conversations
+            </p>
+            <h1 className="font-heading text-h1 text-foreground">
+              Community Conversations
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="mt-4 text-body-lg text-muted-foreground">
               Connect, discuss, and share with fellow members
             </p>
           </div>
@@ -71,11 +70,11 @@ export function ForumPage() {
                         <CardTitle className="font-heading text-lg">
                           {category.name}
                         </CardTitle>
-                        <CardDescription className="mt-0.5">
+                        <CardDescription className="mt-0.5 text-body-sm">
                           {category.description}
                         </CardDescription>
                       </div>
-                      <div className="hidden text-right text-sm text-muted-foreground sm:block">
+                      <div className="hidden text-right text-body-sm text-muted-foreground sm:block">
                         <p>{category.threadCount} threads</p>
                         <p>{category.postCount} posts</p>
                       </div>
