@@ -113,8 +113,7 @@ export const authHandlers = [
   }),
 
   http.get("/api/auth/me", async ({ cookies }) => {
-    const cookieStore = cookies as unknown as { get: (name: string) => string | undefined };
-    const authToken = cookieStore.get("auth_token");
+    const authToken = (cookies as Record<string, string>)["auth_token"];
     if (!authToken) {
       return HttpResponse.json({ message: "Not authenticated" }, { status: 401 });
     }

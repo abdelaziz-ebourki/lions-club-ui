@@ -8,6 +8,17 @@ import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 
 export function AdminEventsPage() {
@@ -32,11 +43,11 @@ export function AdminEventsPage() {
       <div className="mb-8 flex items-center justify-between">
         <div>
           <p className="font-display text-overline text-accent">Events</p>
-          <h1 className="font-heading text-h2 mt-1 text-foreground">Manage Projects</h1>
+          <h1 className="font-heading text-h2 mt-1 text-foreground">Manage Events</h1>
         </div>
         <Link to="/admin/events/new">
           <Button>
-            <Plus data-icon="inline-start" /> New Project
+            <Plus data-icon="inline-start" /> New Event
           </Button>
         </Link>
       </div>
@@ -72,14 +83,29 @@ export function AdminEventsPage() {
                         <Pencil className="size-4" />
                       </Button>
                     </Link>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="size-8 text-destructive hover:text-destructive"
-                      onClick={() => deleteMutation.mutate(event.id)}
-                    >
-                      <Trash2 className="size-4" />
-                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger
+                        render={
+                          <Button variant="ghost" size="icon" className="size-8 text-destructive hover:text-destructive">
+                            <Trash2 className="size-4" />
+                          </Button>
+                        }
+                      />
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Delete Event</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Are you sure you want to delete "{event.title}"? This action cannot be undone.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={() => deleteMutation.mutate(event.id)}>
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </TableCell>
               </TableRow>

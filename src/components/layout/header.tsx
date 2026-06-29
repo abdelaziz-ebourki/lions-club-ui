@@ -86,6 +86,74 @@ export function Header() {
                     {item.label}
                   </Link>
                 ))}
+                {isAdmin && (
+                  <>
+                    <div className="border-t pt-4 mt-2" />
+                    <p className="font-display text-overline text-accent text-xs tracking-widest uppercase pb-1">
+                      Admin
+                    </p>
+                    <Link
+                      to="/admin"
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "text-lg font-medium transition-colors hover:text-primary",
+                        location.pathname === "/admin"
+                          ? "text-primary"
+                          : "text-muted-foreground"
+                      )}
+                    >
+                      Dashboard
+                    </Link>
+                    <Link
+                      to="/admin/events"
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "text-lg font-medium transition-colors hover:text-primary",
+                        location.pathname === "/admin/events"
+                          ? "text-primary"
+                          : "text-muted-foreground"
+                      )}
+                    >
+                      Events
+                    </Link>
+                    <Link
+                      to="/admin/forum"
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "text-lg font-medium transition-colors hover:text-primary",
+                        location.pathname === "/admin/forum"
+                          ? "text-primary"
+                          : "text-muted-foreground"
+                      )}
+                    >
+                      Forum
+                    </Link>
+                    <Link
+                      to="/admin/members"
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "text-lg font-medium transition-colors hover:text-primary",
+                        location.pathname === "/admin/members"
+                          ? "text-primary"
+                          : "text-muted-foreground"
+                      )}
+                    >
+                      Members
+                    </Link>
+                    <Link
+                      to="/admin/messages"
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "text-lg font-medium transition-colors hover:text-primary",
+                        location.pathname === "/admin/messages"
+                          ? "text-primary"
+                          : "text-muted-foreground"
+                      )}
+                    >
+                      Messages
+                    </Link>
+                  </>
+                )}
               </nav>
             </SheetContent>
           </Sheet>

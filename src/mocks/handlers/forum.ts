@@ -6,6 +6,11 @@ export const forumHandlers = [
     return HttpResponse.json(categories);
   }),
 
+  http.get("/api/forum/:categoryId/threads", ({ params }) => {
+    const filtered = threads.filter((t) => t.categoryId === params.categoryId);
+    return HttpResponse.json(filtered);
+  }),
+
   http.get("/api/forum/threads", ({ request }) => {
     const url = new URL(request.url);
     const categoryId = url.searchParams.get("categoryId");
@@ -86,6 +91,27 @@ export const forumHandlers = [
       thread.status = body.status as "pinned" | "locked" | "normal" | "archived";
     }
     return HttpResponse.json(thread);
+  }),
+
+  http.post("/api/forum/:categoryId/threads", async ({ params, request }) => {
+    const body = (await request.json()) as Record<string, unknown>;
+    const now = new Date().toISOString();
+    const newThread = {
+      id: `thread-${Date.now()}`,
+      categoryId: params.categoryId as string,
+      title: body.title as string,
+      author: (body.author as string) ?? "Anonymous",
+      content: body.content as string,
+      createdAt: now,
+      status: "normal" as const,
+      replyCount: 0,
+      viewCount: 0,
+      lastActivity: now,
+    };
+    threads.unshift(newThread);
+    const cat = categories.find((c) => c.id === newThread.categoryId);
+    if (cat) cat.threadCount++;
+    return HttpResponse.json(newThread, { status: 201 });
   }),
 
   http.delete("/api/forum/threads/:id", ({ params }) => {
