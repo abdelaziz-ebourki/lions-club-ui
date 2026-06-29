@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import { ThemeProvider } from "@/contexts/theme";
 import { AuthProvider } from "@/contexts/auth";
 import { ErrorBoundary } from "@/components/shared/error-boundary";
+import { RequireAdmin } from "@/components/shared/require-admin";
 import { PageSkeleton } from "@/components/shared/page-skeleton";
 import { Shell } from "@/components/layout/shell";
 import { HomePage } from "@/pages/home/home";
@@ -70,7 +71,9 @@ export default function App() {
                   <Route path="*" element={<NotFoundPage />} />
                 </Route>
                 <Route path="/admin" element={
-                  <Suspense fallback={<PageSkeleton />}><AdminLayout /></Suspense>
+                  <Suspense fallback={<PageSkeleton />}>
+                    <RequireAdmin><AdminLayout /></RequireAdmin>
+                  </Suspense>
                 }>
                   <Route index element={
                     <Suspense fallback={<PageSkeleton />}><DashboardPage /></Suspense>
