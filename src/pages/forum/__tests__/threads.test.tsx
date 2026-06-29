@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { ThreadsPage } from '../threads';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
@@ -87,5 +87,29 @@ describe('ThreadsPage', () => {
     render(<ThreadsPage />);
     const newThreadLink = screen.getByRole('link', { name: 'New Thread' });
     expect(newThreadLink).toHaveAttribute('href', '/forum/cat-1/new');
+  });
+
+  test('shows error state when threads fail', () => {
+    const refetch = vi.fn();
+    vi.mocked(useQuery)
+      .mockReturnValueOnce({ data: mockCategories, isLoading: false } as any)
+      .mockReturnValueOnce({ data: undefined, isLoading: false, isError: true, refetch } as any);
+    render(<ThreadsPage />);
+    expect(screen.getByText(/failed to load threads/i)).toBeInTheDocument();
+    const retryButton = screen.getByRole('button', { name: /try again/i });
+    fireEvent.click(retryButton);
+    expect(refetch).toHaveBeenCalledOnce();
+  });
+
+  test('shows error state when categories fail', () => {
+    const refetch = vi.fn();
+    vi.mocked(useQuery)
+      .mockReturnValueOnce({ data: undefined, isLoading: false, isError: true, refetch } as any)
+      .mockReturnValueOnce({ data: mockThreads, isLoading: false } as any);
+    render(<ThreadsPage />);
+    expect(screen.getByText(/failed to load categories/i)).toBeInTheDocument();
+    const retryButton = screen.getByRole('button', { name: /try again/i });
+    fireEvent.click(retryButton);
+    expect(refetch).toHaveBeenCalledOnce();
   });
 });
