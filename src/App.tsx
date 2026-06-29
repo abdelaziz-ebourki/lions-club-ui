@@ -18,7 +18,10 @@ import { NotFoundPage } from "@/pages/not-found";
 
 const EventDetailPage = lazy(() => import("@/pages/events/event-detail").then(m => ({ default: m.EventDetailPage })));
 const ThreadListPage = lazy(() => import("@/pages/forum/threads").then(m => ({ default: m.ThreadsPage })));
+const NewThreadForm = lazy(() => import("@/pages/forum/new-thread-form").then(m => ({ default: m.NewThreadForm })));
 const ThreadDetailPage = lazy(() => import("@/pages/forum/thread-detail").then(m => ({ default: m.ThreadDetailPage })));
+const EventFormPage = lazy(() => import("@/pages/admin/event-form").then(m => ({ default: m.EventFormPage })));
+const MemberFormPage = lazy(() => import("@/pages/admin/member-form").then(m => ({ default: m.MemberFormPage })));
 const AdminLayout = lazy(() => import("@/pages/admin/admin-layout").then(m => ({ default: m.AdminLayout })));
 const DashboardPage = lazy(() => import("@/pages/admin/dashboard").then(m => ({ default: m.AdminDashboardPage })));
 const AdminEventsPage = lazy(() => import("@/pages/admin/admin-events").then(m => ({ default: m.AdminEventsPage })));
@@ -56,6 +59,9 @@ export default function App() {
                   <Route path="forum/:categoryId" element={
                     <Suspense fallback={<PageSkeleton />}><ThreadListPage /></Suspense>
                   } />
+                  <Route path="forum/:categoryId/new" element={
+                    <Suspense fallback={<PageSkeleton />}><NewThreadForm /></Suspense>
+                  } />
                   <Route path="forum/:categoryId/:threadId" element={
                     <Suspense fallback={<PageSkeleton />}><ThreadDetailPage /></Suspense>
                   } />
@@ -72,8 +78,20 @@ export default function App() {
                   <Route path="events" element={
                     <Suspense fallback={<PageSkeleton />}><AdminEventsPage /></Suspense>
                   } />
+                  <Route path="events/new" element={
+                    <Suspense fallback={<PageSkeleton />}><EventFormPage /></Suspense>
+                  } />
+                  <Route path="events/:id/edit" element={
+                    <Suspense fallback={<PageSkeleton />}><EventFormPage /></Suspense>
+                  } />
                   <Route path="members" element={
                     <Suspense fallback={<PageSkeleton />}><AdminMembersPage /></Suspense>
+                  } />
+                  <Route path="members/new" element={
+                    <Suspense fallback={<PageSkeleton />}><MemberFormPage /></Suspense>
+                  } />
+                  <Route path="members/:id/edit" element={
+                    <Suspense fallback={<PageSkeleton />}><MemberFormPage /></Suspense>
                   } />
                   <Route path="messages" element={
                     <Suspense fallback={<PageSkeleton />}><AdminMessagesPage /></Suspense>
