@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useCallback } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config";
 import { Button } from "@/components/ui/button";
@@ -10,9 +10,19 @@ import { useAuth } from "@/contexts/auth";
 
 export function Header() {
   const { theme, toggle } = useTheme();
-  const { isAuthenticated, isAdmin } = useAuth();
+  const { isAuthenticated, isAdmin, logout } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+
+  const handleLogout = useCallback(async () => {
+    try {
+      await logout();
+    } finally {
+      navigate("/");
+      setOpen(false);
+    }
+  }, [logout, navigate]);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-lg">
@@ -43,12 +53,17 @@ export function Header() {
 
         <div className="flex items-center gap-1">
           {isAuthenticated ? (
-            <Link
-              to="/admin"
-              className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:inline-block"
-            >
-              {isAdmin ? "Admin" : "Dashboard"}
-            </Link>
+            <>
+              <Link
+                to="/admin"
+                className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:inline-block"
+              >
+                {isAdmin ? "Admin" : "Dashboard"}
+              </Link>
+              <Button variant="ghost" size="sm" onClick={handleLogout} className="hidden sm:inline-flex">
+                Sign Out
+              </Button>
+            </>
           ) : (
             <Link
               to="/login"
@@ -152,6 +167,17 @@ export function Header() {
                     >
                       Messages
                     </Link>
+                  </>
+                )}
+                {isAuthenticated && (
+                  <>
+                    <div className="border-t pt-4 mt-2" />
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left text-lg font-medium text-destructive transition-colors hover:text-destructive"
+                    >
+                      Sign Out
+                    </button>
                   </>
                 )}
               </nav>
