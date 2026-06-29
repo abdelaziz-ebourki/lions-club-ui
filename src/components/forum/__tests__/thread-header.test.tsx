@@ -58,4 +58,28 @@ describe('ThreadHeader', () => {
     render(<ThreadHeader thread={activeThread} isAdmin={false} />);
     expect(screen.getByText('Active')).toBeInTheDocument();
   });
+
+  test('forwards onStatusChange to ThreadStatus for admin toggles', () => {
+    const handleStatusChange = vi.fn();
+    const { rerender } = render(
+      <ThreadHeader thread={mockThread} isAdmin onStatusChange={handleStatusChange} />
+    );
+    expect(screen.getByTestId('unpin-button')).toBeInTheDocument();
+
+    rerender(<ThreadHeader thread={mockThread} isAdmin />);
+    expect(screen.queryByTestId('unpin-button')).not.toBeInTheDocument();
+  });
+
+  test('forwards isStatusLoading to disable admin toggles', () => {
+    const handleStatusChange = vi.fn();
+    const { rerender } = render(
+      <ThreadHeader thread={mockThread} isAdmin onStatusChange={handleStatusChange} isStatusLoading />
+    );
+    expect(screen.getByTestId('unpin-button')).toBeDisabled();
+
+    rerender(
+      <ThreadHeader thread={mockThread} isAdmin onStatusChange={handleStatusChange} isStatusLoading={false} />
+    );
+    expect(screen.getByTestId('unpin-button')).not.toBeDisabled();
+  });
 });

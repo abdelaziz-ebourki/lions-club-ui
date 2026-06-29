@@ -10,18 +10,32 @@ import { ArrowLeft, MessageSquare } from "lucide-react";
 export function ThreadsPage() {
   const { categoryId } = useParams<{ categoryId: string }>();
 
-  const { data: categories } = useQuery<ForumCategory[]>({
+  const { data: categories, isError: categoriesError, refetch: refetchCategories } = useQuery<ForumCategory[]>({
     queryKey: ["forum-categories"],
     queryFn: () => api.get("/forum/categories"),
   });
 
-  const { data: threads, isLoading } = useQuery<ForumThread[]>({
+  const { data: threads, isLoading, isError, refetch } = useQuery<ForumThread[]>({
     queryKey: ["forum-threads", categoryId],
     queryFn: () => api.get(`/forum/${categoryId}/threads`),
     enabled: !!categoryId,
   });
 
   const categoryName = categories?.find((c) => c.id === categoryId)?.name ?? categoryId;
+
+  if (categoriesError) {
+    return (
+      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+        <h1 className="font-heading text-h3 text-destructive">Failed to load categories</h1>
+        <p className="mt-2 text-muted-foreground">
+          Something went wrong while loading categories. Please try again.
+        </p>
+        <Button onClick={() => refetchCategories()} className="mt-6">
+          Try Again
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -40,7 +54,17 @@ export function ThreadsPage() {
         </Link>
       </div>
 
-      {isLoading ? (
+      {isError ? (
+        <div className="py-16 text-center">
+          <h2 className="font-heading text-h4 text-destructive">Failed to load threads</h2>
+          <p className="mt-2 text-muted-foreground">
+            Something went wrong while loading threads. Please try again.
+          </p>
+          <Button onClick={() => refetch()} className="mt-6">
+            Try Again
+          </Button>
+        </div>
+      ) : isLoading ? (
         <div className="flex flex-col gap-4">
           {Array.from({ length: 5 }).map((_, i) => (
             <Card key={i}>

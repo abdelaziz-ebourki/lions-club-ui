@@ -1,13 +1,15 @@
 import { ThreadStatus } from './thread-status';
-import type { ForumThread } from '@/types';
+import type { ForumThread, ForumThreadStatus } from '@/types';
 import { format } from 'date-fns';
 
 interface ThreadHeaderProps {
   thread: ForumThread;
   isAdmin?: boolean;
+  onStatusChange?: (status: ForumThreadStatus) => void;
+  isStatusLoading?: boolean;
 }
 
-export function ThreadHeader({ thread, isAdmin = false }: ThreadHeaderProps) {
+export function ThreadHeader({ thread, isAdmin = false, onStatusChange, isStatusLoading }: ThreadHeaderProps) {
   return (
     <div className="mb-6">
       <h1 className="font-heading text-h1 text-foreground mb-2">
@@ -21,7 +23,7 @@ export function ThreadHeader({ thread, isAdmin = false }: ThreadHeaderProps) {
           <span className="font-medium">{thread.author}</span>
         </div>
         <span className="hidden sm:inline">{format(new Date(thread.createdAt), 'MMM d, yyyy')}</span>
-        <ThreadStatus status={thread.status} isAdmin={isAdmin} />
+        <ThreadStatus status={thread.status} isAdmin={isAdmin} onStatusChange={onStatusChange} isLoading={isStatusLoading} />
       </div>
       {thread.viewCount !== undefined && thread.replyCount !== undefined && (
         <div className="mt-4 flex gap-6 text-body-sm text-muted-foreground">

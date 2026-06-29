@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type { ForumCategory } from "@/types";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -20,7 +21,7 @@ const iconMap: Record<string, typeof MessageSquare> = {
 };
 
 export function ForumPage() {
-  const { data: categories, isLoading } = useQuery<ForumCategory[]>({
+  const { data: categories, isLoading, isError, refetch } = useQuery<ForumCategory[]>({
     queryKey: ["forum-categories"],
     queryFn: () => api.get("/forum/categories"),
   });
@@ -44,7 +45,17 @@ export function ForumPage() {
       </section>
 
       <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
-        {isLoading ? (
+        {isError ? (
+          <div className="py-16 text-center">
+            <h2 className="font-heading text-h4 text-destructive">Failed to load categories</h2>
+            <p className="mt-2 text-muted-foreground">
+              Something went wrong while loading categories. Please try again.
+            </p>
+            <Button onClick={() => refetch()} className="mt-6">
+              Try Again
+            </Button>
+          </div>
+        ) : isLoading ? (
           <div className="flex flex-col gap-4">
             {Array.from({ length: 4 }).map((_, i) => (
               <Card key={i}>
@@ -54,6 +65,12 @@ export function ForumPage() {
                 </CardHeader>
               </Card>
             ))}
+          </div>
+        ) : categories?.length === 0 ? (
+          <div className="py-16 text-center">
+            <p className="font-body text-muted-foreground">
+              No categories yet. Check back soon.
+            </p>
           </div>
         ) : (
           <div className="flex flex-col gap-4">

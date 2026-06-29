@@ -49,11 +49,14 @@ const mockReplies: ForumReply[] = [
 const defaultQueryReturn = {
   data: { thread: mockThread, replies: mockReplies },
   isLoading: false,
+  isError: false,
+  refetch: vi.fn(),
   error: null,
 };
 
 const defaultMutationReturn = {
   mutateAsync: vi.fn().mockResolvedValue(undefined),
+  mutate: vi.fn(),
   isPending: false,
 };
 
@@ -160,6 +163,22 @@ describe('ThreadDetailPage', () => {
     });
   });
 
+  test('shows error state with retry button', async () => {
+    const refetch = vi.fn();
+    (useQuery as ReturnType<typeof vi.fn>).mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      isError: true,
+      refetch,
+      error: new Error('Failed to load'),
+    });
+    render(<ThreadDetailPage />);
+    expect(screen.getByText(/failed to load thread/i)).toBeInTheDocument();
+    const retryButton = screen.getByRole('button', { name: /try again/i });
+    fireEvent.click(retryButton);
+    expect(refetch).toHaveBeenCalledOnce();
+  });
+
   test('submits reply via mutation', async () => {
     (useAuth as ReturnType<typeof vi.fn>).mockReturnValue({
       user: { role: 'member' },
@@ -180,6 +199,54 @@ describe('ThreadDetailPage', () => {
       expect(defaultMutationReturn.mutateAsync).toHaveBeenCalledWith({
         content: 'This is my reply to the thread.',
       });
+    });
+  });
+
+  describe('Admin pin/lock toggles', () => {
+    beforeEach(() => {
+      (useAuth as ReturnType<typeof vi.fn>).mockReturnValue({
+        user: { role: 'admin' },
+        isAuthenticated: true,
+        isAdmin: true,
+        login: vi.fn(),
+        register: vi.fn(),
+        logout: vi.fn(),
+        refreshUser: vi.fn(),
+        loading: false,
+      });
+    });
+
+    test('admin can unpin a pinned thread', () => {
+      render(<ThreadDetailPage />);
+      fireEvent.click(screen.getByTestId('unpin-button'));
+      expect(defaultMutationReturn.mutate).toHaveBeenCalledWith('normal');
+    });
+
+    test('admin can lock a pinned thread', () => {
+      render(<ThreadDetailPage />);
+      fireEvent.click(screen.getByTestId('lock-button'));
+      expect(defaultMutationReturn.mutate).toHaveBeenCalledWith('locked');
+    });
+
+    test('admin can pin a normal thread', () => {
+      (useQuery as ReturnType<typeof vi.fn>).mockReturnValue({
+        data: { thread: { ...mockThread, status: 'normal' as const }, replies: mockReplies },
+        isLoading: false,
+        error: null,
+      });
+      render(<ThreadDetailPage />);
+      fireEvent.click(screen.getByTestId('pin-button'));
+      expect(defaultMutationReturn.mutate).toHaveBeenCalledWith('pinned');
+    });
+
+    test('status buttons are disabled while mutation is pending', () => {
+      (useMutation as ReturnType<typeof vi.fn>).mockReturnValue({
+        ...defaultMutationReturn,
+        isPending: true,
+      });
+      render(<ThreadDetailPage />);
+      expect(screen.getByTestId('unpin-button')).toBeDisabled();
+      expect(screen.getByTestId('lock-button')).toBeDisabled();
     });
   });
 });
