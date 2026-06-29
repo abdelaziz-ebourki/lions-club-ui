@@ -67,29 +67,3 @@ export interface ForumReply {
   parentReplyId?: string;
 }
 
-export interface PageMeta {
-  title: string;
-  description: string;
-}
-
-// Type guards for discriminated unions
-export function isUpcomingEvent(event: Event): event is Event & { status: "upcoming" } {
-  return event.status === "upcoming";
-}
-
-export function isPinnedThread(thread: ForumThread): thread is ForumThread & { status: "pinned" } {
-  return thread.status === "pinned";
-}
-
-export function isLockedThread(thread: ForumThread): thread is ForumThread & { status: "locked" } {
-  return thread.status === "locked";
-}
-
-export function isUnreadMessage(message: ContactMessage): message is ContactMessage & { status: "unread" } {
-  return message.status === "unread";
-}
-
-// Exhaustive check helper
-export function assertNever(value: never): never {
-  throw new Error(`Unexpected value: ${value}`);
-}
