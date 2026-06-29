@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
-import type { ForumThread } from "@/types";
+import type { ForumThread, ForumCategory } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -10,11 +10,18 @@ import { ArrowLeft, MessageSquare } from "lucide-react";
 export function ThreadsPage() {
   const { categoryId } = useParams<{ categoryId: string }>();
 
+  const { data: categories } = useQuery<ForumCategory[]>({
+    queryKey: ["forum-categories"],
+    queryFn: () => api.get("/forum/categories"),
+  });
+
   const { data: threads, isLoading } = useQuery<ForumThread[]>({
     queryKey: ["forum-threads", categoryId],
     queryFn: () => api.get(`/forum/${categoryId}/threads`),
     enabled: !!categoryId,
   });
+
+  const categoryName = categories?.find((c) => c.id === categoryId)?.name ?? categoryId;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -26,7 +33,7 @@ export function ThreadsPage() {
 
       <div className="flex items-center justify-between mb-8">
         <h1 className="font-heading text-h2 text-foreground capitalize">
-          {categoryId} Threads
+          {categoryName} Threads
         </h1>
         <Link to={`/forum/${categoryId}/new`}>
           <Button>New Thread</Button>
