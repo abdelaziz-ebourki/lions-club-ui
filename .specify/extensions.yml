@@ -1,0 +1,40 @@
+settings:
+  auto_execute_hooks: true
+
+hooks:
+  after_specify:
+    - extension: quality-gate
+      command: speckit.check-quality
+      enabled: true
+      optional: true
+      prompt: "Run quality checklist validation on the new spec?"
+      description: "Validates spec completeness and quality before planning"
+
+  before_plan:
+    - extension: prerequisites
+      command: speckit.check-prerequisites
+      enabled: true
+      optional: false
+      description: "Verifies spec.md exists and feature directory is valid"
+
+  after_plan:
+    - extension: review-gate
+      command: speckit.review-plan
+      enabled: true
+      optional: true
+      prompt: "Review the implementation plan before proceeding to tasks?"
+      description: "Presents plan summary for human review before task generation"
+
+  before_implement:
+    - extension: readiness-gate
+      command: speckit.readiness-gate
+      enabled: true
+      optional: false
+      description: "Loads relevant agent skills and verifies all artifacts present"
+
+  after_implement:
+    - extension: acceptance-tests
+      command: speckit.verify-acceptance
+      enabled: true
+      optional: false
+      description: "Runs Playwright MCP against acceptance criteria in spec"

@@ -165,10 +165,21 @@ with `VITE_`
    - `/speckit.tasks` — generate ordered task list (tests first)
    - `/speckit.implement` — execute tasks phase by phase
    - `/speckit.converge` — append remaining work after feedback
-3. Load relevant agent skills before each phase.
-4. Run lint (`eslint .`) and type-check (`tsc -b`) before committing.
-5. Use `git-commit` skill for all commits — conventional commit format.
-6. Tests MUST pass before merge: `vitest run`.
+3. **Extension hooks** (configured in `.specify/extensions.yml`) enforce
+   quality gates automatically at each phase:
+   - `after_specify` (optional) — validates spec quality checklist
+   - `before_plan` (mandatory) — verifies spec.md exists
+   - `after_plan` (optional) — presents plan for human review
+   - `before_implement` (mandatory) — loads relevant agent skills and
+     verifies all artifacts (spec.md, plan.md, tasks.md)
+   - `after_implement` (mandatory) — runs Playwright MCP against
+     acceptance criteria from spec.md; starts dev server if not running
+4. Load relevant agent skills before each phase.
+5. Run lint (`eslint .`) and type-check (`tsc -b`) before committing.
+6. Use `git-commit` skill for all commits — conventional commit format.
+7. Unit tests MUST pass before merge: `vitest run`.
+8. E2E acceptance tests via Playwright MCP MUST pass before merge:
+   all scenarios in spec.md must be verified.
 
 ## Governance
 
@@ -189,4 +200,4 @@ truth for how this project operates.
 - Violations MUST be documented and justified in the plan's Complexity
   Tracking section.
 
-**Version**: 1.0.0 | **Ratified**: 2026-06-30 | **Last Amended**: 2026-06-30
+**Version**: 1.1.0 | **Ratified**: 2026-06-30 | **Last Amended**: 2026-06-30
