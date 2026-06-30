@@ -67,3 +67,37 @@ export interface ForumReply {
   parentReplyId?: string;
 }
 
+export type EntityType = "event" | "forum_thread" | "member" | "contact_message";
+
+export interface SearchQuery {
+  raw: string;
+  sanitized: string;
+  length: number;
+  isEmpty: boolean;
+}
+
+export interface SearchResult {
+  id: string;
+  entityType: EntityType;
+  title: string;
+  snippet: string;
+  url: string;
+  matchType: "exact" | "partial";
+  updatedAt: string;
+}
+
+export interface SearchResultGroup {
+  entityType: EntityType;
+  label: string;
+  count: number;
+  results: SearchResult[];
+}
+
+export interface SearchState {
+  query: SearchQuery;
+  results: SearchResultGroup[];
+  isSearching: boolean;
+  error: string | null;
+  totalCount: number;
+}
+
