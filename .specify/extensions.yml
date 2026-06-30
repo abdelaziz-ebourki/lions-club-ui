@@ -25,6 +25,21 @@ hooks:
       prompt: "Review the implementation plan before proceeding to tasks?"
       description: "Presents plan summary for human review before task generation"
 
+  before_tasks:
+    - extension: task-prerequisites
+      command: speckit.check-task-prerequisites
+      enabled: true
+      optional: false
+      description: "Verifies plan.md and spec.md exist, feature directory is valid, and all referenced contracts/data-models are present"
+
+  after_tasks:
+    - extension: task-review
+      command: speckit.review-tasks
+      enabled: true
+      optional: true
+      prompt: "Review the generated task list before proceeding to implementation?"
+      description: "Presents tasks.md summary for human review before implementation"
+
   before_implement:
     - extension: readiness-gate
       command: speckit.readiness-gate
