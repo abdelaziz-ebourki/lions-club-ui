@@ -41,6 +41,12 @@ hooks:
       description: "Presents tasks.md summary for human review before implementation"
 
   before_implement:
+    - extension: git-branch
+      command: speckit.git-branch
+      enabled: true
+      optional: false
+      description: "Creates or switches to a git branch matching the feature directory name"
+
     - extension: readiness-gate
       command: speckit.readiness-gate
       enabled: true
