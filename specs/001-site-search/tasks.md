@@ -120,7 +120,7 @@ description: "Task list for implementing site-wide search across Events, Forum T
 - [X] T020 [P] Add loading skeleton and error boundary around search results
 - [X] T021 Run `npm run lint && npx tsc -b` for type safety and lint compliance
 - [X] T022 Run `npm run test:run` to verify all tests pass (existing + new)
-- [ ] T023 Validate against `specs/001-site-search/quickstart.md` manual scenarios
+- [X] T023 Validate against `specs/001-site-search/quickstart.md` manual scenarios
 
 ---
 
