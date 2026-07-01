@@ -3,6 +3,7 @@ import { memberHandlers } from "./members";
 import { forumHandlers } from "./forum";
 import { contactHandlers } from "./contact";
 import { authHandlers } from "./auth";
+import { searchHandlers } from "./search";
 
 export const handlers = [
   ...eventHandlers,
@@ -10,4 +11,5 @@ export const handlers = [
   ...forumHandlers,
   ...contactHandlers,
   ...authHandlers,
+  ...searchHandlers,
 ];
