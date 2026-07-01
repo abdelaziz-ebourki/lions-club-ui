@@ -45,6 +45,12 @@ function matchFields<T>(
     }
   }
 
+  const sortByDate = (a: SearchResult, b: SearchResult) =>
+    b.updatedAt.localeCompare(a.updatedAt);
+
+  exact.sort(sortByDate);
+  partial.sort(sortByDate);
+
   return [...exact, ...partial];
 }
 
