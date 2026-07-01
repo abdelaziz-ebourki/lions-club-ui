@@ -47,7 +47,7 @@ export function ThreadsPage() {
       result = result.filter((t) => t.status === statusFilter);
     }
 
-    if (categoryFilter) {
+    if (categoryFilter && categoryFilter !== "all") {
       result = result.filter((t) => t.categoryId === categoryFilter);
     }
 
