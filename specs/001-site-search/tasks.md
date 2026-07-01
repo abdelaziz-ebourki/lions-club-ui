@@ -124,6 +124,15 @@ description: "Task list for implementing site-wide search across Events, Forum T
 
 ---
 
+## Phase 7: Convergence
+
+**Purpose**: Close remaining gaps identified by `/speckit.converge`
+
+- [X] T024 Sort results by `updatedAt` descending within exact-match and partial-match groups per `contracts/search.md` (partial)
+
+---
+
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
