@@ -21,6 +21,7 @@ const EventDetailPage = lazy(() => import("@/pages/events/event-detail").then(m 
 const ThreadListPage = lazy(() => import("@/pages/forum/threads").then(m => ({ default: m.ThreadsPage })));
 const NewThreadForm = lazy(() => import("@/pages/forum/new-thread-form").then(m => ({ default: m.NewThreadForm })));
 const ThreadDetailPage = lazy(() => import("@/pages/forum/thread-detail").then(m => ({ default: m.ThreadDetailPage })));
+const SearchPage = lazy(() => import("@/pages/search/search-page").then(m => ({ default: m.SearchPage })));
 const EventFormPage = lazy(() => import("@/pages/admin/event-form").then(m => ({ default: m.EventFormPage })));
 const MemberFormPage = lazy(() => import("@/pages/admin/member-form").then(m => ({ default: m.MemberFormPage })));
 const AdminLayout = lazy(() => import("@/pages/admin/admin-layout").then(m => ({ default: m.AdminLayout })));
@@ -65,6 +66,9 @@ export default function App() {
                   } />
                   <Route path="forum/:categoryId/:threadId" element={
                     <Suspense fallback={<PageSkeleton />}><ThreadDetailPage /></Suspense>
+                  } />
+                  <Route path="search" element={
+                    <Suspense fallback={<PageSkeleton />}><SearchPage /></Suspense>
                   } />
                   <Route path="login" element={<LoginPage />} />
                   <Route path="register" element={<RegisterPage />} />
