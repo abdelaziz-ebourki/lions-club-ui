@@ -125,4 +125,9 @@ describe('Header', () => {
     render(<Header />);
     expect(screen.getByRole('button', { name: /toggle theme/i })).toBeInTheDocument();
   });
+
+  test('renders search bar', () => {
+    render(<Header />);
+    expect(screen.getByRole('searchbox')).toBeInTheDocument();
+  });
 });

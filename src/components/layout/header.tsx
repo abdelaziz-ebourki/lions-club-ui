@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Moon, Sun } from "lucide-react";
 import { useTheme } from "@/contexts/theme";
 import { useAuth } from "@/contexts/auth";
+import { SearchBar } from "@/components/search/search-bar";
 
 export function Header() {
   const { theme, toggle } = useTheme();
@@ -51,6 +52,8 @@ export function Header() {
           ))}
         </nav>
 
+        <SearchBar className="hidden md:block" />
+
         <div className="flex items-center gap-1">
           {isAuthenticated ? (
             <>
@@ -85,7 +88,10 @@ export function Header() {
               <Menu className="size-5" />
             </SheetTrigger>
             <SheetContent side="right">
-              <nav className="mt-8 flex flex-col gap-4">
+              <div className="mt-8">
+                <SearchBar className="md:hidden" />
+              </div>
+              <nav className="mt-4 flex flex-col gap-4">
                 {siteConfig.nav.map((item) => (
                   <Link
                     key={item.href}
