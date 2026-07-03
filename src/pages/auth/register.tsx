@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "@/lib/api";
+import { useAuth } from "@/contexts/auth";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,10 +31,12 @@ export function RegisterPage() {
   });
 
   const navigate = useNavigate();
+  const { refreshUser } = useAuth();
 
   const mutation = useMutation({
     mutationFn: (data: Omit<RegisterFormData, "confirmPassword">) => api.post("/auth/register", data),
-    onSuccess: () => {
+    onSuccess: async () => {
+      await refreshUser();
       toast.success("Account created successfully!");
       navigate("/");
     },

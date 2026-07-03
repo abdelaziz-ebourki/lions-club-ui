@@ -27,8 +27,8 @@ export function EventDetailPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["event", id] });
     },
-    onError: (error: Error) => {
-      toast.error(error.message || "Failed to RSVP");
+    onError: (error: unknown) => {
+      toast.error(error instanceof Error ? error.message : "Failed to RSVP");
     },
   });
 

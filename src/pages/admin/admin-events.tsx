@@ -31,6 +31,15 @@ export function AdminEventsPage() {
     queryFn: () => api.get("/events"),
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => api.delete(`/events/${id}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["events"] });
+      toast.success("Event deleted successfully.");
+    },
+    onError: () => toast.error("Failed to delete event."),
+  });
+
   if (isLoading) {
     return (
       <div>
@@ -53,7 +62,7 @@ export function AdminEventsPage() {
             </TableHeader>
             <TableBody>
               {Array.from({ length: 4 }).map((_, i) => (
-                <TableRow key={i}>
+                <TableRow key={`skeleton-${i}`}>
                   <TableCell><Skeleton className="h-4 w-32" /></TableCell>
                   <TableCell className="hidden md:table-cell"><Skeleton className="h-4 w-24" /></TableCell>
                   <TableCell className="hidden md:table-cell"><Skeleton className="h-4 w-20" /></TableCell>
@@ -158,8 +167,8 @@ export function AdminEventsPage() {
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction onClick={() => deleteMutation.mutate(event.id)}>
-                            Delete
+                          <AlertDialogAction onClick={() => deleteMutation.mutate(event.id)} disabled={deleteMutation.isPending}>
+                            {deleteMutation.isPending ? "Deleting..." : "Delete"}
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
