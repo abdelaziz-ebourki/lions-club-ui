@@ -18,24 +18,27 @@ import { RegisterPage } from "@/pages/auth/register";
 import { NotFoundPage } from "@/pages/not-found";
 
 const EventDetailPage = lazy(() => import("@/pages/events/event-detail").then(m => ({ default: m.EventDetailPage })));
-const ThreadListPage = lazy(() => import("@/pages/forum/threads").then(m => ({ default: m.ThreadsPage })));
+const ThreadsPage = lazy(() => import("@/pages/forum/threads").then(m => ({ default: m.ThreadsPage })));
 const NewThreadForm = lazy(() => import("@/pages/forum/new-thread-form").then(m => ({ default: m.NewThreadForm })));
 const ThreadDetailPage = lazy(() => import("@/pages/forum/thread-detail").then(m => ({ default: m.ThreadDetailPage })));
 const SearchPage = lazy(() => import("@/pages/search/search-page").then(m => ({ default: m.SearchPage })));
 const EventFormPage = lazy(() => import("@/pages/admin/event-form").then(m => ({ default: m.EventFormPage })));
 const MemberFormPage = lazy(() => import("@/pages/admin/member-form").then(m => ({ default: m.MemberFormPage })));
 const AdminLayout = lazy(() => import("@/pages/admin/admin-layout").then(m => ({ default: m.AdminLayout })));
-const DashboardPage = lazy(() => import("@/pages/admin/dashboard").then(m => ({ default: m.AdminDashboardPage })));
+const AdminDashboardPage = lazy(() => import("@/pages/admin/dashboard").then(m => ({ default: m.AdminDashboardPage })));
 const AdminEventsPage = lazy(() => import("@/pages/admin/admin-events").then(m => ({ default: m.AdminEventsPage })));
 const AdminMembersPage = lazy(() => import("@/pages/admin/admin-members").then(m => ({ default: m.AdminMembersPage })));
 const AdminMessagesPage = lazy(() => import("@/pages/admin/admin-messages").then(m => ({ default: m.AdminMessagesPage })));
 const AdminForumPage = lazy(() => import("@/pages/admin/admin-forum").then(m => ({ default: m.AdminForumPage })));
 
+const DEFAULT_STALE_TIME = 1000 * 60 * 5;
+const DEFAULT_RETRY_COUNT = 1;
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5,
-      retry: 1,
+      staleTime: DEFAULT_STALE_TIME,
+      retry: DEFAULT_RETRY_COUNT,
     },
   },
 });
@@ -59,7 +62,7 @@ export default function App() {
                   <Route path="contact" element={<ContactPage />} />
                   <Route path="forum" element={<ForumPage />} />
                   <Route path="forum/:categoryId" element={
-                    <Suspense fallback={<PageSkeleton />}><ThreadListPage /></Suspense>
+                    <Suspense fallback={<PageSkeleton />}><ThreadsPage /></Suspense>
                   } />
                   <Route path="forum/:categoryId/new" element={
                     <Suspense fallback={<PageSkeleton />}><NewThreadForm /></Suspense>
@@ -80,7 +83,7 @@ export default function App() {
                   </Suspense>
                 }>
                   <Route index element={
-                    <Suspense fallback={<PageSkeleton />}><DashboardPage /></Suspense>
+                    <Suspense fallback={<PageSkeleton />}><AdminDashboardPage /></Suspense>
                   } />
                   <Route path="events" element={
                     <Suspense fallback={<PageSkeleton />}><AdminEventsPage /></Suspense>

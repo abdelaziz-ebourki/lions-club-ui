@@ -36,8 +36,7 @@ export function RegisterPage() {
     },
   });
 
-  function onSubmit({ confirmPassword: _unused, ...data }: RegisterFormData) {
-    void _unused;
+  function onSubmit({ confirmPassword: _confirmPassword, ...data }: RegisterFormData) {
     mutation.mutate(data, {
       onError: (error) => {
         toast.error(error instanceof Error ? error.message : "Registration failed. Please try again.");
