@@ -93,11 +93,3 @@ export interface SearchResultGroup {
   results: SearchResult[];
 }
 
-export interface SearchState {
-  query: SearchQuery;
-  results: SearchResultGroup[];
-  isSearching: boolean;
-  error: string | null;
-  totalCount: number;
-}
-

@@ -2,8 +2,13 @@ import { api } from "@/lib/api";
 import type { Event, ForumThread, Member, ContactMessage } from "@/types";
 import type { SearchQuery, SearchResult, SearchResultGroup, EntityType } from "@/types";
 
+const MAX_QUERY_LENGTH = 200;
+const SNIPPET_FALLBACK_LENGTH = 150;
+const SNIPPET_CONTEXT_BEFORE = 60;
+const SNIPPET_CONTEXT_AFTER = 60;
+
 export function sanitizeQuery(raw: string): SearchQuery {
-  const sanitized = raw.trim().slice(0, 200);
+  const sanitized = raw.trim().slice(0, MAX_QUERY_LENGTH);
   return {
     raw,
     sanitized,
@@ -15,9 +20,9 @@ export function sanitizeQuery(raw: string): SearchQuery {
 function makeSnippet(text: string, query: string): string {
   const lower = text.toLowerCase();
   const idx = lower.indexOf(query.toLowerCase());
-  if (idx === -1) return text.slice(0, 150) + (text.length > 150 ? "..." : "");
-  const start = Math.max(0, idx - 60);
-  const end = Math.min(text.length, idx + query.length + 60);
+  if (idx === -1) return text.slice(0, SNIPPET_FALLBACK_LENGTH) + (text.length > SNIPPET_FALLBACK_LENGTH ? "..." : "");
+  const start = Math.max(0, idx - SNIPPET_CONTEXT_BEFORE);
+  const end = Math.min(text.length, idx + query.length + SNIPPET_CONTEXT_AFTER);
   return (start > 0 ? "..." : "") + text.slice(start, end) + (end < text.length ? "..." : "");
 }
 
