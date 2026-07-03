@@ -3,6 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { LoginPage } from '../login';
 import { useMutation } from '@tanstack/react-query';
 import { describe, test, expect, vi, beforeEach } from 'vitest';
+import { toast } from 'sonner';
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
@@ -82,5 +83,20 @@ describe('LoginPage', () => {
     const submitButton = screen.getByRole('button', { name: /signing in/i });
     expect(submitButton).toBeDisabled();
     expect(submitButton.querySelector('svg')).toBeInTheDocument();
+  });
+
+  test('shows welcome back toast on successful login', () => {
+    vi.spyOn(toast, 'success');
+    let onSuccess: () => void = () => {};
+    vi.mocked(useMutation).mockImplementation((opts: any) => {
+      onSuccess = opts.onSuccess ?? (() => {});
+      return { mutate: mockMutate, isPending: false } as any;
+    });
+    renderWithRouter(<LoginPage />);
+    fireEvent.change(screen.getByPlaceholderText(/your@email.com/i), { target: { value: 'test@example.com' } });
+    fireEvent.change(screen.getByPlaceholderText(/enter your password/i), { target: { value: 'password123' } });
+    fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
+    onSuccess();
+    expect(toast.success).toHaveBeenCalledWith('Welcome back!');
   });
 });
