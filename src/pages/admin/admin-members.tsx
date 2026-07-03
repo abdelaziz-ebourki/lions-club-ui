@@ -8,12 +8,46 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Pencil } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function AdminMembersPage() {
-  const { data: members } = useQuery<Member[]>({
+  const { data: members, isLoading } = useQuery<Member[]>({
     queryKey: ["members", "admin"],
     queryFn: () => api.get("/members"),
   });
+
+  if (isLoading) {
+    return (
+      <div>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <p className="font-display text-overline text-accent">Members</p>
+            <h1 className="font-heading text-h2 mt-1 text-foreground">Manage Members</h1>
+          </div>
+        </div>
+        <div className="rounded-lg border" aria-busy="true">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="font-display text-overline text-xs">Name</TableHead>
+                <TableHead className="font-display text-overline text-xs hidden md:table-cell">Role</TableHead>
+                <TableHead className="font-display text-overline text-xs text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {Array.from({ length: 4 }).map((_, i) => (
+                <TableRow key={i}>
+                  <TableCell><Skeleton className="h-4 w-32" /></TableCell>
+                  <TableCell className="hidden md:table-cell"><Skeleton className="h-4 w-24" /></TableCell>
+                  <TableCell className="text-right"><Skeleton className="ml-auto h-4 w-16" /></TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

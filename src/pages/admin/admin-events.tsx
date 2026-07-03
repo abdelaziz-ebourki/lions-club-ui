@@ -20,14 +20,52 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function AdminEventsPage() {
   const queryClient = useQueryClient();
 
-  const { data: events } = useQuery<Event[]>({
+  const { data: events, isLoading } = useQuery<Event[]>({
     queryKey: ["events", "admin"],
     queryFn: () => api.get("/events"),
   });
+
+  if (isLoading) {
+    return (
+      <div>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <p className="font-display text-overline text-accent">Events</p>
+            <h1 className="font-heading text-h2 mt-1 text-foreground">Manage Events</h1>
+          </div>
+        </div>
+        <div className="rounded-lg border" aria-busy="true">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="font-display text-overline text-xs">Title</TableHead>
+                <TableHead className="font-display text-overline text-xs hidden md:table-cell">Date</TableHead>
+                <TableHead className="font-display text-overline text-xs hidden md:table-cell">Category</TableHead>
+                <TableHead className="font-display text-overline text-xs">Status</TableHead>
+                <TableHead className="font-display text-overline text-xs text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {Array.from({ length: 4 }).map((_, i) => (
+                <TableRow key={i}>
+                  <TableCell><Skeleton className="h-4 w-32" /></TableCell>
+                  <TableCell className="hidden md:table-cell"><Skeleton className="h-4 w-24" /></TableCell>
+                  <TableCell className="hidden md:table-cell"><Skeleton className="h-4 w-20" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-16" /></TableCell>
+                  <TableCell className="text-right"><Skeleton className="ml-auto h-4 w-16" /></TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+    );
+  }
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => api.delete(`/events/${id}`),
