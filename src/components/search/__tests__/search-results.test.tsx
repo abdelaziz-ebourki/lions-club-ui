@@ -64,6 +64,7 @@ describe("SearchResults", () => {
   test("shows empty state when no results", () => {
     render(<SearchResults groups={[]} totalCount={0} />);
     expect(screen.getByText("No results found")).toBeInTheDocument();
+    expect(screen.getByRole("status")).toBeInTheDocument();
   });
 
   test("shows error state with retry button", () => {

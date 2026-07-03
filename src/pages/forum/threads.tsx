@@ -10,7 +10,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, MessageSquare, Search } from "lucide-react";
+import { ArrowLeft, MessageSquare, Search, MessageCircle } from "lucide-react";
+import { EmptyState } from "@/components/shared/empty-state";
 
 export function ThreadsPage() {
   const { categoryId } = useParams<{ categoryId: string }>();
@@ -184,16 +185,16 @@ export function ThreadsPage() {
       )}
 
       {threads?.length === 0 && (
-        <div className="py-16 text-center">
-          <p className="font-body text-muted-foreground">
-            No threads yet. Start the conversation.
-          </p>
-          <Link to={`/forum/${categoryId}/new`}>
-            <Button variant="outline" className="mt-4">
-              Create First Thread
-            </Button>
-          </Link>
-        </div>
+        <EmptyState
+          icon={MessageCircle}
+          title="No discussions yet"
+          description="Be the first to start a discussion in this category."
+          action={
+            <Link to={`/forum/${categoryId}/new`}>
+              <Button>Start a discussion</Button>
+            </Link>
+          }
+        />
       )}
     </div>
   );

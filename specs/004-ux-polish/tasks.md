@@ -37,8 +37,8 @@ description: "Task list for Batch 3: UX Polish — skeletons, empty states, reme
 
 **⚠️ CRITICAL**: No foundational infrastructure needed. Skeleton and EmptyState component already exist or are created in Phase 1.
 
-- [ ] T002 [P] Read and understand existing skeleton pattern in `src/pages/forum/forum.tsx` and `src/pages/forum/threads.tsx` — use as template for admin pages
-- [ ] T003 [P] Read and understand existing `PageSkeleton` at `src/components/shared/page-skeleton.tsx` — use for admin list pages
+- [x] T002 [P] Read and understand existing skeleton pattern in `src/pages/forum/forum.tsx` and `src/pages/forum/threads.tsx` — used as template for admin pages
+- [x] T003 [P] Read and understand existing `PageSkeleton` at `src/components/shared/page-skeleton.tsx` — referred to for admin list pages
 
 **Checkpoint**: Foundation clear — user story implementation can begin.
 
@@ -59,9 +59,9 @@ description: "Task list for Batch 3: UX Polish — skeletons, empty states, reme
 
 - [x] T006 [US1] Add skeleton loading state to admin events page in `src/pages/admin/admin-events.tsx` — integrate `isLoading` from `useQuery`; render `Skeleton` in table row format; use `aria-busy="true"` — **verify T004 PASSES**
 - [x] T007 [US1] Add skeleton loading state to admin members page in `src/pages/admin/admin-members.tsx` — same pattern as admin events — **verify T005 PASSES**
-- [ ] T008 [US1] Verify existing skeleton on forum categories page (`src/pages/forum/forum.tsx`) already renders during loading
-- [ ] T009 [US1] Verify existing skeleton on forum threads page (`src/pages/forum/threads.tsx`) already renders during loading
-- [ ] T010 [US1] Verify existing skeleton on search results (`src/components/search/search-results.tsx`) already renders during `isSearching`
+- [x] T008 [US1] Verify existing skeleton on forum categories page (`src/pages/forum/forum.tsx`) already renders during loading
+- [x] T009 [US1] Verify existing skeleton on forum threads page (`src/pages/forum/threads.tsx`) already renders during loading
+- [x] T010 [US1] Verify existing skeleton on search results (`src/components/search/search-results.tsx`) already renders during `isSearching`
 
 **Checkpoint**: All 5 list pages show skeleton placeholders during loading. User Story 1 testable independently.
 
@@ -75,21 +75,21 @@ description: "Task list for Batch 3: UX Polish — skeletons, empty states, reme
 
 ### Tests for User Story 2 (MANDATORY per Constitution Principle I) ⚠️
 
-- [ ] T011 [P] [US2] Write test for empty state on admin events page in `src/pages/admin/__tests__/admin-events.test.tsx` — verify "No projects yet" and "Create your first project" CTA render when `data` is empty — **verify FAILS**
-- [ ] T012 [P] [US2] Write test for empty state on admin members page in `src/pages/admin/__tests__/admin-members.test.tsx` — verify "No members yet" and "Add your first member" CTA render when `data` is empty — **verify FAILS**
-- [ ] T013 [P] [US2] Write test for empty state on forum categories page in `src/pages/forum/__tests__/forum.test.tsx` — verify "No discussions yet" and "Start a discussion" render when categories are empty — **verify FAILS**
-- [ ] T014 [P] [US2] Write test for empty state on forum threads page in `src/pages/forum/__tests__/threads.test.tsx` — verify existing empty message is upgraded to `EmptyState` component — **verify FAILS**
-- [ ] T015 [P] [US2] Write test for empty state on thread detail page in `src/pages/forum/__tests__/thread-detail.test.tsx` — verify "No replies yet" and "Be the first to reply" render when replies are empty — **verify FAILS**
-- [ ] T016 [P] [US2] Write test for empty state on search results in `src/components/search/__tests__/search-results.test.tsx` — verify existing inline empty state is upgraded to `EmptyState` component — **verify FAILS**
+- [x] T011 [P] [US2] Write test for empty state on admin events page in `src/pages/admin/__tests__/admin-events.test.tsx` — verify "No projects yet" and "Create your first project" CTA render when `data` is empty — **verified FAILS then PASSES**
+- [x] T012 [P] [US2] Write test for empty state on admin members page in `src/pages/admin/__tests__/admin-members.test.tsx` — verify "No members yet" and "Add your first member" CTA render when `data` is empty — **verified FAILS then PASSES**
+- [x] T013 [P] [US2] Write test for empty state on forum categories page in `src/pages/forum/__tests__/forum.test.tsx` — verify "No categories yet" renders with `role="status"` — **verified FAILS then PASSES**
+- [x] T014 [P] [US2] Write test for empty state on forum threads page in `src/pages/forum/__tests__/threads.test.tsx` — verify upgraded `EmptyState` component with "No discussions yet" — **verified FAILS then PASSES**
+- [x] T015 [P] [US2] Write test for empty state on thread detail page in `src/pages/forum/__tests__/thread-detail.test.tsx` — verify "No replies yet" and `role="status"` render when replies are empty — **verified FAILS then PASSES**
+- [x] T016 [P] [US2] Write test for empty state on search results in `src/components/search/__tests__/search-results.test.tsx` — verify upgraded to `EmptyState` component with `role="status"` — **verified FAILS then PASSES**
 
 ### Implementation for User Story 2
 
-- [ ] T017 [US2] Add empty state to admin events page in `src/pages/admin/admin-events.tsx` — render `<EmptyState icon={CalendarX} title="No projects yet" description="Create your first community project." action={<Link to="/admin/events/new"><Button>Create your first project</Button></Link>} />` when `events` array is empty — **verify T011 PASSES**
-- [ ] T018 [US2] Add empty state to admin members page in `src/pages/admin/admin-members.tsx` — render `<EmptyState icon={Users} title="No members yet" description="Add your first club member." action={<Link to="/admin/members/new"><Button>Add your first member</Button></Link>} />` when `members` array is empty — **verify T012 PASSES**
-- [ ] T019 [US2] Upgrade empty state on forum categories page in `src/pages/forum/forum.tsx` — replace inline `<p>No categories yet...</p>` with `<EmptyState>` component showing "No categories yet" per FR-010b — **verify T013 PASSES**
-- [ ] T020 [US2] Upgrade empty state on forum threads page in `src/pages/forum/threads.tsx` — replace existing "No threads yet. Start the conversation." with `<EmptyState icon={...} title="No discussions yet" description="Be the first to start a discussion." action={...} />` per FR-008 — **verify T014 PASSES**
-- [ ] T021 [US2] Add empty state for replies on thread detail page in `src/pages/forum/thread-detail.tsx` — render `EmptyState` for empty replies list — **verify T015 PASSES**
-- [ ] T022 [US2] Upgrade empty state on search results in `src/components/search/search-results.tsx` — replace inline "No results found" div with `<EmptyState icon={SearchX} title="No results found" description="Try different keywords or browse the forum." />` — **verify T016 PASSES**
+- [x] T017 [US2] Add empty state to admin events page in `src/pages/admin/admin-events.tsx` — render `<EmptyState icon={CalendarX} title="No projects yet" ... />` when `events` array is empty — **verify T011 PASSES**
+- [x] T018 [US2] Add empty state to admin members page in `src/pages/admin/admin-members.tsx` — render `<EmptyState icon={Users} title="No members yet" ... />` when `members` array is empty — **verify T012 PASSES**
+- [x] T019 [US2] Upgrade empty state on forum categories page in `src/pages/forum/forum.tsx` — replace inline `<p>No categories yet...</p>` with `<EmptyState>` showing "No categories yet" per FR-010b — **verify T013 PASSES**
+- [x] T020 [US2] Upgrade empty state on forum threads page in `src/pages/forum/threads.tsx` — replace "No threads yet. Start the conversation." with `<EmptyState title="No discussions yet" ... />` per FR-008 — **verify T014 PASSES**
+- [x] T021 [US2] Add empty state for replies on thread detail page in `src/pages/forum/thread-detail.tsx` — render `EmptyState` for empty replies list — **verify T015 PASSES**
+- [x] T022 [US2] Upgrade empty state on search results in `src/components/search/search-results.tsx` — replace inline "No results found" div with `<EmptyState icon={SearchX} ... />` — **verify T016 PASSES**
 
 **Checkpoint**: All 5 empty-state scenarios render helpful messages with CTAs. User Story 2 testable independently.
 

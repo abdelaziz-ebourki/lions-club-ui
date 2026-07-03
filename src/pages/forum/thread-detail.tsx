@@ -9,7 +9,8 @@ import { ReplyList } from "@/components/forum/reply-list";
 import { ReplyForm } from "@/components/forum/reply-form";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowLeft } from "lucide-react";
+import { EmptyState } from "@/components/shared/empty-state";
+import { ArrowLeft, MessageCircle } from "lucide-react";
 
 export function ThreadDetailPage() {
   const { categoryId, threadId } = useParams<{ categoryId: string; threadId: string }>();
@@ -105,11 +106,19 @@ export function ThreadDetailPage() {
         isStatusLoading={statusMutation.isPending}
       />
 
-      <ReplyList
-        replies={data.replies}
-        isAuthenticated={isAuthenticated}
-        onReply={handleReply}
-      />
+      {data.replies.length === 0 ? (
+        <EmptyState
+          icon={MessageCircle}
+          title="No replies yet"
+          description="Be the first to reply to this discussion."
+        />
+      ) : (
+        <ReplyList
+          replies={data.replies}
+          isAuthenticated={isAuthenticated}
+          onReply={handleReply}
+        />
+      )}
 
       {isAuthenticated && (
         <div className="mt-8">
