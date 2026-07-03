@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { EventDetailPage } from "../event-detail";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { describe, test, expect, vi, beforeEach, beforeAll } from "vitest";
+import { describe, test, expect, vi, beforeEach } from "vitest";
 import { useAuth } from "@/contexts/auth";
 
 const mockNavigateRef = { current: vi.fn() };
