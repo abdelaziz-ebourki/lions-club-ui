@@ -18,7 +18,7 @@ export function ReplyItem({ reply, depth, isAuthenticated, onReply }: ReplyItemP
       data-testid="reply-item"
     >
       <div className="flex items-center gap-3 mb-3">
-        <div className="flex size-8 items-center justify-center rounded-full bg-primary/10 text-primary font-heading font-bold text-sm">
+        <div className="flex size-8 items-center justify-center rounded-full bg-primary/10 text-primary font-heading font-bold text-sm" aria-hidden="true">
           {reply.author.charAt(0)}
         </div>
         <div>

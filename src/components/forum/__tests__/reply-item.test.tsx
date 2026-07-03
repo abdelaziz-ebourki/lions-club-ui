@@ -30,6 +30,12 @@ describe('ReplyItem', () => {
     expect(avatar).toHaveClass('rounded-full');
   });
 
+  test('avatar wrapper has aria-hidden="true"', () => {
+    render(<ReplyItem reply={baseReply} depth={0} isAuthenticated={false} onReply={onReply} />);
+    const avatarContainer = screen.getByText('F').closest('[aria-hidden="true"]');
+    expect(avatarContainer).toBeInTheDocument();
+  });
+
   test('renders author name', () => {
     render(<ReplyItem reply={baseReply} depth={0} isAuthenticated={false} onReply={onReply} />);
     expect(screen.getByText('Fatima Zahra')).toBeInTheDocument();

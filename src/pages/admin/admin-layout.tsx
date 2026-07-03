@@ -21,7 +21,7 @@ export function AdminLayout() {
           <p className="font-display text-overline text-accent">Admin</p>
           <h2 className="font-heading text-h4 mt-1 text-foreground">Manage</h2>
         </div>
-        <nav className="flex flex-col gap-1">
+        <nav aria-label="Admin navigation" className="flex flex-col gap-1">
           {adminNav.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.href;
@@ -29,6 +29,7 @@ export function AdminLayout() {
               <Link
                 key={item.href}
                 to={item.href}
+                aria-current={isActive ? "page" : undefined}
                 className={cn(
                   "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                   isActive
