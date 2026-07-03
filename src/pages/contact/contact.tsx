@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -70,6 +70,9 @@ export function ContactPage() {
   const messageCount = form.watch("message").length;
 
   const [showSuccess, setShowSuccess] = useState(false);
+  const successTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => () => void clearTimeout(successTimer.current), []);
 
   const mutation = useMutation({
     mutationFn: (data: ContactFormData) => api.post("/contact", data),
@@ -79,7 +82,7 @@ export function ContactPage() {
     mutation.mutate(data, {
       onSuccess: () => {
         setShowSuccess(true);
-        setTimeout(() => setShowSuccess(false), 2000);
+        successTimer.current = setTimeout(() => setShowSuccess(false), 2000);
         toast.success("Message sent! We'll get back to you soon.");
       },
       onError: () => toast.error("Failed to send. Please try again."),
@@ -133,7 +136,7 @@ export function ContactPage() {
                         <FieldContent>
                           <Input id="name" placeholder="Your name" aria-invalid={!!form.formState.errors.name} {...form.register("name")} autoComplete="name" />
                           <FieldError errors={[form.formState.errors.name]} />
-                          <span className={cn("text-body-xs", nameCount >= 100 ? "text-destructive" : nameCount >= 80 ? "text-amber-500" : "text-muted-foreground")}>
+                          <span className={cn("text-body-xs", nameCount >= 100 ? "text-destructive" : nameCount >= 80 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                             {nameCount}/100
                           </span>
                         </FieldContent>
@@ -151,7 +154,7 @@ export function ContactPage() {
                         <FieldContent>
                           <Input id="subject" placeholder="How can we help?" aria-invalid={!!form.formState.errors.subject} {...form.register("subject")} autoComplete="off" />
                           <FieldError errors={[form.formState.errors.subject]} />
-                          <span className={cn("text-body-xs", subjectCount >= 200 ? "text-destructive" : subjectCount >= 160 ? "text-amber-500" : "text-muted-foreground")}>
+                          <span className={cn("text-body-xs", subjectCount >= 200 ? "text-destructive" : subjectCount >= 160 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                             {subjectCount}/200
                           </span>
                         </FieldContent>
@@ -161,7 +164,7 @@ export function ContactPage() {
                         <FieldContent>
                           <Textarea id="message" placeholder="Tell us more..." rows={5} aria-invalid={!!form.formState.errors.message} {...form.register("message")} autoComplete="off" />
                           <FieldError errors={[form.formState.errors.message]} />
-                          <span className={cn("text-body-xs", messageCount >= 2000 ? "text-destructive" : messageCount >= 1600 ? "text-amber-500" : "text-muted-foreground")}>
+                          <span className={cn("text-body-xs", messageCount >= 2000 ? "text-destructive" : messageCount >= 1600 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                             {messageCount}/2000
                           </span>
                         </FieldContent>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -50,6 +50,9 @@ export function MemberFormPage() {
   const roleCount = form.watch("role").length;
   const bioCount = (form.watch("bio") ?? "").length;
   const [showSuccess, setShowSuccess] = useState(false);
+  const successTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => () => void clearTimeout(successTimer.current), []);
 
   const mutation = useMutation({
     mutationFn: (data: MemberFormData) =>
@@ -58,7 +61,7 @@ export function MemberFormPage() {
       queryClient.invalidateQueries({ queryKey: ["members"] });
       toast.success(isEditing ? "Member updated successfully." : "Member added successfully.");
       setShowSuccess(true);
-      setTimeout(() => navigate("/admin/members"), 400);
+      successTimer.current = setTimeout(() => navigate("/admin/members"), 400);
     },
     onError: () => toast.error("Failed to save member."),
   });
@@ -92,7 +95,7 @@ export function MemberFormPage() {
               <FieldContent>
                 <Input id="name" placeholder="Full name" aria-invalid={!!form.formState.errors.name} {...form.register("name")} />
                 <FieldError errors={[form.formState.errors.name]} />
-                <span className={cn("text-body-xs", nameCount >= 100 ? "text-destructive" : nameCount >= 80 ? "text-amber-500" : "text-muted-foreground")}>
+                <span className={cn("text-body-xs", nameCount >= 100 ? "text-destructive" : nameCount >= 80 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                   {nameCount}/100
                 </span>
               </FieldContent>
@@ -102,7 +105,7 @@ export function MemberFormPage() {
               <FieldContent>
                 <Input id="role" placeholder="e.g. Treasurer, Event Lead" aria-invalid={!!form.formState.errors.role} {...form.register("role")} />
                 <FieldError errors={[form.formState.errors.role]} />
-                <span className={cn("text-body-xs", roleCount >= 100 ? "text-destructive" : roleCount >= 80 ? "text-amber-500" : "text-muted-foreground")}>
+                <span className={cn("text-body-xs", roleCount >= 100 ? "text-destructive" : roleCount >= 80 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                   {roleCount}/100
                 </span>
               </FieldContent>
@@ -112,7 +115,7 @@ export function MemberFormPage() {
               <FieldContent>
                 <Textarea id="bio" placeholder="Short biography" rows={3} aria-invalid={!!form.formState.errors.bio} {...form.register("bio")} />
                 <FieldError errors={[form.formState.errors.bio]} />
-                <span className={cn("text-body-xs", bioCount >= 500 ? "text-destructive" : bioCount >= 400 ? "text-amber-500" : "text-muted-foreground")}>
+                <span className={cn("text-body-xs", bioCount >= 500 ? "text-destructive" : bioCount >= 400 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                   {bioCount}/500
                 </span>
               </FieldContent>
