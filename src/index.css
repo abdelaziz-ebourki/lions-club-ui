@@ -139,10 +139,6 @@
 }
 
 @layer utilities {
-  .font-display { font-family: var(--font-display); }
-  .font-heading { font-family: var(--font-heading); }
-  .font-body { font-family: var(--font-body); }
-
   .text-display-xl {
     font-family: var(--font-display);
     font-size: clamp(3rem, 8vw, 5rem);
