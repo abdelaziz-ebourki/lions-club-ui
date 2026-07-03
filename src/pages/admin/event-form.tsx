@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { eventCategories } from "@/config";
 
 const eventSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
@@ -143,11 +144,9 @@ export function EventFormPage() {
                           <SelectValue placeholder="Select category" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="Health">Health</SelectItem>
-                          <SelectItem value="Environment">Environment</SelectItem>
-                          <SelectItem value="Youth">Youth</SelectItem>
-                          <SelectItem value="Community">Community</SelectItem>
-                          <SelectItem value="Fundraiser">Fundraiser</SelectItem>
+                          {eventCategories.map((cat) => (
+                            <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                     )}
