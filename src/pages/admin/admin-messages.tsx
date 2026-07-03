@@ -3,16 +3,7 @@ import { api } from "@/lib/api";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Mail, ChevronRight } from "lucide-react";
-
-interface ContactMessage {
-  id: string;
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-  read: boolean;
-  createdAt: string;
-}
+import type { ContactMessage } from "@/types";
 
 export function AdminMessagesPage() {
   const { data: messages } = useQuery<ContactMessage[]>({
@@ -32,7 +23,7 @@ export function AdminMessagesPage() {
 
       <div className="flex flex-col gap-4">
         {messages?.map((msg) => (
-          <Card key={msg.id} className={`transition-all hover:shadow-md ${!msg.read ? 'border-accent/50' : ''}`}>
+          <Card key={msg.id} className={`transition-all hover:shadow-md ${msg.status === "unread" ? 'border-accent/50' : ''}`}>
             <CardContent className="flex items-start gap-4 py-5">
               <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
                 <Mail className="size-5" />
@@ -40,7 +31,7 @@ export function AdminMessagesPage() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <CardTitle className="font-heading text-base">{msg.name}</CardTitle>
-                  {!msg.read && (
+                  {msg.status === "unread" && (
                     <Badge variant="accent" className="text-[10px]">New</Badge>
                   )}
                 </div>

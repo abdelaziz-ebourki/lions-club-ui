@@ -26,13 +26,15 @@ const seededUsers = [
   },
 ];
 
+const SESSION_COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
+
 // Cookie options for httpOnly cookie
 const cookieOptions = {
   httpOnly: true,
   secure: false, // true in production with HTTPS
   sameSite: "lax" as const,
   path: "/",
-  maxAge: 60 * 60 * 24 * 7, // 7 days
+  maxAge: SESSION_COOKIE_MAX_AGE,
 };
 
 function buildCookieString(options: typeof cookieOptions): string {
