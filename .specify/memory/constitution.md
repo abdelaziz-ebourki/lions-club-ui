@@ -121,7 +121,7 @@ All work MUST conform to established best practices and web standards.
 - Cookie-based auth via AuthContext with httpOnly session cookies.
 - API calls use the typed wrapper in `@/lib/api.ts` — never raw fetch().
 - MSW mocks the API in dev mode — keep mocks in sync with real contracts.
-- Branch from `V2`. Follow Git feature branch workflow. Use `git-commit` skill
+- Follow Git feature branch workflow. Use `git-commit` skill
   for commits.
 
 ## Tech Stack & Constraints
@@ -156,7 +156,7 @@ with `VITE_`
 
 ## Development Workflow
 
-1. Branch from `V2` with descriptive feature branch names.
+1. Branch from `master` with descriptive feature branch names.
 2. Use the Spec Kit cycle for every feature:
    - `/speckit.specify` — create spec.md with user stories and acceptance
      criteria
