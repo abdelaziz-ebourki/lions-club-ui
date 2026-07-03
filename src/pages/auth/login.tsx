@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "@/lib/api";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
@@ -26,12 +26,15 @@ export function LoginPage() {
     defaultValues: { email: "", password: "" },
   });
 
+  const navigate = useNavigate();
+
   const [rememberMe, setRememberMe] = useState(() => localStorage.getItem("remember_me") === "true");
 
   const mutation = useMutation({
     mutationFn: (data: LoginFormData & { remember_me?: boolean }) => api.post("/auth/login", data),
     onSuccess: () => {
-      window.location.reload();
+      toast.success("Welcome back!");
+      navigate("/");
     },
   });
 
