@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -9,6 +10,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
 
 const loginSchema = z.object({
@@ -24,15 +26,17 @@ export function LoginPage() {
     defaultValues: { email: "", password: "" },
   });
 
+  const [rememberMe, setRememberMe] = useState(() => localStorage.getItem("remember_me") === "true");
+
   const mutation = useMutation({
-    mutationFn: (data: LoginFormData) => api.post("/auth/login", data),
+    mutationFn: (data: LoginFormData & { remember_me?: boolean }) => api.post("/auth/login", data),
     onSuccess: () => {
       window.location.reload();
     },
   });
 
   function onSubmit(data: LoginFormData) {
-    mutation.mutate(data, {
+    mutation.mutate({ ...data, remember_me: rememberMe }, {
       onError: (error) => {
         toast.error(error instanceof Error ? error.message : "Invalid email or password");
       },
@@ -68,6 +72,23 @@ export function LoginPage() {
                   <FieldError errors={[form.formState.errors.password]} />
                 </FieldContent>
               </Field>
+              <Label className="flex items-center gap-2 text-sm font-normal normal-case">
+                <input
+                  type="checkbox"
+                  data-slot="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setRememberMe(checked);
+                    if (checked) {
+                      localStorage.setItem("remember_me", "true");
+                    } else {
+                      localStorage.removeItem("remember_me");
+                    }
+                  }}
+                />
+                Remember me
+              </Label>
             </FieldGroup>
             <Button type="submit" disabled={mutation.isPending}>
               {mutation.isPending ? (

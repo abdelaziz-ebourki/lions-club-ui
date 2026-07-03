@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { LoginPage } from '../login';
 import { useMutation } from '@tanstack/react-query';
@@ -31,6 +31,7 @@ describe('LoginPage', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    localStorage.clear();
     vi.mocked(useMutation).mockReturnValue({
       mutate: mockMutate,
       isPending: false,
@@ -44,6 +45,29 @@ describe('LoginPage', () => {
     renderWithRouter(<LoginPage />);
     expect(screen.getAllByText('Sign In').length).toBeGreaterThan(0);
     expect(screen.getByPlaceholderText(/your@email.com/i)).toBeInTheDocument();
+  });
+
+  test('renders "Remember me" checkbox below password field', () => {
+    renderWithRouter(<LoginPage />);
+    const checkbox = screen.getByLabelText(/remember me/i);
+    expect(checkbox).toBeInTheDocument();
+    expect(checkbox).not.toBeChecked();
+  });
+
+  test('checking "Remember me" stores flag in localStorage', () => {
+    renderWithRouter(<LoginPage />);
+    const checkbox = screen.getByLabelText(/remember me/i);
+    fireEvent.click(checkbox);
+    expect(localStorage.getItem("remember_me")).toBe("true");
+  });
+
+  test('unchecking "Remember me" removes flag from localStorage', () => {
+    localStorage.setItem("remember_me", "true");
+    renderWithRouter(<LoginPage />);
+    const checkbox = screen.getByLabelText(/remember me/i);
+    expect(checkbox).toBeChecked();
+    fireEvent.click(checkbox);
+    expect(localStorage.getItem("remember_me")).toBeNull();
   });
 
   test('shows spinner and "Signing in..." during pending', () => {
