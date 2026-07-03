@@ -52,7 +52,7 @@ export function ReplyList({ replies, isAuthenticated, onReply }: ReplyListProps)
 
   return (
     <div className="space-y-4" data-testid="reply-list">
-      <h3 className="font-heading text-h4">{replies.length} {replies.length === 1 ? 'reply' : 'replies'}</h3>
+      <h2 className="font-heading text-h4">{replies.length} {replies.length === 1 ? 'reply' : 'replies'}</h2>
       {topLevel.map((reply) =>
         renderReplyTree(reply, childrenByParent, isAuthenticated, onReply, 0),
       )}

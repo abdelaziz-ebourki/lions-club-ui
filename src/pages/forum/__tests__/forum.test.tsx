@@ -68,4 +68,18 @@ describe('ForumPage', () => {
     fireEvent.click(retryButton);
     expect(refetch).toHaveBeenCalledOnce();
   });
+
+  test('loading container has aria-busy="true" while loading', () => {
+    vi.mocked(useQuery).mockReturnValue({ data: undefined, isLoading: true } as any);
+    render(<ForumPage />);
+    const busyContainer = document.querySelector('[aria-busy="true"]');
+    expect(busyContainer).toBeInTheDocument();
+  });
+
+  test('category icon has aria-hidden="true"', () => {
+    vi.mocked(useQuery).mockReturnValue({ data: mockCategories, isLoading: false } as any);
+    render(<ForumPage />);
+    const icons = document.querySelectorAll('svg[aria-hidden="true"]');
+    expect(icons.length).toBeGreaterThanOrEqual(1);
+  });
 });
