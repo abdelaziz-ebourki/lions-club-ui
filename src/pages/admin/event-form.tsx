@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,18 +12,20 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
+import { cn } from "@/lib/utils";
+import { Spinner } from "@/components/ui/spinner";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { eventCategories } from "@/config";
 
 const eventSchema = z.object({
-  title: z.string().min(3, "Title must be at least 3 characters"),
-  description: z.string().min(10, "Description must be at least 10 characters"),
+  title: z.string().min(3, "Title must be at least 3 characters").max(200, "Title must be at most 200 characters"),
+  description: z.string().min(10, "Description must be at least 10 characters").max(2000, "Description must be at most 2000 characters"),
   date: z.string().min(1, "Date is required"),
   time: z.string().min(1, "Time is required"),
-  location: z.string().min(3, "Location is required"),
+  location: z.string().min(3, "Location is required").max(200, "Location must be at most 200 characters"),
   category: z.string().min(1, "Category is required"),
-  status: z.enum(["upcoming", "past"]),
+  status: z.enum(["upcoming", "ongoing", "past"]),
 });
 
 type EventFormData = z.infer<typeof eventSchema>;
@@ -48,7 +51,7 @@ export function EventFormPage() {
       time: event.time,
       location: event.location,
       category: event.category,
-      status: (event.status === "upcoming" ? "upcoming" : "past") as "upcoming" | "past",
+      status: event.status,
     } : undefined,
     defaultValues: !isEditing ? {
       title: "", description: "", date: "", time: "",
@@ -56,13 +59,22 @@ export function EventFormPage() {
     } : undefined,
   });
 
+  const titleCount = form.watch("title").length;
+  const descCount = form.watch("description").length;
+  const locationCount = form.watch("location").length;
+  const [showSuccess, setShowSuccess] = useState(false);
+  const successTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => () => void clearTimeout(successTimer.current), []);
+
   const mutation = useMutation({
     mutationFn: (data: EventFormData) =>
       isEditing ? api.put(`/events/${id!}`, data) : api.post("/events", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["events"] });
       toast.success(isEditing ? "Project updated successfully." : "Project created successfully.");
-      navigate("/admin/events");
+      setShowSuccess(true);
+      successTimer.current = setTimeout(() => navigate("/admin/events"), 400);
     },
     onError: () => toast.error("Failed to save project."),
   });
@@ -90,12 +102,15 @@ export function EventFormPage() {
 
       <div className="max-w-2xl">
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
-          <FieldGroup>
+          <FieldGroup className={cn("transition-all duration-500", showSuccess && "ring-2 ring-green-500/50 rounded-lg")}>
             <Field data-invalid={!!form.formState.errors.title}>
               <FieldLabel htmlFor="title">Title</FieldLabel>
               <FieldContent>
                 <Input id="title" placeholder="Event title" aria-invalid={!!form.formState.errors.title} {...form.register("title")} />
                 <FieldError errors={[form.formState.errors.title]} />
+                <span className={cn("text-body-xs", titleCount >= 200 ? "text-destructive" : titleCount >= 160 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
+                  {titleCount}/200
+                </span>
               </FieldContent>
             </Field>
             <Field data-invalid={!!form.formState.errors.description}>
@@ -103,6 +118,9 @@ export function EventFormPage() {
               <FieldContent>
                 <Textarea id="description" placeholder="Describe the event" rows={4} aria-invalid={!!form.formState.errors.description} {...form.register("description")} />
                 <FieldError errors={[form.formState.errors.description]} />
+                <span className={cn("text-body-xs", descCount >= 2000 ? "text-destructive" : descCount >= 1600 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
+                  {descCount}/2000
+                </span>
               </FieldContent>
             </Field>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -126,6 +144,9 @@ export function EventFormPage() {
               <FieldContent>
                 <Input id="location" placeholder="Event location" aria-invalid={!!form.formState.errors.location} {...form.register("location")} />
                 <FieldError errors={[form.formState.errors.location]} />
+                <span className={cn("text-body-xs", locationCount >= 200 ? "text-destructive" : locationCount >= 160 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
+                  {locationCount}/200
+                </span>
               </FieldContent>
             </Field>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -170,6 +191,7 @@ export function EventFormPage() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="upcoming">Upcoming</SelectItem>
+                          <SelectItem value="ongoing">Ongoing</SelectItem>
                           <SelectItem value="past">Past</SelectItem>
                         </SelectContent>
                       </Select>
@@ -181,7 +203,9 @@ export function EventFormPage() {
             </div>
           </FieldGroup>
           <Button type="submit" disabled={mutation.isPending} className="w-full sm:w-auto">
-            {mutation.isPending ? "Saving..." : isEditing ? "Update Project" : "Create Project"}
+            {mutation.isPending ? (
+              <><Spinner className="mr-2" /> Saving...</>
+            ) : isEditing ? "Update Project" : "Create Project"}
           </Button>
         </form>
       </div>

@@ -20,7 +20,7 @@ const socialLinks = [
   },
 ];
 
-function SocialIcon({ path, label }: { path: string; label: string }) {
+function SocialIcon({ path }: { path: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -30,7 +30,7 @@ function SocialIcon({ path, label }: { path: string; label: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className="size-4"
-      aria-label={label}
+      aria-hidden="true"
     >
       <path d={path} />
     </svg>
@@ -81,15 +81,15 @@ export function Footer() {
             </h4>
             <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
-                <MapPin className="size-4 shrink-0" />
+                <MapPin className="size-4 shrink-0" aria-hidden="true" />
                 {siteConfig.address}
               </li>
               <li className="flex items-center gap-2">
-                <Phone className="size-4 shrink-0" />
+                <Phone className="size-4 shrink-0" aria-hidden="true" />
                 {siteConfig.phone}
               </li>
               <li className="flex items-center gap-2">
-                <Mail className="size-4 shrink-0" />
+                <Mail className="size-4 shrink-0" aria-hidden="true" />
                 {siteConfig.email}
               </li>
             </ul>
@@ -109,7 +109,7 @@ export function Footer() {
                   className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
                   aria-label={link.label}
                 >
-                  <SocialIcon path={link.path} label={link.label} />
+                  <SocialIcon path={link.path} />
                 </a>
               ))}
             </div>

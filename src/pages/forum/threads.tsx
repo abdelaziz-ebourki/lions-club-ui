@@ -136,7 +136,7 @@ export function ThreadsPage() {
           </Button>
         </div>
       ) : isLoading ? (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4" aria-busy="true">
           {Array.from({ length: 5 }).map((_, i) => (
             <Card key={i}>
               <CardHeader>
@@ -152,7 +152,7 @@ export function ThreadsPage() {
             <Link key={thread.id} to={`/forum/${categoryId}/${thread.id}`}>
               <Card className="transition-all hover:shadow-md">
                 <CardContent className="flex items-center gap-4 py-4">
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground" aria-hidden="true">
                     <MessageSquare className="size-5" />
                   </div>
                   <div className="flex-1 min-w-0">

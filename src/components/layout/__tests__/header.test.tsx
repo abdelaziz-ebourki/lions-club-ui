@@ -130,4 +130,22 @@ describe('Header', () => {
     render(<Header />);
     expect(screen.getByRole('searchbox')).toBeInTheDocument();
   });
+
+  test('desktop nav has aria-label="Main navigation"', () => {
+    render(<Header />);
+    const nav = screen.getByRole('navigation', { name: 'Main navigation' });
+    expect(nav).toBeInTheDocument();
+  });
+
+  test('active nav link has aria-current="page"', () => {
+    render(<Header />);
+    const homeLink = screen.getByRole('link', { name: 'Home' });
+    expect(homeLink).toHaveAttribute('aria-current', 'page');
+  });
+
+  test('non-active links do not have aria-current', () => {
+    render(<Header />);
+    const aboutLink = screen.getByRole('link', { name: 'About' });
+    expect(aboutLink).not.toHaveAttribute('aria-current');
+  });
 });

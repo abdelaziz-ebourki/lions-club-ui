@@ -77,6 +77,12 @@ describe('ReplyList', () => {
     expect(screen.getByText(/3 replies/i)).toBeInTheDocument();
   });
 
+  test('heading is an h2 element', () => {
+    render(<ReplyList replies={replies} isAuthenticated={false} onReply={onReply} />);
+    const heading = screen.getByRole('heading', { level: 2 });
+    expect(heading).toBeInTheDocument();
+  });
+
   test('renders grandchildren recursively', () => {
     const deepReplies: ForumReply[] = [
       { id: 'r1', threadId: 't1', author: 'A', content: '', createdAt: '2026-01-03T00:00:00Z' },
