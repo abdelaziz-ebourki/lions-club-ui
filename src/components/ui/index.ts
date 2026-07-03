@@ -9,6 +9,7 @@ export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 export { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./table";
 export { Tabs, TabsList, TabsTrigger } from "./tabs";
 export { Skeleton } from "./skeleton";
+export { Spinner } from "./spinner";
 export { Separator } from "./separator";
 export { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 export { Sheet, SheetContent, SheetTrigger } from "./sheet";
