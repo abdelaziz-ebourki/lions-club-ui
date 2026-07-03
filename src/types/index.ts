@@ -10,6 +10,8 @@ export interface Event {
   image?: string;
   category: string;
   status: EventStatus;
+  rsvpCount?: number;
+  hasRsvpd?: boolean;
 }
 
 export type ForumThreadStatus = "active" | "pinned" | "locked" | "archived" | "normal";
