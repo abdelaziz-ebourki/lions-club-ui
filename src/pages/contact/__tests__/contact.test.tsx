@@ -120,7 +120,7 @@ describe('ContactPage Component', () => {
     });
     const counter = screen.getByText(new RegExp(`${eightyChars.length}\\/100`));
     expect(counter).toBeInTheDocument();
-    expect(counter.className).toContain('amber');
+    expect(counter.className).toContain('text-amber-500');
   });
 
   test('shows submit button with spinner during pending', () => {
