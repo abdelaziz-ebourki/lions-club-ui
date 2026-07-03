@@ -85,18 +85,18 @@ describe('LoginPage', () => {
     expect(submitButton.querySelector('svg')).toBeInTheDocument();
   });
 
-  test('shows welcome back toast on successful login', () => {
+  test('shows welcome back toast on successful login', async () => {
     vi.spyOn(toast, 'success');
-    let onSuccess: () => void = () => {};
+    let onSuccess: () => Promise<void> = async () => {};
     vi.mocked(useMutation).mockImplementation((opts: any) => {
-      onSuccess = opts.onSuccess ?? (() => {});
+      onSuccess = opts.onSuccess ?? (async () => {});
       return { mutate: mockMutate, isPending: false } as any;
     });
     renderWithRouter(<LoginPage />);
     fireEvent.change(screen.getByPlaceholderText(/your@email.com/i), { target: { value: 'test@example.com' } });
     fireEvent.change(screen.getByPlaceholderText(/enter your password/i), { target: { value: 'password123' } });
     fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
-    onSuccess();
+    await onSuccess();
     expect(toast.success).toHaveBeenCalledWith('Welcome back!');
   });
 });

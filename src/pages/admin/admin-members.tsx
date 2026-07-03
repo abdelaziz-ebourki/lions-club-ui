@@ -37,7 +37,7 @@ export function AdminMembersPage() {
             </TableHeader>
             <TableBody>
               {Array.from({ length: 4 }).map((_, i) => (
-                <TableRow key={i}>
+                <TableRow key={`skeleton-${i}`}>
                   <TableCell><Skeleton className="h-4 w-32" /></TableCell>
                   <TableCell className="hidden md:table-cell"><Skeleton className="h-4 w-24" /></TableCell>
                   <TableCell className="text-right"><Skeleton className="ml-auto h-4 w-16" /></TableCell>

@@ -62,11 +62,11 @@ describe('RegisterPage', () => {
     expect(submitButton.querySelector('svg')).toBeInTheDocument();
   });
 
-  test('shows account created toast on successful registration', () => {
+  test('shows account created toast on successful registration', async () => {
     vi.spyOn(toast, 'success');
-    let onSuccess: () => void = () => {};
+    let onSuccess: () => Promise<void> = async () => {};
     vi.mocked(useMutation).mockImplementation((opts: any) => {
-      onSuccess = opts.onSuccess ?? (() => {});
+      onSuccess = opts.onSuccess ?? (async () => {});
       return { mutate: mockMutate, isPending: false } as any;
     });
     renderWithRouter(<RegisterPage />);
@@ -76,7 +76,7 @@ describe('RegisterPage', () => {
     fireEvent.change(passwordInputs[0], { target: { value: 'password123' } });
     fireEvent.change(passwordInputs[1], { target: { value: 'password123' } });
     fireEvent.click(screen.getByRole('button', { name: /create account/i }));
-    onSuccess();
+    await onSuccess();
     expect(toast.success).toHaveBeenCalledWith('Account created successfully!');
   });
 });
