@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -62,6 +62,9 @@ export function EventFormPage() {
   const descCount = form.watch("description").length;
   const locationCount = form.watch("location").length;
   const [showSuccess, setShowSuccess] = useState(false);
+  const successTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => () => void clearTimeout(successTimer.current), []);
 
   const mutation = useMutation({
     mutationFn: (data: EventFormData) =>
@@ -70,7 +73,7 @@ export function EventFormPage() {
       queryClient.invalidateQueries({ queryKey: ["events"] });
       toast.success(isEditing ? "Project updated successfully." : "Project created successfully.");
       setShowSuccess(true);
-      setTimeout(() => navigate("/admin/events"), 400);
+      successTimer.current = setTimeout(() => navigate("/admin/events"), 400);
     },
     onError: () => toast.error("Failed to save project."),
   });
@@ -104,7 +107,7 @@ export function EventFormPage() {
               <FieldContent>
                 <Input id="title" placeholder="Event title" aria-invalid={!!form.formState.errors.title} {...form.register("title")} />
                 <FieldError errors={[form.formState.errors.title]} />
-                <span className={cn("text-body-xs", titleCount >= 200 ? "text-destructive" : titleCount >= 160 ? "text-amber-500" : "text-muted-foreground")}>
+                <span className={cn("text-body-xs", titleCount >= 200 ? "text-destructive" : titleCount >= 160 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                   {titleCount}/200
                 </span>
               </FieldContent>
@@ -114,7 +117,7 @@ export function EventFormPage() {
               <FieldContent>
                 <Textarea id="description" placeholder="Describe the event" rows={4} aria-invalid={!!form.formState.errors.description} {...form.register("description")} />
                 <FieldError errors={[form.formState.errors.description]} />
-                <span className={cn("text-body-xs", descCount >= 2000 ? "text-destructive" : descCount >= 1600 ? "text-amber-500" : "text-muted-foreground")}>
+                <span className={cn("text-body-xs", descCount >= 2000 ? "text-destructive" : descCount >= 1600 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                   {descCount}/2000
                 </span>
               </FieldContent>
@@ -140,7 +143,7 @@ export function EventFormPage() {
               <FieldContent>
                 <Input id="location" placeholder="Event location" aria-invalid={!!form.formState.errors.location} {...form.register("location")} />
                 <FieldError errors={[form.formState.errors.location]} />
-                <span className={cn("text-body-xs", locationCount >= 200 ? "text-destructive" : locationCount >= 160 ? "text-amber-500" : "text-muted-foreground")}>
+                <span className={cn("text-body-xs", locationCount >= 200 ? "text-destructive" : locationCount >= 160 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                   {locationCount}/200
                 </span>
               </FieldContent>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,6 +34,9 @@ export function NewThreadForm() {
   const titleCount = form.watch("title").length;
   const contentCount = form.watch("content").length;
   const [showSuccess, setShowSuccess] = useState(false);
+  const successTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => () => void clearTimeout(successTimer.current), []);
 
   const mutation = useMutation({
     mutationFn: (data: ThreadFormData) => api.post(`/forum/${categoryId}/threads`, data),
@@ -44,7 +47,7 @@ export function NewThreadForm() {
       onSuccess: () => {
         toast.success("Thread created successfully!");
         setShowSuccess(true);
-        setTimeout(() => navigate(`/forum/${categoryId}`), 400);
+        successTimer.current = setTimeout(() => navigate(`/forum/${categoryId}`), 400);
       },
       onError: () => toast.error("Failed to create thread. Please try again."),
     });
@@ -78,7 +81,7 @@ export function NewThreadForm() {
                 autoComplete="off"
               />
               <FieldError errors={[form.formState.errors.title]} />
-              <span className={cn("text-body-xs", titleCount >= 200 ? "text-destructive" : titleCount >= 160 ? "text-amber-500" : "text-muted-foreground")}>
+              <span className={cn("text-body-xs", titleCount >= 200 ? "text-destructive" : titleCount >= 160 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                 {titleCount}/200
               </span>
             </FieldContent>
@@ -95,7 +98,7 @@ export function NewThreadForm() {
                 autoComplete="off"
               />
               <FieldError errors={[form.formState.errors.content]} />
-              <span className={cn("text-body-xs", contentCount >= 5000 ? "text-destructive" : contentCount >= 4000 ? "text-amber-500" : "text-muted-foreground")}>
+              <span className={cn("text-body-xs", contentCount >= 5000 ? "text-destructive" : contentCount >= 4000 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                 {contentCount}/5000
               </span>
             </FieldContent>
