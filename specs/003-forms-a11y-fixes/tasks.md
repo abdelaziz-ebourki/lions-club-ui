@@ -225,6 +225,30 @@
 
 ---
 
+## Phase 15: Convergence — Test Coverage for Spinner, Success Glow & aria-live
+
+**Goal**: Close remaining test-coverage gaps found by second convergence pass — spinner render tests missing on 3 forms, no register test file, no success glow appearance tests, no aria-live assertions, and reply-form char count missing aria-live wrapper.
+
+### New Test File to Create
+
+- [x] T078 [F2] [missing] Create register.test.tsx — test spinner and disabled state during pending mutation — `src/pages/auth/__tests__/register.test.tsx`
+
+### Existing Test Files to Update (Spinner & Disabled State)
+
+- [x] T079 [P] [F1] [partial] Add spinner+disabled assertions to event-form, member-form, new-thread-form tests — `src/pages/admin/__tests__/event-form.test.tsx`, `src/pages/admin/__tests__/member-form.test.tsx`, `src/pages/forum/__tests__/new-thread-form.test.tsx`
+
+### Success Glow Appearance Tests
+
+- [x] T080 [F3] [partial] Add success glow (`ring-2 ring-green-500/50`) appearance assertions to all 4 form test files — `src/pages/admin/__tests__/event-form.test.tsx`, `src/pages/admin/__tests__/member-form.test.tsx`, `src/pages/contact/__tests__/contact.test.tsx`, `src/pages/forum/__tests__/new-thread-form.test.tsx`
+
+### aria-live="polite" Tests & Reply-Form Fix
+
+- [x] T081 [P] [F4] [partial] Add `aria-live="polite"` assertions to char count spans in contact, event-form, member-form, new-thread-form tests — `src/pages/contact/__tests__/contact.test.tsx`, `src/pages/admin/__tests__/event-form.test.tsx`, `src/pages/admin/__tests__/member-form.test.tsx`, `src/pages/forum/__tests__/new-thread-form.test.tsx`
+- [x] T082 [F5] [partial] Wrap reply-form char count text node in `<span aria-live="polite">`, add assertion to reply-form test — `src/components/forum/reply-form.tsx`, `src/components/forum/__tests__/reply-form.test.tsx`
+- [x] T083 [F6] [partial] Add success glow `setTimeout` cleanup assertions to all 4 form test files — `src/pages/admin/__tests__/event-form.test.tsx`, `src/pages/admin/__tests__/member-form.test.tsx`, `src/pages/contact/__tests__/contact.test.tsx`, `src/pages/forum/__tests__/new-thread-form.test.tsx`
+
+---
+
 ## Notes
 
 - [P] tasks = different files, no dependencies

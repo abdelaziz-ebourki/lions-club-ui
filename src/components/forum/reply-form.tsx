@@ -62,7 +62,7 @@ export function ReplyForm({ onSubmit, parentReplyId, quotedAuthor, maxLength = 5
         />
 
         <div className="flex items-center justify-between">
-          <span className="text-body-sm text-muted-foreground">
+          <span className="text-body-sm text-muted-foreground" aria-live="polite">
             {content.length}/{maxLength}
           </span>
           <Button

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
 import { ContactPage } from '../contact';
 import { useMutation } from '@tanstack/react-query';
 import { describe, test, expect, vi, beforeEach } from 'vitest';
@@ -100,6 +100,9 @@ describe('ContactPage Component', () => {
     render(<ContactPage />);
     const counters = screen.getAllByText(/0\/\d+/);
     expect(counters.length).toBeGreaterThanOrEqual(3);
+    counters.forEach(el => {
+      expect(el).toHaveAttribute('aria-live', 'polite');
+    });
   });
 
   test('updates character count as user types', async () => {
@@ -135,5 +138,28 @@ describe('ContactPage Component', () => {
     const submitButton = screen.getByRole('button', { name: /sending/i });
     expect(submitButton).toBeDisabled();
     expect(submitButton.querySelector('svg')).toBeInTheDocument();
+  });
+
+  test('shows success glow after successful submit', async () => {
+    vi.mocked(useMutation).mockReturnValue({
+      mutate: vi.fn((_data, options) => options?.onSuccess?.()),
+      isPending: false,
+      isSuccess: false,
+      isError: false,
+      error: null,
+    } as any);
+    render(<ContactPage />);
+    await act(async () => {
+      fireEvent.change(screen.getByPlaceholderText(/your name/i), { target: { value: 'John Doe' } });
+      fireEvent.change(screen.getByPlaceholderText(/your@email.com/i), { target: { value: 'john@example.com' } });
+      fireEvent.change(screen.getByPlaceholderText(/how can we help/i), { target: { value: 'Question about membership' } });
+      fireEvent.change(screen.getByPlaceholderText(/tell us more/i), { target: { value: 'I would like to know more about becoming a member.' } });
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: /send message/i }));
+    });
+    await waitFor(() => {
+      expect(document.querySelector('[class*="ring-green-500/50"]')).toBeInTheDocument();
+    });
   });
 });
