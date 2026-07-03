@@ -1,21 +1,44 @@
-import { useParams, Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
+import { useAuth } from "@/contexts/auth";
 import type { Event } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, Calendar, Clock, MapPin } from "lucide-react";
+import { toast } from "sonner";
+import { ArrowLeft, Calendar, Clock, MapPin, UserCheck, Users, Loader2 } from "lucide-react";
 
 export function EventDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const queryClient = useQueryClient();
 
   const { data: event, isLoading } = useQuery<Event>({
     queryKey: ["event", id],
     queryFn: () => api.get(`/events/${id}`),
     enabled: !!id,
   });
+
+  const rsvpMutation = useMutation({
+    mutationFn: () => api.post(`/events/${id}/rsvp`, {}),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["event", id] });
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || "Failed to RSVP");
+    },
+  });
+
+  function handleRsvp() {
+    if (!isAuthenticated) {
+      navigate(`/login?return=/events/${id}`);
+      return;
+    }
+    rsvpMutation.mutate();
+  }
 
   if (isLoading) {
     return (
@@ -38,6 +61,9 @@ export function EventDetailPage() {
     );
   }
 
+  const isUpcoming = event.status === "upcoming";
+  const isRsvpd = event.hasRsvpd === true;
+
   return (
     <article className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
       <Link to="/events">
@@ -46,18 +72,26 @@ export function EventDetailPage() {
         </Button>
       </Link>
 
-      <Badge variant="accent" className="mb-4">
-        {event.category}
-      </Badge>
-      <Badge variant="secondary" className="mb-4 ml-2 capitalize">
-        {event.status}
-      </Badge>
+      <div className="flex flex-wrap items-center gap-3 mb-4">
+        <Badge variant="accent">
+          {event.category}
+        </Badge>
+        <Badge variant="secondary" className="capitalize">
+          {event.status}
+        </Badge>
+        {event.rsvpCount !== undefined && event.rsvpCount > 0 && (
+          <span className="inline-flex items-center gap-1 text-body-xs text-muted-foreground">
+            <Users className="size-3.5" aria-hidden="true" />
+            {event.rsvpCount} attending
+          </span>
+        )}
+      </div>
 
       <h1 className="font-heading text-h1 text-foreground">
         {event.title}
       </h1>
 
-      <div className="mt-6 flex flex-wrap gap-6 text-body-sm text-muted-foreground">
+      <div className="mt-6 flex flex-wrap items-center gap-6 text-body-sm text-muted-foreground">
         <div className="flex items-center gap-2">
           <Calendar className="size-4" aria-hidden="true" />
           {event.date}
@@ -70,6 +104,26 @@ export function EventDetailPage() {
           <MapPin className="size-4" aria-hidden="true" />
           {event.location}
         </div>
+        {isUpcoming && (
+          <div className="ml-auto">
+            {isRsvpd ? (
+              <Button variant="outline" disabled>
+                <UserCheck data-icon="inline-start" aria-hidden="true" /> Going
+              </Button>
+            ) : (
+              <Button
+                onClick={handleRsvp}
+                disabled={rsvpMutation.isPending}
+              >
+                {rsvpMutation.isPending ? (
+                  <><Loader2 className="mr-2 size-4 animate-spin" /> Joining...</>
+                ) : (
+                  <><UserCheck data-icon="inline-start" aria-hidden="true" /> Join Event</>
+                )}
+              </Button>
+            )}
+          </div>
+        )}
       </div>
 
       <Separator className="my-8" />
