@@ -112,6 +112,15 @@ describe("ThreadsPage", () => {
     expect(containers.length).toBeGreaterThanOrEqual(1);
   });
 
+  test("shows empty state when no threads in category", () => {
+    mockUseQuery
+      .mockReturnValueOnce({ data: mockCategories, isLoading: false, isError: false, refetch: vi.fn() })
+      .mockReturnValue({ data: [], isLoading: false, isError: false, refetch: vi.fn() });
+    render(<ThreadsPage />);
+    expect(screen.getByText("No discussions yet")).toBeInTheDocument();
+    expect(screen.getByRole("status")).toBeInTheDocument();
+  });
+
   test("thread icon wrapper has aria-hidden='true'", () => {
     mockUseQuery
       .mockReturnValueOnce({ data: mockCategories, isLoading: false, isError: false, refetch: vi.fn() })
