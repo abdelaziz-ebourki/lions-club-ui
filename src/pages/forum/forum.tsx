@@ -56,7 +56,7 @@ export function ForumPage() {
             </Button>
           </div>
         ) : isLoading ? (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4" aria-busy="true">
             {Array.from({ length: 4 }).map((_, i) => (
               <Card key={i}>
                 <CardHeader>
@@ -81,7 +81,7 @@ export function ForumPage() {
                   <Card className="transition-all hover:border-accent/50 hover:shadow-md">
                     <CardContent className="flex items-center gap-4 py-5">
                       <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
-                        <Icon className="size-6" />
+                        <Icon className="size-6" aria-hidden="true" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <CardTitle className="font-heading text-lg">

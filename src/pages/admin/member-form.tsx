@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,13 +11,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
+import { cn } from "@/lib/utils";
+import { Spinner } from "@/components/ui/spinner";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const memberSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  role: z.string().min(2, "Role must be at least 2 characters"),
-  bio: z.string().optional(),
+  name: z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be at most 100 characters"),
+  role: z.string().min(2, "Role must be at least 2 characters").max(100, "Role must be at most 100 characters"),
+  bio: z.string().max(500, "Bio must be at most 500 characters").optional(),
 });
 
 type MemberFormData = z.infer<typeof memberSchema>;
@@ -43,13 +46,19 @@ export function MemberFormPage() {
     defaultValues: !isEditing ? { name: "", role: "", bio: "" } : undefined,
   });
 
+  const nameCount = form.watch("name").length;
+  const roleCount = form.watch("role").length;
+  const bioCount = (form.watch("bio") ?? "").length;
+  const [showSuccess, setShowSuccess] = useState(false);
+
   const mutation = useMutation({
     mutationFn: (data: MemberFormData) =>
       isEditing ? api.put(`/members/${id!}`, data) : api.post("/members", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["members"] });
       toast.success(isEditing ? "Member updated successfully." : "Member added successfully.");
-      navigate("/admin/members");
+      setShowSuccess(true);
+      setTimeout(() => navigate("/admin/members"), 400);
     },
     onError: () => toast.error("Failed to save member."),
   });
@@ -77,12 +86,15 @@ export function MemberFormPage() {
 
       <div className="max-w-2xl">
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
-          <FieldGroup>
+          <FieldGroup className={cn("transition-all duration-500", showSuccess && "ring-2 ring-green-500/50 rounded-lg")}>
             <Field data-invalid={!!form.formState.errors.name}>
               <FieldLabel htmlFor="name">Name</FieldLabel>
               <FieldContent>
                 <Input id="name" placeholder="Full name" aria-invalid={!!form.formState.errors.name} {...form.register("name")} />
                 <FieldError errors={[form.formState.errors.name]} />
+                <span className={cn("text-body-xs", nameCount >= 100 ? "text-destructive" : nameCount >= 80 ? "text-amber-500" : "text-muted-foreground")}>
+                  {nameCount}/100
+                </span>
               </FieldContent>
             </Field>
             <Field data-invalid={!!form.formState.errors.role}>
@@ -90,6 +102,9 @@ export function MemberFormPage() {
               <FieldContent>
                 <Input id="role" placeholder="e.g. Treasurer, Event Lead" aria-invalid={!!form.formState.errors.role} {...form.register("role")} />
                 <FieldError errors={[form.formState.errors.role]} />
+                <span className={cn("text-body-xs", roleCount >= 100 ? "text-destructive" : roleCount >= 80 ? "text-amber-500" : "text-muted-foreground")}>
+                  {roleCount}/100
+                </span>
               </FieldContent>
             </Field>
             <Field data-invalid={!!form.formState.errors.bio}>
@@ -97,11 +112,16 @@ export function MemberFormPage() {
               <FieldContent>
                 <Textarea id="bio" placeholder="Short biography" rows={3} aria-invalid={!!form.formState.errors.bio} {...form.register("bio")} />
                 <FieldError errors={[form.formState.errors.bio]} />
+                <span className={cn("text-body-xs", bioCount >= 500 ? "text-destructive" : bioCount >= 400 ? "text-amber-500" : "text-muted-foreground")}>
+                  {bioCount}/500
+                </span>
               </FieldContent>
             </Field>
           </FieldGroup>
           <Button type="submit" disabled={mutation.isPending} className="w-full sm:w-auto">
-            {mutation.isPending ? "Saving..." : isEditing ? "Update Member" : "Add Member"}
+            {mutation.isPending ? (
+              <><Spinner className="mr-2" /> Saving...</>
+            ) : isEditing ? "Update Member" : "Add Member"}
           </Button>
         </form>
       </div>

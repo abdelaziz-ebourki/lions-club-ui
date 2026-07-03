@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,12 +10,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
+import { cn } from "@/lib/utils";
+import { Spinner } from "@/components/ui/spinner";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const threadSchema = z.object({
-  title: z.string().min(5, "Title must be at least 5 characters"),
-  content: z.string().min(10, "Content must be at least 10 characters"),
+  title: z.string().min(5, "Title must be at least 5 characters").max(200, "Title must be at most 200 characters"),
+  content: z.string().min(10, "Content must be at least 10 characters").max(5000, "Content must be at most 5000 characters"),
 });
 
 type ThreadFormData = z.infer<typeof threadSchema>;
@@ -28,6 +31,10 @@ export function NewThreadForm() {
     defaultValues: { title: "", content: "" },
   });
 
+  const titleCount = form.watch("title").length;
+  const contentCount = form.watch("content").length;
+  const [showSuccess, setShowSuccess] = useState(false);
+
   const mutation = useMutation({
     mutationFn: (data: ThreadFormData) => api.post(`/forum/${categoryId}/threads`, data),
   });
@@ -36,7 +43,8 @@ export function NewThreadForm() {
     mutation.mutate(data, {
       onSuccess: () => {
         toast.success("Thread created successfully!");
-        navigate(`/forum/${categoryId}`);
+        setShowSuccess(true);
+        setTimeout(() => navigate(`/forum/${categoryId}`), 400);
       },
       onError: () => toast.error("Failed to create thread. Please try again."),
     });
@@ -58,7 +66,7 @@ export function NewThreadForm() {
       </div>
 
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
-        <FieldGroup>
+        <FieldGroup className={cn("transition-all duration-500", showSuccess && "ring-2 ring-green-500/50 rounded-lg")}>
           <Field data-invalid={!!form.formState.errors.title}>
             <FieldLabel htmlFor="title">Thread Title</FieldLabel>
             <FieldContent>
@@ -70,6 +78,9 @@ export function NewThreadForm() {
                 autoComplete="off"
               />
               <FieldError errors={[form.formState.errors.title]} />
+              <span className={cn("text-body-xs", titleCount >= 200 ? "text-destructive" : titleCount >= 160 ? "text-amber-500" : "text-muted-foreground")}>
+                {titleCount}/200
+              </span>
             </FieldContent>
           </Field>
           <Field data-invalid={!!form.formState.errors.content}>
@@ -84,11 +95,16 @@ export function NewThreadForm() {
                 autoComplete="off"
               />
               <FieldError errors={[form.formState.errors.content]} />
+              <span className={cn("text-body-xs", contentCount >= 5000 ? "text-destructive" : contentCount >= 4000 ? "text-amber-500" : "text-muted-foreground")}>
+                {contentCount}/5000
+              </span>
             </FieldContent>
           </Field>
         </FieldGroup>
         <Button type="submit" disabled={mutation.isPending}>
-          {mutation.isPending ? "Posting..." : "Post Thread"}
+          {mutation.isPending ? (
+            <><Spinner className="mr-2" /> Posting...</>
+          ) : "Post Thread"}
         </Button>
       </form>
     </div>

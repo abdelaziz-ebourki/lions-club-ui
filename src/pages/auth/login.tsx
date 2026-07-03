@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { api } from "@/lib/api";
+import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -69,7 +70,9 @@ export function LoginPage() {
               </Field>
             </FieldGroup>
             <Button type="submit" disabled={mutation.isPending}>
-              {mutation.isPending ? "Signing in..." : "Sign In"}
+              {mutation.isPending ? (
+                <><Spinner className="mr-2" /> Signing in...</>
+              ) : "Sign In"}
             </Button>
           </form>
           <p className="mt-4 text-center text-body-sm text-muted-foreground">
