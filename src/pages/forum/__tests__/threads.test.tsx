@@ -102,4 +102,22 @@ describe("ThreadsPage", () => {
     render(<ThreadsPage />);
     expect(screen.getByLabelText(/filter by status/i)).toBeInTheDocument();
   });
+
+  test("loading container has aria-busy='true' while loading", () => {
+    mockUseQuery
+      .mockReturnValueOnce({ data: mockCategories, isLoading: false, isError: false, refetch: vi.fn() })
+      .mockReturnValue({ data: undefined as any, isLoading: true, isError: false, refetch: vi.fn() });
+    render(<ThreadsPage />);
+    const containers = document.querySelectorAll('[aria-busy="true"]');
+    expect(containers.length).toBeGreaterThanOrEqual(1);
+  });
+
+  test("thread icon wrapper has aria-hidden='true'", () => {
+    mockUseQuery
+      .mockReturnValueOnce({ data: mockCategories, isLoading: false, isError: false, refetch: vi.fn() })
+      .mockReturnValue({ data: mockThreads, isLoading: false, isError: false, refetch: vi.fn() });
+    render(<ThreadsPage />);
+    const hiddenWrappers = document.querySelectorAll('[aria-hidden="true"]');
+    expect(hiddenWrappers.length).toBeGreaterThanOrEqual(1);
+  });
 });

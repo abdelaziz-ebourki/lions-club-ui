@@ -35,11 +35,12 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex md:items-center md:gap-1">
+        <nav aria-label="Main navigation" className="hidden md:flex md:items-center md:gap-1">
           {siteConfig.nav.map((item) => (
             <Link
               key={item.href}
               to={item.href}
+              aria-current={location.pathname === item.href ? "page" : undefined}
               className={cn(
                 "px-3 py-2 text-sm font-medium transition-colors hover:text-primary",
                 location.pathname === item.href
@@ -91,11 +92,12 @@ export function Header() {
               <div className="mt-8">
                 <SearchBar className="md:hidden" />
               </div>
-              <nav className="mt-4 flex flex-col gap-4">
+              <nav aria-label="Mobile navigation" className="mt-4 flex flex-col gap-4">
                 {siteConfig.nav.map((item) => (
                   <Link
                     key={item.href}
                     to={item.href}
+                    aria-current={location.pathname === item.href ? "page" : undefined}
                     onClick={() => setOpen(false)}
                     className={cn(
                       "text-lg font-medium transition-colors hover:text-primary",
@@ -115,6 +117,7 @@ export function Header() {
                     </p>
                     <Link
                       to="/admin"
+                      aria-current={location.pathname === "/admin" ? "page" : undefined}
                       onClick={() => setOpen(false)}
                       className={cn(
                         "text-lg font-medium transition-colors hover:text-primary",
@@ -127,6 +130,7 @@ export function Header() {
                     </Link>
                     <Link
                       to="/admin/events"
+                      aria-current={location.pathname === "/admin/events" ? "page" : undefined}
                       onClick={() => setOpen(false)}
                       className={cn(
                         "text-lg font-medium transition-colors hover:text-primary",
@@ -139,6 +143,7 @@ export function Header() {
                     </Link>
                     <Link
                       to="/admin/forum"
+                      aria-current={location.pathname === "/admin/forum" ? "page" : undefined}
                       onClick={() => setOpen(false)}
                       className={cn(
                         "text-lg font-medium transition-colors hover:text-primary",
@@ -151,6 +156,7 @@ export function Header() {
                     </Link>
                     <Link
                       to="/admin/members"
+                      aria-current={location.pathname === "/admin/members" ? "page" : undefined}
                       onClick={() => setOpen(false)}
                       className={cn(
                         "text-lg font-medium transition-colors hover:text-primary",
@@ -163,6 +169,7 @@ export function Header() {
                     </Link>
                     <Link
                       to="/admin/messages"
+                      aria-current={location.pathname === "/admin/messages" ? "page" : undefined}
                       onClick={() => setOpen(false)}
                       className={cn(
                         "text-lg font-medium transition-colors hover:text-primary",

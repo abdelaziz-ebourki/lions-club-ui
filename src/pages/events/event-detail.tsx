@@ -42,7 +42,7 @@ export function EventDetailPage() {
     <article className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
       <Link to="/events">
         <Button variant="ghost" className="mb-8">
-          <ArrowLeft data-icon="inline-start" /> All Projects
+          <ArrowLeft data-icon="inline-start" aria-hidden="true" /> All Projects
         </Button>
       </Link>
 

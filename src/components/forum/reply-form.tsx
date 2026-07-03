@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { Spinner } from '@/components/ui/spinner';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
@@ -61,7 +62,7 @@ export function ReplyForm({ onSubmit, parentReplyId, quotedAuthor, maxLength = 5
         />
 
         <div className="flex items-center justify-between">
-          <span className="text-body-sm text-muted-foreground">
+          <span className="text-body-sm text-muted-foreground" aria-live="polite">
             {content.length}/{maxLength}
           </span>
           <Button
@@ -69,7 +70,9 @@ export function ReplyForm({ onSubmit, parentReplyId, quotedAuthor, maxLength = 5
             disabled={form.formState.isSubmitting}
             className="ml-auto"
           >
-            {form.formState.isSubmitting ? 'Posting...' : 'Post Reply'}
+            {form.formState.isSubmitting ? (
+              <><Spinner className="mr-2" /> Posting...</>
+            ) : 'Post Reply'}
           </Button>
         </div>
       </div>

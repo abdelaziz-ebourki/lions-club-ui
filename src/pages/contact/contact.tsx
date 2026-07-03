@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -21,14 +22,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
+import { Spinner } from "@/components/ui/spinner";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 import { siteConfig } from "@/config";
 
 const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
+  name: z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be at most 100 characters"),
   email: z.string().email("Invalid email address"),
-  subject: z.string().min(5, "Subject must be at least 5 characters"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  subject: z.string().min(5, "Subject must be at least 5 characters").max(200, "Subject must be at most 200 characters"),
+  message: z.string().min(10, "Message must be at least 10 characters").max(2000, "Message must be at most 2000 characters"),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -62,13 +65,26 @@ export function ContactPage() {
     defaultValues: { name: "", email: "", subject: "", message: "" },
   });
 
+  const nameCount = form.watch("name").length;
+  const subjectCount = form.watch("subject").length;
+  const messageCount = form.watch("message").length;
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const successTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => () => void clearTimeout(successTimer.current), []);
+
   const mutation = useMutation({
     mutationFn: (data: ContactFormData) => api.post("/contact", data),
   });
 
   function onSubmit(data: ContactFormData) {
     mutation.mutate(data, {
-      onSuccess: () => toast.success("Message sent! We'll get back to you soon."),
+      onSuccess: () => {
+        setShowSuccess(true);
+        successTimer.current = setTimeout(() => setShowSuccess(false), 2000);
+        toast.success("Message sent! We'll get back to you soon.");
+      },
       onError: () => toast.error("Failed to send. Please try again."),
     });
   }
@@ -113,13 +129,16 @@ export function ContactPage() {
                   onSubmit={form.handleSubmit(onSubmit)}
                   className="flex flex-col gap-6"
                 >
-                  <FieldGroup>
+                  <FieldGroup className={cn("transition-all duration-500", showSuccess && "ring-2 ring-green-500/50 rounded-lg")}>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <Field data-invalid={!!form.formState.errors.name}>
                         <FieldLabel htmlFor="name">Name</FieldLabel>
                         <FieldContent>
                           <Input id="name" placeholder="Your name" aria-invalid={!!form.formState.errors.name} {...form.register("name")} autoComplete="name" />
                           <FieldError errors={[form.formState.errors.name]} />
+                          <span className={cn("text-body-xs", nameCount >= 100 ? "text-destructive" : nameCount >= 80 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
+                            {nameCount}/100
+                          </span>
                         </FieldContent>
                       </Field>
                       <Field data-invalid={!!form.formState.errors.email}>
@@ -130,20 +149,26 @@ export function ContactPage() {
                         </FieldContent>
                       </Field>
                     </div>
-                    <Field data-invalid={!!form.formState.errors.subject}>
-                      <FieldLabel htmlFor="subject">Subject</FieldLabel>
-                      <FieldContent>
-                        <Input id="subject" placeholder="How can we help?" aria-invalid={!!form.formState.errors.subject} {...form.register("subject")} autoComplete="off" />
-                        <FieldError errors={[form.formState.errors.subject]} />
-                      </FieldContent>
-                    </Field>
-                    <Field data-invalid={!!form.formState.errors.message}>
-                      <FieldLabel htmlFor="message">Message</FieldLabel>
-                      <FieldContent>
-                        <Textarea id="message" placeholder="Tell us more..." rows={5} aria-invalid={!!form.formState.errors.message} {...form.register("message")} autoComplete="off" />
-                        <FieldError errors={[form.formState.errors.message]} />
-                      </FieldContent>
-                    </Field>
+                      <Field data-invalid={!!form.formState.errors.subject}>
+                        <FieldLabel htmlFor="subject">Subject</FieldLabel>
+                        <FieldContent>
+                          <Input id="subject" placeholder="How can we help?" aria-invalid={!!form.formState.errors.subject} {...form.register("subject")} autoComplete="off" />
+                          <FieldError errors={[form.formState.errors.subject]} />
+                          <span className={cn("text-body-xs", subjectCount >= 200 ? "text-destructive" : subjectCount >= 160 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
+                            {subjectCount}/200
+                          </span>
+                        </FieldContent>
+                      </Field>
+                      <Field data-invalid={!!form.formState.errors.message}>
+                        <FieldLabel htmlFor="message">Message</FieldLabel>
+                        <FieldContent>
+                          <Textarea id="message" placeholder="Tell us more..." rows={5} aria-invalid={!!form.formState.errors.message} {...form.register("message")} autoComplete="off" />
+                          <FieldError errors={[form.formState.errors.message]} />
+                          <span className={cn("text-body-xs", messageCount >= 2000 ? "text-destructive" : messageCount >= 1600 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
+                            {messageCount}/2000
+                          </span>
+                        </FieldContent>
+                      </Field>
                   </FieldGroup>
                   <Button
                     type="submit"
@@ -151,7 +176,7 @@ export function ContactPage() {
                     className="w-full sm:w-auto"
                   >
                     {mutation.isPending ? (
-                      "Sending..."
+                      <><Spinner className="mr-2" /> Sending...</>
                     ) : (
                       <>
                         Send Message{" "}
