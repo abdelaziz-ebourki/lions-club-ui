@@ -23,3 +23,11 @@ export const siteConfig = {
 export const appConfig = {
   apiBaseUrl: import.meta.env.VITE_API_URL ?? "/api",
 } as const;
+
+export const eventCategories = [
+  "Health",
+  "Environment",
+  "Youth",
+  "Community",
+  "Fundraiser",
+] as const;
