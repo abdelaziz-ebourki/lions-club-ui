@@ -6,11 +6,11 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "@/lib/api";
+import { useAuth } from "@/contexts/auth";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
 
 const loginSchema = z.object({
@@ -27,12 +27,14 @@ export function LoginPage() {
   });
 
   const navigate = useNavigate();
+  const { refreshUser } = useAuth();
 
   const [rememberMe, setRememberMe] = useState(() => localStorage.getItem("remember_me") === "true");
 
   const mutation = useMutation({
     mutationFn: (data: LoginFormData & { remember_me?: boolean }) => api.post("/auth/login", data),
-    onSuccess: () => {
+    onSuccess: async () => {
+      await refreshUser();
       toast.success("Welcome back!");
       navigate("/");
     },
@@ -75,23 +77,26 @@ export function LoginPage() {
                   <FieldError errors={[form.formState.errors.password]} />
                 </FieldContent>
               </Field>
-              <Label className="flex items-center gap-2 text-sm font-normal normal-case">
-                <input
-                  type="checkbox"
-                  data-slot="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => {
-                    const checked = e.target.checked;
-                    setRememberMe(checked);
-                    if (checked) {
-                      localStorage.setItem("remember_me", "true");
-                    } else {
-                      localStorage.removeItem("remember_me");
-                    }
-                  }}
-                />
-                Remember me
-              </Label>
+              <Field orientation="horizontal">
+                <FieldLabel>
+                  <input
+                    type="checkbox"
+                    data-slot="checkbox"
+                    role="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => {
+                      const checked = e.target.checked;
+                      setRememberMe(checked);
+                      if (checked) {
+                        localStorage.setItem("remember_me", "true");
+                      } else {
+                        localStorage.removeItem("remember_me");
+                      }
+                    }}
+                  />
+                  Remember me
+                </FieldLabel>
+              </Field>
             </FieldGroup>
             <Button type="submit" disabled={mutation.isPending}>
               {mutation.isPending ? (
