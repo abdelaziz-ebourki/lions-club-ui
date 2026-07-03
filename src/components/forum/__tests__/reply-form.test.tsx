@@ -29,7 +29,9 @@ describe('ReplyForm', () => {
 
     test('shows character count (current/max)', () => {
       renderComponent();
-      expect(screen.getByText(/0\/5000/i)).toBeInTheDocument();
+      const charCount = screen.getByText(/0\/5000/i);
+      expect(charCount).toBeInTheDocument();
+      expect(charCount).toHaveAttribute('aria-live', 'polite');
     });
 
     test('shows "Reply to thread" label', () => {
