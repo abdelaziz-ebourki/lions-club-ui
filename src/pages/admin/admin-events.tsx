@@ -19,8 +19,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { CalendarX, Plus, Pencil, Trash2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { EmptyState } from "@/components/shared/empty-state";
 
 export function AdminEventsPage() {
   const queryClient = useQueryClient();
@@ -67,14 +68,33 @@ export function AdminEventsPage() {
     );
   }
 
-  const deleteMutation = useMutation({
-    mutationFn: (id: string) => api.delete(`/events/${id}`),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["events"] });
-      toast.success("Event deleted successfully.");
-    },
-    onError: () => toast.error("Failed to delete event."),
-  });
+  if (events?.length === 0) {
+    return (
+      <div>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <p className="font-display text-overline text-accent">Events</p>
+            <h1 className="font-heading text-h2 mt-1 text-foreground">Manage Events</h1>
+          </div>
+          <Link to="/admin/events/new">
+            <Button>
+              <Plus data-icon="inline-start" /> New Event
+            </Button>
+          </Link>
+        </div>
+        <EmptyState
+          icon={CalendarX}
+          title="No projects yet"
+          description="Create your first community project."
+          action={
+            <Link to="/admin/events/new">
+              <Button>Create your first project</Button>
+            </Link>
+          }
+        />
+      </div>
+    );
+  }
 
   return (
     <div>

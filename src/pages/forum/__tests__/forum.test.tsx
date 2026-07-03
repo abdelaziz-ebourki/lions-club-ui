@@ -54,7 +54,8 @@ describe('ForumPage', () => {
   test('shows empty state when no categories', () => {
     vi.mocked(useQuery).mockReturnValue({ data: [], isLoading: false } as any);
     render(<ForumPage />);
-    expect(screen.getByText(/No categories yet/i)).toBeInTheDocument();
+    expect(screen.getByText("No categories yet")).toBeInTheDocument();
+    expect(screen.getByRole("status")).toBeInTheDocument();
   });
 
   test('shows error state with retry button', () => {

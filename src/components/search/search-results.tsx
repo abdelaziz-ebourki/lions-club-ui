@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { EmptyState } from "@/components/shared/empty-state";
+import { SearchX } from "lucide-react";
 import type { SearchResultGroup } from "@/types";
 import { SearchResultItem } from "./search-result-item";
 
@@ -42,12 +44,11 @@ export function SearchResults({ groups, totalCount, isSearching, error, onRetry 
 
   if (totalCount === 0) {
     return (
-      <div className="py-16 text-center">
-        <h2 className="font-heading text-h4 text-foreground">No results found</h2>
-        <p className="mt-2 text-muted-foreground">
-          Try different keywords or browse the site manually.
-        </p>
-      </div>
+      <EmptyState
+        icon={SearchX}
+        title="No results found"
+        description="Try different keywords or browse the site manually."
+      />
     );
   }
 

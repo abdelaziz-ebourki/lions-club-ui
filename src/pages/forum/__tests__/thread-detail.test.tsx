@@ -134,14 +134,15 @@ describe('ThreadDetailPage', () => {
     expect(screen.queryByTestId('reply-form')).not.toBeInTheDocument();
   });
 
-  test('shows empty reply count when no replies', () => {
+  test('shows empty state when no replies', () => {
     (useQuery as ReturnType<typeof vi.fn>).mockReturnValue({
       data: { thread: mockThread, replies: [] },
       isLoading: false,
       error: null,
     });
     render(<ThreadDetailPage />);
-    expect(screen.getByText('0 replies')).toBeInTheDocument();
+    expect(screen.getByText('No replies yet')).toBeInTheDocument();
+    expect(screen.getByRole('status')).toBeInTheDocument();
   });
 
   test('shows reply form with quoted author after clicking Reply', async () => {

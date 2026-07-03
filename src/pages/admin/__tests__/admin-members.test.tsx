@@ -34,6 +34,13 @@ describe("AdminMembersPage", () => {
     expect(skeletons.length).toBeGreaterThan(0);
   });
 
+  test("shows empty state when no members", () => {
+    vi.mocked(useQuery).mockReturnValue({ data: [], isLoading: false } as any);
+    render(<AdminMembersPage />);
+    expect(screen.getByText("No members yet")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /add your first member/i })).toBeInTheDocument();
+  });
+
   test("renders members when loaded", () => {
     const mockMembers = [
       { id: "1", name: "Alice", role: "President" },

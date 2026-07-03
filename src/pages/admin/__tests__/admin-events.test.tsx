@@ -36,6 +36,13 @@ describe("AdminEventsPage", () => {
     expect(skeletons.length).toBeGreaterThan(0);
   });
 
+  test("shows empty state when no events", () => {
+    vi.mocked(useQuery).mockReturnValue({ data: [], isLoading: false } as any);
+    render(<AdminEventsPage />);
+    expect(screen.getByText("No projects yet")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /create your first project/i })).toBeInTheDocument();
+  });
+
   test("renders events when loaded", () => {
     const mockEvents = [
       { id: "1", title: "Beach Cleanup", date: "2026-07-15", category: "Environment", status: "upcoming" as const },

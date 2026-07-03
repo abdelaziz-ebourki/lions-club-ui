@@ -11,7 +11,9 @@ import {
   Users,
   Lightbulb,
   ChevronRight,
+  FolderOpen,
 } from "lucide-react";
+import { EmptyState } from "@/components/shared/empty-state";
 
 const iconMap: Record<string, typeof MessageSquare> = {
   MessageSquare,
@@ -67,11 +69,11 @@ export function ForumPage() {
             ))}
           </div>
         ) : categories?.length === 0 ? (
-          <div className="py-16 text-center">
-            <p className="font-body text-muted-foreground">
-              No categories yet. Check back soon.
-            </p>
-          </div>
+          <EmptyState
+            icon={FolderOpen}
+            title="No categories yet"
+            description="Forum categories will appear here once created by an administrator."
+          />
         ) : (
           <div className="flex flex-col gap-4">
             {categories?.map((category) => {

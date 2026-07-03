@@ -7,8 +7,9 @@ import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Pencil } from "lucide-react";
+import { Plus, Pencil, Users } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { EmptyState } from "@/components/shared/empty-state";
 
 export function AdminMembersPage() {
   const { data: members, isLoading } = useQuery<Member[]>({
@@ -45,6 +46,34 @@ export function AdminMembersPage() {
             </TableBody>
           </Table>
         </div>
+      </div>
+    );
+  }
+
+  if (members?.length === 0) {
+    return (
+      <div>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <p className="font-display text-overline text-accent">Members</p>
+            <h1 className="font-heading text-h2 mt-1 text-foreground">Manage Members</h1>
+          </div>
+          <Link to="/admin/members/new">
+            <Button>
+              <Plus data-icon="inline-start" /> Add Member
+            </Button>
+          </Link>
+        </div>
+        <EmptyState
+          icon={Users}
+          title="No members yet"
+          description="Add your first club member."
+          action={
+            <Link to="/admin/members/new">
+              <Button>Add your first member</Button>
+            </Link>
+          }
+        />
       </div>
     );
   }
