@@ -9,6 +9,7 @@ const seededUsers = [
     email: "admin@lionsclub.com",
     password: "admin123", // plain text for mock only
     role: "admin" as const,
+    emailVerified: true,
   },
   {
     id: "user-1",
@@ -16,6 +17,7 @@ const seededUsers = [
     email: "fatima@lionsclub.com",
     password: "member123",
     role: "member" as const,
+    emailVerified: false,
   },
   {
     id: "user-2",
@@ -23,6 +25,7 @@ const seededUsers = [
     email: "youssef@lionsclub.com",
     password: "member123",
     role: "member" as const,
+    emailVerified: true,
   },
 ];
 
@@ -109,6 +112,7 @@ export const authHandlers = [
       name,
       email,
       role: "member" as const,
+      emailVerified: false,
     };
 
     return setAuthCookie(newUser.id);
@@ -130,6 +134,7 @@ export const authHandlers = [
       name: user.name,
       email: user.email,
       role: user.role,
+      emailVerified: user.emailVerified,
     });
   }),
 

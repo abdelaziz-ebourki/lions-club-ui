@@ -62,7 +62,7 @@ describe('RegisterPage', () => {
     expect(submitButton.querySelector('svg')).toBeInTheDocument();
   });
 
-  test('shows account created toast on successful registration', async () => {
+  test('shows account created and email verification toasts on successful registration', async () => {
     vi.spyOn(toast, 'success');
     let onSuccess: () => Promise<void> = async () => {};
     vi.mocked(useMutation).mockImplementation((opts: any) => {
@@ -78,5 +78,6 @@ describe('RegisterPage', () => {
     fireEvent.click(screen.getByRole('button', { name: /create account/i }));
     await onSuccess();
     expect(toast.success).toHaveBeenCalledWith('Account created successfully!');
+    expect(toast.success).toHaveBeenCalledWith('Please check your email to verify your account');
   });
 });

@@ -38,6 +38,7 @@ export function RegisterPage() {
     onSuccess: async () => {
       await refreshUser();
       toast.success("Account created successfully!");
+      toast.success("Please check your email to verify your account");
       navigate("/");
     },
   });
