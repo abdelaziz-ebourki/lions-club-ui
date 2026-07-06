@@ -95,3 +95,34 @@ export interface SearchResultGroup {
   results: SearchResult[];
 }
 
+export type NotificationType = "forum_reply" | "event_update" | "admin_announcement";
+
+export interface Notification {
+  id: string;
+  type: NotificationType;
+  title: string;
+  description: string;
+  targetUrl: string;
+  read: boolean;
+  createdAt: string;
+}
+
+export interface NotificationState {
+  notifications: Notification[];
+  unreadCount: number;
+  isOpen: boolean;
+}
+
+export interface EmailVerificationStatus {
+  verified: boolean;
+  verifiedAt?: string;
+  pendingResendUntil?: string;
+}
+
+export class AuthError extends Error {
+  constructor() {
+    super("Session expired");
+    this.name = "AuthError";
+  }
+}
+

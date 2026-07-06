@@ -12,11 +12,23 @@ vi.mock('@/contexts/auth', () => ({
     user: null,
     isAuthenticated: false,
     isAdmin: false,
+    isEmailVerified: false,
     login: vi.fn(),
     register: vi.fn(),
     logout: vi.fn(),
     refreshUser: vi.fn(),
     loading: false,
+  }),
+}));
+
+vi.mock('@/hooks/use-notifications', () => ({
+  useNotifications: () => ({
+    notifications: [],
+    unreadCount: 0,
+    isLoading: false,
+    isError: false,
+    error: null,
+    refetch: vi.fn(),
   }),
 }));
 

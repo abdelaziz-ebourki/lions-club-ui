@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { api } from "@/lib/api";
 import { useAuth } from "@/contexts/auth";
 import { Spinner } from "@/components/ui/spinner";
@@ -27,6 +27,7 @@ export function LoginPage() {
   });
 
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { refreshUser } = useAuth();
 
   const [rememberMe, setRememberMe] = useState(() => localStorage.getItem("remember_me") === "true");
@@ -36,7 +37,7 @@ export function LoginPage() {
     onSuccess: async () => {
       await refreshUser();
       toast.success("Welcome back!");
-      navigate("/");
+      navigate(searchParams.get("return") || "/");
     },
   });
 

@@ -27,6 +27,7 @@ beforeEach(() => {
     user: null,
     isAuthenticated: false,
     isAdmin: false,
+    isEmailVerified: false,
     loading: true,
     login: vi.fn(),
     register: vi.fn(),
@@ -41,6 +42,7 @@ describe('RequireAdmin', () => {
       user: null,
       isAuthenticated: false,
       isAdmin: false,
+      isEmailVerified: false,
       loading: true,
       login: vi.fn(),
       register: vi.fn(),
@@ -58,9 +60,10 @@ describe('RequireAdmin', () => {
 
   test('redirects to / when not admin', () => {
     vi.mocked(useAuth).mockReturnValue({
-      user: { id: '1', name: 'Member', email: 'm@test.com', role: 'member' },
+      user: { id: '1', name: 'Member', email: 'm@test.com', role: 'member', emailVerified: true },
       isAuthenticated: true,
       isAdmin: false,
+      isEmailVerified: true,
       loading: false,
       login: vi.fn(),
       register: vi.fn(),
@@ -78,9 +81,10 @@ describe('RequireAdmin', () => {
 
   test('renders children when admin', () => {
     vi.mocked(useAuth).mockReturnValue({
-      user: { id: '1', name: 'Admin', email: 'a@test.com', role: 'admin' },
+      user: { id: '1', name: 'Admin', email: 'a@test.com', role: 'admin', emailVerified: true },
       isAuthenticated: true,
       isAdmin: true,
+      isEmailVerified: true,
       loading: false,
       login: vi.fn(),
       register: vi.fn(),
