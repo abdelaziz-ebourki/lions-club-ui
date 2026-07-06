@@ -10,6 +10,7 @@ const seededUsers = [
     password: "admin123", // plain text for mock only
     role: "admin" as const,
     emailVerified: true,
+    createdAt: "2020-06-01T09:00:00Z",
   },
   {
     id: "user-1",
@@ -18,6 +19,7 @@ const seededUsers = [
     password: "member123",
     role: "member" as const,
     emailVerified: false,
+    createdAt: "2021-03-15T10:00:00Z",
   },
   {
     id: "user-2",
@@ -26,6 +28,7 @@ const seededUsers = [
     password: "member123",
     role: "member" as const,
     emailVerified: true,
+    createdAt: "2022-01-20T08:00:00Z",
   },
 ];
 
@@ -135,6 +138,7 @@ export const authHandlers = [
       email: user.email,
       role: user.role,
       emailVerified: user.emailVerified,
+      createdAt: user.createdAt,
     });
   }),
 

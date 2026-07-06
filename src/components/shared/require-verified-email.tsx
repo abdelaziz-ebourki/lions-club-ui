@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import { useAuth } from "@/contexts/auth";
 import { useEmailVerification } from "@/hooks/use-email-verification";
 import { EmailVerificationBanner } from "@/components/shared/email-verification-banner";
@@ -10,7 +11,7 @@ export function RequireVerifiedEmail({ children }: RequireVerifiedEmailProps) {
   const { isAuthenticated } = useAuth();
   const { isVerified, isCooldown, cooldownSeconds, resend } = useEmailVerification();
 
-  if (!isAuthenticated) return <>{children}</>;
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
 
   if (!isVerified) {
     return (

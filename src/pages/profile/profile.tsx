@@ -9,10 +9,12 @@ export function ProfilePage() {
 
   if (!user) return null;
 
-  const memberSince = new Date().toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-  });
+  const memberSince = user.createdAt
+    ? new Date(user.createdAt).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+      })
+    : "—";
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">

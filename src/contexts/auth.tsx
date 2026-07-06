@@ -8,6 +8,7 @@ interface User {
   email: string;
   role: "admin" | "member";
   emailVerified: boolean;
+  createdAt?: string;
 }
 
 interface AuthContextValue {
@@ -28,7 +29,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useSessionTimeout(() => setUser(null));
+  const handleExpired = useCallback(() => setUser(null), []);
+  useSessionTimeout(handleExpired);
 
   const refreshUser = useCallback(async () => {
     try {

@@ -54,11 +54,12 @@ export function NotificationPanel({
             </div>
           ) : (
             notifications.slice(0, 50).map((notification) => (
-              <NotificationItem
-                key={notification.id}
-                notification={notification}
-                onClick={onNotificationClick}
-              />
+              <div key={notification.id} role="listitem">
+                <NotificationItem
+                  notification={notification}
+                  onClick={onNotificationClick}
+                />
+              </div>
             ))
           )}
         </div>

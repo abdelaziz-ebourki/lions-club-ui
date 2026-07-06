@@ -11,22 +11,29 @@ interface NotificationBellProps {
 
 export function NotificationBell({ unreadCount, onClick, className }: NotificationBellProps) {
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={onClick}
-      className={cn("relative", className)}
-      aria-label={`Notifications${unreadCount > 0 ? ` (${unreadCount} unread)` : ""}`}
-    >
-      <Bell className="h-5 w-5" />
-      {unreadCount > 0 && (
-        <Badge
-          variant="destructive"
-          className="absolute -top-1 -right-1 h-4 min-w-4 px-1 text-[10px]"
-        >
-          {unreadCount > 99 ? "99+" : unreadCount}
-        </Badge>
-      )}
-    </Button>
+    <>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={onClick}
+        className={cn("relative", className)}
+        aria-label={`Notifications${unreadCount > 0 ? ` (${unreadCount} unread)` : ""}`}
+      >
+        <Bell className="h-5 w-5" />
+        {unreadCount > 0 && (
+          <Badge
+            variant="destructive"
+            className="absolute -top-1 -right-1 h-4 min-w-4 px-1 text-[10px]"
+          >
+            {unreadCount > 99 ? "99+" : unreadCount}
+          </Badge>
+        )}
+      </Button>
+      <span className="sr-only" aria-live="polite" role="status">
+        {unreadCount > 0
+          ? `${unreadCount} unread notification${unreadCount === 1 ? "" : "s"}`
+          : "No unread notifications"}
+      </span>
+    </>
   );
 }

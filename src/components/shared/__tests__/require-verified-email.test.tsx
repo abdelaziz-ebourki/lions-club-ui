@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { RequireVerifiedEmail } from '../require-verified-email';
 import { useAuth } from '@/contexts/auth';
 import { describe, test, expect, vi, beforeEach } from 'vitest';
@@ -24,7 +25,7 @@ beforeEach(() => {
 });
 
 describe('RequireVerifiedEmail', () => {
-  test('renders children when not authenticated', () => {
+  test('redirects to login when not authenticated', () => {
     vi.mocked(useAuth).mockReturnValue({
       user: null,
       isAuthenticated: false,
@@ -37,11 +38,13 @@ describe('RequireVerifiedEmail', () => {
       refreshUser: vi.fn(),
     });
     render(
-      <RequireVerifiedEmail>
-        <p>Protected Content</p>
-      </RequireVerifiedEmail>
+      <MemoryRouter>
+        <RequireVerifiedEmail>
+          <p>Protected Content</p>
+        </RequireVerifiedEmail>
+      </MemoryRouter>
     );
-    expect(screen.getByText('Protected Content')).toBeInTheDocument();
+    expect(screen.queryByText('Protected Content')).not.toBeInTheDocument();
   });
 
   test('shows banner when authenticated but not verified', () => {

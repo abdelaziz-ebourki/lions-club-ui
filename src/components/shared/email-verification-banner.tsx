@@ -17,12 +17,9 @@ export function EmailVerificationBanner({
   if (isVerified) return null;
 
   return (
-    <div
-      role="status"
-      className="flex items-center gap-3 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-200"
-    >
+    <div className="flex items-center gap-3 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-200">
       <AlertTriangle className="size-5 shrink-0" />
-      <div className="flex-1">
+      <div role="status" className="flex-1">
         <p className="font-medium">Email not verified</p>
         <p className="text-amber-700 dark:text-amber-300">
           Please verify your email address to access all features.
