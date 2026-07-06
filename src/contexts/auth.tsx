@@ -1,11 +1,14 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
 import { api } from "@/lib/api";
+import { useSessionTimeout } from "@/hooks/use-session-timeout";
 
 interface User {
   id: string;
   name: string;
   email: string;
   role: "admin" | "member";
+  emailVerified: boolean;
+  createdAt?: string;
 }
 
 interface AuthContextValue {
@@ -16,6 +19,7 @@ interface AuthContextValue {
   refreshUser: () => Promise<void>;
   isAuthenticated: boolean;
   isAdmin: boolean;
+  isEmailVerified: boolean;
   loading: boolean;
 }
 
@@ -24,6 +28,9 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const handleExpired = useCallback(() => setUser(null), []);
+  useSessionTimeout(handleExpired);
 
   const refreshUser = useCallback(async () => {
     try {
@@ -85,6 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         refreshUser,
         isAuthenticated: !!user,
         isAdmin: user?.role === "admin",
+        isEmailVerified: user?.emailVerified ?? false,
         loading,
       }}
     >

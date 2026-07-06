@@ -6,12 +6,15 @@ import { ThemeProvider } from "@/contexts/theme";
 import { AuthProvider } from "@/contexts/auth";
 import { ErrorBoundary } from "@/components/shared/error-boundary";
 import { RequireAdmin } from "@/components/shared/require-admin";
+import { RequireVerifiedEmail } from "@/components/shared/require-verified-email";
 import { PageSkeleton } from "@/components/shared/page-skeleton";
 import { Shell } from "@/components/layout/shell";
 import { HomePage } from "@/pages/home/home";
 import { AboutPage } from "@/pages/about/about";
 import { EventsPage } from "@/pages/events/events";
 import { ContactPage } from "@/pages/contact/contact";
+import { ProfilePage } from "@/pages/profile/profile";
+import { VerifyEmailPage } from "@/pages/verify-email";
 import { ForumPage } from "@/pages/forum/forum";
 import { LoginPage } from "@/pages/auth/login";
 import { RegisterPage } from "@/pages/auth/register";
@@ -75,11 +78,13 @@ export default function App() {
                   } />
                   <Route path="login" element={<LoginPage />} />
                   <Route path="register" element={<RegisterPage />} />
+                  <Route path="profile" element={<ProfilePage />} />
+                  <Route path="verify-email" element={<VerifyEmailPage />} />
                   <Route path="*" element={<NotFoundPage />} />
                 </Route>
                 <Route path="/admin" element={
                   <Suspense fallback={<PageSkeleton />}>
-                    <RequireAdmin><AdminLayout /></RequireAdmin>
+                    <RequireAdmin><RequireVerifiedEmail><AdminLayout /></RequireVerifiedEmail></RequireAdmin>
                   </Suspense>
                 }>
                   <Route index element={

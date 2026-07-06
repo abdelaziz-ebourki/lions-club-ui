@@ -8,6 +8,9 @@ import { Menu, Moon, Sun } from "lucide-react";
 import { useTheme } from "@/contexts/theme";
 import { useAuth } from "@/contexts/auth";
 import { SearchBar } from "@/components/search/search-bar";
+import { NotificationBell } from "@/components/notifications/notification-bell";
+import { NotificationPanel } from "@/components/notifications/notification-panel";
+import { useNotifications } from "@/hooks/use-notifications";
 
 export function Header() {
   const { theme, toggle } = useTheme();
@@ -15,6 +18,17 @@ export function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
+  const { notifications, unreadCount, markAsRead, markAllRead } = useNotifications();
+
+  const handleNotificationClick = useCallback((id: string) => {
+    const notification = notifications.find((n) => n.id === id);
+    if (notification) {
+      markAsRead(id);
+      navigate(notification.targetUrl);
+    }
+    setNotifOpen(false);
+  }, [notifications, navigate, markAsRead]);
 
   const handleLogout = useCallback(async () => {
     try {
@@ -59,6 +73,12 @@ export function Header() {
           {isAuthenticated ? (
             <>
               <Link
+                to="/profile"
+                className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:inline-block"
+              >
+                Profile
+              </Link>
+              <Link
                 to="/admin"
                 className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:inline-block"
               >
@@ -75,6 +95,23 @@ export function Header() {
             >
               Sign In
             </Link>
+          )}
+          {isAuthenticated && (
+            <>
+              <NotificationBell
+                unreadCount={unreadCount}
+                onClick={() => setNotifOpen(true)}
+              />
+              {notifOpen && (
+                <NotificationPanel
+                  notifications={notifications}
+                  unreadCount={unreadCount}
+                  onNotificationClick={handleNotificationClick}
+                  onMarkAllRead={markAllRead}
+                  onClose={() => setNotifOpen(false)}
+                />
+              )}
+            </>
           )}
           <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
             {theme === "dark" ? <Sun className="size-5" /> : <Moon className="size-5" />}
@@ -185,6 +222,13 @@ export function Header() {
                 {isAuthenticated && (
                   <>
                     <div className="border-t pt-4 mt-2" />
+                    <Link
+                      to="/profile"
+                      onClick={() => setOpen(false)}
+                      className="text-lg font-medium transition-colors hover:text-primary"
+                    >
+                      Profile
+                    </Link>
                     <button
                       onClick={handleLogout}
                       className="w-full text-left text-lg font-medium text-destructive transition-colors hover:text-destructive"
