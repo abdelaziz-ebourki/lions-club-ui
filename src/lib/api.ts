@@ -1,4 +1,5 @@
 import { appConfig } from "@/config";
+import { AuthError } from "@/types";
 
 async function request<T>(
   endpoint: string,
@@ -10,6 +11,10 @@ async function request<T>(
     ...options,
   });
   if (!res.ok) {
+    if (res.status === 401) {
+      window.dispatchEvent(new CustomEvent("auth:expired"));
+      throw new AuthError();
+    }
     const error = await res.json().catch(() => ({ message: res.statusText }));
     throw new Error(error.message ?? "Request failed");
   }

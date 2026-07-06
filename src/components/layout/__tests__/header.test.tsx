@@ -24,6 +24,17 @@ vi.mock('@/contexts/auth', () => ({
   useAuth: vi.fn(),
 }));
 
+vi.mock('@/hooks/use-notifications', () => ({
+  useNotifications: () => ({
+    notifications: [],
+    unreadCount: 0,
+    isLoading: false,
+    isError: false,
+    error: null,
+    refetch: vi.fn(),
+  }),
+}));
+
 beforeEach(() => {
   mockNavigate.mockClear();
   mockLogout.mockClear();
@@ -31,6 +42,7 @@ beforeEach(() => {
     user: null,
     isAuthenticated: false,
     isAdmin: false,
+    isEmailVerified: false,
     login: vi.fn(),
     register: vi.fn(),
     logout: mockLogout,
@@ -58,9 +70,10 @@ describe('Header', () => {
 
   test('shows Dashboard and Sign Out when authenticated as member', () => {
     vi.mocked(useAuth).mockReturnValue({
-      user: { id: '1', name: 'Test', email: 'test@test.com', role: 'member' },
+      user: { id: '1', name: 'Test', email: 'test@test.com', role: 'member', emailVerified: true },
       isAuthenticated: true,
       isAdmin: false,
+      isEmailVerified: true,
       login: vi.fn(),
       register: vi.fn(),
       logout: mockLogout,
@@ -75,9 +88,10 @@ describe('Header', () => {
 
   test('shows Admin and Sign Out when authenticated as admin', () => {
     vi.mocked(useAuth).mockReturnValue({
-      user: { id: '1', name: 'Admin', email: 'admin@test.com', role: 'admin' },
+      user: { id: '1', name: 'Admin', email: 'admin@test.com', role: 'admin', emailVerified: true },
       isAuthenticated: true,
       isAdmin: true,
+      isEmailVerified: true,
       login: vi.fn(),
       register: vi.fn(),
       logout: mockLogout,
@@ -91,9 +105,10 @@ describe('Header', () => {
 
   test('calls logout on Sign Out click', async () => {
     vi.mocked(useAuth).mockReturnValue({
-      user: { id: '1', name: 'Test', email: 'test@test.com', role: 'member' },
+      user: { id: '1', name: 'Test', email: 'test@test.com', role: 'member', emailVerified: true },
       isAuthenticated: true,
       isAdmin: false,
+      isEmailVerified: true,
       login: vi.fn(),
       register: vi.fn(),
       logout: mockLogout,
@@ -107,9 +122,10 @@ describe('Header', () => {
 
   test('navigates to / after logout', async () => {
     vi.mocked(useAuth).mockReturnValue({
-      user: { id: '1', name: 'Test', email: 'test@test.com', role: 'member' },
+      user: { id: '1', name: 'Test', email: 'test@test.com', role: 'member', emailVerified: true },
       isAuthenticated: true,
       isAdmin: false,
+      isEmailVerified: true,
       login: vi.fn(),
       register: vi.fn(),
       logout: mockLogout,
@@ -147,5 +163,26 @@ describe('Header', () => {
     render(<Header />);
     const aboutLink = screen.getByRole('link', { name: 'About' });
     expect(aboutLink).not.toHaveAttribute('aria-current');
+  });
+
+  test('shows notification bell for authenticated users', () => {
+    vi.mocked(useAuth).mockReturnValue({
+      user: { id: '1', name: 'Test', email: 'test@test.com', role: 'member', emailVerified: true },
+      isAuthenticated: true,
+      isAdmin: false,
+      isEmailVerified: true,
+      login: vi.fn(),
+      register: vi.fn(),
+      logout: mockLogout,
+      refreshUser: vi.fn(),
+      loading: false,
+    });
+    render(<Header />);
+    expect(screen.getByLabelText(/notifications/i)).toBeInTheDocument();
+  });
+
+  test('hides notification bell for unauthenticated users', () => {
+    render(<Header />);
+    expect(screen.queryByLabelText(/notifications/i)).not.toBeInTheDocument();
   });
 });

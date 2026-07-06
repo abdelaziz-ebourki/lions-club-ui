@@ -4,6 +4,9 @@ import { forumHandlers } from "./forum";
 import { contactHandlers } from "./contact";
 import { authHandlers } from "./auth";
 import { searchHandlers } from "./search";
+import { notificationHandlers } from "./notifications";
+import { emailVerificationHandlers } from "./email-verification";
+import { sessionHandlers } from "./session";
 
 export const handlers = [
   ...eventHandlers,
@@ -12,4 +15,7 @@ export const handlers = [
   ...contactHandlers,
   ...authHandlers,
   ...searchHandlers,
+  ...notificationHandlers,
+  ...emailVerificationHandlers,
+  ...sessionHandlers,
 ];
