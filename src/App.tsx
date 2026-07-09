@@ -50,9 +50,9 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <AuthProvider>
+        <BrowserRouter>
           <Toaster position="top-right" richColors closeButton />
-          <BrowserRouter>
+          <AuthProvider>
             <ErrorBoundary>
               <Routes>
                 <Route element={<Shell />}>
@@ -118,8 +118,8 @@ export default function App() {
                 </Route>
               </Routes>
             </ErrorBoundary>
-          </BrowserRouter>
-        </AuthProvider>
+          </AuthProvider>
+        </BrowserRouter>
       </ThemeProvider>
     </QueryClientProvider>
   );
