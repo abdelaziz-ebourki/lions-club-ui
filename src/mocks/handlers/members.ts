@@ -1,6 +1,19 @@
 import { http, HttpResponse } from "msw";
 import { members } from "../data/members";
 
+async function parseBody(request: Request): Promise<Record<string, unknown>> {
+  const contentType = request.headers.get("content-type") ?? "";
+  if (contentType.includes("multipart/form-data")) {
+    const formData = await request.formData();
+    const obj: Record<string, unknown> = {};
+    for (const [key, value] of formData.entries()) {
+      obj[key] = value instanceof File ? value.name : value;
+    }
+    return obj;
+  }
+  return (await request.json()) as Record<string, unknown>;
+}
+
 export const memberHandlers = [
   http.get("/api/members", () => {
     return HttpResponse.json(members);
@@ -13,12 +26,13 @@ export const memberHandlers = [
   }),
 
   http.post("/api/members", async ({ request }) => {
-    const body = (await request.json()) as Record<string, unknown>;
+    const body = await parseBody(request);
     const newMember = {
       id: `member-${Date.now()}`,
       name: body.name as string,
       role: (body.role as string) ?? "Member",
       bio: (body.bio as string) ?? "",
+      avatar: (body.avatar as string) ?? undefined,
       joinedAt: new Date().toISOString().split("T")[0],
     };
     members.push(newMember);
@@ -28,8 +42,8 @@ export const memberHandlers = [
   http.put("/api/members/:id", async ({ params, request }) => {
     const idx = members.findIndex((m) => m.id === params.id);
     if (idx === -1) return new HttpResponse(null, { status: 404 });
-    const body = (await request.json()) as Partial<(typeof members)[number]>;
-    members[idx] = { ...members[idx], ...body };
+    const body = await parseBody(request);
+    members[idx] = { ...members[idx], ...body } as (typeof members)[number];
     return HttpResponse.json(members[idx]);
   }),
 

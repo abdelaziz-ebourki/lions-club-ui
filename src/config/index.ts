@@ -31,3 +31,9 @@ export const eventCategories = [
   "Community",
   "Fundraiser",
 ] as const;
+
+export const uploadConfig = {
+  acceptedTypes: ["image/png", "image/jpeg", "image/webp"] as string[],
+  maxSize: 5 * 1024 * 1024,
+  acceptString: ".png,.jpg,.jpeg,.webp",
+} as const;

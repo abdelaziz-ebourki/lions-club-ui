@@ -14,6 +14,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
 import { Spinner } from "@/components/ui/spinner";
+import { FileUpload } from "@/components/ui/file-upload";
+import { uploadConfig } from "@/config";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { eventCategories } from "@/config";
@@ -26,6 +28,16 @@ const eventSchema = z.object({
   location: z.string().min(3, "Location is required").max(200, "Location must be at most 200 characters"),
   category: z.string().min(1, "Category is required"),
   status: z.enum(["upcoming", "ongoing", "past"]),
+  image: z.union([z.instanceof(File), z.string()]).optional(),
+}).superRefine((data, ctx) => {
+  if (data.image instanceof File) {
+    if (!uploadConfig.acceptedTypes.includes(data.image.type)) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please select a valid image file (PNG, JPG, WebP)", path: ["image"] });
+    }
+    if (data.image.size > uploadConfig.maxSize) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "File size must be under 5MB", path: ["image"] });
+    }
+  }
 });
 
 type EventFormData = z.infer<typeof eventSchema>;
@@ -52,10 +64,11 @@ export function EventFormPage() {
       location: event.location,
       category: event.category,
       status: event.status,
+      image: event.image,
     } : undefined,
     defaultValues: !isEditing ? {
       title: "", description: "", date: "", time: "",
-      location: "", category: "", status: "upcoming",
+      location: "", category: "", status: "upcoming", image: undefined,
     } : undefined,
   });
 
@@ -68,8 +81,26 @@ export function EventFormPage() {
   useEffect(() => () => void clearTimeout(successTimer.current), []);
 
   const mutation = useMutation({
-    mutationFn: (data: EventFormData) =>
-      isEditing ? api.put(`/events/${id!}`, data) : api.post("/events", data),
+    mutationFn: (data: EventFormData) => {
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("description", data.description);
+      formData.append("date", data.date);
+      formData.append("time", data.time);
+      formData.append("location", data.location);
+      formData.append("category", data.category);
+      formData.append("status", data.status);
+      if (data.image instanceof File) {
+        formData.append("image", data.image);
+      } else if (data.image) {
+        formData.append("image", data.image);
+      }
+      return api.upload(
+        isEditing ? `/events/${id!}` : "/events",
+        formData,
+        isEditing ? "PUT" : undefined,
+      );
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["events"] });
       toast.success(isEditing ? "Project updated successfully." : "Project created successfully.");
@@ -121,6 +152,23 @@ export function EventFormPage() {
                 <span className={cn("text-body-xs", descCount >= 2000 ? "text-destructive" : descCount >= 1600 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                   {descCount}/2000
                 </span>
+              </FieldContent>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="image">Event Image</FieldLabel>
+              <FieldContent>
+                <Controller
+                  name="image"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <FileUpload
+                      id="image"
+                      value={field.value ?? null}
+                      onChange={(file) => field.onChange(file)}
+                      error={fieldState.error?.message}
+                    />
+                  )}
+                />
               </FieldContent>
             </Field>
             <div className="grid gap-4 sm:grid-cols-2">

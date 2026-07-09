@@ -11,6 +11,7 @@ export const events: Event[] = [
     location: "Hyatt Regency Casablanca",
     category: "Fundraising",
     status: "upcoming",
+    image: "https://picsum.photos/seed/event1/800/400",
   },
   {
     id: "2",
@@ -22,6 +23,7 @@ export const events: Event[] = [
     location: "Parc de la Ligue Arabe, Casablanca",
     category: "Community Service",
     status: "upcoming",
+    image: "https://picsum.photos/seed/event2/800/400",
   },
   {
     id: "3",
@@ -33,6 +35,7 @@ export const events: Event[] = [
     location: "Centre Culturel d'Anfa",
     category: "Health",
     status: "upcoming",
+    image: "https://picsum.photos/seed/event3/800/400",
   },
   {
     id: "4",
