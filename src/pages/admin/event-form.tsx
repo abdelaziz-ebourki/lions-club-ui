@@ -28,7 +28,7 @@ const eventSchema = z.object({
   location: z.string().min(3, "Location is required").max(200, "Location must be at most 200 characters"),
   category: z.string().min(1, "Category is required"),
   status: z.enum(["upcoming", "ongoing", "past"]),
-  image: z.union([z.instanceof(File), z.string()]).optional(),
+  image: z.union([z.instanceof(File), z.string()]).optional().nullable(),
 }).superRefine((data, ctx) => {
   if (data.image instanceof File) {
     if (!uploadConfig.acceptedTypes.includes(data.image.type)) {
@@ -166,6 +166,7 @@ export function EventFormPage() {
                       value={field.value ?? null}
                       onChange={(file) => field.onChange(file)}
                       error={fieldState.error?.message}
+                      loading={mutation.isPending}
                     />
                   )}
                 />

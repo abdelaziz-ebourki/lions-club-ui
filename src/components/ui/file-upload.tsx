@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, type DragEvent } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback, type DragEvent } from "react";
 import { cn } from "@/lib/utils";
 import { Spinner } from "@/components/ui/spinner";
 import { Upload, X } from "lucide-react";
@@ -32,7 +32,18 @@ export function FileUpload({
 
   const displayError = error ?? internalError;
 
-  const previewUrl = value instanceof File ? URL.createObjectURL(value) : value;
+  const previewUrl = useMemo(() => {
+    if (value instanceof File) return URL.createObjectURL(value);
+    return value;
+  }, [value]);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl && previewUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
 
   const validateFile = useCallback((file: File): string | null => {
     if (!ACCEPTED_TYPES.includes(file.type)) {

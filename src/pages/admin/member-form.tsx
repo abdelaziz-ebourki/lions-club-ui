@@ -22,7 +22,7 @@ const memberSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be at most 100 characters"),
   role: z.string().min(2, "Role must be at least 2 characters").max(100, "Role must be at most 100 characters"),
   bio: z.string().max(500, "Bio must be at most 500 characters").optional(),
-  avatar: z.union([z.instanceof(File), z.string()]).optional(),
+  avatar: z.union([z.instanceof(File), z.string()]).optional().nullable(),
 }).superRefine((data, ctx) => {
   if (data.avatar instanceof File) {
     if (!uploadConfig.acceptedTypes.includes(data.avatar.type)) {
@@ -72,7 +72,7 @@ export function MemberFormPage() {
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("role", data.role);
-      if (data.bio) formData.append("bio", data.bio);
+      formData.append("bio", data.bio ?? "");
       if (data.avatar instanceof File) {
         formData.append("avatar", data.avatar);
       } else if (data.avatar) {
@@ -159,6 +159,7 @@ export function MemberFormPage() {
                       value={field.value ?? null}
                       onChange={(file) => field.onChange(file)}
                       error={fieldState.error?.message}
+                      loading={mutation.isPending}
                       variant="circle"
                     />
                   )}
