@@ -30,6 +30,7 @@ const memberSchema = z.object({
   name: z.string().min(2).max(100),
   role: z.string().min(2).max(100),
   bio: z.string().max(500).optional(),
+  avatar: z.union([z.instanceof(File), z.string()]).optional(),
 });
 
 describe('MemberForm Zod Schema', () => {
@@ -87,6 +88,27 @@ describe('MemberForm Zod Schema', () => {
       expect(result.success).toBe(true);
     });
   });
+
+  describe('avatar field', () => {
+    test('accepts a File instance for avatar', () => {
+      const file = new File(['dummy'], 'avatar.png', { type: 'image/png' });
+      const result = memberSchema.shape.avatar.safeParse(file);
+      expect(result.success).toBe(true);
+    });
+
+    test('accepts a string (URL) for avatar', () => {
+      const result = memberSchema.shape.avatar.safeParse('https://example.com/avatar.jpg');
+      expect(result.success).toBe(true);
+    });
+
+    test('accepts undefined for avatar (optional)', () => {
+      const result = memberSchema.safeParse({
+        name: 'John Doe',
+        role: 'Treasurer',
+      });
+      expect(result.success).toBe(true);
+    });
+  });
 });
 
 describe('MemberFormPage Component', () => {
@@ -119,6 +141,15 @@ describe('MemberFormPage Component', () => {
     charCounts.forEach(el => {
       expect(el).toHaveAttribute('aria-live', 'polite');
     });
+  });
+
+  test('renders file upload area for member avatar', () => {
+    render(
+      <MemoryRouter>
+        <MemberFormPage />
+      </MemoryRouter>
+    );
+    expect(screen.getByLabelText('Upload image')).toBeInTheDocument();
   });
 
   test('shows spinner during pending', () => {

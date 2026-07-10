@@ -1,5 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { events } from "../data/events";
+import { parseBody } from "../utils";
 
 export const eventHandlers = [
   http.get("/api/events", ({ request }) => {
@@ -18,7 +19,7 @@ export const eventHandlers = [
   }),
 
   http.post("/api/events", async ({ request }) => {
-    const body = (await request.json()) as Record<string, unknown>;
+    const body = await parseBody(request);
     const newEvent = {
       id: `event-${Date.now()}`,
       title: body.title as string,
@@ -28,6 +29,7 @@ export const eventHandlers = [
       location: body.location as string,
       category: (body.category as string) ?? "General",
       status: (body.status as "upcoming" | "ongoing" | "past") ?? "upcoming",
+      image: (body.image as string) ?? undefined,
     };
     events.push(newEvent);
     return HttpResponse.json(newEvent, { status: 201 });
@@ -36,8 +38,8 @@ export const eventHandlers = [
   http.put("/api/events/:id", async ({ params, request }) => {
     const idx = events.findIndex((e) => e.id === params.id);
     if (idx === -1) return new HttpResponse(null, { status: 404 });
-    const body = (await request.json()) as Partial<(typeof events)[number]>;
-    events[idx] = { ...events[idx], ...body };
+    const body = await parseBody(request);
+    events[idx] = { ...events[idx], ...body } as (typeof events)[number];
     return HttpResponse.json(events[idx]);
   }),
 

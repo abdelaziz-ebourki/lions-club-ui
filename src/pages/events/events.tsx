@@ -70,6 +70,15 @@ export function EventsPage() {
               ))
             : events?.map((event) => (
                 <Card key={event.id} className="group transition-all hover:shadow-lg">
+                  {event.image && (
+                    <div className="overflow-hidden rounded-t-lg">
+                      <img
+                        src={event.image}
+                        alt={event.title}
+                        className="h-48 w-full object-cover transition-transform group-hover:scale-105"
+                      />
+                    </div>
+                  )}
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <Badge
