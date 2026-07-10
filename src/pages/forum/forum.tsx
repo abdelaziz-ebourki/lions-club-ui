@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type { ForumCategory } from "@/types";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -14,6 +13,8 @@ import {
   FolderOpen,
 } from "lucide-react";
 import { EmptyState } from "@/components/shared/empty-state";
+import { PageHero } from "@/components/shared/PageHero";
+import { ErrorState } from "@/components/shared/ErrorState";
 
 const iconMap: Record<string, typeof MessageSquare> = {
   MessageSquare,
@@ -30,33 +31,19 @@ export function ForumPage() {
 
   return (
     <>
-      <section className="border-b bg-muted/50">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="font-display text-overline text-accent mb-4">
-              Conversations
-            </p>
-            <h1 className="font-heading text-h1 text-foreground">
-              Community Conversations
-            </h1>
-            <p className="mt-4 text-body-lg text-muted-foreground">
-              Connect, discuss, and share with fellow members
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        overline="Conversations"
+        heading="Community Conversations"
+        description="Connect, discuss, and share with fellow members"
+      />
 
       <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         {isError ? (
-          <div className="py-16 text-center">
-            <h2 className="font-heading text-h4 text-destructive">Failed to load categories</h2>
-            <p className="mt-2 text-muted-foreground">
-              Something went wrong while loading categories. Please try again.
-            </p>
-            <Button onClick={() => refetch()} className="mt-6">
-              Try Again
-            </Button>
-          </div>
+          <ErrorState
+            heading="Failed to load categories"
+            message="Something went wrong while loading categories. Please try again."
+            onRetry={refetch}
+          />
         ) : isLoading ? (
           <div className="flex flex-col gap-4" aria-busy="true">
             {Array.from({ length: 4 }).map((_, i) => (
