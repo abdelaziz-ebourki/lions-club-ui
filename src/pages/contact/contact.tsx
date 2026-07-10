@@ -1,4 +1,3 @@
-import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -16,16 +15,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import { Spinner } from "@/components/ui/spinner";
-import { Mail, MapPin, Phone, Send } from "lucide-react";
-import { siteConfig } from "@/config";
+import { Send } from "lucide-react";
+import { useSuccessTimer } from "@/hooks/useSuccessTimer";
+import { PageHero } from "@/components/shared/PageHero";
+import { ContactInfoCard } from "@/components/shared/ContactInfoCard";
+import { ContactFaqCard } from "@/components/shared/ContactFaqCard";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be at most 100 characters"),
@@ -35,29 +31,6 @@ const contactSchema = z.object({
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
-
-const faqs = [
-  {
-    q: "How can I become a member?",
-    a: "Attend one of our projects or send us a message through this form. We welcome new members who share our passion for community service — no experience needed.",
-  },
-  {
-    q: "Do I need prior volunteering experience?",
-    a: "Not at all. We provide training and guidance for every project. The only requirement is showing up.",
-  },
-  {
-    q: "How often does the club meet?",
-    a: "General meetings happen twice a month, with project-specific meetings as needed. Check our projects page for the schedule.",
-  },
-  {
-    q: "Can I donate to support your projects?",
-    a: "Yes — donations directly fund our community initiatives. Contact us and we'll walk you through how to contribute.",
-  },
-  {
-    q: "Are there membership fees?",
-    a: "A nominal annual fee covers administrative costs and supports our service projects. No one is turned away for inability to pay.",
-  },
-];
 
 export function ContactPage() {
   const form = useForm<ContactFormData>({
@@ -69,10 +42,7 @@ export function ContactPage() {
   const subjectCount = form.watch("subject").length;
   const messageCount = form.watch("message").length;
 
-  const [showSuccess, setShowSuccess] = useState(false);
-  const successTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-
-  useEffect(() => () => void clearTimeout(successTimer.current), []);
+  const { showSuccess, setShowSuccess, successTimer } = useSuccessTimer();
 
   const mutation = useMutation({
     mutationFn: (data: ContactFormData) => api.post("/contact", data),
@@ -91,22 +61,11 @@ export function ContactPage() {
 
   return (
     <>
-      <section className="border-b bg-muted/50">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="font-display text-overline text-accent mb-4">
-              Get in Touch
-            </p>
-            <h1 className="font-heading text-h1 text-foreground">
-              Let's Talk
-            </h1>
-            <p className="mt-4 text-body-lg text-muted-foreground">
-              Questions, suggestions, or want to get involved? We'd love
-              to hear from you.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        overline="Get in Touch"
+        heading="Let's Talk"
+        description="Questions, suggestions, or want to get involved? We'd love to hear from you."
+      />
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-5">
@@ -120,8 +79,7 @@ export function ContactPage() {
                   Send Us a Message
                 </CardTitle>
                 <CardDescription className="text-body">
-                  Fill out the form below and we'll get back to you as soon
-                  as possible.
+                  Fill out the form below and we'll get back to you as soon as possible.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -131,6 +89,7 @@ export function ContactPage() {
                 >
                   <FieldGroup className={cn("transition-all duration-500", showSuccess && "ring-2 ring-green-500/50 rounded-lg")}>
                     <div className="grid gap-4 sm:grid-cols-2">
+                      {/* fallow-ignore-next-line code-duplication */}
                       <Field data-invalid={!!form.formState.errors.name}>
                         <FieldLabel htmlFor="name">Name</FieldLabel>
                         <FieldContent>
@@ -149,26 +108,26 @@ export function ContactPage() {
                         </FieldContent>
                       </Field>
                     </div>
-                      <Field data-invalid={!!form.formState.errors.subject}>
-                        <FieldLabel htmlFor="subject">Subject</FieldLabel>
-                        <FieldContent>
-                          <Input id="subject" placeholder="How can we help?" aria-invalid={!!form.formState.errors.subject} {...form.register("subject")} autoComplete="off" />
-                          <FieldError errors={[form.formState.errors.subject]} />
-                          <span className={cn("text-body-xs", subjectCount >= 200 ? "text-destructive" : subjectCount >= 160 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
-                            {subjectCount}/200
-                          </span>
-                        </FieldContent>
-                      </Field>
-                      <Field data-invalid={!!form.formState.errors.message}>
-                        <FieldLabel htmlFor="message">Message</FieldLabel>
-                        <FieldContent>
-                          <Textarea id="message" placeholder="Tell us more..." rows={5} aria-invalid={!!form.formState.errors.message} {...form.register("message")} autoComplete="off" />
-                          <FieldError errors={[form.formState.errors.message]} />
-                          <span className={cn("text-body-xs", messageCount >= 2000 ? "text-destructive" : messageCount >= 1600 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
-                            {messageCount}/2000
-                          </span>
-                        </FieldContent>
-                      </Field>
+                    <Field data-invalid={!!form.formState.errors.subject}>
+                      <FieldLabel htmlFor="subject">Subject</FieldLabel>
+                      <FieldContent>
+                        <Input id="subject" placeholder="How can we help?" aria-invalid={!!form.formState.errors.subject} {...form.register("subject")} autoComplete="off" />
+                        <FieldError errors={[form.formState.errors.subject]} />
+                        <span className={cn("text-body-xs", subjectCount >= 200 ? "text-destructive" : subjectCount >= 160 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
+                          {subjectCount}/200
+                        </span>
+                      </FieldContent>
+                    </Field>
+                    <Field data-invalid={!!form.formState.errors.message}>
+                      <FieldLabel htmlFor="message">Message</FieldLabel>
+                      <FieldContent>
+                        <Textarea id="message" placeholder="Tell us more..." rows={5} aria-invalid={!!form.formState.errors.message} {...form.register("message")} autoComplete="off" />
+                        <FieldError errors={[form.formState.errors.message]} />
+                        <span className={cn("text-body-xs", messageCount >= 2000 ? "text-destructive" : messageCount >= 1600 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
+                          {messageCount}/2000
+                        </span>
+                      </FieldContent>
+                    </Field>
                   </FieldGroup>
                   <Button
                     type="submit"
@@ -190,70 +149,8 @@ export function ContactPage() {
           </div>
 
           <div className="flex flex-col gap-6 lg:col-span-2">
-            <Card>
-              <CardHeader>
-                <p className="font-display text-overline text-accent mb-1">
-                  Contact
-                </p>
-                <CardTitle className="font-heading text-h4">
-                  How to Reach Us
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-4 text-body-sm">
-                <div className="flex items-start gap-3">
-                  <Mail className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
-                  <div>
-                    <p className="font-medium font-body">Email</p>
-                    <p className="text-muted-foreground">
-                      {siteConfig.email}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Phone className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
-                  <div>
-                    <p className="font-medium font-body">Phone</p>
-                    <p className="text-muted-foreground">
-                      {siteConfig.phone}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <MapPin className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
-                  <div>
-                    <p className="font-medium font-body">Address</p>
-                    <p className="text-muted-foreground">
-                      {siteConfig.address}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <p className="font-display text-overline text-accent mb-1">
-                  FAQ
-                </p>
-                <CardTitle className="font-heading text-h4">
-                  Common Questions
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Accordion className="w-full">
-                  {faqs.map((faq, i) => (
-                    <AccordionItem key={i} value={`faq-${i}`}>
-                      <AccordionTrigger className="text-body-sm text-left">
-                        {faq.q}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-body-sm text-muted-foreground">
-                        {faq.a}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </CardContent>
-            </Card>
+            <ContactInfoCard />
+            <ContactFaqCard />
           </div>
         </div>
       </section>

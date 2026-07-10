@@ -6,9 +6,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Calendar, Clock, MapPin, ArrowRight } from "lucide-react";
+import { EventMetadata } from "@/components/shared/EventMetadata";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { PageHero } from "@/components/shared/PageHero";
 
 const tabs = [
   { value: "all", label: "All" },
@@ -26,21 +28,11 @@ export function EventsPage() {
 
   return (
     <>
-      <section className="border-b bg-muted/50">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="font-display text-overline text-accent mb-4">
-              Projects
-            </p>
-            <h1 className="font-heading text-h1 text-foreground">
-              Projects You Can Join
-            </h1>
-            <p className="mt-4 text-body-lg text-muted-foreground">
-              Browse our upcoming projects or see what we've accomplished together
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        overline="Projects"
+        heading="Projects You Can Join"
+        description="Browse our upcoming projects or see what we've accomplished together"
+      />
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <Tabs value={filter} onValueChange={setFilter} className="mb-8">
@@ -102,18 +94,7 @@ export function EventsPage() {
                   </CardHeader>
                   <CardContent>
                     <div className="flex flex-col gap-2 text-body-sm text-muted-foreground">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="size-4" aria-hidden="true" />
-                        {event.date}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="size-4" aria-hidden="true" />
-                        {event.time}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="size-4" aria-hidden="true" />
-                        {event.location}
-                      </div>
+                      <EventMetadata date={event.date} time={event.time} location={event.location} />
                     </div>
                     <Link
                       to={`/events/${event.id}`}

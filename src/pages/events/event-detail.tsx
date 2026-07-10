@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
-import { ArrowLeft, Calendar, Clock, MapPin, UserCheck, Users, Loader2 } from "lucide-react";
+import { EventMetadata } from "@/components/shared/EventMetadata";
+import { ArrowLeft, UserCheck, Users, Loader2 } from "lucide-react";
 
 export function EventDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -103,18 +104,7 @@ export function EventDetailPage() {
       </h1>
 
       <div className="mt-6 flex flex-wrap items-center gap-6 text-body-sm text-muted-foreground">
-        <div className="flex items-center gap-2">
-          <Calendar className="size-4" aria-hidden="true" />
-          {event.date}
-        </div>
-        <div className="flex items-center gap-2">
-          <Clock className="size-4" aria-hidden="true" />
-          {event.time}
-        </div>
-        <div className="flex items-center gap-2">
-          <MapPin className="size-4" aria-hidden="true" />
-          {event.location}
-        </div>
+        <EventMetadata date={event.date} time={event.time} location={event.location} />
         {isUpcoming && (
           <div className="ml-auto">
             {isRsvpd ? (
