@@ -1,6 +1,5 @@
-import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -8,15 +7,12 @@ import { toast } from "sonner";
 import { api } from "@/lib/api";
 import type { Member } from "@/types";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
-import { cn } from "@/lib/utils";
 import { Spinner } from "@/components/ui/spinner";
-import { FileUpload } from "@/components/ui/file-upload";
 import { uploadConfig } from "@/config";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSuccessTimer } from "@/hooks/useSuccessTimer";
+import { MemberFormFields } from "@/components/shared/MemberFormFields";
 
 const memberSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be at most 100 characters"),
@@ -51,10 +47,7 @@ export function MemberFormPage() {
   const form = useForm<MemberFormData>({
     resolver: zodResolver(memberSchema),
     values: member ? {
-      name: member.name,
-      role: member.role,
-      bio: member.bio ?? "",
-      avatar: member.avatar,
+      name: member.name, role: member.role, bio: member.bio ?? "", avatar: member.avatar,
     } : undefined,
     defaultValues: !isEditing ? { name: "", role: "", bio: "", avatar: undefined } : undefined,
   });
@@ -62,10 +55,7 @@ export function MemberFormPage() {
   const nameCount = form.watch("name").length;
   const roleCount = form.watch("role").length;
   const bioCount = (form.watch("bio") ?? "").length;
-  const [showSuccess, setShowSuccess] = useState(false);
-  const successTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-
-  useEffect(() => () => void clearTimeout(successTimer.current), []);
+  const { showSuccess, setShowSuccess, successTimer } = useSuccessTimer();
 
   const mutation = useMutation({
     mutationFn: (data: MemberFormData) => {
@@ -116,57 +106,14 @@ export function MemberFormPage() {
 
       <div className="max-w-2xl">
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
-          <FieldGroup className={cn("transition-all duration-500", showSuccess && "ring-2 ring-green-500/50 rounded-lg")}>
-            <Field data-invalid={!!form.formState.errors.name}>
-              <FieldLabel htmlFor="name">Name</FieldLabel>
-              <FieldContent>
-                <Input id="name" placeholder="Full name" aria-invalid={!!form.formState.errors.name} {...form.register("name")} />
-                <FieldError errors={[form.formState.errors.name]} />
-                <span className={cn("text-body-xs", nameCount >= 100 ? "text-destructive" : nameCount >= 80 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
-                  {nameCount}/100
-                </span>
-              </FieldContent>
-            </Field>
-            <Field data-invalid={!!form.formState.errors.role}>
-              <FieldLabel htmlFor="role">Role</FieldLabel>
-              <FieldContent>
-                <Input id="role" placeholder="e.g. Treasurer, Event Lead" aria-invalid={!!form.formState.errors.role} {...form.register("role")} />
-                <FieldError errors={[form.formState.errors.role]} />
-                <span className={cn("text-body-xs", roleCount >= 100 ? "text-destructive" : roleCount >= 80 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
-                  {roleCount}/100
-                </span>
-              </FieldContent>
-            </Field>
-            <Field data-invalid={!!form.formState.errors.bio}>
-              <FieldLabel htmlFor="bio">Bio (optional)</FieldLabel>
-              <FieldContent>
-                <Textarea id="bio" placeholder="Short biography" rows={3} aria-invalid={!!form.formState.errors.bio} {...form.register("bio")} />
-                <FieldError errors={[form.formState.errors.bio]} />
-                <span className={cn("text-body-xs", bioCount >= 500 ? "text-destructive" : bioCount >= 400 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
-                  {bioCount}/500
-                </span>
-              </FieldContent>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="avatar">Avatar</FieldLabel>
-              <FieldContent>
-                <Controller
-                  name="avatar"
-                  control={form.control}
-                  render={({ field, fieldState }) => (
-                    <FileUpload
-                      id="avatar"
-                      value={field.value ?? null}
-                      onChange={(file) => field.onChange(file)}
-                      error={fieldState.error?.message}
-                      loading={mutation.isPending}
-                      variant="circle"
-                    />
-                  )}
-                />
-              </FieldContent>
-            </Field>
-          </FieldGroup>
+          <MemberFormFields
+            form={form}
+            nameCount={nameCount}
+            roleCount={roleCount}
+            bioCount={bioCount}
+            showSuccess={showSuccess}
+            mutationPending={mutation.isPending}
+          />
           <Button type="submit" disabled={mutation.isPending} className="w-full sm:w-auto">
             {mutation.isPending ? (
               <><Spinner className="mr-2" /> Saving...</>

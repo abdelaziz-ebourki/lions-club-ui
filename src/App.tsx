@@ -1,10 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "sonner";
-import { ThemeProvider } from "@/contexts/theme";
-import { AuthProvider } from "@/contexts/auth";
-import { ErrorBoundary } from "@/components/shared/error-boundary";
+import { Routes, Route } from "react-router-dom";
 import { RequireAdmin } from "@/components/shared/require-admin";
 import { RequireVerifiedEmail } from "@/components/shared/require-verified-email";
 import { PageSkeleton } from "@/components/shared/page-skeleton";
@@ -19,6 +14,7 @@ import { ForumPage } from "@/pages/forum/forum";
 import { LoginPage } from "@/pages/auth/login";
 import { RegisterPage } from "@/pages/auth/register";
 import { NotFoundPage } from "@/pages/not-found";
+import { AppProviders } from "@/components/shared/AppProviders";
 
 const EventDetailPage = lazy(() => import("@/pages/events/event-detail").then(m => ({ default: m.EventDetailPage })));
 const ThreadsPage = lazy(() => import("@/pages/forum/threads").then(m => ({ default: m.ThreadsPage })));
@@ -34,93 +30,72 @@ const AdminMembersPage = lazy(() => import("@/pages/admin/admin-members").then(m
 const AdminMessagesPage = lazy(() => import("@/pages/admin/admin-messages").then(m => ({ default: m.AdminMessagesPage })));
 const AdminForumPage = lazy(() => import("@/pages/admin/admin-forum").then(m => ({ default: m.AdminForumPage })));
 
-const DEFAULT_STALE_TIME = 1000 * 60 * 5;
-const DEFAULT_RETRY_COUNT = 1;
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: DEFAULT_STALE_TIME,
-      retry: DEFAULT_RETRY_COUNT,
-    },
-  },
-});
-
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <BrowserRouter>
-          <Toaster position="top-right" richColors closeButton />
-          <AuthProvider>
-            <ErrorBoundary>
-              <Routes>
-                <Route element={<Shell />}>
-                  <Route index element={<HomePage />} />
-                  <Route path="about" element={<AboutPage />} />
-                  <Route path="events" element={<EventsPage />} />
-                  <Route path="events/:id" element={
-                    <Suspense fallback={<PageSkeleton />}><EventDetailPage /></Suspense>
-                  } />
-                  <Route path="contact" element={<ContactPage />} />
-                  <Route path="forum" element={<ForumPage />} />
-                  <Route path="forum/:categoryId" element={
-                    <Suspense fallback={<PageSkeleton />}><ThreadsPage /></Suspense>
-                  } />
-                  <Route path="forum/:categoryId/new" element={
-                    <Suspense fallback={<PageSkeleton />}><NewThreadForm /></Suspense>
-                  } />
-                  <Route path="forum/:categoryId/:threadId" element={
-                    <Suspense fallback={<PageSkeleton />}><ThreadDetailPage /></Suspense>
-                  } />
-                  <Route path="search" element={
-                    <Suspense fallback={<PageSkeleton />}><SearchPage /></Suspense>
-                  } />
-                  <Route path="login" element={<LoginPage />} />
-                  <Route path="register" element={<RegisterPage />} />
-                  <Route path="profile" element={<ProfilePage />} />
-                  <Route path="verify-email" element={<VerifyEmailPage />} />
-                  <Route path="*" element={<NotFoundPage />} />
-                </Route>
-                <Route path="/admin" element={
-                  <Suspense fallback={<PageSkeleton />}>
-                    <RequireAdmin><RequireVerifiedEmail><AdminLayout /></RequireVerifiedEmail></RequireAdmin>
-                  </Suspense>
-                }>
-                  <Route index element={
-                    <Suspense fallback={<PageSkeleton />}><AdminDashboardPage /></Suspense>
-                  } />
-                  <Route path="events" element={
-                    <Suspense fallback={<PageSkeleton />}><AdminEventsPage /></Suspense>
-                  } />
-                  <Route path="events/new" element={
-                    <Suspense fallback={<PageSkeleton />}><EventFormPage /></Suspense>
-                  } />
-                  <Route path="events/:id/edit" element={
-                    <Suspense fallback={<PageSkeleton />}><EventFormPage /></Suspense>
-                  } />
-                  <Route path="members" element={
-                    <Suspense fallback={<PageSkeleton />}><AdminMembersPage /></Suspense>
-                  } />
-                  <Route path="members/new" element={
-                    <Suspense fallback={<PageSkeleton />}><MemberFormPage /></Suspense>
-                  } />
-                  <Route path="members/:id/edit" element={
-                    <Suspense fallback={<PageSkeleton />}><MemberFormPage /></Suspense>
-                  } />
-                  <Route path="messages" element={
-                    <Suspense fallback={<PageSkeleton />}><AdminMessagesPage /></Suspense>
-                  } />
-                  <Route path="forum" element={
-                    <Suspense fallback={<PageSkeleton />}><AdminForumPage /></Suspense>
-                  } />
-                  <Route path="*" element={<NotFoundPage />} />
-                </Route>
-              </Routes>
-            </ErrorBoundary>
-          </AuthProvider>
-        </BrowserRouter>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <AppProviders>
+      <Routes>
+        <Route element={<Shell />}>
+          <Route index element={<HomePage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="events" element={<EventsPage />} />
+          <Route path="events/:id" element={
+            <Suspense fallback={<PageSkeleton />}><EventDetailPage /></Suspense>
+          } />
+          <Route path="contact" element={<ContactPage />} />
+          <Route path="forum" element={<ForumPage />} />
+          <Route path="forum/:categoryId" element={
+            <Suspense fallback={<PageSkeleton />}><ThreadsPage /></Suspense>
+          } />
+          <Route path="forum/:categoryId/new" element={
+            <Suspense fallback={<PageSkeleton />}><NewThreadForm /></Suspense>
+          } />
+          <Route path="forum/:categoryId/:threadId" element={
+            <Suspense fallback={<PageSkeleton />}><ThreadDetailPage /></Suspense>
+          } />
+          <Route path="search" element={
+            <Suspense fallback={<PageSkeleton />}><SearchPage /></Suspense>
+          } />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="verify-email" element={<VerifyEmailPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+        <Route path="/admin" element={
+          <Suspense fallback={<PageSkeleton />}>
+            <RequireAdmin><RequireVerifiedEmail><AdminLayout /></RequireVerifiedEmail></RequireAdmin>
+          </Suspense>
+        }>
+          <Route index element={
+            <Suspense fallback={<PageSkeleton />}><AdminDashboardPage /></Suspense>
+          } />
+          <Route path="events" element={
+            <Suspense fallback={<PageSkeleton />}><AdminEventsPage /></Suspense>
+          } />
+          <Route path="events/new" element={
+            <Suspense fallback={<PageSkeleton />}><EventFormPage /></Suspense>
+          } />
+          <Route path="events/:id/edit" element={
+            <Suspense fallback={<PageSkeleton />}><EventFormPage /></Suspense>
+          } />
+          <Route path="members" element={
+            <Suspense fallback={<PageSkeleton />}><AdminMembersPage /></Suspense>
+          } />
+          <Route path="members/new" element={
+            <Suspense fallback={<PageSkeleton />}><MemberFormPage /></Suspense>
+          } />
+          <Route path="members/:id/edit" element={
+            <Suspense fallback={<PageSkeleton />}><MemberFormPage /></Suspense>
+          } />
+          <Route path="messages" element={
+            <Suspense fallback={<PageSkeleton />}><AdminMessagesPage /></Suspense>
+          } />
+          <Route path="forum" element={
+            <Suspense fallback={<PageSkeleton />}><AdminForumPage /></Suspense>
+          } />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </AppProviders>
   );
 }
