@@ -20,3 +20,25 @@ jobs:
       - run: npx tsc -b
       - run: npm run test:run
       - run: npm run build
+
+  codebase-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm ci
+      - name: Fallow audit
+        uses: fallow-rs/fallow@v2
+        with:
+          command: audit
+          gate: new-only
+          format: sarif
+      - name: Upload SARIF to GitHub
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: fallow-results.sarif
