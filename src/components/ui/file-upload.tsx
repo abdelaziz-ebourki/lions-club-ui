@@ -95,7 +95,7 @@ export function FileUpload({
 
   function handleClick() {
     if (disabled || loading) return;
-    if (value instanceof File || value) return;
+    if (value) return;
     inputRef.current?.click();
   }
 

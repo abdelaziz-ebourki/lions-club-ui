@@ -10,7 +10,7 @@ interface ThreadListItemProps {
 
 export function ThreadListItem({ thread, categoryId }: ThreadListItemProps) {
   return (
-    <Link key={thread.id} to={`/forum/${categoryId}/${thread.id}`}>
+    <Link to={`/forum/${categoryId}/${thread.id}`}>
       <Card className="transition-all hover:shadow-md">
         <CardContent className="flex items-center gap-4 py-4">
           <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground" aria-hidden="true">

@@ -108,26 +108,26 @@ export function ContactPage() {
                         </FieldContent>
                       </Field>
                     </div>
-                      <Field data-invalid={!!form.formState.errors.subject}>
-                        <FieldLabel htmlFor="subject">Subject</FieldLabel>
-                        <FieldContent>
-                          <Input id="subject" placeholder="How can we help?" aria-invalid={!!form.formState.errors.subject} {...form.register("subject")} autoComplete="off" />
-                          <FieldError errors={[form.formState.errors.subject]} />
-                          <span className={cn("text-body-xs", subjectCount >= 200 ? "text-destructive" : subjectCount >= 160 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
-                            {subjectCount}/200
-                          </span>
-                        </FieldContent>
-                      </Field>
-                      <Field data-invalid={!!form.formState.errors.message}>
-                        <FieldLabel htmlFor="message">Message</FieldLabel>
-                        <FieldContent>
-                          <Textarea id="message" placeholder="Tell us more..." rows={5} aria-invalid={!!form.formState.errors.message} {...form.register("message")} autoComplete="off" />
-                          <FieldError errors={[form.formState.errors.message]} />
-                          <span className={cn("text-body-xs", messageCount >= 2000 ? "text-destructive" : messageCount >= 1600 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
-                            {messageCount}/2000
-                          </span>
-                        </FieldContent>
-                      </Field>
+                    <Field data-invalid={!!form.formState.errors.subject}>
+                      <FieldLabel htmlFor="subject">Subject</FieldLabel>
+                      <FieldContent>
+                        <Input id="subject" placeholder="How can we help?" aria-invalid={!!form.formState.errors.subject} {...form.register("subject")} autoComplete="off" />
+                        <FieldError errors={[form.formState.errors.subject]} />
+                        <span className={cn("text-body-xs", subjectCount >= 200 ? "text-destructive" : subjectCount >= 160 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
+                          {subjectCount}/200
+                        </span>
+                      </FieldContent>
+                    </Field>
+                    <Field data-invalid={!!form.formState.errors.message}>
+                      <FieldLabel htmlFor="message">Message</FieldLabel>
+                      <FieldContent>
+                        <Textarea id="message" placeholder="Tell us more..." rows={5} aria-invalid={!!form.formState.errors.message} {...form.register("message")} autoComplete="off" />
+                        <FieldError errors={[form.formState.errors.message]} />
+                        <span className={cn("text-body-xs", messageCount >= 2000 ? "text-destructive" : messageCount >= 1600 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
+                          {messageCount}/2000
+                        </span>
+                      </FieldContent>
+                    </Field>
                   </FieldGroup>
                   <Button
                     type="submit"
