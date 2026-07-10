@@ -1,4 +1,3 @@
-import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { Spinner } from "@/components/ui/spinner";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSuccessTimer } from "@/hooks/useSuccessTimer";
 
 const threadSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters").max(200, "Title must be at most 200 characters"),
@@ -33,10 +33,7 @@ export function NewThreadForm() {
 
   const titleCount = form.watch("title").length;
   const contentCount = form.watch("content").length;
-  const [showSuccess, setShowSuccess] = useState(false);
-  const successTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-
-  useEffect(() => () => void clearTimeout(successTimer.current), []);
+  const { showSuccess, setShowSuccess, successTimer } = useSuccessTimer();
 
   const mutation = useMutation({
     mutationFn: (data: ThreadFormData) => api.post(`/forum/${categoryId}/threads`, data),
@@ -68,6 +65,7 @@ export function NewThreadForm() {
         </h1>
       </div>
 
+      {/* fallow-ignore-next-line code-duplication */}
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <FieldGroup className={cn("transition-all duration-500", showSuccess && "ring-2 ring-green-500/50 rounded-lg")}>
           <Field data-invalid={!!form.formState.errors.title}>

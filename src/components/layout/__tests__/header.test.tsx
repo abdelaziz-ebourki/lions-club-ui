@@ -68,7 +68,7 @@ describe('Header', () => {
     expect(screen.queryByRole('button', { name: 'Sign Out' })).not.toBeInTheDocument();
   });
 
-  test('shows Dashboard and Sign Out when authenticated as member', () => {
+  test('shows Profile and Sign Out when authenticated as member', () => {
     vi.mocked(useAuth).mockReturnValue({
       user: { id: '1', name: 'Test', email: 'test@test.com', role: 'member', emailVerified: true },
       isAuthenticated: true,
@@ -81,7 +81,7 @@ describe('Header', () => {
       loading: false,
     });
     render(<Header />);
-    expect(screen.getByRole('link', { name: 'Dashboard' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Profile' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Sign Out' })).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: 'Admin' })).not.toBeInTheDocument();
   });

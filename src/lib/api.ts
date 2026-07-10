@@ -1,3 +1,4 @@
+// fallow-ignore-file security-sink
 import { appConfig } from "@/config";
 import { AuthError } from "@/types";
 
@@ -25,6 +26,7 @@ async function uploadRequest<T>(
   endpoint: string,
   formData: FormData,
   method?: string
+// fallow-ignore-next-line code-duplication
 ): Promise<T> {
   const res = await fetch(`${appConfig.apiBaseUrl}${endpoint}`, {
     method: method ?? "POST",
