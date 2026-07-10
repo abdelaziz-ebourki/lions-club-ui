@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { AdminEventsPage } from "../admin-events";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { describe, test, expect, vi, beforeEach } from "vitest";
 
 vi.mock("react-router-dom", async () => {

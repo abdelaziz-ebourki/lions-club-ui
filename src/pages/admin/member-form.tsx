@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,6 +13,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
 import { Spinner } from "@/components/ui/spinner";
+import { FileUpload } from "@/components/ui/file-upload";
+import { uploadConfig } from "@/config";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -20,6 +22,16 @@ const memberSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be at most 100 characters"),
   role: z.string().min(2, "Role must be at least 2 characters").max(100, "Role must be at most 100 characters"),
   bio: z.string().max(500, "Bio must be at most 500 characters").optional(),
+  avatar: z.union([z.instanceof(File), z.string()]).optional().nullable(),
+}).superRefine((data, ctx) => {
+  if (data.avatar instanceof File) {
+    if (!uploadConfig.acceptedTypes.includes(data.avatar.type)) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please select a valid image file (PNG, JPG, WebP)", path: ["avatar"] });
+    }
+    if (data.avatar.size > uploadConfig.maxSize) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "File size must be under 5MB", path: ["avatar"] });
+    }
+  }
 });
 
 type MemberFormData = z.infer<typeof memberSchema>;
@@ -42,8 +54,9 @@ export function MemberFormPage() {
       name: member.name,
       role: member.role,
       bio: member.bio ?? "",
+      avatar: member.avatar,
     } : undefined,
-    defaultValues: !isEditing ? { name: "", role: "", bio: "" } : undefined,
+    defaultValues: !isEditing ? { name: "", role: "", bio: "", avatar: undefined } : undefined,
   });
 
   const nameCount = form.watch("name").length;
@@ -55,8 +68,22 @@ export function MemberFormPage() {
   useEffect(() => () => void clearTimeout(successTimer.current), []);
 
   const mutation = useMutation({
-    mutationFn: (data: MemberFormData) =>
-      isEditing ? api.put(`/members/${id!}`, data) : api.post("/members", data),
+    mutationFn: (data: MemberFormData) => {
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("role", data.role);
+      formData.append("bio", data.bio ?? "");
+      if (data.avatar instanceof File) {
+        formData.append("avatar", data.avatar);
+      } else if (data.avatar) {
+        formData.append("avatar", data.avatar);
+      }
+      return api.upload(
+        isEditing ? `/members/${id!}` : "/members",
+        formData,
+        isEditing ? "PUT" : undefined,
+      );
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["members"] });
       toast.success(isEditing ? "Member updated successfully." : "Member added successfully.");
@@ -118,6 +145,25 @@ export function MemberFormPage() {
                 <span className={cn("text-body-xs", bioCount >= 500 ? "text-destructive" : bioCount >= 400 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                   {bioCount}/500
                 </span>
+              </FieldContent>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="avatar">Avatar</FieldLabel>
+              <FieldContent>
+                <Controller
+                  name="avatar"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <FileUpload
+                      id="avatar"
+                      value={field.value ?? null}
+                      onChange={(file) => field.onChange(file)}
+                      error={fieldState.error?.message}
+                      loading={mutation.isPending}
+                      variant="circle"
+                    />
+                  )}
+                />
               </FieldContent>
             </Field>
           </FieldGroup>

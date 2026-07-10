@@ -34,6 +34,7 @@ const eventSchema = z.object({
   location: z.string().min(3).max(200),
   category: z.string().min(1),
   status: z.enum(["upcoming", "ongoing", "past"]),
+  image: z.union([z.instanceof(File), z.string()]).optional(),
 });
 
 describe('EventForm Zod Schema', () => {
@@ -127,6 +128,32 @@ describe('EventForm Zod Schema', () => {
       expect(result.success).toBe(true);
     });
   });
+
+  describe('image field', () => {
+    test('accepts a File instance for image', () => {
+      const file = new File(['dummy'], 'photo.png', { type: 'image/png' });
+      const result = eventSchema.shape.image.safeParse(file);
+      expect(result.success).toBe(true);
+    });
+
+    test('accepts a string (URL) for image', () => {
+      const result = eventSchema.shape.image.safeParse('https://example.com/photo.jpg');
+      expect(result.success).toBe(true);
+    });
+
+    test('accepts undefined for image (optional)', () => {
+      const result = eventSchema.safeParse({
+        title: 'Valid Title',
+        description: 'A valid description for the event.',
+        date: '2026-07-15',
+        time: '14:00',
+        location: 'Main Hall',
+        category: 'Health',
+        status: 'upcoming',
+      });
+      expect(result.success).toBe(true);
+    });
+  });
 });
 
 describe('EventFormPage Component', () => {
@@ -159,6 +186,15 @@ describe('EventFormPage Component', () => {
     charCounts.forEach(el => {
       expect(el).toHaveAttribute('aria-live', 'polite');
     });
+  });
+
+  test('renders file upload area for event image', () => {
+    render(
+      <MemoryRouter>
+        <EventFormPage />
+      </MemoryRouter>
+    );
+    expect(screen.getByLabelText('Upload image')).toBeInTheDocument();
   });
 
   test('shows spinner during pending', () => {

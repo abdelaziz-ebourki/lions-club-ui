@@ -21,6 +21,27 @@ async function request<T>(
   return res.json();
 }
 
+async function uploadRequest<T>(
+  endpoint: string,
+  formData: FormData,
+  method?: string
+): Promise<T> {
+  const res = await fetch(`${appConfig.apiBaseUrl}${endpoint}`, {
+    method: method ?? "POST",
+    credentials: "include",
+    body: formData,
+  });
+  if (!res.ok) {
+    if (res.status === 401) {
+      window.dispatchEvent(new CustomEvent("auth:expired"));
+      throw new AuthError();
+    }
+    const error = await res.json().catch(() => ({ message: res.statusText }));
+    throw new Error(error.message ?? "Request failed");
+  }
+  return res.json();
+}
+
 export const api = {
   get: <T>(endpoint: string) => request<T>(endpoint),
   post: <T>(endpoint: string, body: unknown) =>
@@ -31,4 +52,6 @@ export const api = {
     request<T>(endpoint, { method: "PATCH", body: JSON.stringify(body) }),
   delete: <T>(endpoint: string) =>
     request<T>(endpoint, { method: "DELETE" }),
+  upload: <T>(endpoint: string, formData: FormData, method?: string) =>
+    uploadRequest<T>(endpoint, formData, method),
 };

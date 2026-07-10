@@ -140,9 +140,17 @@ export function AboutPage() {
             : members?.map((member) => (
                 <Card key={member.id} className="text-center transition-all hover:shadow-md">
                   <CardContent className="pt-8">
-                    <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-2xl font-heading font-bold text-primary">
-                      {member.name.charAt(0)}
-                    </div>
+                    {member.avatar ? (
+                      <img
+                        src={member.avatar}
+                        alt={member.name}
+                        className="mx-auto h-20 w-20 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-2xl font-heading font-bold text-primary">
+                        {member.name.charAt(0)}
+                      </div>
+                    )}
                     <h3 className="mt-4 font-heading text-lg font-bold">
                       {member.name}
                     </h3>

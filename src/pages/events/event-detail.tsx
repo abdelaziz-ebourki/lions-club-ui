@@ -87,6 +87,17 @@ export function EventDetailPage() {
         )}
       </div>
 
+      {event.image && (
+        <div className="mb-8 overflow-hidden rounded-lg">
+          <img
+            src={event.image}
+            alt={event.title}
+            className="w-full object-cover"
+            style={{ maxHeight: 400 }}
+          />
+        </div>
+      )}
+
       <h1 className="font-heading text-h1 text-foreground">
         {event.title}
       </h1>
