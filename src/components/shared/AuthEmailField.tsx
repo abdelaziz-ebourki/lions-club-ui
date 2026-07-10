@@ -1,4 +1,4 @@
-import type { UseFormReturn, FieldValues } from "react-hook-form";
+import type { Path, UseFormReturn, FieldValues } from "react-hook-form";
 import { Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
@@ -17,7 +17,7 @@ export function AuthEmailField<TForm extends FieldValues>({ form }: AuthEmailFie
           type="email"
           placeholder="your@email.com"
           aria-invalid={!!error}
-          {...(form.register as UseFormReturn<FieldValues>["register"])("email")}
+          {...form.register("email" as Path<TForm>)}
           autoComplete="email"
           spellCheck={false}
         />
