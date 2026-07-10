@@ -7,6 +7,7 @@ export const members: Member[] = [
     role: "President",
     bio: "Leading the club with dedication and vision since 2023.",
     joinedAt: "2020-03-15",
+    avatar: "https://picsum.photos/seed/avatar1/200/200",
   },
   {
     id: "2",
@@ -14,6 +15,7 @@ export const members: Member[] = [
     role: "Vice President",
     bio: "Passionate about community service and youth engagement.",
     joinedAt: "2019-07-22",
+    avatar: "https://picsum.photos/seed/avatar2/200/200",
   },
   {
     id: "3",
@@ -21,6 +23,7 @@ export const members: Member[] = [
     role: "Secretary",
     bio: "Keeping the club organized and running smoothly.",
     joinedAt: "2021-01-10",
+    avatar: "https://picsum.photos/seed/avatar3/200/200",
   },
   {
     id: "4",
@@ -28,6 +31,7 @@ export const members: Member[] = [
     role: "Treasurer",
     bio: "Ensuring financial transparency and accountability.",
     joinedAt: "2020-06-05",
+    avatar: "https://picsum.photos/seed/avatar4/200/200",
   },
   {
     id: "5",
