@@ -1,0 +1,3801 @@
+{
+  "kind": "health",
+  "schema_version": 7,
+  "version": "2.103.0",
+  "elapsed_ms": 109,
+  "findings": [
+    {
+      "path": "src/components/layout/header.tsx",
+      "name": "Header",
+      "line": 15,
+      "col": 7,
+      "cyclomatic": 18,
+      "cognitive": 26,
+      "line_count": 233,
+      "param_count": 0,
+      "react_hook_count": 9,
+      "react_jsx_max_depth": 8,
+      "react_hook_profile": {
+        "state": 2,
+        "effect": 0,
+        "memo": 0,
+        "callback": 2,
+        "custom": 5
+      },
+      "exceeded": "cognitive",
+      "severity": "high",
+      "actions": [
+        {
+          "type": "refactor-function",
+          "auto_fixable": false,
+          "description": "Refactor `Header` to reduce complexity (extract helper functions, simplify branching)",
+          "note": "Consider splitting into smaller functions with single responsibilities"
+        },
+        {
+          "type": "suppress-line",
+          "auto_fixable": false,
+          "description": "Suppress with an inline comment above the function declaration",
+          "comment": "// fallow-ignore-next-line complexity",
+          "placement": "above-function-declaration"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/admin/member-form.tsx",
+      "name": "MemberFormPage",
+      "line": 39,
+      "col": 7,
+      "cyclomatic": 16,
+      "cognitive": 28,
+      "line_count": 141,
+      "param_count": 0,
+      "react_hook_count": 9,
+      "react_jsx_max_depth": 7,
+      "react_hook_profile": {
+        "state": 1,
+        "effect": 1,
+        "memo": 0,
+        "callback": 0,
+        "custom": 7,
+        "max_effect_dep_arity": 0
+      },
+      "exceeded": "cognitive",
+      "severity": "high",
+      "actions": [
+        {
+          "type": "refactor-function",
+          "auto_fixable": false,
+          "description": "Refactor `MemberFormPage` to reduce complexity (extract helper functions, simplify branching)",
+          "note": "Consider splitting into smaller functions with single responsibilities"
+        },
+        {
+          "type": "suppress-line",
+          "auto_fixable": false,
+          "description": "Suppress with an inline comment above the function declaration",
+          "comment": "// fallow-ignore-next-line complexity",
+          "placement": "above-function-declaration"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/admin/event-form.tsx",
+      "name": "EventFormPage",
+      "line": 45,
+      "col": 7,
+      "cyclomatic": 14,
+      "cognitive": 26,
+      "line_count": 219,
+      "param_count": 0,
+      "react_hook_count": 9,
+      "react_jsx_max_depth": 8,
+      "react_hook_profile": {
+        "state": 1,
+        "effect": 1,
+        "memo": 0,
+        "callback": 0,
+        "custom": 7,
+        "max_effect_dep_arity": 0
+      },
+      "exceeded": "cognitive",
+      "severity": "high",
+      "actions": [
+        {
+          "type": "refactor-function",
+          "auto_fixable": false,
+          "description": "Refactor `EventFormPage` to reduce complexity (extract helper functions, simplify branching)",
+          "note": "Consider splitting into smaller functions with single responsibilities"
+        },
+        {
+          "type": "suppress-line",
+          "auto_fixable": false,
+          "description": "Suppress with an inline comment above the function declaration",
+          "comment": "// fallow-ignore-next-line complexity",
+          "placement": "above-function-declaration"
+        }
+      ]
+    },
+    {
+      "path": "src/components/ui/file-upload.tsx",
+      "name": "FileUpload",
+      "line": 20,
+      "col": 7,
+      "cyclomatic": 13,
+      "cognitive": 26,
+      "line_count": 156,
+      "param_count": 1,
+      "react_hook_count": 6,
+      "react_jsx_max_depth": 5,
+      "react_prop_count": 7,
+      "react_hook_profile": {
+        "state": 2,
+        "effect": 1,
+        "memo": 1,
+        "callback": 1,
+        "custom": 1,
+        "max_effect_dep_arity": 1
+      },
+      "exceeded": "cognitive",
+      "severity": "high",
+      "actions": [
+        {
+          "type": "refactor-function",
+          "auto_fixable": false,
+          "description": "Refactor `FileUpload` to reduce complexity (extract helper functions, simplify branching)",
+          "note": "Consider splitting into smaller functions with single responsibilities"
+        },
+        {
+          "type": "suppress-line",
+          "auto_fixable": false,
+          "description": "Suppress with an inline comment above the function declaration",
+          "comment": "// fallow-ignore-next-line complexity",
+          "placement": "above-function-declaration"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/admin/dashboard.tsx",
+      "name": "AdminDashboardPage",
+      "line": 8,
+      "col": 7,
+      "cyclomatic": 11,
+      "cognitive": 10,
+      "line_count": 98,
+      "param_count": 0,
+      "react_hook_count": 4,
+      "react_jsx_max_depth": 3,
+      "react_hook_profile": {
+        "state": 0,
+        "effect": 0,
+        "memo": 0,
+        "callback": 0,
+        "custom": 4
+      },
+      "exceeded": "crap",
+      "severity": "critical",
+      "crap": 132.0,
+      "coverage_tier": "none",
+      "coverage_source": "estimated",
+      "actions": [
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `AdminDashboardPage` to lower its CRAP score (coverage reduces risk even without refactoring)",
+          "note": "CRAP = CC^2 * (1 - cov/100)^3 + CC; higher coverage is the fastest way to bring CRAP under threshold"
+        },
+        {
+          "type": "suppress-line",
+          "auto_fixable": false,
+          "description": "Suppress with an inline comment above the function declaration",
+          "comment": "// fallow-ignore-next-line complexity",
+          "placement": "above-function-declaration"
+        }
+      ]
+    },
+    {
+      "path": "public/mockServiceWorker.js",
+      "name": "<anonymous>",
+      "line": 23,
+      "col": 28,
+      "cyclomatic": 10,
+      "cognitive": 7,
+      "line_count": 67,
+      "param_count": 1,
+      "exceeded": "crap",
+      "severity": "critical",
+      "crap": 110.0,
+      "coverage_tier": "none",
+      "coverage_source": "estimated",
+      "actions": [
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `<anonymous>` to lower its CRAP score (coverage reduces risk even without refactoring)",
+          "note": "CRAP = CC^2 * (1 - cov/100)^3 + CC; higher coverage is the fastest way to bring CRAP under threshold"
+        },
+        {
+          "type": "suppress-line",
+          "auto_fixable": false,
+          "description": "Suppress with an inline comment above the function declaration",
+          "comment": "// fallow-ignore-next-line complexity",
+          "placement": "above-function-declaration"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/contact/contact.tsx",
+      "name": "ContactPage",
+      "line": 62,
+      "col": 7,
+      "cyclomatic": 9,
+      "cognitive": 16,
+      "line_count": 201,
+      "param_count": 0,
+      "react_hook_count": 5,
+      "react_jsx_max_depth": 12,
+      "react_hook_profile": {
+        "state": 1,
+        "effect": 1,
+        "memo": 0,
+        "callback": 0,
+        "custom": 3,
+        "max_effect_dep_arity": 0
+      },
+      "exceeded": "cognitive",
+      "severity": "moderate",
+      "actions": [
+        {
+          "type": "refactor-function",
+          "auto_fixable": false,
+          "description": "Refactor `ContactPage` to reduce complexity (extract helper functions, simplify branching)",
+          "note": "Consider splitting into smaller functions with single responsibilities"
+        },
+        {
+          "type": "suppress-line",
+          "auto_fixable": false,
+          "description": "Suppress with an inline comment above the function declaration",
+          "comment": "// fallow-ignore-next-line complexity",
+          "placement": "above-function-declaration"
+        }
+      ]
+    },
+    {
+      "path": "src/mocks/handlers/email-verification.ts",
+      "name": "emailVerificationHandlers",
+      "line": 8,
+      "col": 38,
+      "cyclomatic": 6,
+      "cognitive": 5,
+      "line_count": 34,
+      "param_count": 1,
+      "react_prop_count": 1,
+      "exceeded": "crap",
+      "severity": "moderate",
+      "crap": 42.0,
+      "coverage_tier": "none",
+      "coverage_source": "estimated",
+      "actions": [
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `emailVerificationHandlers` to lower its CRAP score (coverage reduces risk even without refactoring)",
+          "note": "CRAP = CC^2 * (1 - cov/100)^3 + CC; higher coverage is the fastest way to bring CRAP under threshold"
+        },
+        {
+          "type": "suppress-line",
+          "auto_fixable": false,
+          "description": "Suppress with an inline comment above the function declaration",
+          "comment": "// fallow-ignore-next-line complexity",
+          "placement": "above-function-declaration"
+        }
+      ]
+    },
+    {
+      "path": "public/mockServiceWorker.js",
+      "name": "<anonymous>",
+      "line": 91,
+      "col": 26,
+      "cyclomatic": 5,
+      "cognitive": 4,
+      "line_count": 27,
+      "param_count": 1,
+      "exceeded": "crap",
+      "severity": "moderate",
+      "crap": 30.0,
+      "coverage_tier": "none",
+      "coverage_source": "estimated",
+      "actions": [
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `<anonymous>` to lower its CRAP score (coverage reduces risk even without refactoring)",
+          "note": "CRAP = CC^2 * (1 - cov/100)^3 + CC; higher coverage is the fastest way to bring CRAP under threshold"
+        },
+        {
+          "type": "suppress-line",
+          "auto_fixable": false,
+          "description": "Suppress with an inline comment above the function declaration",
+          "comment": "// fallow-ignore-next-line complexity",
+          "placement": "above-function-declaration"
+        }
+      ]
+    },
+    {
+      "path": "public/mockServiceWorker.js",
+      "name": "getResponse",
+      "line": 211,
+      "col": 0,
+      "cyclomatic": 5,
+      "cognitive": 3,
+      "line_count": 70,
+      "param_count": 4,
+      "exceeded": "crap",
+      "severity": "moderate",
+      "crap": 30.0,
+      "coverage_tier": "none",
+      "coverage_source": "estimated",
+      "actions": [
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `getResponse` to lower its CRAP score (coverage reduces risk even without refactoring)",
+          "note": "CRAP = CC^2 * (1 - cov/100)^3 + CC; higher coverage is the fastest way to bring CRAP under threshold"
+        },
+        {
+          "type": "suppress-line",
+          "auto_fixable": false,
+          "description": "Suppress with an inline comment above the function declaration",
+          "comment": "// fallow-ignore-next-line complexity",
+          "placement": "above-function-declaration"
+        }
+      ]
+    },
+    {
+      "path": "src/mocks/utils.ts",
+      "name": "parseBody",
+      "line": 1,
+      "col": 7,
+      "cyclomatic": 5,
+      "cognitive": 7,
+      "line_count": 12,
+      "param_count": 1,
+      "exceeded": "crap",
+      "severity": "moderate",
+      "crap": 30.0,
+      "coverage_tier": "none",
+      "coverage_source": "estimated",
+      "actions": [
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `parseBody` to lower its CRAP score (coverage reduces risk even without refactoring)",
+          "note": "CRAP = CC^2 * (1 - cov/100)^3 + CC; higher coverage is the fastest way to bring CRAP under threshold"
+        },
+        {
+          "type": "suppress-line",
+          "auto_fixable": false,
+          "description": "Suppress with an inline comment above the function declaration",
+          "comment": "// fallow-ignore-next-line complexity",
+          "placement": "above-function-declaration"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "files_analyzed": 139,
+    "functions_analyzed": 1020,
+    "functions_above_threshold": 11,
+    "max_cyclomatic_threshold": 20,
+    "max_cognitive_threshold": 15,
+    "max_crap_threshold": 30.0,
+    "files_scored": 124,
+    "average_maintainability": 92.1,
+    "coverage_model": "static_estimated",
+    "coverage_source_consistency": "uniform",
+    "severity_critical_count": 2,
+    "severity_high_count": 4,
+    "severity_moderate_count": 5
+  },
+  "vital_signs": {
+    "dead_file_pct": 0.7,
+    "dead_export_pct": 1.5,
+    "avg_cyclomatic": 1.4,
+    "critical_complexity_pct": 0.0,
+    "p90_cyclomatic": 2,
+    "duplication_pct": 6.2,
+    "hotspot_count": 2,
+    "hotspot_top_pct_count": 2,
+    "maintainability_avg": 92.1,
+    "maintainability_low_pct": 0.0,
+    "unused_dep_count": 1,
+    "unused_deps_per_k_files": 7.2,
+    "circular_dep_count": 0,
+    "circular_deps_per_k_files": 0.0,
+    "counts": {
+      "total_files": 139,
+      "total_exports": 199,
+      "dead_files": 1,
+      "dead_exports": 3,
+      "duplicated_lines": 492,
+      "total_lines": 12067,
+      "files_scored": 124,
+      "total_deps": 0
+    },
+    "unit_size_profile": {
+      "low_risk": 81.2,
+      "medium_risk": 9.9,
+      "high_risk": 4.2,
+      "very_high_risk": 4.7
+    },
+    "functions_over_60_loc_per_k": 47.1,
+    "unit_interfacing_profile": {
+      "low_risk": 99.0,
+      "medium_risk": 0.8,
+      "high_risk": 0.2,
+      "very_high_risk": 0.0
+    },
+    "p95_fan_in": 13,
+    "coupling_high_pct": 4.8,
+    "p95_render_fan_in": 11,
+    "render_fan_in_high_pct": 3.9,
+    "max_render_fan_in": 29,
+    "top_render_fan_in": [
+      {
+        "component": "Button",
+        "path": "src/components/ui/button.tsx",
+        "render_sites": 58,
+        "distinct_parents": 29
+      },
+      {
+        "component": "Card",
+        "path": "src/components/ui/card.tsx",
+        "render_sites": 28,
+        "distinct_parents": 14
+      },
+      {
+        "component": "CardContent",
+        "path": "src/components/ui/card.tsx",
+        "render_sites": 25,
+        "distinct_parents": 14
+      },
+      {
+        "component": "Skeleton",
+        "path": "src/components/ui/skeleton.tsx",
+        "render_sites": 40,
+        "distinct_parents": 12
+      },
+      {
+        "component": "CardHeader",
+        "path": "src/components/ui/card.tsx",
+        "render_sites": 20,
+        "distinct_parents": 11
+      },
+      {
+        "component": "CardTitle",
+        "path": "src/components/ui/card.tsx",
+        "render_sites": 18,
+        "distinct_parents": 11
+      },
+      {
+        "component": "Input",
+        "path": "src/components/ui/input.tsx",
+        "render_sites": 18,
+        "distinct_parents": 8
+      },
+      {
+        "component": "Spinner",
+        "path": "src/components/ui/spinner.tsx",
+        "render_sites": 8,
+        "distinct_parents": 8
+      },
+      {
+        "component": "EmptyState",
+        "path": "src/components/shared/empty-state.tsx",
+        "render_sites": 7,
+        "distinct_parents": 7
+      },
+      {
+        "component": "CardDescription",
+        "path": "src/components/ui/card.tsx",
+        "render_sites": 7,
+        "distinct_parents": 7
+      },
+      {
+        "component": "Field",
+        "path": "src/components/ui/field.tsx",
+        "render_sites": 25,
+        "distinct_parents": 6
+      },
+      {
+        "component": "FieldLabel",
+        "path": "src/components/ui/field.tsx",
+        "render_sites": 25,
+        "distinct_parents": 6
+      },
+      {
+        "component": "FieldContent",
+        "path": "src/components/ui/field.tsx",
+        "render_sites": 24,
+        "distinct_parents": 6
+      },
+      {
+        "component": "FieldError",
+        "path": "src/components/ui/field.tsx",
+        "render_sites": 22,
+        "distinct_parents": 6
+      },
+      {
+        "component": "FieldGroup",
+        "path": "src/components/ui/field.tsx",
+        "render_sites": 6,
+        "distinct_parents": 6
+      },
+      {
+        "component": "Textarea",
+        "path": "src/components/ui/textarea.tsx",
+        "render_sites": 5,
+        "distinct_parents": 5
+      },
+      {
+        "component": "PageSkeleton",
+        "path": "src/components/shared/page-skeleton.tsx",
+        "render_sites": 16,
+        "distinct_parents": 2
+      },
+      {
+        "component": "TableCell",
+        "path": "src/components/ui/table.tsx",
+        "render_sites": 16,
+        "distinct_parents": 2
+      },
+      {
+        "component": "TableHead",
+        "path": "src/components/ui/table.tsx",
+        "render_sites": 16,
+        "distinct_parents": 2
+      },
+      {
+        "component": "SelectItem",
+        "path": "src/components/ui/select.tsx",
+        "render_sites": 11,
+        "distinct_parents": 2
+      }
+    ],
+    "total_loc": 12067
+  },
+  "health_score": {
+    "formula_version": 2,
+    "score": 72.4,
+    "grade": "B",
+    "penalties": {
+      "dead_files": 0.1,
+      "dead_exports": 0.3,
+      "complexity": 0.0,
+      "p90_complexity": 0.0,
+      "maintainability": 0.0,
+      "hotspots": 10.0,
+      "unused_deps": 3.6,
+      "circular_deps": 0.0,
+      "unit_size": 10.0,
+      "coupling": 2.4,
+      "duplication": 1.2
+    }
+  },
+  "file_scores": [
+    {
+      "path": "src/pages/admin/dashboard.tsx",
+      "fan_in": 1,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.17,
+      "maintainability_index": 89.4,
+      "total_cyclomatic": 18,
+      "total_cognitive": 10,
+      "function_count": 8,
+      "lines": 106,
+      "crap_max": 132.0,
+      "crap_above_threshold": 1
+    },
+    {
+      "path": "public/mockServiceWorker.js",
+      "fan_in": 0,
+      "fan_out": 0,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.13,
+      "maintainability_index": 96.1,
+      "total_cyclomatic": 46,
+      "total_cognitive": 27,
+      "function_count": 18,
+      "lines": 350,
+      "crap_max": 110.0,
+      "crap_above_threshold": 3
+    },
+    {
+      "path": "src/mocks/handlers/email-verification.ts",
+      "fan_in": 1,
+      "fan_out": 0,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.14,
+      "maintainability_index": 95.8,
+      "total_cyclomatic": 7,
+      "total_cognitive": 5,
+      "function_count": 2,
+      "lines": 51,
+      "crap_max": 42.0,
+      "crap_above_threshold": 1
+    },
+    {
+      "path": "src/mocks/utils.ts",
+      "fan_in": 2,
+      "fan_out": 0,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.38,
+      "maintainability_index": 97.0,
+      "total_cyclomatic": 5,
+      "total_cognitive": 7,
+      "function_count": 1,
+      "lines": 13,
+      "crap_max": 30.0,
+      "crap_above_threshold": 1
+    },
+    {
+      "path": "src/mocks/handlers/search.ts",
+      "fan_in": 1,
+      "fan_out": 4,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.26,
+      "maintainability_index": 85.8,
+      "total_cyclomatic": 30,
+      "total_cognitive": 16,
+      "function_count": 14,
+      "lines": 114,
+      "crap_max": 20.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/mocks/handlers/events.ts",
+      "fan_in": 1,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.3,
+      "maintainability_index": 86.6,
+      "total_cyclomatic": 16,
+      "total_cognitive": 7,
+      "function_count": 9,
+      "lines": 53,
+      "crap_max": 20.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/mocks/handlers/members.ts",
+      "fan_in": 1,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.31,
+      "maintainability_index": 87.2,
+      "total_cyclomatic": 14,
+      "total_cognitive": 6,
+      "function_count": 8,
+      "lines": 45,
+      "crap_max": 20.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/mocks/handlers/forum.ts",
+      "fan_in": 1,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.31,
+      "maintainability_index": 87.9,
+      "total_cyclomatic": 39,
+      "total_cognitive": 16,
+      "function_count": 23,
+      "lines": 125,
+      "crap_max": 20.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/events/events.tsx",
+      "fan_in": 1,
+      "fan_out": 7,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.08,
+      "maintainability_index": 89.3,
+      "total_cyclomatic": 11,
+      "total_cognitive": 7,
+      "function_count": 5,
+      "lines": 145,
+      "crap_max": 20.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/home/home.tsx",
+      "fan_in": 1,
+      "fan_out": 7,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.04,
+      "maintainability_index": 90.5,
+      "total_cyclomatic": 8,
+      "total_cognitive": 3,
+      "function_count": 5,
+      "lines": 192,
+      "crap_max": 20.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/layout/header.tsx",
+      "fan_in": 2,
+      "fan_out": 10,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.15,
+      "maintainability_index": 85.9,
+      "total_cyclomatic": 37,
+      "total_cognitive": 31,
+      "function_count": 15,
+      "lines": 248,
+      "crap_max": 19.1,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/admin/member-form.tsx",
+      "fan_in": 2,
+      "fan_out": 10,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.21,
+      "maintainability_index": 84.1,
+      "total_cyclomatic": 38,
+      "total_cognitive": 40,
+      "function_count": 12,
+      "lines": 180,
+      "crap_max": 16.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/admin/event-form.tsx",
+      "fan_in": 2,
+      "fan_out": 11,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.14,
+      "maintainability_index": 85.9,
+      "total_cyclomatic": 38,
+      "total_cognitive": 37,
+      "function_count": 15,
+      "lines": 264,
+      "crap_max": 14.7,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/forum/threads.tsx",
+      "fan_in": 2,
+      "fan_out": 9,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.16,
+      "maintainability_index": 86.0,
+      "total_cyclomatic": 33,
+      "total_cognitive": 22,
+      "function_count": 16,
+      "lines": 202,
+      "crap_max": 13.8,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/lib/search.ts",
+      "fan_in": 4,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.15,
+      "maintainability_index": 91.1,
+      "total_cyclomatic": 27,
+      "total_cognitive": 20,
+      "function_count": 11,
+      "lines": 175,
+      "crap_max": 13.8,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/field.tsx",
+      "fan_in": 7,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.12,
+      "maintainability_index": 92.0,
+      "total_cyclomatic": 17,
+      "total_cognitive": 6,
+      "function_count": 8,
+      "lines": 147,
+      "crap_max": 13.8,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/file-upload.tsx",
+      "fan_in": 2,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.24,
+      "maintainability_index": 88.4,
+      "total_cyclomatic": 43,
+      "total_cognitive": 43,
+      "function_count": 13,
+      "lines": 176,
+      "crap_max": 13.6,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/admin/admin-messages.tsx",
+      "fan_in": 1,
+      "fan_out": 4,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.12,
+      "maintainability_index": 90.0,
+      "total_cyclomatic": 7,
+      "total_cognitive": 4,
+      "function_count": 3,
+      "lines": 59,
+      "crap_max": 12.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/about/about.tsx",
+      "fan_in": 1,
+      "fan_out": 6,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.05,
+      "maintainability_index": 90.7,
+      "total_cyclomatic": 8,
+      "total_cognitive": 4,
+      "function_count": 5,
+      "lines": 173,
+      "crap_max": 12.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/shared/error-boundary.tsx",
+      "fan_in": 1,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.13,
+      "maintainability_index": 93.3,
+      "total_cyclomatic": 8,
+      "total_cognitive": 4,
+      "function_count": 6,
+      "lines": 62,
+      "crap_max": 12.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/lion-mark.tsx",
+      "fan_in": 2,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.06,
+      "maintainability_index": 93.9,
+      "total_cyclomatic": 3,
+      "total_cognitive": 2,
+      "function_count": 1,
+      "lines": 48,
+      "crap_max": 12.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/mocks/handlers/auth.ts",
+      "fan_in": 1,
+      "fan_out": 0,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.11,
+      "maintainability_index": 96.7,
+      "total_cyclomatic": 16,
+      "total_cognitive": 5,
+      "function_count": 11,
+      "lines": 148,
+      "crap_max": 12.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/forum/thread-status.tsx",
+      "fan_in": 2,
+      "fan_out": 4,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.15,
+      "maintainability_index": 89.1,
+      "total_cyclomatic": 19,
+      "total_cognitive": 6,
+      "function_count": 5,
+      "lines": 123,
+      "crap_max": 11.4,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/lib/api.ts",
+      "fan_in": 28,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.31,
+      "maintainability_index": 86.3,
+      "total_cyclomatic": 18,
+      "total_cognitive": 9,
+      "function_count": 10,
+      "lines": 58,
+      "crap_max": 10.4,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/notifications/notification-item.tsx",
+      "fan_in": 2,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.15,
+      "maintainability_index": 90.0,
+      "total_cyclomatic": 9,
+      "total_cognitive": 6,
+      "function_count": 3,
+      "lines": 62,
+      "crap_max": 10.4,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/contexts/theme.tsx",
+      "fan_in": 4,
+      "fan_out": 0,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.28,
+      "maintainability_index": 92.8,
+      "total_cyclomatic": 12,
+      "total_cognitive": 9,
+      "function_count": 6,
+      "lines": 43,
+      "crap_max": 10.4,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/events/event-detail.tsx",
+      "fan_in": 2,
+      "fan_out": 7,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.11,
+      "maintainability_index": 88.4,
+      "total_cyclomatic": 16,
+      "total_cognitive": 16,
+      "function_count": 6,
+      "lines": 147,
+      "crap_max": 9.3,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/contact/contact.tsx",
+      "fan_in": 2,
+      "fan_out": 10,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.06,
+      "maintainability_index": 88.6,
+      "total_cyclomatic": 17,
+      "total_cognitive": 16,
+      "function_count": 9,
+      "lines": 263,
+      "crap_max": 9.3,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/verify-email.tsx",
+      "fan_in": 2,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.1,
+      "maintainability_index": 92.6,
+      "total_cyclomatic": 12,
+      "total_cognitive": 13,
+      "function_count": 2,
+      "lines": 120,
+      "crap_max": 9.3,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/forum/thread-detail.tsx",
+      "fan_in": 2,
+      "fan_out": 9,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.13,
+      "maintainability_index": 86.9,
+      "total_cyclomatic": 17,
+      "total_cognitive": 13,
+      "function_count": 10,
+      "lines": 135,
+      "crap_max": 8.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/search/search-page.tsx",
+      "fan_in": 2,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.22,
+      "maintainability_index": 88.5,
+      "total_cyclomatic": 10,
+      "total_cognitive": 8,
+      "function_count": 3,
+      "lines": 45,
+      "crap_max": 8.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/hooks/use-email-verification.ts",
+      "fan_in": 6,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.22,
+      "maintainability_index": 89.0,
+      "total_cyclomatic": 20,
+      "total_cognitive": 19,
+      "function_count": 13,
+      "lines": 93,
+      "crap_max": 7.5,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/forum/reply-list.tsx",
+      "fan_in": 2,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.16,
+      "maintainability_index": 90.8,
+      "total_cyclomatic": 10,
+      "total_cognitive": 9,
+      "function_count": 6,
+      "lines": 62,
+      "crap_max": 7.5,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/forum/new-thread-form.tsx",
+      "fan_in": 2,
+      "fan_out": 7,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.12,
+      "maintainability_index": 88.1,
+      "total_cyclomatic": 14,
+      "total_cognitive": 15,
+      "function_count": 8,
+      "lines": 116,
+      "crap_max": 7.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/App.tsx",
+      "fan_in": 1,
+      "fan_out": 30,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.21,
+      "maintainability_index": 80.0,
+      "total_cyclomatic": 27,
+      "total_cognitive": 0,
+      "function_count": 27,
+      "lines": 127,
+      "crap_max": 2.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/search/search-results.tsx",
+      "fan_in": 2,
+      "fan_out": 5,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.12,
+      "maintainability_index": 89.2,
+      "total_cyclomatic": 9,
+      "total_cognitive": 6,
+      "function_count": 4,
+      "lines": 73,
+      "crap_max": 6.1,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/notifications/notification-bell.tsx",
+      "fan_in": 1,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.15,
+      "maintainability_index": 90.9,
+      "total_cyclomatic": 6,
+      "total_cognitive": 6,
+      "function_count": 1,
+      "lines": 40,
+      "crap_max": 6.1,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/forum/reply-form.tsx",
+      "fan_in": 2,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.1,
+      "maintainability_index": 91.5,
+      "total_cyclomatic": 9,
+      "total_cognitive": 7,
+      "function_count": 2,
+      "lines": 88,
+      "crap_max": 6.1,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/admin/admin-forum.tsx",
+      "fan_in": 1,
+      "fan_out": 4,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.08,
+      "maintainability_index": 91.2,
+      "total_cyclomatic": 5,
+      "total_cognitive": 2,
+      "function_count": 4,
+      "lines": 59,
+      "crap_max": 6.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/mocks/handlers/contact.ts",
+      "fan_in": 1,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.22,
+      "maintainability_index": 92.3,
+      "total_cyclomatic": 8,
+      "total_cognitive": 2,
+      "function_count": 6,
+      "lines": 37,
+      "crap_max": 6.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/mocks/handlers/notifications.ts",
+      "fan_in": 1,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.14,
+      "maintainability_index": 93.0,
+      "total_cyclomatic": 9,
+      "total_cognitive": 2,
+      "function_count": 7,
+      "lines": 63,
+      "crap_max": 6.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/main.tsx",
+      "fan_in": 1,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.1,
+      "maintainability_index": 93.3,
+      "total_cyclomatic": 2,
+      "total_cognitive": 1,
+      "function_count": 1,
+      "lines": 20,
+      "crap_max": 6.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/forum/forum.tsx",
+      "fan_in": 2,
+      "fan_out": 6,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.09,
+      "maintainability_index": 89.5,
+      "total_cyclomatic": 10,
+      "total_cognitive": 8,
+      "function_count": 5,
+      "lines": 112,
+      "crap_max": 5.1,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/hooks/use-notifications.ts",
+      "fan_in": 4,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.21,
+      "maintainability_index": 89.7,
+      "total_cyclomatic": 10,
+      "total_cognitive": 6,
+      "function_count": 6,
+      "lines": 47,
+      "crap_max": 5.1,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/hooks/__tests__/use-email-verification.test.ts",
+      "fan_in": 0,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.27,
+      "maintainability_index": 86.4,
+      "total_cyclomatic": 17,
+      "total_cognitive": 1,
+      "function_count": 15,
+      "lines": 63,
+      "crap_max": 4.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/__tests__/verify-email.test.tsx",
+      "fan_in": 0,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.26,
+      "maintainability_index": 86.7,
+      "total_cyclomatic": 13,
+      "total_cognitive": 0,
+      "function_count": 11,
+      "lines": 50,
+      "crap_max": 4.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/admin/admin-events.tsx",
+      "fan_in": 2,
+      "fan_out": 8,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.07,
+      "maintainability_index": 89.1,
+      "total_cyclomatic": 13,
+      "total_cognitive": 7,
+      "function_count": 8,
+      "lines": 186,
+      "crap_max": 4.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/shared/__tests__/email-verification-banner.test.tsx",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.16,
+      "maintainability_index": 92.4,
+      "total_cyclomatic": 9,
+      "total_cognitive": 1,
+      "function_count": 7,
+      "lines": 55,
+      "crap_max": 4.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/admin/admin-layout.tsx",
+      "fan_in": 2,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.07,
+      "maintainability_index": 93.5,
+      "total_cyclomatic": 4,
+      "total_cognitive": 3,
+      "function_count": 2,
+      "lines": 61,
+      "crap_max": 4.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/hooks/use-session-timeout.ts",
+      "fan_in": 2,
+      "fan_out": 0,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.24,
+      "maintainability_index": 95.8,
+      "total_cyclomatic": 7,
+      "total_cognitive": 6,
+      "function_count": 5,
+      "lines": 29,
+      "crap_max": 4.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/admin/admin-members.tsx",
+      "fan_in": 2,
+      "fan_out": 7,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.06,
+      "maintainability_index": 89.9,
+      "total_cyclomatic": 7,
+      "total_cognitive": 3,
+      "function_count": 4,
+      "lines": 126,
+      "crap_max": 4.1,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/contexts/auth.tsx",
+      "fan_in": 23,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.15,
+      "maintainability_index": 91.1,
+      "total_cyclomatic": 16,
+      "total_cognitive": 15,
+      "function_count": 9,
+      "lines": 108,
+      "crap_max": 4.1,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/shared/empty-state.tsx",
+      "fan_in": 8,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.13,
+      "maintainability_index": 94.7,
+      "total_cyclomatic": 4,
+      "total_cognitive": 4,
+      "function_count": 1,
+      "lines": 32,
+      "crap_max": 4.1,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/layout/__tests__/shell.test.tsx",
+      "fan_in": 0,
+      "fan_out": 4,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.18,
+      "maintainability_index": 88.2,
+      "total_cyclomatic": 12,
+      "total_cognitive": 0,
+      "function_count": 12,
+      "lines": 66,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/auth/login.tsx",
+      "fan_in": 2,
+      "fan_out": 7,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.09,
+      "maintainability_index": 89.0,
+      "total_cyclomatic": 11,
+      "total_cognitive": 11,
+      "function_count": 7,
+      "lines": 119,
+      "crap_max": 2.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/test/setup.ts",
+      "fan_in": 0,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.18,
+      "maintainability_index": 89.1,
+      "total_cyclomatic": 13,
+      "total_cognitive": 0,
+      "function_count": 13,
+      "lines": 72,
+      "crap_max": 2.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/search/__tests__/search-page.test.tsx",
+      "fan_in": 0,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.17,
+      "maintainability_index": 89.4,
+      "total_cyclomatic": 17,
+      "total_cognitive": 0,
+      "function_count": 17,
+      "lines": 101,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/auth/register.tsx",
+      "fan_in": 2,
+      "fan_out": 7,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.07,
+      "maintainability_index": 89.6,
+      "total_cyclomatic": 8,
+      "total_cognitive": 6,
+      "function_count": 6,
+      "lines": 115,
+      "crap_max": 2.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/forum/__tests__/reply-form.test.tsx",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.23,
+      "maintainability_index": 90.3,
+      "total_cyclomatic": 49,
+      "total_cognitive": 0,
+      "function_count": 49,
+      "lines": 211,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/search/__tests__/search-bar.test.tsx",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.17,
+      "maintainability_index": 90.5,
+      "total_cyclomatic": 12,
+      "total_cognitive": 0,
+      "function_count": 12,
+      "lines": 69,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/layout/__tests__/header.test.tsx",
+      "fan_in": 0,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.13,
+      "maintainability_index": 90.6,
+      "total_cyclomatic": 25,
+      "total_cognitive": 0,
+      "function_count": 25,
+      "lines": 189,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/forum/__tests__/thread-status.test.tsx",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.16,
+      "maintainability_index": 90.8,
+      "total_cyclomatic": 20,
+      "total_cognitive": 0,
+      "function_count": 20,
+      "lines": 123,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/hooks/__tests__/use-session-timeout.test.ts",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.21,
+      "maintainability_index": 90.9,
+      "total_cyclomatic": 15,
+      "total_cognitive": 0,
+      "function_count": 15,
+      "lines": 72,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/notifications/notification-panel.tsx",
+      "fan_in": 2,
+      "fan_out": 5,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.06,
+      "maintainability_index": 91.0,
+      "total_cyclomatic": 4,
+      "total_cognitive": 3,
+      "function_count": 2,
+      "lines": 70,
+      "crap_max": 3.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/forum/reply-item.tsx",
+      "fan_in": 2,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.08,
+      "maintainability_index": 92.1,
+      "total_cyclomatic": 4,
+      "total_cognitive": 2,
+      "function_count": 2,
+      "lines": 49,
+      "crap_max": 3.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/profile/profile.tsx",
+      "fan_in": 2,
+      "fan_out": 4,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.05,
+      "maintainability_index": 92.1,
+      "total_cyclomatic": 3,
+      "total_cognitive": 4,
+      "function_count": 1,
+      "lines": 58,
+      "crap_max": 3.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/shared/require-verified-email.tsx",
+      "fan_in": 2,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.09,
+      "maintainability_index": 92.6,
+      "total_cyclomatic": 3,
+      "total_cognitive": 4,
+      "function_count": 1,
+      "lines": 34,
+      "crap_max": 3.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/shared/require-admin.tsx",
+      "fan_in": 2,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.21,
+      "maintainability_index": 93.8,
+      "total_cyclomatic": 3,
+      "total_cognitive": 3,
+      "function_count": 1,
+      "lines": 14,
+      "crap_max": 3.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/forum/thread-header.tsx",
+      "fan_in": 2,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.08,
+      "maintainability_index": 93.9,
+      "total_cyclomatic": 3,
+      "total_cognitive": 1,
+      "function_count": 1,
+      "lines": 36,
+      "crap_max": 3.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/shared/email-verification-banner.tsx",
+      "fan_in": 3,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.06,
+      "maintainability_index": 95.4,
+      "total_cyclomatic": 3,
+      "total_cognitive": 2,
+      "function_count": 1,
+      "lines": 50,
+      "crap_max": 3.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/search/__tests__/search-result-item.test.tsx",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.15,
+      "maintainability_index": 91.3,
+      "total_cyclomatic": 7,
+      "total_cognitive": 0,
+      "function_count": 7,
+      "lines": 48,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/contact/__tests__/contact.test.tsx",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.19,
+      "maintainability_index": 91.5,
+      "total_cyclomatic": 31,
+      "total_cognitive": 3,
+      "function_count": 27,
+      "lines": 166,
+      "crap_max": 2.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/admin/__tests__/member-form.test.tsx",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.17,
+      "maintainability_index": 92.1,
+      "total_cyclomatic": 29,
+      "total_cognitive": 3,
+      "function_count": 26,
+      "lines": 173,
+      "crap_max": 2.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/auth/__tests__/login.test.tsx",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.17,
+      "maintainability_index": 92.1,
+      "total_cyclomatic": 17,
+      "total_cognitive": 1,
+      "function_count": 16,
+      "lines": 103,
+      "crap_max": 2.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/auth/__tests__/register.test.tsx",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.17,
+      "maintainability_index": 92.1,
+      "total_cyclomatic": 14,
+      "total_cognitive": 1,
+      "function_count": 13,
+      "lines": 84,
+      "crap_max": 2.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/lib/__tests__/api.test.ts",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.11,
+      "maintainability_index": 92.3,
+      "total_cyclomatic": 8,
+      "total_cognitive": 2,
+      "function_count": 6,
+      "lines": 72,
+      "crap_max": 2.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/admin/__tests__/event-form.test.tsx",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.16,
+      "maintainability_index": 92.4,
+      "total_cyclomatic": 34,
+      "total_cognitive": 3,
+      "function_count": 31,
+      "lines": 218,
+      "crap_max": 2.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/search/search-bar.tsx",
+      "fan_in": 2,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.1,
+      "maintainability_index": 92.6,
+      "total_cyclomatic": 7,
+      "total_cognitive": 10,
+      "function_count": 4,
+      "lines": 67,
+      "crap_max": 2.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/forum/__tests__/new-thread-form.test.tsx",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.15,
+      "maintainability_index": 92.7,
+      "total_cyclomatic": 21,
+      "total_cognitive": 2,
+      "function_count": 19,
+      "lines": 136,
+      "crap_max": 2.9,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/forum/__tests__/reply-item.test.tsx",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.14,
+      "maintainability_index": 91.4,
+      "total_cyclomatic": 12,
+      "total_cognitive": 0,
+      "function_count": 12,
+      "lines": 87,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/contexts/__tests__/auth.test.tsx",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.14,
+      "maintainability_index": 91.4,
+      "total_cyclomatic": 13,
+      "total_cognitive": 0,
+      "function_count": 13,
+      "lines": 92,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/shared/__tests__/empty-state.test.tsx",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.16,
+      "maintainability_index": 91.5,
+      "total_cyclomatic": 7,
+      "total_cognitive": 0,
+      "function_count": 7,
+      "lines": 43,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/forum/__tests__/thread-detail.test.tsx",
+      "fan_in": 0,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.1,
+      "maintainability_index": 91.5,
+      "total_cyclomatic": 25,
+      "total_cognitive": 0,
+      "function_count": 25,
+      "lines": 254,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/profile/__tests__/profile.test.tsx",
+      "fan_in": 0,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.1,
+      "maintainability_index": 91.5,
+      "total_cyclomatic": 9,
+      "total_cognitive": 0,
+      "function_count": 9,
+      "lines": 89,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/admin/__tests__/admin-events.test.tsx",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.18,
+      "maintainability_index": 91.8,
+      "total_cyclomatic": 10,
+      "total_cognitive": 0,
+      "function_count": 10,
+      "lines": 57,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/forum/__tests__/thread-header.test.tsx",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.12,
+      "maintainability_index": 92.0,
+      "total_cyclomatic": 10,
+      "total_cognitive": 0,
+      "function_count": 10,
+      "lines": 85,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/forum/__tests__/threads.test.tsx",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.12,
+      "maintainability_index": 92.0,
+      "total_cyclomatic": 16,
+      "total_cognitive": 0,
+      "function_count": 16,
+      "lines": 133,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/shared/__tests__/require-verified-email.test.tsx",
+      "fan_in": 0,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.08,
+      "maintainability_index": 92.1,
+      "total_cyclomatic": 8,
+      "total_cognitive": 0,
+      "function_count": 8,
+      "lines": 98,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/admin/__tests__/admin-layout.test.tsx",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.17,
+      "maintainability_index": 92.1,
+      "total_cyclomatic": 10,
+      "total_cognitive": 0,
+      "function_count": 10,
+      "lines": 58,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/forum/__tests__/reply-list.test.tsx",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.11,
+      "maintainability_index": 92.3,
+      "total_cyclomatic": 11,
+      "total_cognitive": 0,
+      "function_count": 11,
+      "lines": 100,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/forum/__tests__/forum.test.tsx",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.16,
+      "maintainability_index": 92.4,
+      "total_cyclomatic": 14,
+      "total_cognitive": 0,
+      "function_count": 14,
+      "lines": 87,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/shared/__tests__/require-admin.test.tsx",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.1,
+      "maintainability_index": 92.6,
+      "total_cyclomatic": 10,
+      "total_cognitive": 0,
+      "function_count": 10,
+      "lines": 103,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/events/__tests__/event-detail.test.tsx",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.1,
+      "maintainability_index": 92.6,
+      "total_cyclomatic": 17,
+      "total_cognitive": 0,
+      "function_count": 17,
+      "lines": 174,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/admin/__tests__/admin-members.test.tsx",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.15,
+      "maintainability_index": 92.7,
+      "total_cyclomatic": 8,
+      "total_cognitive": 0,
+      "function_count": 8,
+      "lines": 55,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/search/__tests__/search-results.test.tsx",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.09,
+      "maintainability_index": 92.9,
+      "total_cyclomatic": 7,
+      "total_cognitive": 0,
+      "function_count": 7,
+      "lines": 77,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/search/search-result-item.tsx",
+      "fan_in": 2,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.06,
+      "maintainability_index": 93.2,
+      "total_cyclomatic": 2,
+      "total_cognitive": 1,
+      "function_count": 1,
+      "lines": 34,
+      "crap_max": 2.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/sheet.tsx",
+      "fan_in": 3,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.07,
+      "maintainability_index": 93.5,
+      "total_cyclomatic": 6,
+      "total_cognitive": 1,
+      "function_count": 5,
+      "lines": 86,
+      "crap_max": 2.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/alert-dialog.tsx",
+      "fan_in": 1,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.07,
+      "maintainability_index": 93.5,
+      "total_cyclomatic": 11,
+      "total_cognitive": 0,
+      "function_count": 11,
+      "lines": 168,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/hooks/__tests__/use-notifications.test.ts",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.12,
+      "maintainability_index": 93.6,
+      "total_cyclomatic": 13,
+      "total_cognitive": 0,
+      "function_count": 13,
+      "lines": 106,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/notifications/__tests__/notification-item.test.tsx",
+      "fan_in": 0,
+      "fan_out": 2,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.09,
+      "maintainability_index": 93.8,
+      "total_cyclomatic": 3,
+      "total_cognitive": 0,
+      "function_count": 3,
+      "lines": 33,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/layout/shell.tsx",
+      "fan_in": 2,
+      "fan_out": 3,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.04,
+      "maintainability_index": 93.9,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 25,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/tabs.tsx",
+      "fan_in": 2,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.04,
+      "maintainability_index": 96.0,
+      "total_cyclomatic": 3,
+      "total_cognitive": 0,
+      "function_count": 3,
+      "lines": 72,
+      "crap_max": 2.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/section-divider.tsx",
+      "fan_in": 3,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.07,
+      "maintainability_index": 96.6,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 14,
+      "crap_max": 2.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/pages/not-found.tsx",
+      "fan_in": 1,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.04,
+      "maintainability_index": 96.6,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 26,
+      "crap_max": 2.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/mocks/handlers/session.ts",
+      "fan_in": 1,
+      "fan_out": 0,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.09,
+      "maintainability_index": 99.4,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 11,
+      "crap_max": 2.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/card.tsx",
+      "fan_in": 15,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.07,
+      "maintainability_index": 95.1,
+      "total_cyclomatic": 5,
+      "total_cognitive": 0,
+      "function_count": 5,
+      "lines": 76,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/table.tsx",
+      "fan_in": 3,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.07,
+      "maintainability_index": 95.1,
+      "total_cyclomatic": 6,
+      "total_cognitive": 0,
+      "function_count": 6,
+      "lines": 91,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/accordion.tsx",
+      "fan_in": 2,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.05,
+      "maintainability_index": 95.7,
+      "total_cyclomatic": 4,
+      "total_cognitive": 0,
+      "function_count": 4,
+      "lines": 73,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/notifications/__tests__/notification-panel.test.tsx",
+      "fan_in": 0,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.1,
+      "maintainability_index": 96.0,
+      "total_cyclomatic": 2,
+      "total_cognitive": 0,
+      "function_count": 2,
+      "lines": 20,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/shared/page-skeleton.tsx",
+      "fan_in": 2,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.13,
+      "maintainability_index": 96.0,
+      "total_cyclomatic": 2,
+      "total_cognitive": 0,
+      "function_count": 2,
+      "lines": 16,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/select.tsx",
+      "fan_in": 3,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.04,
+      "maintainability_index": 96.0,
+      "total_cyclomatic": 6,
+      "total_cognitive": 3,
+      "function_count": 6,
+      "lines": 162,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/layout/footer.tsx",
+      "fan_in": 1,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.03,
+      "maintainability_index": 96.3,
+      "total_cyclomatic": 4,
+      "total_cognitive": 0,
+      "function_count": 4,
+      "lines": 126,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/hooks/use-debounce.ts",
+      "fan_in": 2,
+      "fan_out": 0,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.31,
+      "maintainability_index": 97.6,
+      "total_cyclomatic": 4,
+      "total_cognitive": 2,
+      "function_count": 4,
+      "lines": 13,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/types/index.ts",
+      "fan_in": 39,
+      "fan_out": 0,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.01,
+      "maintainability_index": 99.7,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 129,
+      "crap_max": 1.2,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/badge.tsx",
+      "fan_in": 10,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.02,
+      "maintainability_index": 96.6,
+      "total_cyclomatic": 1,
+      "total_cognitive": 1,
+      "function_count": 1,
+      "lines": 51,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/button.tsx",
+      "fan_in": 30,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.02,
+      "maintainability_index": 96.6,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 57,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/input.tsx",
+      "fan_in": 9,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.05,
+      "maintainability_index": 96.6,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 21,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/skeleton.tsx",
+      "fan_in": 13,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.07,
+      "maintainability_index": 96.6,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 14,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/label.tsx",
+      "fan_in": 2,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.05,
+      "maintainability_index": 96.7,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 19,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/separator.tsx",
+      "fan_in": 2,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.04,
+      "maintainability_index": 96.7,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 24,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/spinner.tsx",
+      "fan_in": 9,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.03,
+      "maintainability_index": 96.7,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 30,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/textarea.tsx",
+      "fan_in": 6,
+      "fan_out": 1,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.05,
+      "maintainability_index": 96.7,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 19,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/components/ui/tooltip.tsx",
+      "fan_in": 2,
+      "fan_out": 0,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.05,
+      "maintainability_index": 99.4,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 19,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "fan_in": 30,
+      "fan_out": 0,
+      "dead_code_ratio": 0.0,
+      "complexity_density": 0.14,
+      "maintainability_index": 99.4,
+      "total_cyclomatic": 1,
+      "total_cognitive": 0,
+      "function_count": 1,
+      "lines": 7,
+      "crap_max": 1.0,
+      "crap_above_threshold": 0
+    }
+  ],
+  "hotspots": [
+    {
+      "path": "src/App.tsx",
+      "score": 67.7,
+      "commits": 8,
+      "weighted_commits": 7.48,
+      "lines_added": 140,
+      "lines_deleted": 14,
+      "complexity_density": 0.21,
+      "fan_in": 1,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/App.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/App.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/forum/threads.tsx",
+      "score": 51.1,
+      "commits": 8,
+      "weighted_commits": 7.4,
+      "lines_added": 300,
+      "lines_deleted": 99,
+      "complexity_density": 0.16,
+      "fan_in": 2,
+      "trend": "stable",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/forum/threads.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/forum/threads.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/mocks/handlers/forum.ts",
+      "score": 48.8,
+      "commits": 4,
+      "weighted_commits": 3.65,
+      "lines_added": 129,
+      "lines_deleted": 4,
+      "complexity_density": 0.31,
+      "fan_in": 1,
+      "trend": "accelerating",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/mocks/handlers/forum.ts`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/mocks/handlers/forum.ts` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/admin/member-form.tsx",
+      "score": 42.6,
+      "commits": 5,
+      "weighted_commits": 4.7,
+      "lines_added": 255,
+      "lines_deleted": 76,
+      "complexity_density": 0.21,
+      "fan_in": 2,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/admin/member-form.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/admin/member-form.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/components/layout/header.tsx",
+      "score": 42.0,
+      "commits": 7,
+      "weighted_commits": 6.49,
+      "lines_added": 260,
+      "lines_deleted": 13,
+      "complexity_density": 0.15,
+      "fan_in": 2,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/components/layout/header.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/components/layout/header.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/lib/api.ts",
+      "score": 38.4,
+      "commits": 3,
+      "weighted_commits": 2.87,
+      "lines_added": 57,
+      "lines_deleted": 0,
+      "complexity_density": 0.31,
+      "fan_in": 28,
+      "trend": "accelerating",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/lib/api.ts`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/lib/api.ts` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/forum/thread-detail.tsx",
+      "score": 35.9,
+      "commits": 7,
+      "weighted_commits": 6.41,
+      "lines_added": 313,
+      "lines_deleted": 179,
+      "complexity_density": 0.13,
+      "fan_in": 2,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/forum/thread-detail.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/forum/thread-detail.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/admin/event-form.tsx",
+      "score": 34.1,
+      "commits": 6,
+      "weighted_commits": 5.64,
+      "lines_added": 381,
+      "lines_deleted": 118,
+      "complexity_density": 0.14,
+      "fan_in": 2,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/admin/event-form.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/admin/event-form.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/auth/__tests__/register.test.tsx",
+      "score": 27.9,
+      "commits": 4,
+      "weighted_commits": 3.81,
+      "lines_added": 91,
+      "lines_deleted": 8,
+      "complexity_density": 0.17,
+      "fan_in": 0,
+      "trend": "cooling",
+      "is_test_path": true,
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/auth/__tests__/register.test.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/auth/__tests__/register.test.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/auth/__tests__/login.test.tsx",
+      "score": 27.8,
+      "commits": 4,
+      "weighted_commits": 3.79,
+      "lines_added": 107,
+      "lines_deleted": 5,
+      "complexity_density": 0.17,
+      "fan_in": 0,
+      "trend": "accelerating",
+      "is_test_path": true,
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/auth/__tests__/login.test.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/auth/__tests__/login.test.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/events/event-detail.tsx",
+      "score": 26.8,
+      "commits": 6,
+      "weighted_commits": 5.65,
+      "lines_added": 171,
+      "lines_deleted": 25,
+      "complexity_density": 0.11,
+      "fan_in": 2,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/events/event-detail.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/events/event-detail.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/auth/login.tsx",
+      "score": 25.5,
+      "commits": 7,
+      "weighted_commits": 6.57,
+      "lines_added": 207,
+      "lines_deleted": 89,
+      "complexity_density": 0.09,
+      "fan_in": 2,
+      "trend": "accelerating",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/auth/login.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/auth/login.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/forum/__tests__/threads.test.tsx",
+      "score": 24.1,
+      "commits": 5,
+      "weighted_commits": 4.66,
+      "lines_added": 226,
+      "lines_deleted": 94,
+      "complexity_density": 0.12,
+      "fan_in": 0,
+      "trend": "cooling",
+      "is_test_path": true,
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/forum/__tests__/threads.test.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/forum/__tests__/threads.test.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/contact/__tests__/contact.test.tsx",
+      "score": 23.2,
+      "commits": 3,
+      "weighted_commits": 2.83,
+      "lines_added": 167,
+      "lines_deleted": 2,
+      "complexity_density": 0.19,
+      "fan_in": 0,
+      "trend": "cooling",
+      "is_test_path": true,
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/contact/__tests__/contact.test.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/contact/__tests__/contact.test.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/admin/__tests__/admin-events.test.tsx",
+      "score": 22.4,
+      "commits": 3,
+      "weighted_commits": 2.89,
+      "lines_added": 57,
+      "lines_deleted": 1,
+      "complexity_density": 0.18,
+      "fan_in": 0,
+      "trend": "cooling",
+      "is_test_path": true,
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/admin/__tests__/admin-events.test.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/admin/__tests__/admin-events.test.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/admin/__tests__/member-form.test.tsx",
+      "score": 21.2,
+      "commits": 3,
+      "weighted_commits": 2.89,
+      "lines_added": 173,
+      "lines_deleted": 1,
+      "complexity_density": 0.17,
+      "fan_in": 0,
+      "trend": "cooling",
+      "is_test_path": true,
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/admin/__tests__/member-form.test.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/admin/__tests__/member-form.test.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/components/layout/__tests__/header.test.tsx",
+      "score": 21.1,
+      "commits": 4,
+      "weighted_commits": 3.76,
+      "lines_added": 192,
+      "lines_deleted": 4,
+      "complexity_density": 0.13,
+      "fan_in": 0,
+      "trend": "stable",
+      "is_test_path": true,
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/components/layout/__tests__/header.test.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/components/layout/__tests__/header.test.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/admin/dashboard.tsx",
+      "score": 20.0,
+      "commits": 3,
+      "weighted_commits": 2.73,
+      "lines_added": 189,
+      "lines_deleted": 84,
+      "complexity_density": 0.17,
+      "fan_in": 1,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/admin/dashboard.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/admin/dashboard.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/admin/__tests__/event-form.test.tsx",
+      "score": 19.9,
+      "commits": 3,
+      "weighted_commits": 2.89,
+      "lines_added": 218,
+      "lines_deleted": 1,
+      "complexity_density": 0.16,
+      "fan_in": 0,
+      "trend": "cooling",
+      "is_test_path": true,
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/admin/__tests__/event-form.test.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/admin/__tests__/event-form.test.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/auth/register.tsx",
+      "score": 19.8,
+      "commits": 7,
+      "weighted_commits": 6.57,
+      "lines_added": 195,
+      "lines_deleted": 81,
+      "complexity_density": 0.07,
+      "fan_in": 2,
+      "trend": "accelerating",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/auth/register.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/auth/register.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/forum/__tests__/forum.test.tsx",
+      "score": 19.4,
+      "commits": 3,
+      "weighted_commits": 2.81,
+      "lines_added": 87,
+      "lines_deleted": 1,
+      "complexity_density": 0.16,
+      "fan_in": 0,
+      "trend": "accelerating",
+      "is_test_path": true,
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/forum/__tests__/forum.test.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/forum/__tests__/forum.test.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/forum/new-thread-form.tsx",
+      "score": 19.1,
+      "commits": 4,
+      "weighted_commits": 3.7,
+      "lines_added": 179,
+      "lines_deleted": 64,
+      "complexity_density": 0.12,
+      "fan_in": 2,
+      "trend": "stable",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/forum/new-thread-form.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/forum/new-thread-form.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/lib/search.ts",
+      "score": 18.1,
+      "commits": 3,
+      "weighted_commits": 2.8,
+      "lines_added": 178,
+      "lines_deleted": 4,
+      "complexity_density": 0.15,
+      "fan_in": 4,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/lib/search.ts`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/lib/search.ts` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/forum/forum.tsx",
+      "score": 17.9,
+      "commits": 5,
+      "weighted_commits": 4.62,
+      "lines_added": 131,
+      "lines_deleted": 20,
+      "complexity_density": 0.09,
+      "fan_in": 2,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/forum/forum.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/forum/forum.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/mocks/handlers/auth.ts",
+      "score": 17.7,
+      "commits": 4,
+      "weighted_commits": 3.73,
+      "lines_added": 151,
+      "lines_deleted": 3,
+      "complexity_density": 0.11,
+      "fan_in": 1,
+      "trend": "stable",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/mocks/handlers/auth.ts`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/mocks/handlers/auth.ts` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/admin/admin-events.tsx",
+      "score": 16.8,
+      "commits": 6,
+      "weighted_commits": 5.57,
+      "lines_added": 320,
+      "lines_deleted": 135,
+      "complexity_density": 0.07,
+      "fan_in": 2,
+      "trend": "stable",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/admin/admin-events.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/admin/admin-events.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/components/forum/reply-form.tsx",
+      "score": 16.4,
+      "commits": 4,
+      "weighted_commits": 3.8,
+      "lines_added": 90,
+      "lines_deleted": 3,
+      "complexity_density": 0.1,
+      "fan_in": 2,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/components/forum/reply-form.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/components/forum/reply-form.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/components/ui/field.tsx",
+      "score": 14.3,
+      "commits": 3,
+      "weighted_commits": 2.76,
+      "lines_added": 237,
+      "lines_deleted": 91,
+      "complexity_density": 0.12,
+      "fan_in": 7,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/components/ui/field.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/components/ui/field.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/admin/admin-messages.tsx",
+      "score": 14.3,
+      "commits": 3,
+      "weighted_commits": 2.76,
+      "lines_added": 212,
+      "lines_deleted": 154,
+      "complexity_density": 0.12,
+      "fan_in": 1,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/admin/admin-messages.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/admin/admin-messages.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/admin/admin-members.tsx",
+      "score": 12.1,
+      "commits": 5,
+      "weighted_commits": 4.66,
+      "lines_added": 270,
+      "lines_deleted": 145,
+      "complexity_density": 0.06,
+      "fan_in": 2,
+      "trend": "stable",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/admin/admin-members.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/admin/admin-members.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/forum/__tests__/thread-detail.test.tsx",
+      "score": 12.0,
+      "commits": 3,
+      "weighted_commits": 2.78,
+      "lines_added": 255,
+      "lines_deleted": 2,
+      "complexity_density": 0.1,
+      "fan_in": 0,
+      "trend": "cooling",
+      "is_test_path": true,
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/forum/__tests__/thread-detail.test.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/forum/__tests__/thread-detail.test.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/events/events.tsx",
+      "score": 9.7,
+      "commits": 3,
+      "weighted_commits": 2.81,
+      "lines_added": 162,
+      "lines_deleted": 18,
+      "complexity_density": 0.08,
+      "fan_in": 1,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/events/events.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/events/events.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/contact/contact.tsx",
+      "score": 9.6,
+      "commits": 4,
+      "weighted_commits": 3.7,
+      "lines_added": 315,
+      "lines_deleted": 53,
+      "complexity_density": 0.06,
+      "fan_in": 2,
+      "trend": "stable",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/contact/contact.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/contact/contact.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/admin/admin-layout.tsx",
+      "score": 8.3,
+      "commits": 3,
+      "weighted_commits": 2.76,
+      "lines_added": 125,
+      "lines_deleted": 65,
+      "complexity_density": 0.07,
+      "fan_in": 2,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/admin/admin-layout.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/admin/admin-layout.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/about/about.tsx",
+      "score": 6.1,
+      "commits": 3,
+      "weighted_commits": 2.81,
+      "lines_added": 225,
+      "lines_deleted": 53,
+      "complexity_density": 0.05,
+      "fan_in": 1,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/about/about.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/about/about.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/pages/not-found.tsx",
+      "score": 4.8,
+      "commits": 3,
+      "weighted_commits": 2.76,
+      "lines_added": 39,
+      "lines_deleted": 14,
+      "complexity_density": 0.04,
+      "fan_in": 1,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/pages/not-found.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/pages/not-found.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/components/layout/footer.tsx",
+      "score": 3.6,
+      "commits": 3,
+      "weighted_commits": 2.76,
+      "lines_added": 134,
+      "lines_deleted": 9,
+      "complexity_density": 0.03,
+      "fan_in": 1,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/components/layout/footer.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/components/layout/footer.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/types/index.ts",
+      "score": 2.8,
+      "commits": 7,
+      "weighted_commits": 6.52,
+      "lines_added": 162,
+      "lines_deleted": 34,
+      "complexity_density": 0.01,
+      "fan_in": 39,
+      "trend": "stable",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/types/index.ts`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/types/index.ts` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/components/ui/badge.tsx",
+      "score": 2.4,
+      "commits": 3,
+      "weighted_commits": 2.76,
+      "lines_added": 56,
+      "lines_deleted": 6,
+      "complexity_density": 0.02,
+      "fan_in": 10,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/components/ui/badge.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/components/ui/badge.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    },
+    {
+      "path": "src/components/ui/button.tsx",
+      "score": 2.4,
+      "commits": 3,
+      "weighted_commits": 2.76,
+      "lines_added": 61,
+      "lines_deleted": 5,
+      "complexity_density": 0.02,
+      "fan_in": 30,
+      "trend": "cooling",
+      "actions": [
+        {
+          "type": "refactor-file",
+          "auto_fixable": false,
+          "description": "Refactor `src/components/ui/button.tsx`, high complexity combined with frequent changes makes this a maintenance risk",
+          "note": "Prioritize extracting complex functions, adding tests, or splitting the module"
+        },
+        {
+          "type": "add-tests",
+          "auto_fixable": false,
+          "description": "Add test coverage for `src/components/ui/button.tsx` to reduce change risk",
+          "note": "Frequently changed complex files benefit most from comprehensive test coverage"
+        }
+      ]
+    }
+  ],
+  "hotspot_summary": {
+    "since": "6 months",
+    "min_commits": 3,
+    "files_analyzed": 40,
+    "files_excluded": 84,
+    "shallow_clone": false
+  },
+  "large_functions": [
+    {
+      "path": "src/components/layout/header.tsx",
+      "name": "Header",
+      "line": 15,
+      "line_count": 233
+    },
+    {
+      "path": "src/pages/admin/event-form.tsx",
+      "name": "EventFormPage",
+      "line": 45,
+      "line_count": 219
+    },
+    {
+      "path": "src/components/forum/__tests__/reply-form.test.tsx",
+      "name": "<arrow>",
+      "line": 6,
+      "line_count": 206
+    },
+    {
+      "path": "src/pages/contact/contact.tsx",
+      "name": "ContactPage",
+      "line": 62,
+      "line_count": 201
+    },
+    {
+      "path": "src/pages/forum/__tests__/thread-detail.test.tsx",
+      "name": "<arrow>",
+      "line": 63,
+      "line_count": 191
+    },
+    {
+      "path": "src/pages/forum/threads.tsx",
+      "name": "ThreadsPage",
+      "line": 16,
+      "line_count": 186
+    },
+    {
+      "path": "src/pages/home/home.tsx",
+      "name": "HomePage",
+      "line": 19,
+      "line_count": 173
+    },
+    {
+      "path": "src/pages/admin/admin-events.tsx",
+      "name": "AdminEventsPage",
+      "line": 26,
+      "line_count": 160
+    },
+    {
+      "path": "src/components/ui/file-upload.tsx",
+      "name": "FileUpload",
+      "line": 20,
+      "line_count": 156
+    },
+    {
+      "path": "src/pages/admin/member-form.tsx",
+      "name": "MemberFormPage",
+      "line": 39,
+      "line_count": 141
+    },
+    {
+      "path": "src/pages/about/about.tsx",
+      "name": "AboutPage",
+      "line": 34,
+      "line_count": 139
+    },
+    {
+      "path": "src/components/layout/__tests__/header.test.tsx",
+      "name": "<arrow>",
+      "line": 54,
+      "line_count": 135
+    },
+    {
+      "path": "src/pages/events/event-detail.tsx",
+      "name": "EventDetailPage",
+      "line": 13,
+      "line_count": 134
+    },
+    {
+      "path": "src/pages/events/events.tsx",
+      "name": "EventsPage",
+      "line": 19,
+      "line_count": 126
+    },
+    {
+      "path": "src/pages/events/__tests__/event-detail.test.tsx",
+      "name": "<arrow>",
+      "line": 53,
+      "line_count": 121
+    },
+    {
+      "path": "src/pages/forum/thread-detail.tsx",
+      "name": "ThreadDetailPage",
+      "line": 15,
+      "line_count": 120
+    },
+    {
+      "path": "src/components/forum/__tests__/thread-status.test.tsx",
+      "name": "<arrow>",
+      "line": 5,
+      "line_count": 119
+    },
+    {
+      "path": "src/pages/admin/__tests__/event-form.test.tsx",
+      "name": "<arrow>",
+      "line": 40,
+      "line_count": 118
+    },
+    {
+      "path": "src/pages/verify-email.tsx",
+      "name": "VerifyEmailPage",
+      "line": 7,
+      "line_count": 113
+    },
+    {
+      "path": "src/pages/admin/admin-members.tsx",
+      "name": "AdminMembersPage",
+      "line": 14,
+      "line_count": 112
+    },
+    {
+      "path": "src/mocks/handlers/search.ts",
+      "name": "searchHandlers",
+      "line": 8,
+      "line_count": 105
+    },
+    {
+      "path": "src/lib/search.ts",
+      "name": "searchAll",
+      "line": 71,
+      "line_count": 104
+    },
+    {
+      "path": "src/pages/admin/dashboard.tsx",
+      "name": "AdminDashboardPage",
+      "line": 8,
+      "line_count": 98
+    },
+    {
+      "path": "src/pages/auth/login.tsx",
+      "name": "LoginPage",
+      "line": 23,
+      "line_count": 96
+    },
+    {
+      "path": "src/pages/forum/new-thread-form.tsx",
+      "name": "NewThreadForm",
+      "line": 25,
+      "line_count": 91
+    },
+    {
+      "path": "src/pages/auth/register.tsx",
+      "name": "RegisterPage",
+      "line": 27,
+      "line_count": 88
+    },
+    {
+      "path": "src/pages/forum/forum.tsx",
+      "name": "ForumPage",
+      "line": 25,
+      "line_count": 87
+    },
+    {
+      "path": "src/components/layout/footer.tsx",
+      "name": "Footer",
+      "line": 40,
+      "line_count": 86
+    },
+    {
+      "path": "src/components/forum/thread-status.tsx",
+      "name": "ThreadStatus",
+      "line": 40,
+      "line_count": 84
+    },
+    {
+      "path": "src/pages/contact/__tests__/contact.test.tsx",
+      "name": "<arrow>",
+      "line": 85,
+      "line_count": 81
+    },
+    {
+      "path": "src/App.tsx",
+      "name": "App",
+      "line": 49,
+      "line_count": 78
+    },
+    {
+      "path": "src/components/forum/__tests__/reply-form.test.tsx",
+      "name": "<arrow>",
+      "line": 82,
+      "line_count": 78
+    },
+    {
+      "path": "src/pages/admin/__tests__/member-form.test.tsx",
+      "name": "<arrow>",
+      "line": 36,
+      "line_count": 77
+    },
+    {
+      "path": "src/hooks/__tests__/use-notifications.test.ts",
+      "name": "<arrow>",
+      "line": 30,
+      "line_count": 76
+    },
+    {
+      "path": "src/hooks/use-email-verification.ts",
+      "name": "useEmailVerification",
+      "line": 17,
+      "line_count": 76
+    },
+    {
+      "path": "src/contexts/auth.tsx",
+      "name": "AuthProvider",
+      "line": 28,
+      "line_count": 75
+    },
+    {
+      "path": "src/pages/auth/__tests__/login.test.tsx",
+      "name": "<arrow>",
+      "line": 30,
+      "line_count": 73
+    },
+    {
+      "path": "src/components/forum/reply-form.tsx",
+      "name": "ReplyForm",
+      "line": 16,
+      "line_count": 72
+    },
+    {
+      "path": "src/components/shared/__tests__/require-verified-email.test.tsx",
+      "name": "<arrow>",
+      "line": 27,
+      "line_count": 71
+    },
+    {
+      "path": "public/mockServiceWorker.js",
+      "name": "getResponse",
+      "line": 211,
+      "line_count": 70
+    },
+    {
+      "path": "src/pages/forum/__tests__/new-thread-form.test.tsx",
+      "name": "<arrow>",
+      "line": 66,
+      "line_count": 70
+    },
+    {
+      "path": "src/components/forum/__tests__/reply-list.test.tsx",
+      "name": "<arrow>",
+      "line": 31,
+      "line_count": 69
+    },
+    {
+      "path": "src/components/forum/__tests__/reply-item.test.tsx",
+      "name": "<arrow>",
+      "line": 19,
+      "line_count": 68
+    },
+    {
+      "path": "src/components/forum/__tests__/thread-header.test.tsx",
+      "name": "<arrow>",
+      "line": 18,
+      "line_count": 68
+    },
+    {
+      "path": "public/mockServiceWorker.js",
+      "name": "<anonymous>",
+      "line": 23,
+      "line_count": 67
+    },
+    {
+      "path": "src/pages/profile/__tests__/profile.test.tsx",
+      "name": "<arrow>",
+      "line": 23,
+      "line_count": 66
+    },
+    {
+      "path": "src/components/shared/__tests__/require-admin.test.tsx",
+      "name": "<arrow>",
+      "line": 39,
+      "line_count": 64
+    },
+    {
+      "path": "src/pages/admin/__tests__/event-form.test.tsx",
+      "name": "<arrow>",
+      "line": 69,
+      "line_count": 62
+    }
+  ],
+  "targets": [
+    {
+      "path": "src/lib/api.ts",
+      "priority": 36.1,
+      "efficiency": 12.0,
+      "recommendation": "Split high-impact file (58 LOC), 28 dependents amplify every change",
+      "category": "split_high_impact",
+      "effort": "high",
+      "confidence": "medium",
+      "factors": [
+        {
+          "metric": "complexity_density",
+          "value": 0.31,
+          "threshold": 0.3,
+          "detail": "density 0.31 exceeds 0.3"
+        },
+        {
+          "metric": "fan_in",
+          "value": 28.0,
+          "threshold": 3.0,
+          "detail": "28 files depend on this"
+        },
+        {
+          "metric": "hotspot_score",
+          "value": 38.4,
+          "threshold": 30.0,
+          "detail": "hotspot score 38 (3 commits, accelerating trend)"
+        }
+      ],
+      "evidence": {
+        "direct_callers": [
+          {
+            "path": "src/contexts/__tests__/auth.test.tsx",
+            "symbols": [
+              {
+                "imported": "api",
+                "local": "api",
+                "type_only": false
+              }
+            ]
+          },
+          {
+            "path": "src/contexts/auth.tsx",
+            "symbols": [
+              {
+                "imported": "api",
+                "local": "api",
+                "type_only": false
+              }
+            ]
+          },
+          {
+            "path": "src/hooks/__tests__/use-email-verification.test.ts",
+            "symbols": [
+              {
+                "imported": "side-effect",
+                "local": "",
+                "type_only": false
+              }
+            ]
+          },
+          {
+            "path": "src/hooks/use-email-verification.ts",
+            "symbols": [
+              {
+                "imported": "api",
+                "local": "api",
+                "type_only": false
+              }
+            ]
+          },
+          {
+            "path": "src/hooks/use-notifications.ts",
+            "symbols": [
+              {
+                "imported": "api",
+                "local": "api",
+                "type_only": false
+              }
+            ]
+          }
+        ],
+        "clone_siblings": [
+          {
+            "path": "src/lib/api.ts",
+            "start_line": 8,
+            "end_line": 21,
+            "fingerprint": "dup:cf3b11cd"
+          },
+          {
+            "path": "src/lib/api.ts",
+            "start_line": 29,
+            "end_line": 42,
+            "fingerprint": "dup:cf3b11cd"
+          }
+        ]
+      },
+      "actions": [
+        {
+          "type": "apply-refactoring",
+          "auto_fixable": false,
+          "description": "Split high-impact file (58 LOC), 28 dependents amplify every change",
+          "category": "split_high_impact"
+        },
+        {
+          "type": "suppress-line",
+          "auto_fixable": false,
+          "description": "Suppress the underlying complexity finding",
+          "comment": "// fallow-ignore-next-line complexity"
+        }
+      ]
+    }
+  ],
+  "target_thresholds": {
+    "fan_in_p95": 13.0,
+    "fan_in_p75": 3.0,
+    "fan_out_p95": 9.0,
+    "fan_out_p90": 7
+  },
+  "framework_health": {
+    "detected_frameworks": [
+      "react"
+    ],
+    "detectors": [
+      {
+        "id": "unused-component-prop",
+        "framework": "react",
+        "status": "active"
+      },
+      {
+        "id": "prop-drilling",
+        "framework": "react",
+        "status": "disabled_by_config",
+        "reason": "disabled_by_config"
+      },
+      {
+        "id": "thin-wrapper",
+        "framework": "react",
+        "status": "disabled_by_config",
+        "reason": "disabled_by_config"
+      },
+      {
+        "id": "duplicate-prop-shape",
+        "framework": "react",
+        "status": "disabled_by_config",
+        "reason": "disabled_by_config"
+      }
+    ]
+  },
+  "next_steps": [
+    {
+      "id": "setup",
+      "command": "fallow schema",
+      "reason": "fallow has no config here; the manifest lists guided-setup commands (agent guide, commit gate) to offer the user"
+    },
+    {
+      "id": "complexity-breakdown",
+      "command": "fallow health --complexity-breakdown",
+      "reason": "see per-decision-point contributions for a hotspot"
+    },
+    {
+      "id": "audit-changed",
+      "command": "fallow audit",
+      "reason": "gate only the files your branch changed (auto-detects the base)"
+    }
+  ],
+  "_meta": {
+    "telemetry": {
+      "analysis_run_id": "run_b7da72ca4a1f54ca"
+    }
+  }
+}
