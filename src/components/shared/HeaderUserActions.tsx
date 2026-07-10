@@ -19,12 +19,14 @@ export function HeaderUserActions({ onLogout }: HeaderUserActionsProps) {
           >
             Profile
           </Link>
-          <Link
-            to="/admin"
-            className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:inline-block"
-          >
-            {isAdmin ? "Admin" : "Dashboard"}
-          </Link>
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:inline-block"
+            >
+              Admin
+            </Link>
+          )}
           <Button variant="ghost" size="sm" onClick={onLogout} className="hidden sm:inline-flex">
             Sign Out
           </Button>
