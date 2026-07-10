@@ -31,7 +31,7 @@ export function ReplyForm({ onSubmit, parentReplyId, quotedAuthor, maxLength = 5
         ...(parentReplyId && { parentReplyId }),
       });
       form.reset({ content: '' });
-    } catch (error) {
+    } catch {
       toast.error('Failed to post reply. Please try again.');
     }
   });
