@@ -107,18 +107,6 @@ export interface Notification {
   createdAt: string;
 }
 
-export interface NotificationState {
-  notifications: Notification[];
-  unreadCount: number;
-  isOpen: boolean;
-}
-
-export interface EmailVerificationStatus {
-  verified: boolean;
-  verifiedAt?: string;
-  pendingResendUntil?: string;
-}
-
 export class AuthError extends Error {
   constructor() {
     super("Session expired");

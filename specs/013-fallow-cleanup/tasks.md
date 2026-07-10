@@ -35,13 +35,13 @@
 
 ### Implementation for User Story 1
 
-- [ ] T005 [P] [US1] Delete unused file `src/components/ui/index.ts`
-- [ ] T006 [P] [US1] Check whether type exports `VerifyResult`, `NotificationState`, and `EmailVerificationStatus` are intended for future use — if yes, mark with `fallow-ignore` comments; if no, remove from `src/types/index.ts`
-- [ ] T007 [P] [US1] Move `@radix-ui/react-slot` from `dependencies` to `devDependencies` in `package.json`
-- [ ] T008 [P] [US1] Move `@tailwindcss/vite` from `dependencies` to `devDependencies` in `package.json`
-- [ ] T009 [US1] Run `npm install` to update `package-lock.json` after dependency changes
-- [ ] T010 [US1] Verify: `npx fallow dead-code --format json --quiet --tsconfig ./tsconfig.json` returns zero findings
-- [ ] T011 [US1] Verify: `npx tsc -b` passes, `npm run lint` passes, `npm run test:run` passes
+- [X] T005 [P] [US1] Delete unused file `src/components/ui/index.ts`
+- [X] T006 [P] [US1] Check whether type exports `VerifyResult`, `NotificationState`, and `EmailVerificationStatus` are intended for future use — if yes, mark with `fallow-ignore` comments; if no, remove from `src/types/index.ts`
+- [X] T007 [P] [US1] Remove unused `@radix-ui/react-slot` from `dependencies` in `package.json`
+- [X] T008 [P] [US1] Move `@tailwindcss/vite` from `dependencies` to `devDependencies` in `package.json`
+- [X] T009 [US1] Run `npm install` to update `package-lock.json` after dependency changes
+- [X] T010 [US1] Verify: `npx fallow dead-code --format json --quiet` returns zero findings
+- [X] T011 [US1] Verify: `npx tsc -b` passes, `npm run lint` passes, `npm run test:run` passes
 
 **Checkpoint**: Dead code eliminated — zero fallow dead-code findings.
 
