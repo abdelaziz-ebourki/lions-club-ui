@@ -17,9 +17,16 @@ export default defineConfig([
     ],
     rules: {
       '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+      'react-refresh/only-export-components': ['error', { allowExportNames: ['useAuth', 'useTheme'] }],
     },
     languageOptions: {
       globals: globals.browser,
+    },
+  },
+  {
+    files: ['**/__tests__/**/*.{ts,tsx}', '**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}', 'src/test/**'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 ])

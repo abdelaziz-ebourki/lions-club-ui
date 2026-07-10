@@ -37,8 +37,3 @@ jobs:
         with:
           command: audit
           gate: new-only
-          format: sarif
-      - name: Upload SARIF to GitHub
-        uses: github/codeql-action/upload-sarif@v4
-        with:
-          sarif_file: fallow-results.sarif
