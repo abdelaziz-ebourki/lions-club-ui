@@ -1,6 +1,29 @@
 import { http, HttpResponse } from "msw";
 import { categories, threads, replies } from "../data/forum";
 
+function createThread(body: Record<string, unknown>, categoryId?: string) {
+  const now = new Date().toISOString();
+  return {
+    id: `thread-${Date.now()}`,
+    categoryId: (categoryId ?? body.categoryId) as string,
+    title: body.title as string,
+    author: (body.author as string) ?? "Anonymous",
+    content: body.content as string,
+    createdAt: now,
+    status: "normal" as const,
+    replyCount: 0,
+    viewCount: 0,
+    lastActivity: now,
+  };
+}
+
+function pushThread(newThread: ReturnType<typeof createThread>) {
+  threads.unshift(newThread);
+  const cat = categories.find((c) => c.id === newThread.categoryId);
+  if (cat) cat.threadCount++;
+  return newThread;
+}
+
 export const forumHandlers = [
   http.get("/api/forum/categories", () => {
     return HttpResponse.json(categories);
@@ -38,23 +61,7 @@ export const forumHandlers = [
 
   http.post("/api/forum/threads", async ({ request }) => {
     const body = (await request.json()) as Record<string, unknown>;
-    const now = new Date().toISOString();
-    const newThread = {
-      id: `thread-${Date.now()}`,
-      categoryId: body.categoryId as string,
-      title: body.title as string,
-      author: (body.author as string) ?? "Anonymous",
-      content: body.content as string,
-      createdAt: now,
-      status: "normal" as const,
-      replyCount: 0,
-      viewCount: 0,
-      lastActivity: now,
-    };
-    threads.unshift(newThread);
-    const cat = categories.find((c) => c.id === newThread.categoryId);
-    if (cat) cat.threadCount++;
-    return HttpResponse.json(newThread, { status: 201 });
+    return HttpResponse.json(pushThread(createThread(body)), { status: 201 });
   }),
 
   http.get("/api/forum/replies", ({ request }) => {
@@ -95,23 +102,7 @@ export const forumHandlers = [
 
   http.post("/api/forum/:categoryId/threads", async ({ params, request }) => {
     const body = (await request.json()) as Record<string, unknown>;
-    const now = new Date().toISOString();
-    const newThread = {
-      id: `thread-${Date.now()}`,
-      categoryId: params.categoryId as string,
-      title: body.title as string,
-      author: (body.author as string) ?? "Anonymous",
-      content: body.content as string,
-      createdAt: now,
-      status: "normal" as const,
-      replyCount: 0,
-      viewCount: 0,
-      lastActivity: now,
-    };
-    threads.unshift(newThread);
-    const cat = categories.find((c) => c.id === newThread.categoryId);
-    if (cat) cat.threadCount++;
-    return HttpResponse.json(newThread, { status: 201 });
+    return HttpResponse.json(pushThread(createThread(body, params.categoryId as string)), { status: 201 });
   }),
 
   http.delete("/api/forum/threads/:id", ({ params }) => {

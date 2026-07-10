@@ -6,7 +6,7 @@ import { useAuth } from "@/contexts/auth";
 
 const COOLDOWN_SECONDS = 60;
 
-export type VerifyResult =
+type VerifyResult =
   | { status: "idle" }
   | { status: "loading" }
   | { status: "success" }

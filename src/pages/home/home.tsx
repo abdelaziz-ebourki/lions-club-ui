@@ -8,13 +8,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { SectionDivider } from "@/components/ui/section-divider";
 import { ArrowRight, Calendar } from "lucide-react";
 import type { Event } from "@/types";
-
-const impact = [
-  { value: "12", label: "vision screenings last quarter" },
-  { value: "28", label: "youth mentored this year" },
-  { value: "8", label: "neighborhood clean-ups in 2024" },
-  { value: "4", label: "community partners active now" },
-];
+import { HomeHero } from "@/components/shared/HomeHero";
+import { HomeImpact } from "@/components/shared/HomeImpact";
+import { HomeCta } from "@/components/shared/HomeCta";
 
 export function HomePage() {
   const { data: events, isLoading } = useQuery<Event[]>({
@@ -24,52 +20,9 @@ export function HomePage() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-primary/[0.03] via-background to-accent/[0.03]">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent" />
-        <div className="mx-auto max-w-7xl px-4 py-32 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="font-display text-overline-lg text-accent mb-6 tracking-widest animate-in stagger-1">
-              We Serve
-            </p>
-            <h1 className="font-heading text-display-lg italic text-foreground animate-in stagger-2">
-              Casablanca has served since 2015.
-              <br />Your turn.
-            </h1>
-            <p className="mt-6 text-body-lg text-muted-foreground max-w-2xl mx-auto animate-in stagger-3">
-              Lions Club FSBM unites neighbors, students, and professionals
-              to tackle Casablanca's most pressing needs — vision health,
-              youth opportunity, and community resilience.
-            </p>
-            <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center animate-in stagger-4">
-              <Link to="/events">
-                <Button size="lg">
-                  Find Your First Project <ArrowRight data-icon="inline-end" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HomeHero />
 
-      <section className="border-y bg-muted/50">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <p className="font-display text-overline text-accent text-center mb-10">
-            What We've Done Together
-          </p>
-          <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
-            {impact.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="font-heading text-4xl font-bold text-primary">
-                  {stat.value}
-                </p>
-                <p className="mt-2 text-body-sm text-muted-foreground max-w-28 mx-auto">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HomeImpact />
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between">
@@ -155,37 +108,7 @@ export function HomePage() {
 
       <SectionDivider />
 
-      <section className="bg-primary text-primary-foreground">
-        <div className="mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
-          <p className="font-display text-overline-lg tracking-widest text-primary-foreground/60">
-            Get Involved
-          </p>
-          <h2 className="font-heading text-h1 mt-2 text-primary-foreground">
-            Ready to Serve?
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-body-lg text-primary-foreground/80">
-            Every project starts with one person showing up. 
-            Whether you can give two hours or two years, 
-            there's a place for you here.
-          </p>
-          <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Link to="/contact">
-              <Button variant="secondary" size="lg">
-                Start Volunteering
-              </Button>
-            </Link>
-            <Link to="/about">
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10"
-              >
-                Learn More
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <HomeCta />
     </>
   );
 }
