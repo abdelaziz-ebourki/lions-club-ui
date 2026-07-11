@@ -5,49 +5,55 @@ import { Skeleton } from "@/components/ui/skeleton";
 interface AdminTableProps {
   headers: ReactNode;
   children?: ReactNode;
+  mobileView?: ReactNode;
   loading?: boolean;
   skeletonColumns?: number;
   skeletonRows?: number;
 }
 
-export function AdminTable({ headers, children, loading, skeletonColumns = 5, skeletonRows = 4 }: AdminTableProps) {
-  if (loading) {
-    return (
-      <div className="rounded-lg border" aria-busy="true">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              {headers}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {Array.from({ length: skeletonRows }).map((_, i) => (
-              <TableRow key={`skeleton-${i}`}>
-                {Array.from({ length: skeletonColumns }).map((_, j) => (
-                  <TableCell key={`col-${j}`}>
-                    <Skeleton className="h-4 w-4/5" />
-                  </TableCell>
-                ))}
-              </TableRow>
+export function AdminTable({ headers, children, mobileView, loading, skeletonColumns = 5, skeletonRows = 4 }: AdminTableProps) {
+  const tableContent = loading ? (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          {headers}
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {Array.from({ length: skeletonRows }).map((_, i) => (
+          <TableRow key={`skeleton-${i}`}>
+            {Array.from({ length: skeletonColumns }).map((_, j) => (
+              <TableCell key={`col-${j}`}>
+                <Skeleton className="h-4 w-4/5" />
+              </TableCell>
             ))}
-          </TableBody>
-        </Table>
-      </div>
-    );
-  }
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  ) : (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          {headers}
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {children}
+      </TableBody>
+    </Table>
+  );
 
   return (
     <div className="rounded-lg border">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            {headers}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {children}
-        </TableBody>
-      </Table>
+      <div className={mobileView ? "hidden sm:block" : ""}>
+        {tableContent}
+      </div>
+      {mobileView && (
+        <div className="block sm:hidden">
+          {mobileView}
+        </div>
+      )}
     </div>
   );
 }
