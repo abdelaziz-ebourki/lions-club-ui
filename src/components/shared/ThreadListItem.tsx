@@ -24,7 +24,7 @@ export function ThreadListItem({ thread, categoryId }: ThreadListItemProps) {
               Started by {thread.author} &middot; {thread.replyCount} replies
             </p>
           </div>
-          <div className="hidden text-right sm:block">
+          <div className="text-right shrink-0">
             <p className="text-sm text-muted-foreground">
               {thread.lastActivity}
             </p>

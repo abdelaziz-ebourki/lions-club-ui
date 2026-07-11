@@ -80,7 +80,7 @@ export function ForumPage() {
                           {category.description}
                         </CardDescription>
                       </div>
-                      <div className="hidden text-right text-body-sm text-muted-foreground sm:block">
+                      <div className="text-right text-body-sm text-muted-foreground shrink-0">
                         <p>{category.threadCount} threads</p>
                         <p>{category.postCount} posts</p>
                       </div>

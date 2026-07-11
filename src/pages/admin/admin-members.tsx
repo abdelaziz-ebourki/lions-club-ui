@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { api } from "@/lib/api";
 import type { Member } from "@/types";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { TableCell, TableRow, TableHead } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Pencil, Users } from "lucide-react";
@@ -54,11 +55,28 @@ export function AdminMembersPage() {
   return (
     <div>
       <AdminPageHeader overline="Members" heading="Manage Members" action={{ to: "/admin/members/new", label: "Add Member" }} />
-      <AdminTable headers={headers}>
+      <AdminTable
+        headers={headers}
+        mobileView={members?.map((member) => (
+          <Card key={member.id} className="mb-3">
+            <CardContent className="flex items-center justify-between py-4">
+              <div className="space-y-1">
+                <p className="font-body font-medium">{member.name}</p>
+                <Badge variant="accent" className="text-[10px]">{member.role}</Badge>
+              </div>
+              <Link to={`/admin/members/${member.id}/edit`}>
+                <Button variant="ghost" size="icon" className="size-8">
+                  <Pencil className="size-4" />
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        ))}
+      >
         {members?.map((member) => (
           <TableRow key={member.id}>
             <TableCell className="font-body font-medium">{member.name}</TableCell>
-            <TableCell className="hidden md:table-cell">
+            <TableCell>
               <Badge variant="accent" className="text-[10px]">{member.role}</Badge>
             </TableCell>
             <TableCell className="text-right">
