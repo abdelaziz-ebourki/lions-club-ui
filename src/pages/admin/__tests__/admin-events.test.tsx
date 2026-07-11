@@ -50,7 +50,17 @@ describe("AdminEventsPage", () => {
     ];
     vi.mocked(useQuery).mockReturnValue({ data: mockEvents, isLoading: false } as any);
     render(<AdminEventsPage />);
-    expect(screen.getByText("Beach Cleanup")).toBeInTheDocument();
-    expect(screen.getByText("Food Drive")).toBeInTheDocument();
+    expect(screen.getAllByText("Beach Cleanup")).toHaveLength(2);
+    expect(screen.getAllByText("Food Drive")).toHaveLength(2);
+  });
+
+  test("renders date and category in card layout on mobile view", () => {
+    const mockEvents = [
+      { id: "1", title: "Beach Cleanup", date: "2026-07-15", category: "Environment", status: "upcoming" as const },
+    ];
+    vi.mocked(useQuery).mockReturnValue({ data: mockEvents, isLoading: false } as any);
+    render(<AdminEventsPage />);
+    expect(screen.getAllByText("2026-07-15")).toHaveLength(2);
+    expect(screen.getAllByText("Environment")).toHaveLength(2);
   });
 });
