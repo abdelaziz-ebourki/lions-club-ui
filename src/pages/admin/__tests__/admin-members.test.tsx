@@ -48,7 +48,16 @@ describe("AdminMembersPage", () => {
     ];
     vi.mocked(useQuery).mockReturnValue({ data: mockMembers, isLoading: false } as any);
     render(<AdminMembersPage />);
-    expect(screen.getByText("Alice")).toBeInTheDocument();
-    expect(screen.getByText("Bob")).toBeInTheDocument();
+    expect(screen.getAllByText("Alice")).toHaveLength(2);
+    expect(screen.getAllByText("Bob")).toHaveLength(2);
+  });
+
+  test("renders role in card layout on mobile view", () => {
+    const mockMembers = [
+      { id: "1", name: "Alice", role: "President" },
+    ];
+    vi.mocked(useQuery).mockReturnValue({ data: mockMembers, isLoading: false } as any);
+    render(<AdminMembersPage />);
+    expect(screen.getAllByText("President")).toHaveLength(2);
   });
 });
