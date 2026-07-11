@@ -38,7 +38,7 @@ export function AdminMessagesPage() {
                 <p className="text-body-sm text-muted-foreground mt-0.5">{msg.subject}</p>
                 <p className="text-body-sm text-muted-foreground mt-1 line-clamp-2">{msg.message}</p>
               </div>
-              <div className="text-right text-body-sm text-muted-foreground shrink-0 hidden sm:block">
+              <div className="text-right text-body-sm text-muted-foreground shrink-0">
                 <p>{msg.email}</p>
                 <p className="mt-1">{msg.createdAt}</p>
               </div>
