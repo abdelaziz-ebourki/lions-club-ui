@@ -63,7 +63,12 @@ const defaultMutationReturn = {
 describe('ThreadDetailPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    (useQuery as ReturnType<typeof vi.fn>).mockReturnValue(defaultQueryReturn);
+    (useQuery as ReturnType<typeof vi.fn>).mockImplementation(({ queryKey }: any) => {
+      if (queryKey?.[0] === 'forum-categories') {
+        return { data: [{ id: 'cat-1', name: 'General' }], isLoading: false };
+      }
+      return defaultQueryReturn;
+    });
     (useMutation as ReturnType<typeof vi.fn>).mockReturnValue(defaultMutationReturn);
     (useAuth as ReturnType<typeof vi.fn>).mockReturnValue({
       user: null,
@@ -105,7 +110,7 @@ describe('ThreadDetailPage', () => {
 
   test('renders thread title in header', () => {
     render(<ThreadDetailPage />);
-    expect(screen.getByText('Welcome to the new forum!')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /welcome to the new forum/i })).toBeInTheDocument();
   });
 
   test('renders reply list with replies', () => {
@@ -135,10 +140,11 @@ describe('ThreadDetailPage', () => {
   });
 
   test('shows empty state when no replies', () => {
-    (useQuery as ReturnType<typeof vi.fn>).mockReturnValue({
-      data: { thread: mockThread, replies: [] },
-      isLoading: false,
-      error: null,
+    (useQuery as ReturnType<typeof vi.fn>).mockImplementation(({ queryKey }: any) => {
+      if (queryKey?.[0] === 'forum-categories') {
+        return { data: [{ id: 'cat-1', name: 'General' }], isLoading: false };
+      }
+      return { data: { thread: mockThread, replies: [] }, isLoading: false, error: null };
     });
     render(<ThreadDetailPage />);
     expect(screen.getByText('No replies yet')).toBeInTheDocument();
@@ -230,10 +236,11 @@ describe('ThreadDetailPage', () => {
     });
 
     test('admin can pin a normal thread', () => {
-      (useQuery as ReturnType<typeof vi.fn>).mockReturnValue({
-        data: { thread: { ...mockThread, status: 'normal' as const }, replies: mockReplies },
-        isLoading: false,
-        error: null,
+      (useQuery as ReturnType<typeof vi.fn>).mockImplementation(({ queryKey }: any) => {
+        if (queryKey?.[0] === 'forum-categories') {
+          return { data: [{ id: 'cat-1', name: 'General' }], isLoading: false };
+        }
+        return { data: { thread: { ...mockThread, status: 'normal' as const }, replies: mockReplies }, isLoading: false, error: null };
       });
       render(<ThreadDetailPage />);
       fireEvent.click(screen.getByTestId('pin-button'));
