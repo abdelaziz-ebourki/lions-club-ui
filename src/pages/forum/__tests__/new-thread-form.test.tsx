@@ -2,7 +2,7 @@ import { describe, test, expect, vi, beforeEach } from 'vitest';
 import { z } from 'zod';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { NewThreadForm } from '../new-thread-form';
 
 vi.mock('react-router-dom', async () => {
@@ -21,6 +21,7 @@ vi.mock('@tanstack/react-query', async () => {
   return {
     ...actual,
     useMutation: vi.fn(),
+    useQuery: vi.fn(),
   };
 });
 
@@ -74,6 +75,10 @@ describe('NewThreadForm Component', () => {
       isSuccess: false,
       isError: false,
       error: null,
+    } as any);
+    vi.mocked(useQuery).mockReturnValue({
+      data: [{ id: 'cat-1', name: 'General' }],
+      isLoading: false,
     } as any);
   });
 

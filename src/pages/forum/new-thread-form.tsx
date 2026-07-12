@@ -2,9 +2,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
+import type { ForumCategory } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,6 +15,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSuccessTimer } from "@/hooks/useSuccessTimer";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 const threadSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters").max(200, "Title must be at most 200 characters"),
@@ -25,6 +27,13 @@ type ThreadFormData = z.infer<typeof threadSchema>;
 export function NewThreadForm() {
   const { categoryId } = useParams<{ categoryId: string }>();
   const navigate = useNavigate();
+
+  const { data: categories } = useQuery<ForumCategory[]>({
+    queryKey: ["forum-categories"],
+    queryFn: () => api.get("/forum/categories"),
+  });
+
+  const categoryName = categories?.find((c) => c.id === categoryId)?.name ?? categoryId ?? "Forum";
 
   const form = useForm<ThreadFormData>({
     resolver: zodResolver(threadSchema),
@@ -51,7 +60,14 @@ export function NewThreadForm() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:px-8">
+    <>
+      <Breadcrumbs trail={[
+        { label: "Home", href: "/" },
+        { label: "Forum", href: "/forum" },
+        { label: categoryName, href: `/forum/${categoryId}` },
+        { label: "New Thread" },
+      ]} />
+      <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:px-8">
       <Link to={`/forum/${categoryId}`}>
         <Button variant="ghost" className="mb-8">
           <ArrowLeft data-icon="inline-start" /> Back to Threads
@@ -109,5 +125,6 @@ export function NewThreadForm() {
         </Button>
       </form>
     </div>
+    </>
   );
 }

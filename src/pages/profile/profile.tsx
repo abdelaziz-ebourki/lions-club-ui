@@ -2,6 +2,7 @@ import { useAuth } from "@/contexts/auth";
 import { useEmailVerification } from "@/hooks/use-email-verification";
 import { EmailVerificationBanner } from "@/components/shared/email-verification-banner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 export function ProfilePage() {
   const { user } = useAuth();
@@ -17,7 +18,9 @@ export function ProfilePage() {
     : "—";
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12">
+    <>
+      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Profile" }]} />
+      <div className="mx-auto max-w-2xl px-4 py-12">
       <h1 className="font-heading text-h2 mb-8">Profile</h1>
 
       <div className="mb-6">
@@ -53,5 +56,6 @@ export function ProfilePage() {
         </CardContent>
       </Card>
     </div>
+    </>
   );
 }

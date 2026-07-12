@@ -83,6 +83,6 @@ describe('ProfilePage', () => {
       refreshUser: vi.fn(),
     });
     render(<ProfilePage />);
-    expect(screen.getByText('Profile')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Profile' })).toBeInTheDocument();
   });
 });
