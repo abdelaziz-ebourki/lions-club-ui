@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -26,9 +27,9 @@ export function Breadcrumbs({ trail }: BreadcrumbsProps) {
               {isLast ? (
                 <BreadcrumbPage>{segment.label}</BreadcrumbPage>
               ) : (
-                <BreadcrumbLink href={segment.href ?? "#"}>
-                  {segment.label}
-                </BreadcrumbLink>
+<BreadcrumbLink render={<Link to={segment.href ?? "#"} />}>
+  {segment.label}
+</BreadcrumbLink>
               )}
               {!isLast && <BreadcrumbSeparator />}
             </BreadcrumbItem>
