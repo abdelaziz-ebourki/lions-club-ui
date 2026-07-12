@@ -76,15 +76,12 @@ export function AdminDashboardPage() {
 
   const hasError = eventsError || threadsError || membersError || messagesError;
 
-  function getCount(def: (typeof STAT_CARD_DEFS)[number]): number | string {
-    switch (def.label) {
-      case "Upcoming Events": return events?.filter((e) => e.status === "upcoming").length ?? "—";
-      case "New Messages": return messages?.filter((m) => m.status === "unread").length ?? "—";
-      case "Forum Threads": return threads?.length ?? "—";
-      case "Active Members": return members?.length ?? "—";
-      default: return "—";
-    }
-  }
+  const counts: Record<string, number | string> = {
+    "Upcoming Events": events?.filter((e) => e.status === "upcoming").length ?? "—",
+    "Forum Threads": threads?.length ?? "—",
+    "Active Members": members?.length ?? "—",
+    "New Messages": messages?.filter((m) => m.status === "unread").length ?? "—",
+  };
 
   return (
     <div>
@@ -101,7 +98,7 @@ export function AdminDashboardPage() {
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {STAT_CARD_DEFS.map((def) => (
-          <DashboardCard key={def.label} {...def} count={getCount(def)} />
+          <DashboardCard key={def.label} {...def} count={counts[def.label] ?? "—"} />
         ))}
       </div>
     </div>

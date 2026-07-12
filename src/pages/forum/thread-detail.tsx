@@ -62,68 +62,27 @@ function ThreadDetailNotFound({ trail, categoryId }: { trail: { label: string; h
   );
 }
 
-export function ThreadDetailPage() {
-  const { categoryId, threadId } = useParams<{ categoryId: string; threadId: string }>();
-  const { isAuthenticated, isAdmin } = useAuth();
-
-  const { data: categories } = useQuery<ForumCategory[]>({
-    queryKey: ["forum-categories"],
-    queryFn: () => api.get("/forum/categories"),
-  });
-  const queryClient = useQueryClient();
-  const [replyMeta, setReplyMeta] = useState<{ parentReplyId?: string; quotedAuthor?: string }>({});
-
-  const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["forum-thread-detail", categoryId, threadId],
-    queryFn: async () => {
-      const [thread, replies] = await Promise.all([
-        api.get<ForumThread>(`/forum/${categoryId}/${threadId}`),
-        api.get<ForumReply[]>(`/forum/replies?threadId=${threadId}`),
-      ]);
-      return { thread, replies };
-    },
-    enabled: !!categoryId && !!threadId,
-  });
-
-  const categoryName = categories?.find((c) => c.id === categoryId)?.name ?? categoryId ?? "Forum";
-  const threadTitle = data?.thread?.title;
-
-  const replyMutation = useMutation({
-    mutationFn: (body: { content: string; parentReplyId?: string }) =>
-      api.post("/forum/replies", { ...body, threadId }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["forum-thread-detail", categoryId, threadId] });
-      setReplyMeta({});
-    },
-  });
-
-  const statusMutation = useMutation({
-    mutationFn: (newStatus: ForumThreadStatus) =>
-      api.patch(`/forum/threads/${threadId}`, { status: newStatus }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["forum-thread-detail", categoryId, threadId] });
-    },
-  });
-
-  const handleReply = (parentReplyId: string, quotedAuthor: string) => {
-    setReplyMeta({ parentReplyId, quotedAuthor });
-  };
-
-  const handleSubmitReply = async (body: { content: string; parentReplyId?: string }) => {
-    await replyMutation.mutateAsync(body);
-  };
-
-  const trail = [
-    { label: "Home", href: "/" },
-    { label: "Forum", href: "/forum" },
-    { label: categoryName, href: `/forum/${categoryId}` },
-    { label: threadTitle ?? "Loading..." },
-  ];
-
-  if (isLoading) return <ThreadDetailLoading />;
-  if (isError) return <ThreadDetailError trail={trail} onRetry={() => refetch()} />;
-  if (!data?.thread) return <ThreadDetailNotFound trail={trail} categoryId={categoryId!} />;
-
+function ThreadDetailContent({
+  data,
+  trail,
+  categoryId,
+  isAdmin,
+  isAuthenticated,
+  statusMutation,
+  replyMeta,
+  handleReply,
+  handleSubmitReply,
+}: {
+  data: NonNullable<ReturnType<typeof useThreadDetailQuery>["data"]>;
+  trail: { label: string; href?: string }[];
+  categoryId: string;
+  isAdmin: boolean;
+  isAuthenticated: boolean;
+  statusMutation: ReturnType<typeof useMutation<unknown, unknown, ForumThreadStatus>>;
+  replyMeta: { parentReplyId?: string; quotedAuthor?: string };
+  handleReply: (parentReplyId: string, quotedAuthor: string) => void;
+  handleSubmitReply: (body: { content: string; parentReplyId?: string }) => Promise<void>;
+}) {
   return (
     <>
       <Breadcrumbs trail={trail} />
@@ -166,5 +125,86 @@ export function ThreadDetailPage() {
         )}
       </div>
     </>
+  );
+}
+
+function useThreadDetailQuery(categoryId?: string, threadId?: string) {
+  return useQuery({
+    queryKey: ["forum-thread-detail", categoryId, threadId],
+    queryFn: async () => {
+      const [thread, replies] = await Promise.all([
+        api.get<ForumThread>(`/forum/${categoryId}/${threadId}`),
+        api.get<ForumReply[]>(`/forum/replies?threadId=${threadId}`),
+      ]);
+      return { thread, replies };
+    },
+    enabled: !!categoryId && !!threadId,
+  });
+}
+
+export function ThreadDetailPage() {
+  const { categoryId, threadId } = useParams<{ categoryId: string; threadId: string }>();
+  const { isAuthenticated, isAdmin } = useAuth();
+
+  const { data: categories } = useQuery<ForumCategory[]>({
+    queryKey: ["forum-categories"],
+    queryFn: () => api.get("/forum/categories"),
+  });
+  const queryClient = useQueryClient();
+  const [replyMeta, setReplyMeta] = useState<{ parentReplyId?: string; quotedAuthor?: string }>({});
+
+  const { data, isLoading, isError, refetch } = useThreadDetailQuery(categoryId, threadId);
+
+  const categoryName = categories?.find((c) => c.id === categoryId)?.name ?? categoryId ?? "Forum";
+  const threadTitle = data?.thread?.title;
+
+  const replyMutation = useMutation({
+    mutationFn: (body: { content: string; parentReplyId?: string }) =>
+      api.post("/forum/replies", { ...body, threadId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["forum-thread-detail", categoryId, threadId] });
+      setReplyMeta({});
+    },
+  });
+
+  const statusMutation = useMutation({
+    mutationFn: (newStatus: ForumThreadStatus) =>
+      api.patch(`/forum/threads/${threadId}`, { status: newStatus }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["forum-thread-detail", categoryId, threadId] });
+    },
+  });
+
+  const handleReply = (parentReplyId: string, quotedAuthor: string) => {
+    setReplyMeta({ parentReplyId, quotedAuthor });
+  };
+
+  const handleSubmitReply = async (body: { content: string; parentReplyId?: string }) => {
+    await replyMutation.mutateAsync(body);
+  };
+
+  const trail = [
+    { label: "Home", href: "/" },
+    { label: "Forum", href: "/forum" },
+    { label: categoryName, href: `/forum/${categoryId}` },
+    { label: threadTitle ?? "Loading..." },
+  ];
+
+  if (isLoading) return <ThreadDetailLoading />;
+  if (isError) return <ThreadDetailError trail={trail} onRetry={() => refetch()} />;
+  if (!data?.thread) return <ThreadDetailNotFound trail={trail} categoryId={categoryId!} />;
+
+  return (
+    <ThreadDetailContent
+      data={data}
+      trail={trail}
+      categoryId={categoryId!}
+      isAdmin={isAdmin}
+      isAuthenticated={isAuthenticated}
+      statusMutation={statusMutation}
+      replyMeta={replyMeta}
+      handleReply={handleReply}
+      handleSubmitReply={handleSubmitReply}
+    />
   );
 }
