@@ -13,6 +13,7 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSuccessTimer } from "@/hooks/useSuccessTimer";
 import { MemberFormFields } from "@/components/shared/MemberFormFields";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 const memberSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be at most 100 characters"),
@@ -87,8 +88,16 @@ export function MemberFormPage() {
     mutation.mutate(data);
   }
 
+  const formLabel = isEditing ? (member ? `Edit ${member.name}` : "Edit Member") : "New Member";
+
   return (
     <div>
+      <Breadcrumbs trail={[
+        { label: "Home", href: "/" },
+        { label: "Admin", href: "/admin" },
+        { label: "Members", href: "/admin/members" },
+        { label: formLabel },
+      ]} />
       <Link to="/admin/members">
         <Button variant="ghost" className="mb-8">
           <ArrowLeft data-icon="inline-start" /> Back to Members

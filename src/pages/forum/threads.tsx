@@ -12,6 +12,7 @@ import { ErrorState } from "@/components/shared/ErrorState";
 import { ThreadFilters } from "@/components/shared/ThreadFilters";
 import { ThreadListItem } from "@/components/shared/ThreadListItem";
 import { ThreadSkeleton } from "@/components/shared/ThreadSkeleton";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 export function ThreadsPage() {
   const { categoryId } = useParams<{ categoryId: string }>();
@@ -55,11 +56,19 @@ export function ThreadsPage() {
     return result;
   }, [threads, debouncedKeyword, statusFilter, categoryFilter]);
 
-  const categoryName = categories?.find((c) => c.id === categoryId)?.name ?? categoryId;
+  const categoryName = categories?.find((c) => c.id === categoryId)?.name ?? categoryId ?? "Forum";
+
+  const forumTrail = [
+    { label: "Home", href: "/" },
+    { label: "Forum", href: "/forum" },
+    { label: categoryName },
+  ];
 
   if (categoriesError) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+      <>
+        <Breadcrumbs trail={forumTrail} />
+        <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
         <h1 className="font-heading text-h3 text-destructive">Failed to load categories</h1>
         <p className="mt-2 text-muted-foreground">
           Something went wrong while loading categories. Please try again.
@@ -68,11 +77,14 @@ export function ThreadsPage() {
           Try Again
         </Button>
       </div>
+    </>
     );
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+    <>
+      <Breadcrumbs trail={forumTrail} />
+      <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
       <Link to="/forum">
         <Button variant="ghost" className="mb-8">
           <ArrowLeft data-icon="inline-start" /> All Categories
@@ -135,5 +147,6 @@ export function ThreadsPage() {
         />
       )}
     </div>
+    </>
   );
 }
