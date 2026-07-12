@@ -96,7 +96,7 @@ describe("EventDetailPage", () => {
 
   test("renders event title and details", () => {
     render(<EventDetailPage />);
-    expect(screen.getByText("Beach Cleanup")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /beach cleanup/i })).toBeInTheDocument();
     expect(screen.getByText("2026-07-15")).toBeInTheDocument();
     expect(screen.getByText("Casablanca Beach")).toBeInTheDocument();
   });

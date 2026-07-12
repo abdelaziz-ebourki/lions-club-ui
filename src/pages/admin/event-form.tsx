@@ -13,6 +13,7 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSuccessTimer } from "@/hooks/useSuccessTimer";
 import { EventFormFields } from "@/components/shared/EventFormFields";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 const eventSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters").max(200, "Title must be at most 200 characters"),
@@ -100,8 +101,16 @@ export function EventFormPage() {
     mutation.mutate(data);
   }
 
+  const formLabel = isEditing ? (event ? `Edit ${event.title}` : "Edit Event") : "New Event";
+
   return (
     <div>
+      <Breadcrumbs trail={[
+        { label: "Home", href: "/" },
+        { label: "Admin", href: "/admin" },
+        { label: "Events", href: "/admin/events" },
+        { label: formLabel },
+      ]} />
       <Link to="/admin/events">
         <Button variant="ghost" className="mb-8">
           <ArrowLeft data-icon="inline-start" /> Back to Events
