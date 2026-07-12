@@ -107,6 +107,11 @@ export interface Notification {
   createdAt: string;
 }
 
+export interface BreadcrumbSegment {
+  label: string;
+  href?: string;
+}
+
 export class AuthError extends Error {
   constructor() {
     super("Session expired");
