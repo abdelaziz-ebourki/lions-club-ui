@@ -20,6 +20,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Send } from "lucide-react";
 import { useSuccessTimer } from "@/hooks/useSuccessTimer";
 import { PageHero } from "@/components/shared/PageHero";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { ContactInfoCard } from "@/components/shared/ContactInfoCard";
 import { ContactFaqCard } from "@/components/shared/ContactFaqCard";
 
@@ -61,6 +62,7 @@ export function ContactPage() {
 
   return (
     <>
+      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
       <PageHero
         overline="Get in Touch"
         heading="Let's Talk"

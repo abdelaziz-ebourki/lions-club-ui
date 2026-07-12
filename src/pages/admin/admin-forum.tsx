@@ -4,6 +4,7 @@ import type { ForumCategory } from "@/types";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MessageSquare } from "lucide-react";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 export function AdminForumPage() {
   const { data: categories, isLoading } = useQuery<ForumCategory[]>({
@@ -13,6 +14,7 @@ export function AdminForumPage() {
 
   return (
     <div>
+      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Forum" }]} />
       <div className="mb-8">
         <p className="font-display text-overline text-accent">Forum</p>
         <h1 className="font-heading text-h2 mt-1 text-foreground">Manage Forum</h1>
