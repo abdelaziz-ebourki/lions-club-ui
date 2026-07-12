@@ -3,6 +3,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import { CheckCircle2, XCircle, Loader2, Clock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEmailVerification } from "@/hooks/use-email-verification";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 export function VerifyEmailPage() {
   const [searchParams] = useSearchParams();
@@ -17,7 +18,9 @@ export function VerifyEmailPage() {
 
   if (!token) {
     return (
-      <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
+      <>
+        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Verify Email" }]} />
+        <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
         <Card className="w-full">
           <CardHeader className="text-center">
             <XCircle className="mx-auto size-12 text-destructive" />
@@ -28,12 +31,15 @@ export function VerifyEmailPage() {
           </CardContent>
         </Card>
       </div>
+    </>
     );
   }
 
   if (isVerifying || verifyResult.status === "loading") {
     return (
-      <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
+      <>
+        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Verify Email" }]} />
+        <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
         <Card className="w-full">
           <CardHeader className="text-center">
             <Loader2 className="mx-auto size-12 animate-spin text-primary" />
@@ -44,12 +50,15 @@ export function VerifyEmailPage() {
           </CardContent>
         </Card>
       </div>
+    </>
     );
   }
 
   if (verifyResult.status === "already-verified") {
     return (
-      <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
+      <>
+        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Verify Email" }]} />
+        <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
         <Card className="w-full">
           <CardHeader className="text-center">
             <CheckCircle2 className="mx-auto size-12 text-primary" />
@@ -61,12 +70,15 @@ export function VerifyEmailPage() {
           </CardContent>
         </Card>
       </div>
+    </>
     );
   }
 
   if (verifyResult.status === "expired") {
     return (
-      <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
+      <>
+        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Verify Email" }]} />
+        <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
         <Card className="w-full">
           <CardHeader className="text-center">
             <Clock className="mx-auto size-12 text-warning" />
@@ -78,12 +90,15 @@ export function VerifyEmailPage() {
           </CardContent>
         </Card>
       </div>
+    </>
     );
   }
 
   if (verifyResult.status === "error") {
     return (
-      <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
+      <>
+        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Verify Email" }]} />
+        <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
         <Card className="w-full">
           <CardHeader className="text-center">
             <XCircle className="mx-auto size-12 text-destructive" />
@@ -95,12 +110,15 @@ export function VerifyEmailPage() {
           </CardContent>
         </Card>
       </div>
+    </>
     );
   }
 
   if (verifyResult.status === "success") {
     return (
-      <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
+      <>
+        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Verify Email" }]} />
+        <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
         <Card className="w-full">
           <CardHeader className="text-center">
             <CheckCircle2 className="mx-auto size-12 text-success" />
@@ -112,6 +130,7 @@ export function VerifyEmailPage() {
           </CardContent>
         </Card>
       </div>
+    </>
     );
   }
 

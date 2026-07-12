@@ -4,6 +4,7 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Mail, ChevronRight } from "lucide-react";
 import type { ContactMessage } from "@/types";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 export function AdminMessagesPage() {
   const { data: messages } = useQuery<ContactMessage[]>({
@@ -13,6 +14,7 @@ export function AdminMessagesPage() {
 
   return (
     <div>
+      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Messages" }]} />
       <div className="mb-8">
         <p className="font-display text-overline text-accent">Messages</p>
         <h1 className="font-heading text-h2 mt-1 text-foreground">Manage Messages</h1>

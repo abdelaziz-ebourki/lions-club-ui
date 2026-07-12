@@ -4,6 +4,7 @@ import type { Event, ForumThread, Member, ContactMessage } from "@/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, MessageSquare, Users, Mail, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 export function AdminDashboardPage() {
   const { data: events, isError: eventsError } = useQuery<Event[]>({
@@ -61,6 +62,7 @@ export function AdminDashboardPage() {
 
   return (
     <div>
+      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Dashboard" }]} />
       <div className="mb-8">
         <p className="font-display text-overline text-accent">Overview</p>
         <h1 className="font-heading text-h2 mt-1 text-foreground">Dashboard</h1>
