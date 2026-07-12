@@ -11,6 +11,7 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/shared/PageHero";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 const tabs = [
   { value: "all", label: "All" },
@@ -28,6 +29,7 @@ export function EventsPage() {
 
   return (
     <>
+      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Events" }]} />
       <PageHero
         overline="Projects"
         heading="Projects You Can Join"

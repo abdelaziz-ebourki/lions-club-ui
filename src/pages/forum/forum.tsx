@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { EmptyState } from "@/components/shared/empty-state";
 import { PageHero } from "@/components/shared/PageHero";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { ErrorState } from "@/components/shared/ErrorState";
 
 const iconMap: Record<string, typeof MessageSquare> = {
@@ -31,6 +32,7 @@ export function ForumPage() {
 
   return (
     <>
+      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Forum" }]} />
       <PageHero
         overline="Conversations"
         heading="Community Conversations"

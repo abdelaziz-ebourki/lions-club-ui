@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { CalendarX, Pencil, Trash2 } from "lucide-react";
 import { EmptyState } from "@/components/shared/empty-state";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { AdminPageHeader } from "@/components/shared/AdminPageHeader";
 import { AdminTable } from "@/components/shared/AdminTable";
 
@@ -53,6 +54,7 @@ export function AdminEventsPage() {
   if (isLoading) {
     return (
       <div>
+        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Events" }]} />
         <AdminPageHeader overline="Events" heading="Manage Events" />
         <AdminTable headers={headers} loading skeletonColumns={5} />
       </div>
@@ -62,6 +64,7 @@ export function AdminEventsPage() {
   if (events?.length === 0) {
     return (
       <div>
+        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Events" }]} />
         <AdminPageHeader overline="Events" heading="Manage Events" action={{ to: "/admin/events/new", label: "New Event" }} />
         <EmptyState
           icon={CalendarX}
@@ -79,6 +82,7 @@ export function AdminEventsPage() {
 
   return (
     <div>
+      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Events" }]} />
       <AdminPageHeader overline="Events" heading="Manage Events" action={{ to: "/admin/events/new", label: "New Event" }} />
       <AdminTable
         headers={headers}
