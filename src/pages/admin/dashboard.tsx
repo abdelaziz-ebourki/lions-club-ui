@@ -1,3 +1,4 @@
+import type { LucideIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type { Event, ForumThread, Member, ContactMessage } from "@/types";
@@ -5,6 +6,52 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, MessageSquare, Users, Mail, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+
+interface StatCard {
+  label: string;
+  count: number | string;
+  icon: LucideIcon;
+  href: string;
+  color: string;
+}
+
+const STAT_CARD_DEFS: Omit<StatCard, "count">[] = [
+  { label: "Upcoming Events", icon: Calendar, href: "/admin/events", color: "text-accent bg-accent/10" },
+  { label: "Forum Threads", icon: MessageSquare, href: "/admin/forum", color: "text-primary bg-primary/10" },
+  { label: "Active Members", icon: Users, href: "/admin/members", color: "text-secondary bg-secondary/10" },
+  { label: "New Messages", icon: Mail, href: "/admin/messages", color: "text-accent bg-accent/10" },
+];
+
+function DashboardCard({ icon: Icon, label, count, href, color }: StatCard) {
+  return (
+    <Link to={href}>
+      <Card className="transition-all hover:shadow-md">
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardTitle className="font-body text-sm font-medium text-muted-foreground">
+            {label}
+          </CardTitle>
+          <div className={`flex size-8 items-center justify-center rounded-full ${color}`}>
+            <Icon className="size-4" />
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="font-heading text-3xl font-bold">{count}</div>
+          <p className="mt-1 flex items-center text-xs text-muted-foreground">
+            View details <ArrowUpRight className="ml-1 size-3" />
+          </p>
+        </CardContent>
+      </Card>
+    </Link>
+  );
+}
+
+function DashboardErrorBanner() {
+  return (
+    <div className="mb-6 rounded-lg border border-destructive/20 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+      Some dashboard data couldn't be loaded. Check your connection and try refreshing.
+    </div>
+  );
+}
 
 export function AdminDashboardPage() {
   const { data: events, isError: eventsError } = useQuery<Event[]>({
@@ -29,36 +76,12 @@ export function AdminDashboardPage() {
 
   const hasError = eventsError || threadsError || membersError || messagesError;
 
-  const statCards = [
-    {
-      label: "Upcoming Events",
-      count: events?.filter((e) => e.status === "upcoming").length ?? "—",
-      icon: Calendar,
-      href: "/admin/events",
-      color: "text-accent bg-accent/10",
-    },
-    {
-      label: "Forum Threads",
-      count: threads?.length ?? "—",
-      icon: MessageSquare,
-      href: "/admin/forum",
-      color: "text-primary bg-primary/10",
-    },
-    {
-      label: "Active Members",
-      count: members?.length ?? "—",
-      icon: Users,
-      href: "/admin/members",
-      color: "text-secondary bg-secondary/10",
-    },
-    {
-      label: "New Messages",
-      count: messages?.filter((m) => m.status === "unread").length ?? "—",
-      icon: Mail,
-      href: "/admin/messages",
-      color: "text-accent bg-accent/10",
-    },
-  ];
+  const counts: Record<string, number | string> = {
+    "Upcoming Events": events?.filter((e) => e.status === "upcoming").length ?? "—",
+    "Forum Threads": threads?.length ?? "—",
+    "Active Members": members?.length ?? "—",
+    "New Messages": messages?.filter((m) => m.status === "unread").length ?? "—",
+  };
 
   return (
     <div>
@@ -71,36 +94,12 @@ export function AdminDashboardPage() {
         </p>
       </div>
 
-      {hasError && (
-        <div className="mb-6 rounded-lg border border-destructive/20 bg-destructive/5 px-4 py-3 text-sm text-destructive">
-          Some dashboard data couldn't be loaded. Check your connection and try refreshing.
-        </div>
-      )}
+      {hasError && <DashboardErrorBanner />}
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {statCards.map((stat) => {
-          const Icon = stat.icon;
-          return (
-            <Link key={stat.label} to={stat.href}>
-              <Card className="transition-all hover:shadow-md">
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="font-body text-sm font-medium text-muted-foreground">
-                    {stat.label}
-                  </CardTitle>
-                  <div className={`flex size-8 items-center justify-center rounded-full ${stat.color}`}>
-                    <Icon className="size-4" />
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="font-heading text-3xl font-bold">{stat.count}</div>
-                  <p className="mt-1 flex items-center text-xs text-muted-foreground">
-                    View details <ArrowUpRight className="ml-1 size-3" />
-                  </p>
-                </CardContent>
-              </Card>
-            </Link>
-          );
-        })}
+        {STAT_CARD_DEFS.map((def) => (
+          <DashboardCard key={def.label} {...def} count={counts[def.label] ?? "—"} />
+        ))}
       </div>
     </div>
   );
