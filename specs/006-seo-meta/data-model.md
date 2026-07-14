@@ -46,10 +46,12 @@ interface SEOMetadata {
 Static metadata for each route, keyed by route path pattern.
 
 ```typescript
-type SEOConfigMap = Record<string, SEOMetadata | ((params: Record<string, string>) => SEOMetadata)>;
+type SEOConfigMap = Record<string, SEOMetadata | ((params: Record<string, string>, data?: Record<string, unknown>) => SEOMetadata)>;
 ```
 
-Routes with dynamic data (event detail, thread detail) use a function resolver that accepts route params and returns `SEOMetadata` after data loads.
+Routes with dynamic data (event detail, thread detail) use a function resolver that accepts route params and returns `SEOMetadata` after data loads. Each page component calls the resolver with route params and data fetched via React Query — the resolver is not called centrally; it runs per-page after the API response arrives.
+
+**Search canonical override**: For search pages, the canonical URL appends `?q=` to the base origin+pathname. The `canonical` field in `SEOMetadata` is set explicitly: `` `${window.location.origin}${window.location.pathname}?q=${query}` ``. This is handled directly in the search page component, not in the resolver.
 
 ## Page Metadata Table
 
@@ -62,6 +64,8 @@ Routes with dynamic data (event detail, thread detail) use a function resolver t
 | `/forum/:categoryId` | [Category Name] — Lions Club FSBM | Category description from API | website | Yes (category) | No |
 | `/forum/:categoryId/:threadId` | [Thread Title] — Lions Club FSBM | First 160 chars of thread.content | article | Yes (thread) | No |
 | `/forum/:categoryId/new` | New Thread — Lions Club FSBM | Create a new discussion thread in the Lions Club FSBM forum | website | No | No |
+
+> Thread pages have no image field on `ForumThread` — OG image always falls back to `/logo.png`. Event detail pages use `event.image` (has `image?: string`).
 | `/search` | Search: [query] — Lions Club FSBM | Search results for [query] — find events, forum discussions... | website | Yes (query param) | No |
 | `/about` | About Us — Lions Club FSBM | Learn about Lions Club FSBM's mission, history, and impact... | website | No | No |
 | `/contact` | Contact Us — Lions Club FSBM | Get in touch with Lions Club FSBM in Casablanca... | website | No | No |
@@ -81,6 +85,7 @@ The following existing types provide sufficient data for dynamic SEO:
 - `Event.image` → og:image (fallback to /logo.png)
 - `ForumThread.title` → og:title, twitter:title
 - `ForumThread.content` → og:description (truncated to 160 chars)
+- `ForumThread` has NO image field — thread OG image always falls back to `/logo.png`
 - `ForumCategory.name` → page title for category listing
 - `SiteConfig.description` → fallback description for homepage
 - `SiteConfig.social` → source for `twitter:site` value (`@lionsclubfsbm`)

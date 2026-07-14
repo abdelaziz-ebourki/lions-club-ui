@@ -23,8 +23,8 @@
 
 ## Image Handling for OG
 
-- **Decision**: Use existing `event.image` / `thread.image` for dynamic pages; fall back to `/logo.png` (already set as `og:image` in `index.html`).
-- **Rationale**: No new API fields needed. The logo is already the default OG image. Dynamic content pages with images will override it.
+- **Decision**: Use `event.image` for event detail pages; threads always fall back to `/logo.png` (already set as `og:image` in `index.html`). `ForumThread` has no image field — no API change required for this feature.
+- **Rationale**: No new API fields needed. The logo is already the default OG image. Event detail pages with images will override it.
 - **Alternatives considered**: Creating a separate SEO image endpoint — overkill for this scope.
 
 ## Canonical URL Construction

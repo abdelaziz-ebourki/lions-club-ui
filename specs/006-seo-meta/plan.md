@@ -26,11 +26,11 @@ AppProviders
   └─ QueryClientProvider
     └─ ThemeProvider
       └─ BrowserRouter
-        └─ HelmetProvider          ← NEW
-          └─ Toaster
-            └─ AuthProvider
-              └─ ErrorBoundary
-                └─ Routes
+        ├─ Toaster
+        └─ AuthProvider
+          └─ ErrorBoundary
+            └─ HelmetProvider          ← NEW
+              └─ Routes
 ```
 
 Each page component will either:

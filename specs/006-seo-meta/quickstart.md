@@ -29,6 +29,14 @@ open http://localhost:5173/
 open http://localhost:5173/events
 # → document.title === "Events — Lions Club FSBM"
 
+# Forum
+open http://localhost:5173/forum
+# → document.title === "Forum — Lions Club FSBM"
+
+# New Thread
+open http://localhost:5173/forum/1/new
+# → document.title === "New Thread — Lions Club FSBM"
+
 # About
 open http://localhost:5173/about
 # → document.title === "About Us — Lions Club FSBM"
@@ -44,6 +52,22 @@ open http://localhost:5173/login
 # Register
 open http://localhost:5173/register
 # → document.title === "Join Us — Lions Club FSBM"
+
+# Search
+open http://localhost:5173/search?q=test
+# → document.title === "Search: test — Lions Club FSBM"
+
+# Profile
+open http://localhost:5173/profile
+# → document.title === "Profile — Lions Club FSBM"
+
+# Verify Email
+open http://localhost:5173/verify-email
+# → document.title === "Verify Email — Lions Club FSBM"
+
+# Admin
+open http://localhost:5173/admin
+# → document.title === "Admin — Lions Club FSBM"
 
 # 404
 open http://localhost:5173/nonexistent
@@ -75,7 +99,7 @@ View page source (`Ctrl+U` or DevTools → Elements) and verify `<meta name="des
 # → <meta name="description" content="Lions Club FSBM is a community service organization in Casablanca...">
 
 # Events
-# → <meta name="description" content="Discover upcoming and past events organized by Lions Club FSBM...">
+# → <meta name="description" content="Browse upcoming and past community service events organized by Lions Club FSBM...">
 
 # Event detail
 # → <meta name="description" content="[First 160 chars of event.description]">

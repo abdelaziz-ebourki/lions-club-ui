@@ -132,7 +132,7 @@ Shared links on social media (Facebook, X/Twitter, LinkedIn) display a rich prev
 - **FR-015**: Dynamic detail pages MUST use the entity's image for `og:image` when available, falling back to the default `/logo.png`
 - **FR-016**: Open Graph and Twitter tag values MUST be derived from the same source as title/description to ensure consistency
 - **FR-017**: Admin routes (`/admin/*`) MUST set `<meta name="robots" content="noindex">` to prevent indexing of authenticated pages
-- **FR-018**: Auth-gated pages (profile, verify-email) SHOULD set `<meta name="robots" content="noindex">` unless they contain publicly shareable content
+- **FR-018**: Auth-gated pages (profile, verify-email) MUST set `<meta name="robots" content="noindex">`
 
 ### Key Entities *(include if feature involves data)*
 
