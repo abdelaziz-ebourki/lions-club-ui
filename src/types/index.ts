@@ -112,6 +112,23 @@ export interface BreadcrumbSegment {
   href?: string;
 }
 
+export interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+  role: "admin" | "member";
+  avatar?: string;
+  createdAt: string;
+  lastLoginIp?: string;
+  accountStatus?: "active" | "suspended" | "disabled";
+}
+
+export interface PasswordChange {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
 export class AuthError extends Error {
   constructor() {
     super("Session expired");
