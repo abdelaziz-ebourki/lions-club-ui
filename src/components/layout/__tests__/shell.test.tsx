@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import css from '../../../index.css?inline';
 import { Shell } from '../shell';
 import { describe, test, expect, vi } from 'vitest';
 
@@ -61,5 +62,23 @@ describe('Shell', () => {
   test('renders without crashing', () => {
     renderWithRouter(<Shell />);
     expect(screen.getAllByText(/lions club fsbm/i).length).toBeGreaterThan(0);
+  });
+
+  test('fade-in animation duration is 200ms (FR-006)', () => {
+    const rule = css.match(/\.animate-in\s*\{[^}]*\}/);
+    expect(rule).toBeTruthy();
+    expect(rule![0]).toContain('0.2s');
+    expect(rule![0]).not.toContain('0.5s');
+  });
+
+  test('main element opts out of animation under reduced motion (FR-007)', () => {
+    renderWithRouter(<Shell />);
+    const main = document.getElementById('main-content')!;
+    expect(main.className).toContain('motion-reduce:animate-none');
+  });
+
+  test('global reduced-motion rule disables animations (FR-007)', () => {
+    expect(css).toContain('@media (prefers-reduced-motion: reduce)');
+    expect(css).toContain('animation-duration: 0.01ms');
   });
 });

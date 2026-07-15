@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -10,7 +11,7 @@ interface ReplyItemProps {
   onReply: (parentReplyId: string, quotedAuthor: string) => void;
 }
 
-export function ReplyItem({ reply, depth, isAuthenticated, onReply }: ReplyItemProps) {
+export const ReplyItem = memo(function ReplyItem({ reply, depth, isAuthenticated, onReply }: ReplyItemProps) {
   return (
     <div
       className={cn('rounded-lg border bg-card p-4 shadow-sm')}
@@ -45,4 +46,4 @@ export function ReplyItem({ reply, depth, isAuthenticated, onReply }: ReplyItemP
       )}
     </div>
   );
-}
+});

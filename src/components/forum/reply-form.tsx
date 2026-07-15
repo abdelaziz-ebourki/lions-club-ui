@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch, type Control } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Spinner } from '@/components/ui/spinner';
@@ -13,6 +13,15 @@ interface ReplyFormProps {
   maxLength?: number;
 }
 
+function CharacterCounter({ control, maxLength }: { control: Control<{ content: string }>; maxLength: number }) {
+  const content = useWatch({ control, name: 'content' }) ?? '';
+  return (
+    <span className="text-body-sm text-muted-foreground" aria-live="polite">
+      {content.length}/{maxLength}
+    </span>
+  );
+}
+
 export function ReplyForm({ onSubmit, parentReplyId, quotedAuthor, maxLength = 5000 }: ReplyFormProps) {
   const form = useForm<{ content: string }>({
     mode: 'onChange',
@@ -21,8 +30,6 @@ export function ReplyForm({ onSubmit, parentReplyId, quotedAuthor, maxLength = 5
     })),
     defaultValues: { content: '' },
   });
-
-  const content = form.watch('content');
 
   const handleSubmit = form.handleSubmit(async (data) => {
     try {
@@ -62,9 +69,7 @@ export function ReplyForm({ onSubmit, parentReplyId, quotedAuthor, maxLength = 5
         />
 
         <div className="flex items-center justify-between">
-          <span className="text-body-sm text-muted-foreground" aria-live="polite">
-            {content.length}/{maxLength}
-          </span>
+          <CharacterCounter control={form.control} maxLength={maxLength} />
           <Button
             type="submit"
             disabled={form.formState.isSubmitting}
