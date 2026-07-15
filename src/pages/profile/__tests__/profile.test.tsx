@@ -8,6 +8,7 @@ import { useProfileQuery } from '@/hooks/use-profile-query';
 import { useEmailVerification } from '@/hooks/use-email-verification';
 import { useAuth } from '@/contexts/auth';
 import { api } from '@/lib/api';
+import { toast } from 'sonner';
 
 vi.mock('@/contexts/auth');
 vi.mock('@/hooks/use-profile-query');
@@ -15,8 +16,9 @@ vi.mock('@/hooks/use-profile-form');
 vi.mock('@/hooks/use-email-verification');
 
 vi.mock('@/lib/api', () => ({
-  api: { get: vi.fn(), put: vi.fn(), post: vi.fn() },
+  api: { get: vi.fn(), put: vi.fn(), post: vi.fn(), upload: vi.fn() },
 }));
+vi.mock('sonner');
 
 const baseProfile = { id: '1', name: 'John Doe', email: 'john@test.com', role: 'member' as const, emailVerified: true, lastLoginIp: '192.168.1.1', accountStatus: 'active' as const, createdAt: '2024-01-01T00:00:00Z', avatar: null as string | null };
 const adminProfile = { ...baseProfile, name: 'Admin User', email: 'admin@test.com', role: 'admin' as const };
@@ -193,6 +195,74 @@ describe('ProfilePage', () => {
     });
 
     expect(api.put).toHaveBeenCalled();
+  });
+
+  test('shows inline error when passwords do not match', async () => {
+    vi.mocked(useAuth).mockReturnValue(defaultAuth() as any);
+    vi.mocked(useProfileQuery).mockReturnValue({ data: baseProfile, isLoading: false, error: null } as any);
+    vi.mocked(useProfileForm).mockReturnValue(defaultForm() as any);
+
+    renderWithQuery(<ProfilePage />);
+
+    const currentPasswordInput = screen.getByLabelText(/current password/i);
+    const newPasswordInput = screen.getByLabelText(/^new password$/i);
+    const confirmPasswordInput = screen.getByLabelText(/confirm new password/i);
+
+    await userEvent.type(currentPasswordInput, 'oldPass123');
+    await userEvent.type(newPasswordInput, 'newPass123');
+    await userEvent.type(confirmPasswordInput, 'different');
+
+    await act(async () => {
+      screen.getByRole('button', { name: /change password|update password/i }).click();
+    });
+
+    expect(screen.getByText('Passwords do not match')).toBeInTheDocument();
+  });
+
+  test('shows error toast when current password is incorrect', async () => {
+    const mockError = new Error('Current password is incorrect');
+    vi.mocked(api.put).mockRejectedValue(mockError);
+
+    vi.mocked(useMutation).mockImplementation((options: any) => {
+      return {
+        isPending: false,
+        isError: false,
+        error: null,
+        data: null,
+        mutate: async (d: any) => {
+          try {
+            await options.mutationFn(d);
+            options.onSuccess?.();
+          } catch (e) {
+            options.onError?.(e);
+          }
+        },
+        mutateAsync: vi.fn(),
+        reset: vi.fn(),
+      } as any;
+    });
+
+    vi.mocked(useAuth).mockReturnValue(defaultAuth() as any);
+    vi.mocked(useProfileQuery).mockReturnValue({ data: baseProfile, isLoading: false, error: null } as any);
+    vi.mocked(useProfileForm).mockReturnValue(defaultForm() as any);
+
+    renderWithQuery(<ProfilePage />);
+
+    const currentPasswordInput = screen.getByLabelText(/current password/i);
+    const newPasswordInput = screen.getByLabelText(/^new password$/i);
+    const confirmPasswordInput = screen.getByLabelText(/confirm new password/i);
+
+    await userEvent.type(currentPasswordInput, 'wrongPassword');
+    await userEvent.type(newPasswordInput, 'newPass123');
+    await userEvent.type(confirmPasswordInput, 'newPass123');
+
+    await act(async () => {
+      screen.getByRole('button', { name: /change password|update password/i }).click();
+    });
+
+    await waitFor(() => {
+      expect(toast.error).toHaveBeenCalled();
+    });
   });
 
   test('shows avatar upload modal when clicking avatar edit', async () => {
