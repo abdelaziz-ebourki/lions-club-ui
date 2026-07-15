@@ -15,6 +15,7 @@
 - Q: How deep should image optimization go? → A: Lazy loading only — scope limited to `loading="lazy"` + explicit width/height; no format conversion or build tooling
 - Q: What measurable performance target defines "success"? → A: No numeric target — success = lazy loading applied + zero regressions (qualitative)
 - Q: Is route-level code splitting / bundle-size optimization in scope? → A: Out of scope — keep to the three defined user stories (lazy images, memoized replies, faster transition)
+- Q: Should the header logo also be lazy? → A: No — the header logo is above-the-fold (LCP candidate), so it loads eagerly. Lazy applies to the footer logo and all content images only.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -28,7 +29,7 @@ A visitor browses the site and images load with lazy loading and explicit width/
 
 **Acceptance Scenarios**:
 
-1. **Given** the site header loads, **When** the page renders, **Then** the logo image has `loading="lazy"` attribute
+1. **Given** the site header loads, **When** the page renders, **Then** the header logo loads eagerly (no `loading="lazy"`); the footer logo and content images use `loading="lazy"`
 2. **Given** the site footer loads, **When** the page renders, **Then** the footer logo has `loading="lazy"` attribute
 3. **Given** an event card or event detail page renders, **When** the image loads, **Then** it has `loading="lazy"` attribute
 
@@ -74,8 +75,8 @@ A user navigates between pages and the fade-in animation completes quickly, with
 
 ### Functional Requirements
 
-- **FR-001**: All `<img>` elements in the application MUST include `loading="lazy"` attribute
-- **FR-002**: The logo images in the header and footer MUST use `loading="lazy"`
+- **FR-001**: All `<img>` elements in the application MUST include `loading="lazy"` attribute, except the above-the-fold header logo (which loads eagerly)
+- **FR-002**: The footer logo MUST use `loading="lazy"`; the header logo loads eagerly (above-the-fold / LCP)
 - **FR-003**: Event images on cards and detail pages MUST use `loading="lazy"`
 - **FR-004**: The `ReplyItem` component MUST be wrapped with `React.memo` to prevent unnecessary re-renders
 - **FR-005**: The `ReplyForm` component MUST NOT re-render the entire component on every keystroke — isolate the watched field or use `shouldUnregister: false` with controlled input
@@ -97,7 +98,7 @@ A user navigates between pages and the fade-in animation completes quickly, with
 
 ### Measurable Outcomes
 
-- **SC-001**: All images in the app use lazy loading (verified by DevTools Network tab showing images loading on scroll, not on page load)
+- **SC-001**: All images in the app except the header logo use lazy loading (verified by DevTools Network tab showing content images loading on scroll; header logo loads on page load)
 - **SC-002**: ReplyItem components do not re-render when parent state changes (verified by React DevTools profiler)
 - **SC-003**: ReplyForm input is responsive with no lag (verified by typing test — no re-render on every keystroke)
 - **SC-004**: Page transition animation completes in 200ms or less (halved from current 500ms)

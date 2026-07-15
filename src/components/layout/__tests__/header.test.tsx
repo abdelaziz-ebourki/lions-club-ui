@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Header } from '../header';
 import { useAuth } from '@/contexts/auth';
-import { expectImagesLazyAndSized } from '@/test-utils/image-assertions';
 import { describe, test, expect, vi, beforeEach } from 'vitest';
 
 const mockNavigate = vi.hoisted(() => vi.fn());
@@ -187,8 +186,11 @@ describe('Header', () => {
     expect(screen.queryByLabelText(/notifications/i)).not.toBeInTheDocument();
   });
 
-  test('logo image is lazy-loaded with explicit dimensions (FR-001, FR-008)', () => {
+  test('logo image has explicit dimensions and loads eagerly (above-the-fold, FR-008)', () => {
     const { container } = render(<Header />);
-    expectImagesLazyAndSized(container);
+    const logo = container.querySelector('img')!;
+    expect(logo).toHaveAttribute('width');
+    expect(logo).toHaveAttribute('height');
+    expect(logo).not.toHaveAttribute('loading', 'lazy');
   });
 });
