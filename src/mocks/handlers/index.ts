@@ -7,6 +7,7 @@ import { searchHandlers } from "./search";
 import { notificationHandlers } from "./notifications";
 import { emailVerificationHandlers } from "./email-verification";
 import { sessionHandlers } from "./session";
+import { profileHandlers } from "./profile";
 
 export const handlers = [
   ...eventHandlers,
@@ -18,4 +19,5 @@ export const handlers = [
   ...notificationHandlers,
   ...emailVerificationHandlers,
   ...sessionHandlers,
+  ...profileHandlers,
 ];
