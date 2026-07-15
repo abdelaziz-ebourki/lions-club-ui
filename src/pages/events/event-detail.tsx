@@ -111,6 +111,9 @@ export function EventDetailPage() {
             alt={event.title}
             className="w-full object-cover"
             style={{ maxHeight: 400 }}
+            loading="lazy"
+            width={800}
+            height={400}
           />
         </div>
       )}

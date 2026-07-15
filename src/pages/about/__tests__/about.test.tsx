@@ -2,6 +2,8 @@ import { render } from "@testing-library/react";
 import { describe, test, expect, vi } from "vitest";
 import { AboutPage } from "../about";
 import { useQuery } from "@tanstack/react-query";
+import { members } from "@/mocks/data/members";
+import { expectImagesLazyAndSized } from "@/test-utils/image-assertions";
 
 vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
@@ -26,5 +28,19 @@ describe("AboutPage", () => {
     render(<AboutPage />);
     const nav = document.querySelector('[data-slot="breadcrumb"]');
     expect(nav).toBeInTheDocument();
+  });
+});
+
+describe("AboutPage images (FR-001, FR-008)", () => {
+  test("member avatar images are lazy-loaded with explicit dimensions", () => {
+    vi.mocked(useQuery).mockReturnValue({
+      data: members,
+      isLoading: false,
+      isError: false,
+      error: null,
+      refetch: vi.fn(),
+    } as any);
+    const { container } = render(<AboutPage />);
+    expectImagesLazyAndSized(container);
   });
 });

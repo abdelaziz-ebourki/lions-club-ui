@@ -25,6 +25,9 @@ export function FileUploadZone({ loading, previewUrl, variant, onRemove }: FileU
             variant === "circle" ? "rounded-full" : "rounded-md",
           )}
           style={{ maxHeight: variant === "circle" ? 128 : 192 }}
+          loading="lazy"
+          width={192}
+          height={192}
         />
         <button
           type="button"

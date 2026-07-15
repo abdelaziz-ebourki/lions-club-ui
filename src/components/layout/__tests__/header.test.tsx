@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Header } from '../header';
 import { useAuth } from '@/contexts/auth';
+import { expectImagesLazyAndSized } from '@/test-utils/image-assertions';
 import { describe, test, expect, vi, beforeEach } from 'vitest';
 
 const mockNavigate = vi.hoisted(() => vi.fn());
@@ -184,5 +185,10 @@ describe('Header', () => {
   test('hides notification bell for unauthenticated users', () => {
     render(<Header />);
     expect(screen.queryByLabelText(/notifications/i)).not.toBeInTheDocument();
+  });
+
+  test('logo image is lazy-loaded with explicit dimensions (FR-001, FR-008)', () => {
+    const { container } = render(<Header />);
+    expectImagesLazyAndSized(container);
   });
 });

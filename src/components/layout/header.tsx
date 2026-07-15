@@ -44,7 +44,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-lg">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2.5">
-          <img src="/logo.png" alt="" className="h-8 w-8 rounded-full" width={32} height={32} />
+          <img src="/logo.png" alt="" className="h-8 w-8 rounded-full" width={32} height={32} loading="lazy" />
           <span className="font-heading text-xl font-semibold text-primary">
             {siteConfig.name}
           </span>

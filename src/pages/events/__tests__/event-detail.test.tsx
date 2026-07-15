@@ -5,6 +5,8 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { describe, test, expect, vi, beforeEach } from "vitest";
 import { useAuth } from "@/contexts/auth";
+import { events } from "@/mocks/data/events";
+import { expectImagesLazyAndSized } from "@/test-utils/image-assertions";
 
 const mockNavigateRef = { current: vi.fn() };
 
@@ -169,5 +171,39 @@ describe("EventDetailPage", () => {
     });
     render(<EventDetailPage />);
     expect(screen.getByRole("button", { name: /joining/i })).toBeDisabled();
+  });
+});
+
+describe("EventDetailPage images (FR-001, FR-003, FR-008)", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockNavigateRef.current = vi.fn();
+    (useParams as ReturnType<typeof vi.fn>).mockReturnValue({ id: "1" });
+    (useQuery as ReturnType<typeof vi.fn>).mockReturnValue({
+      data: events[0],
+      isLoading: false,
+      isError: false,
+      error: null,
+      refetch: vi.fn(),
+    });
+    (useMutation as ReturnType<typeof vi.fn>).mockReturnValue({
+      mutate: vi.fn(),
+      isPending: false,
+    });
+    (useAuth as ReturnType<typeof vi.fn>).mockReturnValue({
+      user: { name: "Test User", role: "member" },
+      isAuthenticated: true,
+      isAdmin: false,
+      login: vi.fn(),
+      register: vi.fn(),
+      logout: vi.fn(),
+      refreshUser: vi.fn(),
+      loading: false,
+    });
+  });
+
+  test("hero image is lazy-loaded with explicit dimensions", () => {
+    const { container } = render(<EventDetailPage />);
+    expectImagesLazyAndSized(container);
   });
 });
