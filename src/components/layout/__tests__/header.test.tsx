@@ -185,4 +185,12 @@ describe('Header', () => {
     render(<Header />);
     expect(screen.queryByLabelText(/notifications/i)).not.toBeInTheDocument();
   });
+
+  test('logo image has explicit dimensions and loads eagerly (above-the-fold, FR-008)', () => {
+    const { container } = render(<Header />);
+    const logo = container.querySelector('img')!;
+    expect(logo).toHaveAttribute('width');
+    expect(logo).toHaveAttribute('height');
+    expect(logo).not.toHaveAttribute('loading', 'lazy');
+  });
 });

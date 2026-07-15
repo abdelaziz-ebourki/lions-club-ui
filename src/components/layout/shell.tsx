@@ -14,7 +14,7 @@ export function Shell() {
           Skip to content
         </a>
         <Header />
-        <main id="main-content" className="flex-1 animate-in">
+        <main id="main-content" className="flex-1 animate-in motion-reduce:animate-none">
           <Outlet />
         </main>
         <Footer />

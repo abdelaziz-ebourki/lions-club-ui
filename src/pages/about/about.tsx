@@ -147,6 +147,9 @@ export function AboutPage() {
                         src={member.avatar}
                         alt={member.name}
                         className="mx-auto h-20 w-20 rounded-full object-cover"
+                        loading="lazy"
+                        width={80}
+                        height={80}
                       />
                     ) : (
                       <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-2xl font-heading font-bold text-primary">
