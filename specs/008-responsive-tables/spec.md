@@ -64,6 +64,8 @@ Instead of simply unhiding columns on mobile (which would make tables too wide),
 - **FR-006**: On viewports below 640px, tabular data MUST be displayed in a stacked card layout instead of a horizontal table
 - **FR-007**: Card layout MUST display all data fields that are present in the table, with visible labels for each field
 - **FR-008**: The table layout MUST remain unchanged on desktop viewports (≥640px for sm breakpoint, ≥768px for md breakpoint)
+- **FR-009**: Admin events and members mobile card layouts MUST include the same inline action buttons (edit/delete) as the desktop table rows
+- **FR-010**: Card layout MUST preserve screen reader table semantics — use ARIA roles (`role="row"`, `role="cell"`) on card elements and `data-label` attributes or equivalent for field name announcements
 
 ### Key Entities *(include if feature involves data)*
 
@@ -78,6 +80,13 @@ Instead of simply unhiding columns on mobile (which would make tables too wide),
 - **SC-003**: No data is hidden on any viewport size — every field visible on desktop is also accessible on mobile
 - **SC-004**: No regressions in existing test suite
 - **SC-005**: TypeScript type-check passes with zero errors
+
+## Clarifications
+
+### Session 2026-07-15
+
+- Q: Should admin events and members mobile card layouts include inline action buttons (edit/delete) matching the desktop table rows? → A: Yes — include the same inline action buttons (edit/delete) in each card.
+- Q: What accessibility semantics should the card layout use for screen readers? → A: Preserve table semantics via ARIA roles (`role="row"`, `role="cell"`) + `data-label` pseudo-elements so screen readers announce field names alongside values.
 
 ## Assumptions
 
