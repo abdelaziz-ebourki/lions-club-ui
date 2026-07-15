@@ -30,10 +30,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-          cache: npm
-      - run: npm ci
       - name: Fallow audit
-        uses: fallow-rs/fallow@v2
-        with:
-          command: audit
-          gate: new-only
+        run: npx fallow audit --gate new-only

@@ -44,8 +44,8 @@ export function AdminEventsPage() {
   const headers = (
     <>
       <TableHead className="font-display text-overline text-xs">Title</TableHead>
-      <TableHead className="font-display text-overline text-xs hidden md:table-cell">Date</TableHead>
-      <TableHead className="font-display text-overline text-xs hidden md:table-cell">Category</TableHead>
+      <TableHead className="font-display text-overline text-xs">Date</TableHead>
+      <TableHead className="font-display text-overline text-xs">Category</TableHead>
       <TableHead className="font-display text-overline text-xs">Status</TableHead>
       <TableHead className="font-display text-overline text-xs text-right">Actions</TableHead>
     </>
