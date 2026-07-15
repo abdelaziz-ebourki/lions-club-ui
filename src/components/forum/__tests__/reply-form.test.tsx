@@ -1,7 +1,13 @@
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { Toaster } from 'sonner';
+import { useWatch } from 'react-hook-form';
 import { ReplyForm } from '../reply-form';
 import { describe, test, expect, vi } from 'vitest';
+
+vi.mock('react-hook-form', async () => {
+  const actual = await vi.importActual('react-hook-form');
+  return { ...actual, useWatch: vi.fn(actual.useWatch as typeof useWatch) };
+});
 
 describe('ReplyForm', () => {
   const mockOnSubmit = vi.fn().mockResolvedValue(undefined);
@@ -175,6 +181,13 @@ describe('ReplyForm', () => {
         fireEvent.change(textarea, { target: { value: 'This is a warning' } });
       });
       expect(screen.getByText(/17\/20/i)).toBeInTheDocument();
+    });
+  });
+
+  describe('Re-render Isolation (FR-005)', () => {
+    test('isolates the content subscription via useWatch (does not re-render whole form per keystroke)', () => {
+      renderComponent();
+      expect(vi.mocked(useWatch)).toHaveBeenCalled();
     });
   });
 

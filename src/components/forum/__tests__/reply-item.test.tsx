@@ -1,7 +1,14 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 import { ReplyItem } from '../reply-item';
 import { describe, test, expect, vi } from 'vitest';
 import type { ForumReply } from '@/types';
+
+vi.mock('@/components/ui/button', async () => {
+  const actual = await vi.importActual<typeof import('@/components/ui/button')>('@/components/ui/button');
+  return { ...actual, Button: vi.fn(actual.Button) };
+});
 
 const baseReply: ForumReply = {
   id: 'reply-1',
@@ -82,5 +89,31 @@ describe('ReplyItem', () => {
     render(<ReplyItem reply={baseReply} depth={0} isAuthenticated={true} onReply={onReply} />);
     fireEvent.click(screen.getByRole('button', { name: /reply/i }));
     expect(onReply).toHaveBeenCalledWith('reply-1', 'Fatima Zahra');
+  });
+
+  test('does not re-render when parent state changes with stable props (React.memo, FR-004)', () => {
+    const stableOnReply = vi.fn();
+    const stableReply = { ...baseReply };
+
+    function Parent() {
+      const [count, setCount] = useState(0);
+      return (
+        <div>
+          <button type="button" onClick={() => setCount((c) => c + 1)}>bump</button>
+          <span data-testid="count">{count}</span>
+          <ReplyItem reply={stableReply} depth={0} isAuthenticated={true} onReply={stableOnReply} />
+        </div>
+      );
+    }
+
+    render(<Parent />);
+    const before = vi.mocked(Button).mock.calls.length;
+    expect(before).toBeGreaterThan(0);
+
+    fireEvent.click(screen.getByRole('button', { name: 'bump' }));
+    const after = vi.mocked(Button).mock.calls.length;
+
+    expect(after).toBe(before);
+    expect(screen.getByTestId('count').textContent).toBe('1');
   });
 });

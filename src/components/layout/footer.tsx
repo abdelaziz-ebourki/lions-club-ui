@@ -44,7 +44,7 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2.5">
-              <img src="/logo.png" alt="" className="h-8 w-8 rounded-full" width={32} height={32} />
+              <img src="/logo.png" alt="" className="h-8 w-8 rounded-full" width={32} height={32} loading="lazy" />
               <h3 className="font-heading text-lg font-semibold text-primary">
                 {siteConfig.name}
               </h3>

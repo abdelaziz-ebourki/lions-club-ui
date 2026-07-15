@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
@@ -175,9 +175,9 @@ export function ThreadDetailPage() {
     },
   });
 
-  const handleReply = (parentReplyId: string, quotedAuthor: string) => {
+  const handleReply = useCallback((parentReplyId: string, quotedAuthor: string) => {
     setReplyMeta({ parentReplyId, quotedAuthor });
-  };
+  }, []);
 
   const handleSubmitReply = async (body: { content: string; parentReplyId?: string }) => {
     await replyMutation.mutateAsync(body);
