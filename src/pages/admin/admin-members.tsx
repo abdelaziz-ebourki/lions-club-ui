@@ -21,7 +21,7 @@ export function AdminMembersPage() {
   const headers = (
     <>
       <TableHead className="font-display text-overline text-xs">Name</TableHead>
-      <TableHead className="font-display text-overline text-xs hidden md:table-cell">Role</TableHead>
+      <TableHead className="font-display text-overline text-xs">Role</TableHead>
       <TableHead className="font-display text-overline text-xs text-right">Actions</TableHead>
     </>
   );
