@@ -29,3 +29,8 @@ screenshots
 
 # Spec Kit extension cache
 .specify/extensions/.cache/
+
+# Environment
+.env
+.env*
+!.env.example
