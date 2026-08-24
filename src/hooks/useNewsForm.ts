@@ -82,10 +82,10 @@ export function useNewsForm() {
     } : undefined,
   });
 
-  const title = form.watch("title");
-  const slug = form.watch("slug");
-  const content = form.watch("content");
-  const excerpt = form.watch("excerpt");
+  const title = form.watch("title") ?? "";
+  const slug = form.watch("slug") ?? "";
+  const content = form.watch("content") ?? "";
+  const excerpt = form.watch("excerpt") ?? "";
   const { showSuccess, setShowSuccess, successTimer } = useSuccessTimer();
 
   const slugTouched = React.useRef(false);
