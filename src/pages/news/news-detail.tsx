@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useQuery } from "@tanstack/react-query";
@@ -20,6 +21,15 @@ export function NewsDetailPage() {
     enabled: !!slug,
     retry: false,
   });
+
+  useEffect(() => {
+    if (article) {
+      document.title = `${article.title} | Lions Club FSBM`;
+      return () => {
+        document.title = "Lions Club FSBM";
+      };
+    }
+  }, [article]);
 
   if (isLoading) {
     return (
@@ -87,7 +97,6 @@ export function NewsDetailPage() {
   return (
     <>
       <Helmet prioritizeSeoTags>
-        <title>{article.title} | Lions Club FSBM</title>
         <meta name="description" content={article.excerpt || article.title} />
         <meta property="og:title" content={article.title} />
         <meta property="og:description" content={article.excerpt || article.title} />
