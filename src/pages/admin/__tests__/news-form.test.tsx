@@ -447,6 +447,28 @@ describe('NewsFormPage Component', () => {
     (vi.mocked(useParams) as any).mockReturnValue({});
   });
 
+  describe('edit mode', () => {
+
+    test('does not crash while article query is loading and renders form fields', () => {
+      (vi.mocked(useParams) as any).mockReturnValue({ id: 'news-1' });
+      (vi.mocked(useQuery) as any).mockReturnValue({
+        data: undefined,
+        isLoading: true,
+        isError: false,
+        error: null,
+      });
+
+      render(
+        <MemoryRouter>
+          <NewsFormPage />
+        </MemoryRouter>
+      );
+
+      expect(screen.getByLabelText('Title')).toBeInTheDocument();
+      expect(screen.getByLabelText('Slug')).toBeInTheDocument();
+    });
+  });
+
   describe('create mode', () => {
 
     test('slug auto-generates from title when not manually edited', () => {
