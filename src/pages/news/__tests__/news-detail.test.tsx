@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { NewsDetailPage } from '../news-detail';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
@@ -193,6 +193,32 @@ describe('NewsDetailPage', () => {
     test('renders article with title', () => {
       render(<NewsDetailPage />);
       expect(screen.getByRole('heading', { name: publishedArticle.title })).toBeInTheDocument();
+    });
+
+    test('sets document.title to "<article title> | Lions Club FSBM" (FR-015, US4/AC1)', async () => {
+      render(<NewsDetailPage />);
+      await waitFor(() => {
+        expect(document.title).toBe(`${publishedArticle.title} | Lions Club FSBM`);
+      });
+    });
+
+    test('sets meta description from article excerpt (FR-015)', () => {
+      render(<NewsDetailPage />);
+      const meta = document.head.querySelector('meta[name="description"]');
+      expect(meta).not.toBeNull();
+      expect(meta).toHaveAttribute('content', publishedArticle.excerpt);
+    });
+
+    test('sets og:title and og:type=article meta tags (US4/AC2)', () => {
+      render(<NewsDetailPage />);
+      expect(document.head.querySelector('meta[property="og:title"]')).toHaveAttribute(
+        'content',
+        publishedArticle.title
+      );
+      expect(document.head.querySelector('meta[property="og:type"]')).toHaveAttribute(
+        'content',
+        'article'
+      );
     });
 
     test('renders category badge', () => {
