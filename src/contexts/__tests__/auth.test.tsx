@@ -88,4 +88,17 @@ describe("AuthContext 401 listener", () => {
       window.dispatchEvent(new CustomEvent("auth:expired"));
     });
   });
+
+  test("initial auth probe passes skipAuthExpired so anonymous visitors are not redirected", async () => {
+    renderAuthProvider("/news");
+
+    await act(async () => {
+      await vi.waitFor(() => {
+        expect(api.get).toHaveBeenCalled();
+      });
+    });
+
+    expect(api.get).toHaveBeenCalledWith("/auth/me", { skipAuthExpired: true });
+    expect(mockNavigate).not.toHaveBeenCalled();
+  });
 });
