@@ -26,13 +26,13 @@ description: "Task list for News & Announcements feature implementation"
 
 **Purpose**: Install dependencies, define types and config, set up mock data and MSW handlers
 
-- [ ] T001 Install @tiptap/react, @tiptap/starter-kit, react-helmet-async via npm
-- [ ] T002 [P] Add NewsArticle, NewsCategory, NewsStatus types to src/types/index.ts
-- [ ] T003 [P] Add newsCategories constant to src/config/index.ts
-- [ ] T004 Wrap AppProviders with HelmetProvider in src/components/shared/AppProviders.tsx
-- [ ] T005 [P] Create mock news articles data in src/mocks/data/news.ts
-- [ ] T006 Create MSW REST handlers for /api/news in src/mocks/handlers/news.ts
-- [ ] T007 Register newsHandlers in src/mocks/handlers/index.ts
+- [x] T001 Install @tiptap/react, @tiptap/starter-kit, react-helmet-async via npm
+- [x] T002 [P] Add NewsArticle, NewsCategory, NewsStatus types to src/types/index.ts
+- [x] T003 [P] Add newsCategories constant to src/config/index.ts
+- [x] T004 Wrap AppProviders with HelmetProvider in src/components/shared/AppProviders.tsx
+- [x] T005 [P] Create mock news articles data in src/mocks/data/news.ts
+- [x] T006 Create MSW REST handlers for /api/news in src/mocks/handlers/news.ts
+- [x] T007 Register newsHandlers in src/mocks/handlers/index.ts
 
 ---
 
@@ -42,10 +42,10 @@ description: "Task list for News & Announcements feature implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T008 [P] Create NewsSkeleton loading component in src/components/shared/NewsSkeleton.tsx
-- [ ] T009 [P] Create RichTextEditor component in src/components/shared/RichTextEditor.tsx (Tiptap wrapper with StarterKit, controlled via value/onChange for react-hook-form)
-- [ ] T010 Create useNewsForm hook in src/hooks/useNewsForm.ts (parallel to useEventForm — zod schema, react-hook-form, image upload, React Query mutation)
-- [ ] T011 Create useNewsList hook in src/hooks/useNewsList.ts (React Query for paginated public news list)
+- [x] T008 [P] Create NewsSkeleton loading component in src/components/shared/NewsSkeleton.tsx
+- [x] T009 [P] Create RichTextEditor component in src/components/shared/RichTextEditor.tsx (Tiptap wrapper with StarterKit, controlled via value/onChange for react-hook-form)
+- [x] T010 Create useNewsForm hook in src/hooks/useNewsForm.ts (parallel to useEventForm — zod schema, react-hook-form, image upload, React Query mutation)
+- [x] T011 Create useNewsList hook in src/hooks/useNewsList.ts (React Query for paginated public news list)
 
 **Checkpoint**: Foundation ready — user story implementation can now begin
 
@@ -57,9 +57,9 @@ description: "Task list for News & Announcements feature implementation"
 
 **Independent Test**: Navigate to `/news` on a fresh site with mock published articles. Verify article list renders with title, excerpt, date, and category. Click an article to read full content on `/news/:slug`. Verify loading skeletons, empty state (no articles), and error state (network failure) all work.
 
-- [ ] T012 [US1] Create NewsListPage in src/pages/news/news.tsx (paginated grid of published articles with skeleton loading, empty state via EmptyState, error state via ErrorState with retry)
-- [ ] T013 [US1] Create NewsDetailPage in src/pages/news/news-detail.tsx (full article view by slug with loading skeleton, 404 state for invalid slug, error state with retry)
-- [ ] T014 [US1] Add /news and /news/:slug routes to src/App.tsx (/news eager, /news/:slug lazy-loaded with Suspense)
+- [x] T012 [US1] Create NewsListPage in src/pages/news/news.tsx (paginated grid of published articles with skeleton loading, empty state via EmptyState, error state via ErrorState with retry)
+- [x] T013 [US1] Create NewsDetailPage in src/pages/news/news-detail.tsx (full article view by slug with loading skeleton, 404 state for invalid slug, error state with retry)
+- [x] T014 [US1] Add /news and /news/:slug routes to src/App.tsx (/news eager, /news/:slug lazy-loaded with Suspense)
 
 **Checkpoint**: User Story 1 fully functional and testable independently
 
@@ -71,10 +71,10 @@ description: "Task list for News & Announcements feature implementation"
 
 **Independent Test**: Log in as admin, navigate to `/admin/news`, create a new article with valid data, verify it appears in the list, edit it, verify changes saved, delete it with confirmation dialog, verify removal.
 
-- [ ] T015 [US2] Create AdminNewsPage in src/pages/admin/admin-news.tsx (table/card list using AdminTable, delete with AlertDialog confirmation, all statuses visible)
-- [ ] T016 [P] [US2] Create NewsFormFields in src/components/shared/NewsFormFields.tsx (title, slug auto-gen, category Select, rich text via RichTextEditor, excerpt Textarea, featured image FileUpload, status Select, publish date)
-- [ ] T017 [US2] Create NewsFormPage in src/pages/admin/news-form.tsx (create/edit form using useNewsForm + NewsFormFields, pattern: event-form.tsx)
-- [ ] T018 [US2] Add /admin/news, /admin/news/new, /admin/news/:id/edit routes to src/App.tsx (lazy-loaded, within admin layout)
+- [x] T015 [US2] Create AdminNewsPage in src/pages/admin/admin-news.tsx (table/card list using AdminTable, delete with AlertDialog confirmation, all statuses visible)
+- [x] T016 [P] [US2] Create NewsFormFields in src/components/shared/NewsFormFields.tsx (title, slug auto-gen, category Select, rich text via RichTextEditor, excerpt Textarea, featured image FileUpload, status Select, publish date)
+- [x] T017 [US2] Create NewsFormPage in src/pages/admin/news-form.tsx (create/edit form using useNewsForm + NewsFormFields, pattern: event-form.tsx)
+- [x] T018 [US2] Add /admin/news, /admin/news/new, /admin/news/:id/edit routes to src/App.tsx (lazy-loaded, within admin layout)
 
 **Checkpoint**: User Stories 1 AND 2 both functional and independently testable
 
@@ -86,8 +86,8 @@ description: "Task list for News & Announcements feature implementation"
 
 **Independent Test**: Publish 3+ articles in mock data. Visit `/` and verify "Latest News" section shows exactly 3 most recent with title, excerpt, date. Reduce to 1 published article and verify only 1 shown. Remove all published articles and verify section hidden.
 
-- [ ] T019 [US3] Add /api/news/featured MSW handler to src/mocks/handlers/news.ts
-- [ ] T020 [US3] Add featured news section to src/pages/home/home.tsx (query /api/news/featured, render up to 3 article cards, hide section on empty)
+- [x] T019 [US3] Add /api/news/featured MSW handler to src/mocks/handlers/news.ts
+- [x] T020 [US3] Add featured news section to src/pages/home/home.tsx (query /api/news/featured, render up to 3 article cards, hide section on empty)
 
 **Checkpoint**: User Story 3 fully functional
 
@@ -99,7 +99,7 @@ description: "Task list for News & Announcements feature implementation"
 
 **Independent Test**: View page source of a news detail page. Verify `<title>`, `<meta name="description">`, `og:title`, `og:description`, `og:type` (article), and `og:image` (if article has image) tags contain article-specific content.
 
-- [ ] T021 [US4] Add Helmet SEO meta tags to NewsDetailPage in src/pages/news/news-detail.tsx (title, description meta, og:title, og:description, og:type, og:image using article data)
+- [x] T021 [US4] Add Helmet SEO meta tags to NewsDetailPage in src/pages/news/news-detail.tsx (title, description meta, og:title, og:description, og:type, og:image using article data)
 
 **Checkpoint**: All user stories complete
 
@@ -112,7 +112,7 @@ description: "Task list for News & Announcements feature implementation"
 - [x] T022 Run npx tsc -b to type-check all project references (verified 0 errors)
 - [x] T023 Run npm run lint to verify no lint violations (verified 0 errors, pre-existing warnings only)
 - [x] T024 Run npm run test:run to verify existing tests still pass (verified 276/276 passing)
-- [ ] T025 Verify all quickstart.md validation scenarios pass manually on dev server
+- [x] T025 Verify all quickstart.md validation scenarios pass manually on dev server
 
 ---
 
@@ -239,3 +239,9 @@ With multiple developers:
 - [x] T036 Add "News" entries to public nav (siteConfig.nav) and admin sidebar (admin-layout.tsx) per US1/US2 reachability (missing)
 - [x] T037 Make article title clickable in public news list per US1/AC2 (partial)
 - [x] T038 Review and justify or remove unrequested extras (char counters justified as UX polish, RichTextEditor className used) (unrequested)
+
+---
+
+## Phase 9: Convergence
+
+- [x] T039 Execute all quickstart.md validation scenarios on the dev server (public list pagination/loading/empty/error, detail + invalid-slug 404, admin CRUD with confirmation dialogs and toasts, homepage featured section visibility, SEO meta tags in page source) and then mark T025 complete per SC-005 / T025 (partial)
