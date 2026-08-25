@@ -15,6 +15,7 @@ export const siteConfig = {
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Events", href: "/events" },
+    { label: "News", href: "/news" },
     { label: "Forum", href: "/forum" },
     { label: "Contact", href: "/contact" },
   ],
@@ -30,6 +31,13 @@ export const eventCategories = [
   "Youth",
   "Community",
   "Fundraiser",
+] as const;
+
+export const newsCategories = [
+  "Announcement",
+  "News",
+  "Event Recap",
+  "Press Release",
 ] as const;
 
 export const uploadConfig = {
