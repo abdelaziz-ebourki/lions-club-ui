@@ -136,3 +136,23 @@ export class AuthError extends Error {
   }
 }
 
+export type NewsCategory = "Announcement" | "News" | "Event Recap" | "Press Release";
+
+export type NewsStatus = "draft" | "published" | "archived";
+
+export interface NewsArticle {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  excerpt: string;
+  featuredImage?: string;
+  category: NewsCategory;
+  status: NewsStatus;
+  authorId: string;
+  authorName: string;
+  publishedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+

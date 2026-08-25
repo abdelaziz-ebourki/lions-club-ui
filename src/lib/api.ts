@@ -2,22 +2,35 @@
 import { appConfig } from "@/config";
 import { AuthError } from "@/types";
 
+type RequestOptions = RequestInit & { skipAuthExpired?: boolean };
+
+export class ApiError extends Error {
+  readonly status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+  }
+}
+
 async function request<T>(
   endpoint: string,
-  options?: RequestInit
+  options?: RequestOptions
 ): Promise<T> {
+  const { skipAuthExpired, ...fetchOptions } = options ?? {};
   const res = await fetch(`${appConfig.apiBaseUrl}${endpoint}`, {
     credentials: "include",
-    headers: { "Content-Type": "application/json", ...options?.headers },
-    ...options,
+    headers: { "Content-Type": "application/json", ...fetchOptions?.headers },
+    ...fetchOptions,
   });
   if (!res.ok) {
     if (res.status === 401) {
-      window.dispatchEvent(new CustomEvent("auth:expired"));
+      if (!skipAuthExpired) window.dispatchEvent(new CustomEvent("auth:expired"));
       throw new AuthError();
     }
     const error = await res.json().catch(() => ({ message: res.statusText }));
-    throw new Error(error.message ?? "Request failed");
+    throw new ApiError(error.message ?? "Request failed", res.status);
   }
   return res.json();
 }
@@ -39,13 +52,13 @@ async function uploadRequest<T>(
       throw new AuthError();
     }
     const error = await res.json().catch(() => ({ message: res.statusText }));
-    throw new Error(error.message ?? "Request failed");
+    throw new ApiError(error.message ?? "Request failed", res.status);
   }
   return res.json();
 }
 
 export const api = {
-  get: <T>(endpoint: string) => request<T>(endpoint),
+  get: <T>(endpoint: string, options?: RequestOptions) => request<T>(endpoint, options),
   post: <T>(endpoint: string, body: unknown) =>
     request<T>(endpoint, { method: "POST", body: JSON.stringify(body) }),
   put: <T>(endpoint: string, body: unknown) =>
