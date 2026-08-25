@@ -8,11 +8,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { SectionDivider } from "@/components/ui/section-divider";
 import { ArrowRight, Calendar } from "lucide-react";
 import type { Event } from "@/types";
+import { useFeaturedNews } from "@/hooks/useNewsList";
 import { HomeHero } from "@/components/shared/HomeHero";
 import { HomeImpact } from "@/components/shared/HomeImpact";
 import { HomeCta } from "@/components/shared/HomeCta";
 
 export function HomePage() {
+  const { data: featuredNews } = useFeaturedNews();
   const { data: events, isLoading } = useQuery<Event[]>({
     queryKey: ["events", "upcoming"],
     queryFn: () => api.get("/events?status=upcoming"),
@@ -105,6 +107,71 @@ export function HomePage() {
           </div>
         )}
       </section>
+
+      {featuredNews && featuredNews.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between">
+            <div>
+              <p className="font-display text-overline text-accent">
+                Latest News
+              </p>
+              <h2 className="font-heading text-h2 mt-1 text-foreground">
+                Club Announcements
+              </h2>
+            </div>
+            <Link to="/news" className="hidden sm:block">
+              <Button variant="ghost" size="sm">
+                All News <ArrowRight data-icon="inline-end" />
+              </Button>
+            </Link>
+          </div>
+
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredNews.map((article) => (
+              <Card key={article.id} className="group transition-all hover:shadow-lg">
+                {article.featuredImage && (
+                  <div className="overflow-hidden rounded-t-lg">
+                    <img
+                      src={article.featuredImage}
+                      alt={article.title}
+                      className="h-48 w-full object-cover transition-transform group-hover:scale-105"
+                      loading="lazy"
+                      width={800}
+                      height={400}
+                    />
+                  </div>
+                )}
+                <CardHeader>
+                  <Badge variant="accent" className="w-fit">{article.category}</Badge>
+                  <CardTitle className="mt-3 font-heading text-xl group-hover:text-primary transition-colors line-clamp-2">
+                    {article.title}
+                  </CardTitle>
+                  <CardDescription className="text-body-sm line-clamp-2">
+                    {article.excerpt}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-body-sm text-muted-foreground">
+                    {article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : ""}
+                  </div>
+                  <Link
+                    to={`/news/${article.slug}`}
+                    className="mt-4 inline-flex items-center text-sm font-medium text-accent hover:underline"
+                  >
+                    Read Article <ArrowRight className="ml-1 size-3" />
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <Link to="/news" className="mt-6 text-center sm:hidden">
+            <Button variant="ghost">
+              All News <ArrowRight data-icon="inline-end" />
+            </Button>
+          </Link>
+        </section>
+      )}
 
       <SectionDivider />
 

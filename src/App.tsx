@@ -10,6 +10,7 @@ import { EventsPage } from "@/pages/events/events";
 import { ContactPage } from "@/pages/contact/contact";
 import { ProfilePage } from "@/pages/profile/profile";
 import { VerifyEmailPage } from "@/pages/verify-email";
+import { NewsPage } from "@/pages/news/news";
 import { ForumPage } from "@/pages/forum/forum";
 import { LoginPage } from "@/pages/auth/login";
 import { RegisterPage } from "@/pages/auth/register";
@@ -21,6 +22,7 @@ const ThreadsPage = lazy(() => import("@/pages/forum/threads").then(m => ({ defa
 const NewThreadForm = lazy(() => import("@/pages/forum/new-thread-form").then(m => ({ default: m.NewThreadForm })));
 const ThreadDetailPage = lazy(() => import("@/pages/forum/thread-detail").then(m => ({ default: m.ThreadDetailPage })));
 const SearchPage = lazy(() => import("@/pages/search/search-page").then(m => ({ default: m.SearchPage })));
+const NewsDetailPage = lazy(() => import("@/pages/news/news-detail").then(m => ({ default: m.NewsDetailPage })));
 const EventFormPage = lazy(() => import("@/pages/admin/event-form").then(m => ({ default: m.EventFormPage })));
 const MemberFormPage = lazy(() => import("@/pages/admin/member-form").then(m => ({ default: m.MemberFormPage })));
 const AdminLayout = lazy(() => import("@/pages/admin/admin-layout").then(m => ({ default: m.AdminLayout })));
@@ -29,6 +31,8 @@ const AdminEventsPage = lazy(() => import("@/pages/admin/admin-events").then(m =
 const AdminMembersPage = lazy(() => import("@/pages/admin/admin-members").then(m => ({ default: m.AdminMembersPage })));
 const AdminMessagesPage = lazy(() => import("@/pages/admin/admin-messages").then(m => ({ default: m.AdminMessagesPage })));
 const AdminForumPage = lazy(() => import("@/pages/admin/admin-forum").then(m => ({ default: m.AdminForumPage })));
+const AdminNewsPage = lazy(() => import("@/pages/admin/admin-news").then(m => ({ default: m.AdminNewsPage })));
+const NewsFormPage = lazy(() => import("@/pages/admin/news-form").then(m => ({ default: m.NewsFormPage })));
 
 export default function App() {
   return (
@@ -51,6 +55,10 @@ export default function App() {
           } />
           <Route path="forum/:categoryId/:threadId" element={
             <Suspense fallback={<PageSkeleton />}><ThreadDetailPage /></Suspense>
+          } />
+          <Route path="news" element={<NewsPage />} />
+          <Route path="news/:slug" element={
+            <Suspense fallback={<PageSkeleton />}><NewsDetailPage /></Suspense>
           } />
           <Route path="search" element={
             <Suspense fallback={<PageSkeleton />}><SearchPage /></Suspense>
@@ -92,6 +100,15 @@ export default function App() {
           } />
           <Route path="forum" element={
             <Suspense fallback={<PageSkeleton />}><AdminForumPage /></Suspense>
+          } />
+          <Route path="news" element={
+            <Suspense fallback={<PageSkeleton />}><AdminNewsPage /></Suspense>
+          } />
+          <Route path="news/new" element={
+            <Suspense fallback={<PageSkeleton />}><NewsFormPage /></Suspense>
+          } />
+          <Route path="news/:id/edit" element={
+            <Suspense fallback={<PageSkeleton />}><NewsFormPage /></Suspense>
           } />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
