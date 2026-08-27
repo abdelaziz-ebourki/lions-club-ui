@@ -40,6 +40,14 @@ export const newsCategories = [
   "Press Release",
 ] as const;
 
+export const galleryCategories = [
+  "Event",
+  "Project",
+  "Team",
+  "Community",
+  "Partner",
+] as const;
+
 export const uploadConfig = {
   acceptedTypes: ["image/png", "image/jpeg", "image/webp"] as string[],
   maxSize: 5 * 1024 * 1024,
