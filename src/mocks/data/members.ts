@@ -8,6 +8,9 @@ export const members: Member[] = [
     bio: "Leading the club with dedication and vision since 2023.",
     joinedAt: "2020-03-15",
     avatar: "https://picsum.photos/seed/avatar1/200/200",
+    email: "ahmed.benali@lions-fsbm.ma",
+    phone: "+212 6 12 34 56 78",
+    socials: { linkedin: "https://linkedin.com/in/ahmed-benali", facebook: "https://facebook.com/ahmed.benali" },
   },
   {
     id: "2",
@@ -16,6 +19,8 @@ export const members: Member[] = [
     bio: "Passionate about community service and youth engagement.",
     joinedAt: "2019-07-22",
     avatar: "https://picsum.photos/seed/avatar2/200/200",
+    email: "fatima.elamrani@lions-fsbm.ma",
+    socials: { instagram: "https://instagram.com/fatima.elamrani" },
   },
   {
     id: "3",
@@ -24,6 +29,8 @@ export const members: Member[] = [
     bio: "Keeping the club organized and running smoothly.",
     joinedAt: "2021-01-10",
     avatar: "https://picsum.photos/seed/avatar3/200/200",
+    email: "youssef.idrissi@lions-fsbm.ma",
+    phone: "+212 6 23 45 67 89",
   },
   {
     id: "4",
@@ -32,6 +39,8 @@ export const members: Member[] = [
     bio: "Ensuring financial transparency and accountability.",
     joinedAt: "2020-06-05",
     avatar: "https://picsum.photos/seed/avatar4/200/200",
+    email: "nadia.benkirane@lions-fsbm.ma",
+    socials: { linkedin: "https://linkedin.com/in/nadia-benkirane" },
   },
   {
     id: "5",
@@ -39,6 +48,9 @@ export const members: Member[] = [
     role: "Events Coordinator",
     bio: "Organizing impactful events for the community.",
     joinedAt: "2022-02-18",
+    email: "karim.othmani@lions-fsbm.ma",
+    phone: "+212 6 34 56 78 90",
+    socials: { facebook: "https://facebook.com/karim.othmani", instagram: "https://instagram.com/karim.othmani" },
   },
   {
     id: "6",
@@ -46,5 +58,8 @@ export const members: Member[] = [
     role: "PR & Communications",
     bio: "Sharing our story and connecting with the community.",
     joinedAt: "2021-09-30",
+    avatar: "https://picsum.photos/seed/avatar5/200/200",
+    email: "salma.bouazza@lions-fsbm.ma",
+    socials: { linkedin: "https://linkedin.com/in/salma-bouazza", instagram: "https://instagram.com/salma.bouazza" },
   },
 ];

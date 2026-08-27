@@ -22,6 +22,9 @@ export const memberHandlers = [
       bio: (body.bio as string) ?? "",
       avatar: (body.avatar as string) ?? undefined,
       joinedAt: new Date().toISOString().split("T")[0],
+      email: (body.email as string) ?? undefined,
+      phone: (body.phone as string) ?? undefined,
+      socials: (body.socials as Record<string, string>) ?? undefined,
     };
     members.push(newMember);
     return HttpResponse.json(newMember, { status: 201 });
