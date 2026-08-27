@@ -9,6 +9,7 @@ import { emailVerificationHandlers } from "./email-verification";
 import { sessionHandlers } from "./session";
 import { profileHandlers } from "./profile";
 import { newsHandlers } from "./news";
+import { galleryHandlers } from "./gallery";
 
 export const handlers = [
   ...eventHandlers,
@@ -22,4 +23,5 @@ export const handlers = [
   ...sessionHandlers,
   ...profileHandlers,
   ...newsHandlers,
+  ...galleryHandlers,
 ];
