@@ -15,6 +15,8 @@ import { GalleryPage } from "@/pages/gallery/gallery";
 import { ForumPage } from "@/pages/forum/forum";
 import { LoginPage } from "@/pages/auth/login";
 import { RegisterPage } from "@/pages/auth/register";
+import { ForgotPasswordPage } from "@/pages/auth/forgot-password";
+import { ResetPasswordPage } from "@/pages/auth/reset-password";
 import { NotFoundPage } from "@/pages/not-found";
 import { AppProviders } from "@/components/shared/AppProviders";
 
@@ -74,6 +76,8 @@ export default function App() {
           } />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="reset-password" element={<ResetPasswordPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="verify-email" element={<VerifyEmailPage />} />
           <Route path="*" element={<NotFoundPage />} />
