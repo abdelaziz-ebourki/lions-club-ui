@@ -72,7 +72,7 @@ describe('RegisterPage', () => {
     renderWithRouter(<RegisterPage />);
     fireEvent.change(screen.getByPlaceholderText(/your full name/i), { target: { value: 'Test User' } });
     fireEvent.change(screen.getByPlaceholderText(/your@email.com/i), { target: { value: 'test@example.com' } });
-    const passwordInputs = screen.getAllByPlaceholderText(/at least 6 characters|repeat your password/i);
+    const passwordInputs = screen.getAllByPlaceholderText(/at least 8 characters|repeat your password/i);
     fireEvent.change(passwordInputs[0], { target: { value: 'password123' } });
     fireEvent.change(passwordInputs[1], { target: { value: 'password123' } });
     fireEvent.click(screen.getByRole('button', { name: /create account/i }));

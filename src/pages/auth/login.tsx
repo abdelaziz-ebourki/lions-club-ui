@@ -16,7 +16,7 @@ import { AuthCardFields } from "@/components/shared/AuthCardFields";
 
 const loginSchema = z.object({
   email: z.string().email("Enter a valid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -62,6 +62,11 @@ export function LoginPage() {
               <FieldError errors={[form.formState.errors.password]} />
             </FieldContent>
           </Field>
+          <div className="flex justify-end">
+            <Link to="/forgot-password" className="text-sm text-primary underline underline-offset-4 hover:text-accent">
+              Forgot password?
+            </Link>
+          </div>
           <Field orientation="horizontal">
             <FieldLabel>
               <input

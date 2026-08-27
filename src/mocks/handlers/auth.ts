@@ -2,7 +2,7 @@ import { http, HttpResponse } from "msw";
 
 // Seeded user store for mock authentication
 // In production, this would be a database with hashed passwords
-const seededUsers = [
+export const seededUsers = [
   {
     id: "admin-1",
     name: "Ahmed Benali",
