@@ -68,6 +68,32 @@ export function HeaderMobileNav({ onClose, onLogout }: HeaderMobileNavProps) {
               Events
             </Link>
             <Link
+              to="/admin/news"
+              aria-current={location.pathname === "/admin/news" ? "page" : undefined}
+              onClick={onClose}
+              className={cn(
+                "text-lg font-medium transition-colors hover:text-primary",
+                location.pathname === "/admin/news"
+                  ? "text-primary"
+                  : "text-muted-foreground"
+              )}
+            >
+              News
+            </Link>
+            <Link
+              to="/admin/gallery"
+              aria-current={location.pathname === "/admin/gallery" ? "page" : undefined}
+              onClick={onClose}
+              className={cn(
+                "text-lg font-medium transition-colors hover:text-primary",
+                location.pathname === "/admin/gallery"
+                  ? "text-primary"
+                  : "text-muted-foreground"
+              )}
+            >
+              Gallery
+            </Link>
+            <Link
               to="/admin/forum"
               aria-current={location.pathname === "/admin/forum" ? "page" : undefined}
               onClick={onClose}
