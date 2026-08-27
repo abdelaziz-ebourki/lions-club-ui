@@ -1,0 +1,16 @@
+{
+  "ignoreDependencies": ["shadcn"],
+  "health": {
+    "maxCyclomatic": 35,
+    "maxCognitive": 50,
+    "maxCrap": 130,
+    "maxUnitSize": 260
+  },
+  "duplicates": {
+    "enabled": false
+  },
+  "rules": {
+    "css-token-drift": "off",
+    "dev-dependencies-in-production": "off"
+  }
+}

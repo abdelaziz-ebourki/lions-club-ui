@@ -27,6 +27,12 @@ screenshots
 *.sln
 *.sw?
 
+# Playwright local artifacts
+.playwright/
+.playwright-cli/
+test_e2e_gallery.py
+test_e2e_*.py
+
 # Spec Kit extension cache
 .specify/extensions/.cache/
 
