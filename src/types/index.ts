@@ -48,6 +48,13 @@ export interface Member {
   avatar?: string;
   bio?: string;
   joinedAt: string;
+  email?: string;
+  phone?: string;
+  socials?: {
+    linkedin?: string;
+    facebook?: string;
+    instagram?: string;
+  };
 }
 
 export interface ForumCategory {
