@@ -11,6 +11,7 @@ import { ContactPage } from "@/pages/contact/contact";
 import { ProfilePage } from "@/pages/profile/profile";
 import { VerifyEmailPage } from "@/pages/verify-email";
 import { NewsPage } from "@/pages/news/news";
+import { GalleryPage } from "@/pages/gallery/gallery";
 import { ForumPage } from "@/pages/forum/forum";
 import { LoginPage } from "@/pages/auth/login";
 import { RegisterPage } from "@/pages/auth/register";
@@ -33,6 +34,8 @@ const AdminMessagesPage = lazy(() => import("@/pages/admin/admin-messages").then
 const AdminForumPage = lazy(() => import("@/pages/admin/admin-forum").then(m => ({ default: m.AdminForumPage })));
 const AdminNewsPage = lazy(() => import("@/pages/admin/admin-news").then(m => ({ default: m.AdminNewsPage })));
 const NewsFormPage = lazy(() => import("@/pages/admin/news-form").then(m => ({ default: m.NewsFormPage })));
+const AdminGalleryPage = lazy(() => import("@/pages/admin/admin-gallery").then(m => ({ default: m.AdminGalleryPage })));
+const GalleryFormPage = lazy(() => import("@/pages/admin/gallery-form").then(m => ({ default: m.GalleryFormPage })));
 
 export default function App() {
   return (
@@ -57,6 +60,8 @@ export default function App() {
             <Suspense fallback={<PageSkeleton />}><ThreadDetailPage /></Suspense>
           } />
           <Route path="news" element={<NewsPage />} />
+          <Route path="gallery" element={<GalleryPage />} />
+          <Route path="gallery/:id" element={<GalleryPage />} />
           <Route path="news/:slug" element={
             <Suspense fallback={<PageSkeleton />}><NewsDetailPage /></Suspense>
           } />
@@ -109,6 +114,15 @@ export default function App() {
           } />
           <Route path="news/:id/edit" element={
             <Suspense fallback={<PageSkeleton />}><NewsFormPage /></Suspense>
+          } />
+          <Route path="gallery" element={
+            <Suspense fallback={<PageSkeleton />}><AdminGalleryPage /></Suspense>
+          } />
+          <Route path="gallery/new" element={
+            <Suspense fallback={<PageSkeleton />}><GalleryFormPage /></Suspense>
+          } />
+          <Route path="gallery/:id/edit" element={
+            <Suspense fallback={<PageSkeleton />}><GalleryFormPage /></Suspense>
           } />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

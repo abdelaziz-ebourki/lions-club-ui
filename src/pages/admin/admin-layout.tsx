@@ -1,12 +1,13 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Calendar, MessageSquare, Users, Mail, Newspaper, LogOut } from "lucide-react";
+import { LayoutDashboard, Calendar, MessageSquare, Users, Mail, Newspaper, Images, LogOut } from "lucide-react";
 
 const adminNav = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Events", href: "/admin/events", icon: Calendar },
   { label: "News", href: "/admin/news", icon: Newspaper },
+  { label: "Gallery", href: "/admin/gallery", icon: Images },
   { label: "Forum", href: "/admin/forum", icon: MessageSquare },
   { label: "Members", href: "/admin/members", icon: Users },
   { label: "Messages", href: "/admin/messages", icon: Mail },
