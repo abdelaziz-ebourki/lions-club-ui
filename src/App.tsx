@@ -12,7 +12,6 @@ import { ProfilePage } from "@/pages/profile/profile";
 import { VerifyEmailPage } from "@/pages/verify-email";
 import { NewsPage } from "@/pages/news/news";
 import { GalleryPage } from "@/pages/gallery/gallery";
-const GalleryDetailPage = lazy(() => import("@/pages/gallery/gallery").then(m => ({ default: m.GalleryPage })));
 import { ForumPage } from "@/pages/forum/forum";
 import { LoginPage } from "@/pages/auth/login";
 import { RegisterPage } from "@/pages/auth/register";
@@ -62,9 +61,7 @@ export default function App() {
           } />
           <Route path="news" element={<NewsPage />} />
           <Route path="gallery" element={<GalleryPage />} />
-          <Route path="gallery/:id" element={
-            <Suspense fallback={<PageSkeleton />}><GalleryDetailPage /></Suspense>
-          } />
+          <Route path="gallery/:id" element={<GalleryPage />} />
           <Route path="news/:slug" element={
             <Suspense fallback={<PageSkeleton />}><NewsDetailPage /></Suspense>
           } />

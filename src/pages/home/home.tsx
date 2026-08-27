@@ -206,7 +206,7 @@ export function HomePage() {
             ))
           ) : galleryData?.data && galleryData.data.length > 0 ? (
             galleryData.data.slice(0, 6).map((item) => (
-              <Link key={item.id} to="/gallery" className="group">
+              <Link key={item.id} to={`/gallery/${item.id}`} className="group">
                 <Card className="overflow-hidden transition-all hover:shadow-lg">
                   <div className="overflow-hidden">
                     <img

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,13 +6,14 @@ import { z } from "zod";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
+import { galleryCategories } from "@/config";
 import type { GalleryItem } from "@/types";
 import type { GalleryFormValues } from "@/components/shared/GalleryFormFields";
 
 const gallerySchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters").max(200, "Title must be at most 200 characters"),
   description: z.string().max(1000, "Description must be at most 1000 characters").optional().or(z.literal("")),
-  category: z.string().min(1, "Please select a category"),
+  category: z.enum(galleryCategories as unknown as [string, ...string[]], { message: "Please select a category" }),
   eventId: z.string().optional(),
   tags: z.string().max(300, "Tags must be at most 300 characters").optional().or(z.literal("")),
   imageUrl: z.string().optional(),
@@ -30,6 +31,13 @@ export function useGalleryForm() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const isEditing = !!id;
+  const timeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   const { data: item } = useQuery<GalleryItem>({
     queryKey: ["gallery", "admin", id],
@@ -71,7 +79,7 @@ export function useGalleryForm() {
         imageUrl = res.imageUrl;
         thumbnailUrl = res.thumbnailUrl;
       }
-      if (!imageUrl && !data.image) {
+      if (!imageUrl && !(data.image instanceof File)) {
         throw new Error("Image is required");
       }
       const payload = {
@@ -91,18 +99,19 @@ export function useGalleryForm() {
       queryClient.invalidateQueries({ queryKey: ["gallery"] });
       toast.success(isEditing ? "Item updated successfully." : "Photo uploaded successfully.");
       setShowSuccess(true);
-      setTimeout(() => navigate("/admin/gallery"), 400);
+      timeoutRef.current = window.setTimeout(() => navigate("/admin/gallery"), 400);
     },
     onError: (error) => {
-      toast.error(error instanceof Error && error.message === "Image is required" ? error.message : "Failed to save item.");
+      if (error instanceof Error && error.message === "Image is required") {
+        form.setError("image", { message: "Image is required" });
+        return;
+      }
+      toast.error("Failed to save item.");
     },
   });
 
-  async function onSubmit(data: GalleryFormValues) {
-    const valid = await form.trigger();
-    if (valid) {
-      mutation.mutate(data);
-    }
+  function onSubmit(data: GalleryFormValues) {
+    mutation.mutate(data);
   }
 
   return { form, mutation, onSubmit, showSuccess, isEditing };

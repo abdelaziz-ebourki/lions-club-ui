@@ -24,7 +24,7 @@ interface GalleryFormFieldsProps {
 export function GalleryFormFields({ form, events }: GalleryFormFieldsProps) {
   return (
     <FieldGroup>
-      <Field>
+      <Field data-invalid={!!form.formState.errors.image}>
         <FieldLabel htmlFor="gallery-image">Photo</FieldLabel>
         <FieldContent>
           <Controller
@@ -35,9 +35,11 @@ export function GalleryFormFields({ form, events }: GalleryFormFieldsProps) {
                 id="gallery-image"
                 value={field.value ?? null}
                 onChange={(file) => field.onChange(file)}
+                aria-invalid={!!form.formState.errors.image}
               />
             )}
           />
+          <FieldError errors={[form.formState.errors.image]} />
         </FieldContent>
       </Field>
 
