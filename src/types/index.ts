@@ -156,3 +156,18 @@ export interface NewsArticle {
   updatedAt: string;
 }
 
+export type GalleryCategory = "Event" | "Project" | "Team" | "Community" | "Partner";
+
+export interface GalleryItem {
+  id: string;
+  title: string;
+  description?: string;
+  imageUrl: string;
+  thumbnailUrl?: string;
+  category: GalleryCategory;
+  eventId?: string;
+  tags: string[];
+  uploadedAt: string;
+  uploadedBy: string;
+}
+

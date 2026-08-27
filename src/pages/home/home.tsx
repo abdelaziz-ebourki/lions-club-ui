@@ -6,9 +6,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SectionDivider } from "@/components/ui/section-divider";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight, Calendar, Images } from "lucide-react";
 import type { Event } from "@/types";
 import { useFeaturedNews } from "@/hooks/useNewsList";
+import { useGalleryList } from "@/hooks/useGalleryList";
 import { HomeHero } from "@/components/shared/HomeHero";
 import { HomeImpact } from "@/components/shared/HomeImpact";
 import { HomeCta } from "@/components/shared/HomeCta";
@@ -19,6 +20,7 @@ export function HomePage() {
     queryKey: ["events", "upcoming"],
     queryFn: () => api.get("/events?status=upcoming"),
   });
+  const { data: galleryData, isLoading: galleryLoading } = useGalleryList(1, 6);
 
   return (
     <>
@@ -172,6 +174,80 @@ export function HomePage() {
           </Link>
         </section>
       )}
+
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8" aria-labelledby="home-gallery-heading">
+        <div className="flex items-end justify-between">
+          <div>
+            <p className="font-display text-overline text-accent">Media</p>
+            <h2 id="home-gallery-heading" className="font-heading text-h2 mt-1 text-foreground">
+              Moments That Matter
+            </h2>
+            <p className="mt-2 max-w-2xl text-body-sm text-muted-foreground">
+              A glimpse into our community service, events, and the people who make it happen.
+            </p>
+          </div>
+          <Link to="/gallery" className="hidden sm:block">
+            <Button variant="ghost" size="sm">
+              View Gallery <ArrowRight data-icon="inline-end" />
+            </Button>
+          </Link>
+        </div>
+
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {galleryLoading ? (
+            Array.from({ length: 6 }).map((_, i) => (
+              <Card key={i} className="animate-pulse overflow-hidden">
+                <Skeleton className="h-48 w-full" />
+                <CardHeader>
+                  <Skeleton className="h-4 w-20" />
+                  <Skeleton className="h-6 w-48 mt-2" />
+                </CardHeader>
+              </Card>
+            ))
+          ) : galleryData?.data && galleryData.data.length > 0 ? (
+            galleryData.data.slice(0, 6).map((item) => (
+              <Link key={item.id} to={`/gallery/${item.id}`} className="group">
+                <Card className="overflow-hidden transition-all hover:shadow-lg">
+                  <div className="overflow-hidden">
+                    <img
+                      src={item.thumbnailUrl ?? item.imageUrl}
+                      alt={item.title}
+                      className="h-48 w-full object-cover transition-transform group-hover:scale-105"
+                      loading="lazy"
+                      width={400}
+                      height={300}
+                    />
+                  </div>
+                  <CardHeader>
+                    <Badge variant="accent" className="w-fit">
+                      {item.category}
+                    </Badge>
+                    <CardTitle className="font-heading text-lg group-hover:text-primary transition-colors line-clamp-2">
+                      {item.title}
+                    </CardTitle>
+                  </CardHeader>
+                </Card>
+              </Link>
+            ))
+          ) : (
+            <div className="col-span-full flex flex-col items-center justify-center py-12 text-center">
+              <Images className="size-8 text-muted-foreground mb-3" aria-hidden="true" />
+              <p className="text-sm text-muted-foreground">No photos yet. Check back soon.</p>
+              <Link to="/gallery" className="mt-4">
+                <Button variant="outline" size="sm">
+                  Visit Gallery
+                </Button>
+              </Link>
+            </div>
+          )}
+        </div>
+
+        <Link to="/gallery" className="mt-6 flex justify-center sm:hidden">
+          <Button variant="ghost">
+            View Gallery <ArrowRight data-icon="inline-end" />
+          </Button>
+        </Link>
+      </section>
 
       <SectionDivider />
 

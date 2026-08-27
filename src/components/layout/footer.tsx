@@ -72,6 +72,14 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  to="/gallery"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Gallery
+                </Link>
+              </li>
             </ul>
           </div>
 
