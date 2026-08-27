@@ -24,6 +24,8 @@ const NewThreadForm = lazy(() => import("@/pages/forum/new-thread-form").then(m 
 const ThreadDetailPage = lazy(() => import("@/pages/forum/thread-detail").then(m => ({ default: m.ThreadDetailPage })));
 const SearchPage = lazy(() => import("@/pages/search/search-page").then(m => ({ default: m.SearchPage })));
 const NewsDetailPage = lazy(() => import("@/pages/news/news-detail").then(m => ({ default: m.NewsDetailPage })));
+const MembersPage = lazy(() => import("@/pages/members/members").then(m => ({ default: m.MembersPage })));
+const MemberDetailPage = lazy(() => import("@/pages/members/member-detail").then(m => ({ default: m.MemberDetailPage })));
 const EventFormPage = lazy(() => import("@/pages/admin/event-form").then(m => ({ default: m.EventFormPage })));
 const MemberFormPage = lazy(() => import("@/pages/admin/member-form").then(m => ({ default: m.MemberFormPage })));
 const AdminLayout = lazy(() => import("@/pages/admin/admin-layout").then(m => ({ default: m.AdminLayout })));
@@ -62,6 +64,8 @@ export default function App() {
           <Route path="news" element={<NewsPage />} />
           <Route path="gallery" element={<GalleryPage />} />
           <Route path="gallery/:id" element={<GalleryPage />} />
+          <Route path="members" element={<Suspense fallback={<PageSkeleton />}><MembersPage /></Suspense>} />
+          <Route path="members/:id" element={<Suspense fallback={<PageSkeleton />}><MemberDetailPage /></Suspense>} />
           <Route path="news/:slug" element={
             <Suspense fallback={<PageSkeleton />}><NewsDetailPage /></Suspense>
           } />
