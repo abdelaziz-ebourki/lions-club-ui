@@ -61,6 +61,18 @@ export function GalleryPage() {
   function setFilter(key: keyof GalleryFilters, value: string) {
     setFilters((f) => ({ ...f, [key]: value }));
     setPage(1);
+    setViewerIndex(null);
+  }
+
+  if (id && deepLink.isLoading) {
+    return (
+      <>
+        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Gallery", href: "/gallery" }, { label: "Loading" }]} />
+        <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <GallerySkeleton />
+        </section>
+      </>
+    );
   }
 
   if (id && deepLink.isError) {
@@ -79,6 +91,18 @@ export function GalleryPage() {
         </>
       );
     }
+    return (
+      <>
+        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Gallery", href: "/gallery" }, { label: "Error" }]} />
+        <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <ErrorState
+            heading="Failed to load photo"
+            message="We couldn't load this photo. Please try again."
+            onRetry={() => deepLink.refetch()}
+          />
+        </section>
+      </>
+    );
   }
 
   return (
@@ -186,13 +210,13 @@ export function GalleryPage() {
 
         {data && data.totalPages > 1 && (
           <div className="mt-12 flex items-center justify-center gap-4">
-            <Button variant="outline" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page <= 1}>
+            <Button variant="outline" onClick={() => { setPage((p) => Math.max(1, p - 1)); setViewerIndex(null); }} disabled={page <= 1}>
               Previous
             </Button>
             <span data-testid="gallery-pagination" className="text-body-sm text-muted-foreground">
               Page {data.page} of {data.totalPages}
             </span>
-            <Button variant="outline" onClick={() => setPage((p) => Math.min(data.totalPages, p + 1))} disabled={page >= data.totalPages}>
+            <Button variant="outline" onClick={() => { setPage((p) => Math.min(data.totalPages, p + 1)); setViewerIndex(null); }} disabled={page >= data.totalPages}>
               Next
             </Button>
           </div>

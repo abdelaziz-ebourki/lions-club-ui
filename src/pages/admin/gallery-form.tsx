@@ -39,7 +39,7 @@ export function GalleryFormPage() {
       </div>
 
       <div className={showSuccess ? "rounded-lg ring-2 ring-green-500/50" : undefined}>
-        <form onSubmit={(e) => { e.preventDefault(); void form.handleSubmit((d) => onSubmit(d))(e); }} className="flex max-w-2xl flex-col gap-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex max-w-2xl flex-col gap-6">
           <GalleryFormFields form={form} events={events ?? []} />
           <Button type="submit" disabled={mutation.isPending} className="w-full sm:w-auto">
             {mutation.isPending ? (
