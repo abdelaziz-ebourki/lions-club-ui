@@ -30,11 +30,19 @@ screenshots
 # Playwright local artifacts
 .playwright/
 .playwright-cli/
+.playwright-mcp
 test_e2e_gallery.py
 test_e2e_*.py
 
-# Spec Kit extension cache
-.specify/extensions/.cache/
+# Coding-agent scaffolding (local only, purged from history)
+.specify/
+.opencode/
+.openclaude/
+skills-lock.json
+.remember/
+.remember/**
+.openclaude/**
+.opencode/**
 
 # Environment
 .env
