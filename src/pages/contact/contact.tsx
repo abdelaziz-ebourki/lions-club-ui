@@ -96,9 +96,9 @@ export function ContactPage() {
                     <div className="grid gap-4 sm:grid-cols-2">
                       {/* fallow-ignore-next-line code-duplication */}
                       <Field data-invalid={!!form.formState.errors.name}>
-                        <FieldLabel htmlFor="name">Name</FieldLabel>
+                        <FieldLabel htmlFor="name" className="after:content-['*'] after:ml-0.5 after:text-destructive">Name</FieldLabel>
                         <FieldContent>
-                          <Input id="name" placeholder="Your name" aria-invalid={!!form.formState.errors.name} {...form.register("name")} autoComplete="name" />
+                          <Input id="name" placeholder="Your name" aria-invalid={!!form.formState.errors.name} aria-required="true" {...form.register("name")} autoComplete="name" />
                           <FieldError errors={[form.formState.errors.name]} />
                           <span className={cn("text-body-xs", nameCount >= 100 ? "text-destructive" : nameCount >= 80 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                             {nameCount}/100
@@ -106,17 +106,17 @@ export function ContactPage() {
                         </FieldContent>
                       </Field>
                       <Field data-invalid={!!form.formState.errors.email}>
-                        <FieldLabel htmlFor="email">Email</FieldLabel>
+                        <FieldLabel htmlFor="email" className="after:content-['*'] after:ml-0.5 after:text-destructive">Email</FieldLabel>
                         <FieldContent>
-                          <Input id="email" type="email" placeholder="your@email.com" aria-invalid={!!form.formState.errors.email} {...form.register("email")} autoComplete="email" spellCheck={false} />
+                          <Input id="email" type="email" placeholder="your@email.com" aria-invalid={!!form.formState.errors.email} aria-required="true" {...form.register("email")} autoComplete="email" spellCheck={false} />
                           <FieldError errors={[form.formState.errors.email]} />
                         </FieldContent>
                       </Field>
                     </div>
                     <Field data-invalid={!!form.formState.errors.subject}>
-                      <FieldLabel htmlFor="subject">Subject</FieldLabel>
+                      <FieldLabel htmlFor="subject" className="after:content-['*'] after:ml-0.5 after:text-destructive">Subject</FieldLabel>
                       <FieldContent>
-                        <Input id="subject" placeholder="How can we help?" aria-invalid={!!form.formState.errors.subject} {...form.register("subject")} autoComplete="off" />
+                        <Input id="subject" placeholder="How can we help?" aria-invalid={!!form.formState.errors.subject} aria-required="true" {...form.register("subject")} autoComplete="off" />
                         <FieldError errors={[form.formState.errors.subject]} />
                         <span className={cn("text-body-xs", subjectCount >= 200 ? "text-destructive" : subjectCount >= 160 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                           {subjectCount}/200
@@ -124,9 +124,9 @@ export function ContactPage() {
                       </FieldContent>
                     </Field>
                     <Field data-invalid={!!form.formState.errors.message}>
-                      <FieldLabel htmlFor="message">Message</FieldLabel>
+                      <FieldLabel htmlFor="message" className="after:content-['*'] after:ml-0.5 after:text-destructive">Message</FieldLabel>
                       <FieldContent>
-                        <Textarea id="message" placeholder="Tell us more..." rows={5} aria-invalid={!!form.formState.errors.message} {...form.register("message")} autoComplete="off" />
+                        <Textarea id="message" placeholder="Tell us more..." rows={5} aria-invalid={!!form.formState.errors.message} aria-required="true" {...form.register("message")} autoComplete="off" />
                         <FieldError errors={[form.formState.errors.message]} />
                         <span className={cn("text-body-xs", messageCount >= 2000 ? "text-destructive" : messageCount >= 1600 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                           {messageCount}/2000

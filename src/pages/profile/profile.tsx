@@ -33,7 +33,18 @@ export function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [avatarModalOpen, setAvatarModalOpen] = useState(false);
 
-  if (!user) return null;
+  if (!user) {
+    return (
+      <>
+        <SEO {...seoConfig.profile} />
+        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Profile" }]} />
+        <div className="mx-auto max-w-2xl px-4 py-12 text-center">
+          <h1 className="font-heading text-h2 mb-4">Profile</h1>
+          <p className="text-muted-foreground">Please sign in to view your profile.</p>
+        </div>
+      </>
+    );
+  }
 
   function handleSave(data: ProfileFormData) {
     mutation.mutate(data, {

@@ -60,9 +60,9 @@ export function LoginPage() {
         <FieldGroup>
           <AuthEmailField form={form} />
           <Field data-invalid={!!form.formState.errors.password}>
-            <FieldLabel htmlFor="password">Password</FieldLabel>
+            <FieldLabel htmlFor="password" className="after:content-['*'] after:ml-0.5 after:text-destructive">Password</FieldLabel>
             <FieldContent>
-              <Input id="password" type="password" placeholder="Enter your password" aria-invalid={!!form.formState.errors.password} {...form.register("password")} autoComplete="current-password" />
+              <Input id="password" type="password" placeholder="Enter your password" aria-invalid={!!form.formState.errors.password} aria-required="true" {...form.register("password")} autoComplete="current-password" />
               <FieldError errors={[form.formState.errors.password]} />
             </FieldContent>
           </Field>

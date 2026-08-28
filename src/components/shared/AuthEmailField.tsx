@@ -10,13 +10,14 @@ export function AuthEmailField<TForm extends FieldValues>({ form }: AuthEmailFie
   const error = form.formState.errors.email as { message?: string } | undefined;
   return (
     <Field data-invalid={!!error}>
-      <FieldLabel htmlFor="email">Email</FieldLabel>
+      <FieldLabel htmlFor="email" className="after:content-['*'] after:ml-0.5 after:text-destructive">Email</FieldLabel>
       <FieldContent>
         <Input
           id="email"
           type="email"
           placeholder="your@email.com"
           aria-invalid={!!error}
+          aria-required="true"
           {...form.register("email" as Path<TForm>)}
           autoComplete="email"
           spellCheck={false}

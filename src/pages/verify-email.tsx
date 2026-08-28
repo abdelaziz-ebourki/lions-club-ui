@@ -1,7 +1,7 @@
 import { useEffect, type ReactNode } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { CheckCircle2, XCircle, Loader2, Clock, type LucideIcon } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useEmailVerification } from "@/hooks/use-email-verification";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { SEO } from "@/components/shared/SEO";
@@ -16,7 +16,7 @@ function VerifyEmailCard({ icon: Icon, title, iconColor, children }: { icon: Luc
         <Card className="w-full">
           <CardHeader className="text-center">
             <Icon className={`mx-auto size-12 ${iconColor}`} />
-            <CardTitle className="font-heading text-h3">{title}</CardTitle>
+            <h1 className="font-heading text-h3 leading-none tracking-wider uppercase">{title}</h1>
           </CardHeader>
           <CardContent className="text-center text-body-sm text-muted-foreground space-y-4">
             {children}

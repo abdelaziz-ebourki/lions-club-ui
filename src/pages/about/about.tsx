@@ -71,7 +71,7 @@ export function AboutPage() {
                 <p className="font-display text-overline text-accent mt-6">
                   {value.label}
                 </p>
-                <h3 className="mt-2 font-heading text-h4">{value.title}</h3>
+                <h2 className="mt-2 font-heading text-h4">{value.title}</h2>
                 <p className="mt-3 text-body-sm text-muted-foreground">
                   {value.description}
                 </p>

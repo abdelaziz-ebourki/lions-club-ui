@@ -7,7 +7,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { AuthCardFields } from "@/components/shared/AuthCardFields";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { SEO } from "@/components/shared/SEO";
@@ -51,8 +51,8 @@ export function ResetPasswordPage() {
         <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
           <Card className="w-full">
             <CardHeader className="text-center">
-              <XCircle className="mx-auto size-12 text-destructive" />
-              <CardTitle className="font-heading text-h3">Invalid reset link</CardTitle>
+              <XCircle className="mx-auto size-12 text-destructive" aria-hidden="true" />
+              <h1 className="font-heading text-h3 leading-none tracking-wider uppercase">Invalid reset link</h1>
             </CardHeader>
             <CardContent className="text-center text-body-sm text-muted-foreground space-y-4">
               <p>No reset token found in the URL.</p>
@@ -76,13 +76,14 @@ export function ResetPasswordPage() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <FieldGroup>
           <Field data-invalid={!!form.formState.errors.password}>
-            <FieldLabel htmlFor="password">New Password</FieldLabel>
+            <FieldLabel htmlFor="password" className="after:content-['*'] after:ml-0.5 after:text-destructive">New Password</FieldLabel>
             <FieldContent>
               <Input
                 id="password"
                 type="password"
                 placeholder="At least 8 characters"
                 aria-invalid={!!form.formState.errors.password}
+                aria-required="true"
                 {...form.register("password")}
                 autoComplete="new-password"
               />
@@ -90,13 +91,14 @@ export function ResetPasswordPage() {
             </FieldContent>
           </Field>
           <Field data-invalid={!!form.formState.errors.confirmPassword}>
-            <FieldLabel htmlFor="confirmPassword">Confirm New Password</FieldLabel>
+            <FieldLabel htmlFor="confirmPassword" className="after:content-['*'] after:ml-0.5 after:text-destructive">Confirm New Password</FieldLabel>
             <FieldContent>
               <Input
                 id="confirmPassword"
                 type="password"
                 placeholder="Repeat your password"
                 aria-invalid={!!form.formState.errors.confirmPassword}
+                aria-required="true"
                 {...form.register("confirmPassword")}
                 autoComplete="new-password"
               />
