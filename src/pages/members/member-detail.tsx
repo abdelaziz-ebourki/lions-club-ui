@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { ArrowLeft, Mail, Phone, Calendar, ExternalLink } from "lucide-react";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig, getMemberSeo } from "@/config/seo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -23,6 +24,7 @@ export function MemberDetailPage() {
   if (isLoading) {
     return (
       <>
+        <SEO {...seoConfig.members} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members", href: "/members" }, { label: "Loading..." }]} />
         <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
           <Skeleton className="h-8 w-32" />
@@ -38,6 +40,7 @@ export function MemberDetailPage() {
   if (isNotFound) {
     return (
       <>
+        <SEO {...seoConfig.members} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members", href: "/members" }, { label: "Not found" }]} />
         <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
           <h1 className="font-heading text-h3">Member not found</h1>
@@ -53,6 +56,7 @@ export function MemberDetailPage() {
   if (isError) {
     return (
       <>
+        <SEO {...seoConfig.members} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members", href: "/members" }, { label: "Error" }]} />
         <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
           <ErrorState heading="Failed to load member" message="Please try again." onRetry={() => refetch()} />
@@ -64,6 +68,7 @@ export function MemberDetailPage() {
   if (!member) {
     return (
       <>
+        <SEO {...seoConfig.members} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members", href: "/members" }, { label: "Not found" }]} />
         <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
           <h1 className="font-heading text-h3">Member not found</h1>
@@ -78,14 +83,7 @@ export function MemberDetailPage() {
 
   return (
     <>
-      <Helmet prioritizeSeoTags>
-        <title>{`${member.name} | Lions Club FSBM`}</title>
-        <meta name="description" content={member.bio ?? `Profile of ${member.name}, ${member.role} at Lions Club FSBM.`} />
-        <meta property="og:title" content={`${member.name} | Lions Club FSBM`} />
-        <meta property="og:description" content={member.bio ?? member.role} />
-        <meta property="og:type" content="profile" />
-        {member.avatar && <meta property="og:image" content={member.avatar} />}
-      </Helmet>
+      <SEO {...getMemberSeo(member)} />
       <Breadcrumbs
         trail={[{ label: "Home", href: "/" }, { label: "Members", href: "/members" }, { label: member.name }]}
       />

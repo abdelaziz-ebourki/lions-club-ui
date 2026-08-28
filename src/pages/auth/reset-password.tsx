@@ -10,6 +10,8 @@ import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/compo
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthCardFields } from "@/components/shared/AuthCardFields";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 import { usePasswordReset } from "@/hooks/use-password-reset";
 
 const resetSchema = z
@@ -44,6 +46,7 @@ export function ResetPasswordPage() {
   if (!token) {
     return (
       <>
+        <SEO {...seoConfig.resetPassword} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Reset Password" }]} />
         <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
           <Card className="w-full">
@@ -67,7 +70,9 @@ export function ResetPasswordPage() {
   }
 
   return (
-    <AuthCardFields overline="Set New Password" title="Reset Password" description="Create a new password for your account.">
+    <>
+      <SEO {...seoConfig.resetPassword} />
+      <AuthCardFields overline="Set New Password" title="Reset Password" description="Create a new password for your account.">
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <FieldGroup>
           <Field data-invalid={!!form.formState.errors.password}>
@@ -114,6 +119,7 @@ export function ResetPasswordPage() {
           Back to login
         </Link>
       </p>
-    </AuthCardFields>
+      </AuthCardFields>
+    </>
   );
 }

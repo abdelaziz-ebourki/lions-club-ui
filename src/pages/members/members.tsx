@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { Users } from "lucide-react";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { PageHero } from "@/components/shared/PageHero";
@@ -15,10 +16,7 @@ export function MembersPage() {
   if (isLoading) {
     return (
       <>
-        <Helmet prioritizeSeoTags>
-          <title>Members | Lions Club FSBM</title>
-          <meta name="description" content="Meet the dedicated members of Lions Club FSBM." />
-        </Helmet>
+        <SEO {...seoConfig.members} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members" }]} />
         <PageHero
           overline="Community"
@@ -35,9 +33,7 @@ export function MembersPage() {
   if (isError) {
     return (
       <>
-        <Helmet prioritizeSeoTags>
-          <title>Members | Lions Club FSBM</title>
-        </Helmet>
+        <SEO {...seoConfig.members} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members" }]} />
         <PageHero
           overline="Community"
@@ -58,10 +54,7 @@ export function MembersPage() {
   if (!members || members.length === 0) {
     return (
       <>
-        <Helmet prioritizeSeoTags>
-          <title>Members | Lions Club FSBM</title>
-          <meta name="description" content="Meet the dedicated members of Lions Club FSBM." />
-        </Helmet>
+        <SEO {...seoConfig.members} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members" }]} />
         <PageHero
           overline="Community"
@@ -81,13 +74,7 @@ export function MembersPage() {
 
   return (
     <>
-      <Helmet prioritizeSeoTags>
-        <title>Members | Lions Club FSBM</title>
-        <meta name="description" content="Meet the dedicated members of Lions Club FSBM." />
-        <meta property="og:title" content="Members | Lions Club FSBM" />
-        <meta property="og:description" content="Meet the dedicated members of Lions Club FSBM." />
-        <meta property="og:type" content="website" />
-      </Helmet>
+      <SEO {...seoConfig.members} />
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members" }]} />
       <PageHero
         overline="Community"

@@ -12,6 +12,8 @@ import { Input } from "@/components/ui/input";
 import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
 import { AuthEmailField } from "@/components/shared/AuthEmailField";
 import { AuthCardFields } from "@/components/shared/AuthCardFields";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 
 const registerSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -53,7 +55,9 @@ export function RegisterPage() {
   }
 
   return (
-    <AuthCardFields overline="Join Us" title="Create an Account" description="Register to join projects, participate in discussions, and connect with fellow members.">
+    <>
+      <SEO {...seoConfig.register} />
+      <AuthCardFields overline="Join Us" title="Create an Account" description="Register to join projects, participate in discussions, and connect with fellow members.">
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <FieldGroup>
           <Field data-invalid={!!form.formState.errors.name}>
@@ -91,6 +95,7 @@ export function RegisterPage() {
           Sign in
         </Link>
       </p>
-    </AuthCardFields>
+      </AuthCardFields>
+    </>
   );
 }

@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { FieldGroup } from "@/components/ui/field";
 import { AuthEmailField } from "@/components/shared/AuthEmailField";
 import { AuthCardFields } from "@/components/shared/AuthCardFields";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 import { usePasswordReset } from "@/hooks/use-password-reset";
 
 const forgotSchema = z.object({
@@ -30,11 +32,13 @@ export function ForgotPasswordPage() {
   const isDisabled = isForgotPending || isCooldown;
 
   return (
-    <AuthCardFields
-      overline="Reset Password"
-      title="Forgot Password"
-      description="Enter your email and we'll send you a reset link."
-    >
+    <>
+      <SEO {...seoConfig.forgotPassword} />
+      <AuthCardFields
+        overline="Reset Password"
+        title="Forgot Password"
+        description="Enter your email and we'll send you a reset link."
+      >
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <FieldGroup>
           <AuthEmailField form={form} />
@@ -56,6 +60,7 @@ export function ForgotPasswordPage() {
           Back to login
         </Link>
       </p>
-    </AuthCardFields>
+      </AuthCardFields>
+    </>
   );
 }

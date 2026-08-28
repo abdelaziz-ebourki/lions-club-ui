@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/shared/PageHero";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 
 const tabs = [
   { value: "all", label: "All" },
@@ -29,6 +31,7 @@ export function EventsPage() {
 
   return (
     <>
+      <SEO {...seoConfig.events} />
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Events" }]} />
       <PageHero
         overline="Projects"

@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
 import { AuthEmailField } from "@/components/shared/AuthEmailField";
 import { AuthCardFields } from "@/components/shared/AuthCardFields";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 
 const loginSchema = z.object({
   email: z.string().email("Enter a valid email address"),
@@ -51,7 +53,9 @@ export function LoginPage() {
   }
 
   return (
-    <AuthCardFields overline="Welcome Back" title="Sign In" description="Sign in to your account to manage projects and connect with members.">
+    <>
+      <SEO {...seoConfig.login} />
+      <AuthCardFields overline="Welcome Back" title="Sign In" description="Sign in to your account to manage projects and connect with members.">
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <FieldGroup>
           <AuthEmailField form={form} />
@@ -100,6 +104,7 @@ export function LoginPage() {
           Register here
         </Link>
       </p>
-    </AuthCardFields>
+      </AuthCardFields>
+    </>
   );
 }

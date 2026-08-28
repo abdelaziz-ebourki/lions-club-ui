@@ -13,6 +13,8 @@ import { ThreadFilters } from "@/components/shared/ThreadFilters";
 import { ThreadListItem } from "@/components/shared/ThreadListItem";
 import { ThreadSkeleton } from "@/components/shared/ThreadSkeleton";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig, getCategorySeo } from "@/config/seo";
 
 export function ThreadsPage() {
   const { categoryId } = useParams<{ categoryId: string }>();
@@ -57,6 +59,8 @@ export function ThreadsPage() {
   }, [threads, debouncedKeyword, statusFilter, categoryFilter]);
 
   const categoryName = categories?.find((c) => c.id === categoryId)?.name ?? categoryId ?? "Forum";
+  const category = categories?.find((c) => c.id === categoryId);
+  const threadsSeo = category ? getCategorySeo(category) : categoryId ? { title: `${categoryName} — Lions Club FSBM`, description: seoConfig.forum.description, ogType: "website" as const } : seoConfig.forum;
 
   const forumTrail = [
     { label: "Home", href: "/" },
@@ -67,6 +71,7 @@ export function ThreadsPage() {
   if (categoriesError) {
     return (
       <>
+        <SEO {...seoConfig.forum} />
         <Breadcrumbs trail={forumTrail} />
         <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
         <h1 className="font-heading text-h3 text-destructive">Failed to load categories</h1>
@@ -83,6 +88,7 @@ export function ThreadsPage() {
 
   return (
     <>
+      <SEO {...threadsSeo} />
       <Breadcrumbs trail={forumTrail} />
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
       <Link to="/forum">

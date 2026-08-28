@@ -15,6 +15,8 @@ import {
 import { EmptyState } from "@/components/shared/empty-state";
 import { PageHero } from "@/components/shared/PageHero";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 import { ErrorState } from "@/components/shared/ErrorState";
 
 const iconMap: Record<string, typeof MessageSquare> = {
@@ -32,6 +34,7 @@ export function ForumPage() {
 
   return (
     <>
+      <SEO {...seoConfig.forum} />
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Forum" }]} />
       <PageHero
         overline="Conversations"
