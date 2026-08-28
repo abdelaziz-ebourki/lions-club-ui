@@ -31,7 +31,7 @@ export function AdminMembersPage() {
       <div>
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Members" }]} />
         <AdminPageHeader overline="Members" heading="Manage Members" />
-        <AdminTable headers={headers} loading skeletonColumns={3} />
+        <AdminTable headers={headers} caption="Members table" loading skeletonColumns={3} />
       </div>
     );
   }
@@ -60,7 +60,7 @@ export function AdminMembersPage() {
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Members" }]} />
       <AdminPageHeader overline="Members" heading="Manage Members" action={{ to: "/admin/members/new", label: "Add Member" }} />
       <AdminTable
-        headers={headers}
+        headers={headers} caption="Members table"
         mobileView={members?.map((member) => (
           <Card key={member.id} className="mb-3">
             <CardContent className="flex items-center justify-between py-4">

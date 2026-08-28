@@ -22,12 +22,12 @@
   --popover-foreground: oklch(0.18 0.06 242);
   --primary: oklch(0.42 0.15 242);
   --primary-foreground: oklch(0.98 0.002 80);
-  --secondary: oklch(0.60 0.16 242);
+  --secondary: oklch(0.48 0.16 242);
   --secondary-foreground: oklch(0.98 0.002 80);
   --muted: oklch(0.93 0.03 242);
   --muted-foreground: oklch(0.45 0.04 242);
-  --accent: oklch(0.52 0.14 78);
-  --accent-foreground: oklch(0.13 0.02 260);
+  --accent: oklch(0.48 0.14 78);
+  --accent-foreground: oklch(0.98 0.002 80);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.82 0.06 242);
   --input: oklch(0.82 0.06 242);
@@ -129,6 +129,9 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
   body {
     @apply bg-background text-foreground font-body leading-[1.65];

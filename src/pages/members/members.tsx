@@ -109,9 +109,9 @@ export function MembersPage() {
                       {member.name.charAt(0)}
                     </div>
                   )}
-                  <h3 data-testid="member-card-name" className="mt-4 font-heading text-lg font-bold">
+                  <h2 data-testid="member-card-name" className="mt-4 font-heading text-lg font-bold">
                     {member.name}
-                  </h3>
+                  </h2>
                   <p className="font-display text-overline text-sm tracking-widest text-accent">{member.role}</p>
                   {member.bio && (
                     <p className="mt-3 text-body-sm text-muted-foreground line-clamp-2">{member.bio}</p>
