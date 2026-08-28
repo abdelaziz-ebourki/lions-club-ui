@@ -14,6 +14,8 @@ import { EmptyState } from "@/components/shared/empty-state";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { GallerySkeleton } from "@/components/shared/GallerySkeleton";
 import { LightboxViewer } from "@/components/shared/LightboxViewer";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 import { useGalleryList, useGalleryItem, type GalleryFilters } from "@/hooks/useGalleryList";
 
 const EMPTY_FILTERS: GalleryFilters = { category: "", eventId: "" };
@@ -67,6 +69,7 @@ export function GalleryPage() {
   if (id && deepLink.isLoading) {
     return (
       <>
+        <SEO {...seoConfig.gallery} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Gallery", href: "/gallery" }, { label: "Loading" }]} />
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <GallerySkeleton />
@@ -80,6 +83,7 @@ export function GalleryPage() {
     if (status === 404) {
       return (
         <>
+          <SEO {...seoConfig.gallery} />
           <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Gallery", href: "/gallery" }, { label: "Not found" }]} />
           <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
             <h1 className="font-heading text-h3">Photo not found</h1>
@@ -93,6 +97,7 @@ export function GalleryPage() {
     }
     return (
       <>
+        <SEO {...seoConfig.gallery} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Gallery", href: "/gallery" }, { label: "Error" }]} />
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <ErrorState
@@ -107,6 +112,7 @@ export function GalleryPage() {
 
   return (
     <>
+      <SEO {...seoConfig.gallery} />
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Gallery" }]} />
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         {!id && (

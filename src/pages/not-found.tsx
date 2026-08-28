@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 
 export function NotFoundPage() {
   return (
     <>
+      <SEO {...seoConfig.notFound} />
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Page Not Found" }]} />
       <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-4 py-20 text-center">
       <div role="alert">

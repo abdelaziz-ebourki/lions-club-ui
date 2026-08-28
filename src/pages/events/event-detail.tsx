@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import { EventMetadata } from "@/components/shared/EventMetadata";
 import { ArrowLeft, UserCheck, Users, Loader2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig, getEventSeo } from "@/config/seo";
 
 export function EventDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -52,6 +54,7 @@ export function EventDetailPage() {
   if (isLoading) {
     return (
       <>
+        <SEO title="Event Details — Lions Club FSBM" description={seoConfig.events.description} ogType="website" />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Events", href: "/events" }, { label: "Loading..." }]} />
         <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
         <Skeleton className="h-8 w-64" />
@@ -65,6 +68,7 @@ export function EventDetailPage() {
   if (!event) {
     return (
       <>
+        <SEO title="Event Details — Lions Club FSBM" description={seoConfig.events.description} ogType="website" />
         <Breadcrumbs trail={eventTrail} />
         <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
         <h1 className="font-heading text-h3">Project not found</h1>
@@ -81,6 +85,7 @@ export function EventDetailPage() {
 
   return (
     <>
+      <SEO {...getEventSeo(event)} />
       <Breadcrumbs trail={eventTrail} />
       <article className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
       <Link to="/events">

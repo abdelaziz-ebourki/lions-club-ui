@@ -12,10 +12,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/shared/empty-state";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig, getThreadSeo } from "@/config/seo";
 
 function ThreadDetailLoading() {
   return (
     <>
+      <SEO {...seoConfig.forum} />
       <Breadcrumbs trail={[
         { label: "Home", href: "/" },
         { label: "Forum", href: "/forum" },
@@ -34,6 +37,7 @@ function ThreadDetailLoading() {
 function ThreadDetailError({ trail, onRetry }: { trail: { label: string; href?: string }[]; onRetry: () => void }) {
   return (
     <>
+      <SEO {...seoConfig.forum} />
       <Breadcrumbs trail={trail} />
       <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
         <h1 className="font-heading text-h3 text-destructive">Failed to load thread</h1>
@@ -51,6 +55,7 @@ function ThreadDetailError({ trail, onRetry }: { trail: { label: string; href?: 
 function ThreadDetailNotFound({ trail, categoryId }: { trail: { label: string; href?: string }[]; categoryId: string }) {
   return (
     <>
+      <SEO {...seoConfig.forum} />
       <Breadcrumbs trail={trail} />
       <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
         <h1 className="font-heading text-h3">Thread not found</h1>
@@ -85,6 +90,7 @@ function ThreadDetailContent({
 }) {
   return (
     <>
+      <SEO {...getThreadSeo(data.thread)} />
       <Breadcrumbs trail={trail} />
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <Link to={`/forum/${categoryId}`}>

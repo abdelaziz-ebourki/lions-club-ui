@@ -1,9 +1,9 @@
-import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type { NewsArticle } from "@/types";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig, getNewsSeo } from "@/config/seo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -22,18 +22,10 @@ export function NewsDetailPage() {
     retry: false,
   });
 
-  useEffect(() => {
-    if (article) {
-      document.title = `${article.title} | Lions Club FSBM`;
-      return () => {
-        document.title = "Lions Club FSBM";
-      };
-    }
-  }, [article]);
-
   if (isLoading) {
     return (
       <>
+        <SEO {...seoConfig.news} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News", href: "/news" }, { label: "Loading..." }]} />
         <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
           <Skeleton className="h-8 w-64" />
@@ -49,6 +41,7 @@ export function NewsDetailPage() {
   if (isNotFound) {
     return (
       <>
+        <SEO {...seoConfig.news} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News", href: "/news" }, { label: "Not Found" }]} />
         <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
           <h1 className="font-heading text-h3">Article not found</h1>
@@ -64,6 +57,7 @@ export function NewsDetailPage() {
   if (isError) {
     return (
       <>
+        <SEO {...seoConfig.news} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News", href: "/news" }, { label: "Error" }]} />
         <ErrorState
           heading="Failed to load article"
@@ -78,6 +72,7 @@ export function NewsDetailPage() {
   if (!article) {
     return (
       <>
+        <SEO {...seoConfig.news} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News", href: "/news" }, { label: "Not Found" }]} />
         <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
           <h1 className="font-heading text-h3">Article not found</h1>
@@ -96,13 +91,7 @@ export function NewsDetailPage() {
 
   return (
     <>
-      <Helmet prioritizeSeoTags>
-        <meta name="description" content={article.excerpt || article.title} />
-        <meta property="og:title" content={article.title} />
-        <meta property="og:description" content={article.excerpt || article.title} />
-        <meta property="og:type" content="article" />
-        {article.featuredImage && <meta property="og:image" content={article.featuredImage} />}
-      </Helmet>
+      <SEO {...getNewsSeo(article)} />
 
       <Breadcrumbs trail={[
         { label: "Home", href: "/" },
