@@ -31,6 +31,8 @@ screenshots
 .playwright/
 .playwright-cli/
 .playwright-mcp
+playwright-report/
+test-results/
 test_e2e_gallery.py
 test_e2e_*.py
 

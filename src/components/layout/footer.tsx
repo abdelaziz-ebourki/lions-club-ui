@@ -45,9 +45,9 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2.5">
               <img src="/logo.png" alt="" className="h-8 w-8 rounded-full" width={32} height={32} loading="lazy" />
-              <h3 className="font-heading text-lg font-semibold text-primary">
+              <p className="font-heading text-lg font-semibold text-primary">
                 {siteConfig.name}
-              </h3>
+              </p>
             </div>
             <p className="mt-2 text-sm text-muted-foreground font-body">
               {siteConfig.description}
@@ -58,9 +58,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">
               Quick Links
-            </h4>
+            </h2>
             <ul className="flex flex-col gap-2">
               {siteConfig.nav.map((item) => (
                 <li key={item.href}>
@@ -84,9 +84,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">
               Contact
-            </h4>
+            </h2>
             <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <MapPin className="size-4 shrink-0" aria-hidden="true" />
@@ -104,9 +104,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">
               Follow Us
-            </h4>
+            </h2>
             <div className="flex gap-3">
               {socialLinks.map((link) => (
                 <a

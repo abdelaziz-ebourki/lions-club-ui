@@ -56,7 +56,7 @@ export function AdminEventsPage() {
       <div>
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Events" }]} />
         <AdminPageHeader overline="Events" heading="Manage Events" />
-        <AdminTable headers={headers} loading skeletonColumns={5} />
+        <AdminTable headers={headers} loading skeletonColumns={5} caption="Events table" />
       </div>
     );
   }
@@ -86,6 +86,7 @@ export function AdminEventsPage() {
       <AdminPageHeader overline="Events" heading="Manage Events" action={{ to: "/admin/events/new", label: "New Event" }} />
       <AdminTable
         headers={headers}
+        caption="Events table"
         mobileView={events?.map((event) => (
           <Card key={event.id} className="mb-3">
             <CardContent className="py-4">
