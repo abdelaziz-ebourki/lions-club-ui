@@ -9,6 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 import { ProfileForm } from "./profile-form";
 import { AvatarUploadModal } from "./avatar-upload-modal";
 import { PasswordChangeForm } from "./change-password-form";
@@ -60,6 +62,7 @@ export function ProfilePage() {
 
   return (
     <>
+      <SEO {...seoConfig.profile} />
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Profile" }]} />
       <div className="mx-auto max-w-2xl px-4 py-12">
         <h1 className="font-heading text-h2 mb-8">Profile</h1>

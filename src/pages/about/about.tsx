@@ -7,6 +7,8 @@ import type { Member } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Target, Eye, Heart } from "lucide-react";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 
 const values = [
   {
@@ -40,6 +42,7 @@ export function AboutPage() {
 
   return (
     <>
+      <SEO {...seoConfig.about} />
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "About" }]} />
       <section className="border-b bg-muted/50">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">

@@ -4,10 +4,13 @@ import { CheckCircle2, XCircle, Loader2, Clock, type LucideIcon } from "lucide-r
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEmailVerification } from "@/hooks/use-email-verification";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 
 function VerifyEmailCard({ icon: Icon, title, iconColor, children }: { icon: LucideIcon; title: string; iconColor: string; children: ReactNode }) {
   return (
     <>
+      <SEO {...seoConfig.verifyEmail} />
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Verify Email" }]} />
       <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
         <Card className="w-full">

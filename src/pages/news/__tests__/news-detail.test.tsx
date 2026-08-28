@@ -213,7 +213,7 @@ describe('NewsDetailPage', () => {
       render(<NewsDetailPage />);
       expect(document.head.querySelector('meta[property="og:title"]')).toHaveAttribute(
         'content',
-        publishedArticle.title
+        `${publishedArticle.title} | Lions Club FSBM`
       );
       expect(document.head.querySelector('meta[property="og:type"]')).toHaveAttribute(
         'content',

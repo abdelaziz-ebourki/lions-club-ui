@@ -13,6 +13,8 @@ import { useGalleryList } from "@/hooks/useGalleryList";
 import { HomeHero } from "@/components/shared/HomeHero";
 import { HomeImpact } from "@/components/shared/HomeImpact";
 import { HomeCta } from "@/components/shared/HomeCta";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 
 export function HomePage() {
   const { data: featuredNews } = useFeaturedNews();
@@ -24,6 +26,7 @@ export function HomePage() {
 
   return (
     <>
+      <SEO {...seoConfig.home} />
       <HomeHero />
 
       <HomeImpact />

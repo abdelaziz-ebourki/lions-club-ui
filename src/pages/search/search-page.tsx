@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/contexts/auth";
 import { searchAll, sanitizeQuery } from "@/lib/search";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { getSearchSeo } from "@/config/seo";
 import { SearchResults } from "@/components/search/search-results";
 
 export function SearchPage() {
@@ -20,6 +22,7 @@ export function SearchPage() {
   if (parsed.isEmpty) {
     return (
       <>
+        <SEO {...getSearchSeo("")} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Search" }]} />
         <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
           <h1 className="font-heading text-h3 text-foreground">Search</h1>
@@ -33,10 +36,11 @@ export function SearchPage() {
 
   return (
     <>
+      <SEO {...getSearchSeo(parsed.sanitized)} />
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Search" }]} />
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <h1 className="font-heading text-h2 text-foreground mb-8">
-          Results for "{parsed.sanitized}"
+          Results for &quot;{parsed.sanitized}&quot;
         </h1>
         <SearchResults
           groups={data?.groups ?? []}
