@@ -21,6 +21,8 @@ import { Send } from "lucide-react";
 import { useSuccessTimer } from "@/hooks/useSuccessTimer";
 import { PageHero } from "@/components/shared/PageHero";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 import { ContactInfoCard } from "@/components/shared/ContactInfoCard";
 import { ContactFaqCard } from "@/components/shared/ContactFaqCard";
 
@@ -62,6 +64,7 @@ export function ContactPage() {
 
   return (
     <>
+      <SEO {...seoConfig.contact} />
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
       <PageHero
         overline="Get in Touch"

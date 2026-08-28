@@ -188,3 +188,13 @@ export interface GalleryItem {
   uploadedBy: string;
 }
 
+export interface SEOMetadata {
+  title: string;
+  description: string;
+  image?: string;
+  ogType: "website" | "article" | "profile";
+  canonical?: string;
+  noindex?: boolean;
+  twitterSite?: string;
+}
+

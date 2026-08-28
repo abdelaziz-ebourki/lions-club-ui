@@ -2,6 +2,8 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard, Calendar, MessageSquare, Users, Mail, Newspaper, Images, LogOut } from "lucide-react";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 
 const adminNav = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -17,7 +19,9 @@ export function AdminLayout() {
   const location = useLocation();
 
   return (
-    <div className="mx-auto flex min-h-[60vh] max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:px-8">
+    <>
+      <SEO {...seoConfig.admin} />
+      <div className="mx-auto flex min-h-[60vh] max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:px-8">
       <aside className="hidden w-64 shrink-0 flex-col gap-2 md:flex">
         <div className="mb-6">
           <p className="font-display text-overline text-accent">Admin</p>
@@ -57,6 +61,7 @@ export function AdminLayout() {
       <main className="flex-1 min-w-0">
         <Outlet />
       </main>
-    </div>
+      </div>
+    </>
   );
 }

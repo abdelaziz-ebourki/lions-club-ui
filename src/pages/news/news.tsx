@@ -9,6 +9,8 @@ import { EmptyState } from "@/components/shared/empty-state";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { PageHero } from "@/components/shared/PageHero";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 import { ArrowRight, Newspaper } from "lucide-react";
 
 export function NewsPage() {
@@ -18,6 +20,7 @@ export function NewsPage() {
   if (isLoading) {
     return (
       <>
+        <SEO {...seoConfig.news} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News" }]} />
         <PageHero overline="Updates" heading="Latest News" description="Stay informed with club announcements, event recaps, and press releases" />
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -30,6 +33,7 @@ export function NewsPage() {
   if (isError) {
     return (
       <>
+        <SEO {...seoConfig.news} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News" }]} />
         <PageHero overline="Updates" heading="Latest News" description="Stay informed with club announcements, event recaps, and press releases" />
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -42,6 +46,7 @@ export function NewsPage() {
   if (!data || data.data.length === 0) {
     return (
       <>
+        <SEO {...seoConfig.news} />
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News" }]} />
         <PageHero overline="Updates" heading="Latest News" description="Stay informed with club announcements, event recaps, and press releases" />
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -57,6 +62,7 @@ export function NewsPage() {
 
   return (
     <>
+      <SEO {...seoConfig.news} />
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News" }]} />
       <PageHero overline="Updates" heading="Latest News" description="Stay informed with club announcements, event recaps, and press releases" />
 

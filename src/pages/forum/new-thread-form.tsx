@@ -16,6 +16,8 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSuccessTimer } from "@/hooks/useSuccessTimer";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SEO } from "@/components/shared/SEO";
+import { seoConfig } from "@/config/seo";
 
 const threadSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters").max(200, "Title must be at most 200 characters"),
@@ -61,6 +63,7 @@ export function NewThreadForm() {
 
   return (
     <>
+      <SEO {...seoConfig.newThread} />
       <Breadcrumbs trail={[
         { label: "Home", href: "/" },
         { label: "Forum", href: "/forum" },
