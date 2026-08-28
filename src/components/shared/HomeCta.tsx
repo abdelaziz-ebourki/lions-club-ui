@@ -5,7 +5,7 @@ export function HomeCta() {
   return (
     <section className="bg-primary text-primary-foreground">
       <div className="mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
-        <p className="font-display text-overline-lg tracking-widest text-primary-foreground/60">
+        <p className="font-display text-overline-lg tracking-widest text-primary-foreground/80">
           Get Involved
         </p>
         <h2 className="font-heading text-h1 mt-2 text-primary-foreground">

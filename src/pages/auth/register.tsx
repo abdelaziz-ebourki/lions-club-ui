@@ -61,24 +61,24 @@ export function RegisterPage() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <FieldGroup>
           <Field data-invalid={!!form.formState.errors.name}>
-            <FieldLabel htmlFor="name">Name</FieldLabel>
+            <FieldLabel htmlFor="name">Name <span aria-hidden="true" className="text-destructive">*</span></FieldLabel>
             <FieldContent>
-              <Input id="name" placeholder="Your full name" aria-invalid={!!form.formState.errors.name} {...form.register("name")} autoComplete="name" />
+              <Input id="name" placeholder="Your full name" aria-invalid={!!form.formState.errors.name} aria-required="true" {...form.register("name")} autoComplete="name" />
               <FieldError errors={[form.formState.errors.name]} />
             </FieldContent>
           </Field>
           <AuthEmailField form={form} />
           <Field data-invalid={!!form.formState.errors.password}>
-            <FieldLabel htmlFor="password">Password</FieldLabel>
+            <FieldLabel htmlFor="password">Password <span aria-hidden="true" className="text-destructive">*</span></FieldLabel>
             <FieldContent>
-              <Input id="password" type="password" placeholder="At least 8 characters" aria-invalid={!!form.formState.errors.password} {...form.register("password")} autoComplete="new-password" />
+              <Input id="password" type="password" placeholder="At least 8 characters" aria-invalid={!!form.formState.errors.password} aria-required="true" {...form.register("password")} autoComplete="new-password" />
               <FieldError errors={[form.formState.errors.password]} />
             </FieldContent>
           </Field>
           <Field data-invalid={!!form.formState.errors.confirmPassword}>
-            <FieldLabel htmlFor="confirmPassword">Confirm Password</FieldLabel>
+            <FieldLabel htmlFor="confirmPassword">Confirm Password <span aria-hidden="true" className="text-destructive">*</span></FieldLabel>
             <FieldContent>
-              <Input id="confirmPassword" type="password" placeholder="Repeat your password" aria-invalid={!!form.formState.errors.confirmPassword} {...form.register("confirmPassword")} autoComplete="new-password" />
+              <Input id="confirmPassword" type="password" placeholder="Repeat your password" aria-invalid={!!form.formState.errors.confirmPassword} aria-required="true" {...form.register("confirmPassword")} autoComplete="new-password" />
               <FieldError errors={[form.formState.errors.confirmPassword]} />
             </FieldContent>
           </Field>

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 
 interface AuthCardFieldsProps {
   overline: string;
@@ -14,7 +14,7 @@ export function AuthCardFields({ overline, title, description, children }: AuthC
       <Card className="w-full">
         <CardHeader className="text-center">
           <p className="font-display text-overline text-accent mb-1">{overline}</p>
-          <CardTitle className="font-heading text-h3">{title}</CardTitle>
+          <h1 className="font-heading text-h3 leading-none tracking-wider uppercase">{title}</h1>
           <CardDescription className="text-body-sm">{description}</CardDescription>
         </CardHeader>
         <CardContent>

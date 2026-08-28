@@ -110,7 +110,7 @@ export function AdminGalleryPage() {
       <div>
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Gallery" }]} />
         <AdminPageHeader overline="Gallery" heading="Manage Gallery" />
-        <AdminTable headers={headers} loading skeletonColumns={8} />
+        <AdminTable headers={headers} caption="Gallery table" loading skeletonColumns={8} />
       </div>
     );
   }
@@ -154,7 +154,7 @@ export function AdminGalleryPage() {
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Gallery" }]} />
       <AdminPageHeader overline="Gallery" heading="Manage Gallery" action={{ to: "/admin/gallery/new", label: "New Item" }} />
       <AdminTable
-        headers={headers}
+        headers={headers} caption="Gallery table"
         mobileView={items?.map((item) => (
           <Card key={item.id} data-testid="gallery-mobile-card" className="mb-3">
             <CardContent className="flex gap-3 py-4">

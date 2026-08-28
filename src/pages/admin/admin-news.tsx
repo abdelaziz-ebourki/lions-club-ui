@@ -65,7 +65,7 @@ export function AdminNewsPage() {
       <div>
         <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "News" }]} />
         <AdminPageHeader overline="News" heading="Manage News" />
-        <AdminTable headers={headers} loading skeletonColumns={6} />
+        <AdminTable headers={headers} caption="News table" loading skeletonColumns={6} />
       </div>
     );
   }
@@ -109,7 +109,7 @@ export function AdminNewsPage() {
       <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "News" }]} />
       <AdminPageHeader overline="News" heading="Manage News" action={{ to: "/admin/news/new", label: "New Article" }} />
       <AdminTable
-        headers={headers}
+        headers={headers} caption="News table"
         mobileView={articles?.map((article) => (
           <Card key={article.id} className="mb-3">
             <CardContent className="py-4">

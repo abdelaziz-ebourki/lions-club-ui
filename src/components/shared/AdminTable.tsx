@@ -9,11 +9,12 @@ interface AdminTableProps {
   loading?: boolean;
   skeletonColumns?: number;
   skeletonRows?: number;
+  caption?: string;
 }
 
-export function AdminTable({ headers, children, mobileView, loading, skeletonColumns = 5, skeletonRows = 4 }: AdminTableProps) {
+export function AdminTable({ headers, children, mobileView, loading, skeletonColumns = 5, skeletonRows = 4, caption }: AdminTableProps) {
   const tableContent = loading ? (
-    <Table>
+    <Table caption={caption}>
       <TableHeader>
         <TableRow>
           {headers}
@@ -32,7 +33,7 @@ export function AdminTable({ headers, children, mobileView, loading, skeletonCol
       </TableBody>
     </Table>
   ) : (
-    <Table>
+    <Table caption={caption}>
       <TableHeader>
         <TableRow>
           {headers}

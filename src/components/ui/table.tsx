@@ -4,7 +4,7 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function Table({ className, ...props }: React.ComponentProps<"table">) {
+function Table({ className, caption, children, ...props }: React.ComponentProps<"table"> & { caption?: string }) {
   return (
     <div
       data-slot="table-container"
@@ -14,7 +14,10 @@ function Table({ className, ...props }: React.ComponentProps<"table">) {
         data-slot="table"
         className={cn("w-full caption-bottom text-sm", className)}
         {...props}
-      />
+      >
+        {caption && <caption className="sr-only">{caption}</caption>}
+        {children}
+      </table>
     </div>
   )
 }
@@ -53,9 +56,10 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
   )
 }
 
-function TableHead({ className, ...props }: React.ComponentProps<"th">) {
+function TableHead({ className, scope, ...props }: React.ComponentProps<"th">) {
   return (
     <th
+      scope={scope ?? "col"}
       data-slot="table-head"
       className={cn(
         "h-12 px-3 text-left align-middle text-xs font-medium tracking-wider whitespace-nowrap text-muted-foreground uppercase [&:has([role=checkbox])]:pr-0",
