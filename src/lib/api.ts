@@ -30,7 +30,7 @@ async function request<T>(
       throw new AuthError();
     }
     const error = await res.json().catch(() => ({ message: res.statusText }));
-    throw new ApiError(error.message ?? "Request failed", res.status);
+    throw new ApiError(error.message ?? error.error ?? "Request failed", res.status);
   }
   return res.json();
 }
@@ -52,21 +52,21 @@ async function uploadRequest<T>(
       throw new AuthError();
     }
     const error = await res.json().catch(() => ({ message: res.statusText }));
-    throw new ApiError(error.message ?? "Request failed", res.status);
+    throw new ApiError(error.message ?? error.error ?? "Request failed", res.status);
   }
   return res.json();
 }
 
 export const api = {
   get: <T>(endpoint: string, options?: RequestOptions) => request<T>(endpoint, options),
-  post: <T>(endpoint: string, body: unknown) =>
-    request<T>(endpoint, { method: "POST", body: JSON.stringify(body) }),
-  put: <T>(endpoint: string, body: unknown) =>
-    request<T>(endpoint, { method: "PUT", body: JSON.stringify(body) }),
-  patch: <T>(endpoint: string, body: unknown) =>
-    request<T>(endpoint, { method: "PATCH", body: JSON.stringify(body) }),
-  delete: <T>(endpoint: string) =>
-    request<T>(endpoint, { method: "DELETE" }),
+  post: <T>(endpoint: string, body: unknown, options?: RequestOptions) =>
+    request<T>(endpoint, { method: "POST", body: JSON.stringify(body), ...options }),
+  put: <T>(endpoint: string, body: unknown, options?: RequestOptions) =>
+    request<T>(endpoint, { method: "PUT", body: JSON.stringify(body), ...options }),
+  patch: <T>(endpoint: string, body: unknown, options?: RequestOptions) =>
+    request<T>(endpoint, { method: "PATCH", body: JSON.stringify(body), ...options }),
+  delete: <T>(endpoint: string, options?: RequestOptions) =>
+    request<T>(endpoint, { method: "DELETE", ...options }),
   upload: <T>(endpoint: string, formData: FormData, method?: string) =>
     uploadRequest<T>(endpoint, formData, method),
 };

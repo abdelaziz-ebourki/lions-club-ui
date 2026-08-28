@@ -16,7 +16,7 @@ import { AuthCardFields } from "@/components/shared/AuthCardFields";
 const registerSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Enter a valid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords do not match",
@@ -67,7 +67,7 @@ export function RegisterPage() {
           <Field data-invalid={!!form.formState.errors.password}>
             <FieldLabel htmlFor="password">Password</FieldLabel>
             <FieldContent>
-              <Input id="password" type="password" placeholder="At least 6 characters" aria-invalid={!!form.formState.errors.password} {...form.register("password")} autoComplete="new-password" />
+              <Input id="password" type="password" placeholder="At least 8 characters" aria-invalid={!!form.formState.errors.password} {...form.register("password")} autoComplete="new-password" />
               <FieldError errors={[form.formState.errors.password]} />
             </FieldContent>
           </Field>

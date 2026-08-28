@@ -136,6 +136,16 @@ export interface PasswordChange {
   confirmPassword: string;
 }
 
+export interface ForgotPasswordRequest {
+  email: string;
+}
+
+export interface ResetPasswordRequest {
+  token: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export class AuthError extends Error {
   constructor() {
     super("Session expired");
