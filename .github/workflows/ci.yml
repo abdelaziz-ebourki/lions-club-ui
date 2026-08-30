@@ -55,3 +55,15 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test e2e/a11y.spec.ts --project=chromium
+
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npx playwright test e2e/qa-matrix.spec.ts e2e/qa-interactions.spec.ts --project=chromium --project=firefox --project=webkit
