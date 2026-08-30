@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { api, ApiError } from "@/lib/api";
 import type { ForgotPasswordRequest, ResetPasswordRequest } from "@/types";
@@ -7,6 +8,7 @@ import type { ForgotPasswordRequest, ResetPasswordRequest } from "@/types";
 const COOLDOWN_SECONDS = 60;
 
 export function usePasswordReset() {
+  const { t } = useTranslation("auth");
   const [isCooldown, setIsCooldown] = useState(false);
   const [cooldownSeconds, setCooldownSeconds] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval>>(undefined);
@@ -20,7 +22,7 @@ export function usePasswordReset() {
   const forgotMutation = useMutation({
     mutationFn: (email: string) => api.post<ForgotPasswordRequest>("/auth/forgot-password", { email }, { skipAuthExpired: true }),
     onSuccess: () => {
-      toast.success("If an account exists, a reset link has been sent to your email");
+      toast.success(t("forgot.success"));
       setIsCooldown(true);
       setCooldownSeconds(COOLDOWN_SECONDS);
       if (intervalRef.current) clearInterval(intervalRef.current);
@@ -36,7 +38,7 @@ export function usePasswordReset() {
       }, 1000);
     },
     onError: (error: unknown) => {
-      const message = error instanceof ApiError || error instanceof Error ? error.message : "Failed to send reset link";
+      const message = error instanceof ApiError || error instanceof Error ? error.message : t("forgot.success");
       // Handle 429 with nextResendAt? Just toast generic
       toast.error(message);
     },
@@ -46,10 +48,10 @@ export function usePasswordReset() {
     mutationFn: ({ token, password, confirmPassword }: ResetPasswordRequest) =>
       api.post<ResetPasswordRequest>(`/auth/reset-password?token=${encodeURIComponent(token)}`, { password, confirmPassword } as ResetPasswordRequest, { skipAuthExpired: true }),
     onSuccess: () => {
-      toast.success("Password has been reset successfully");
+      toast.success(t("reset.success"));
     },
     onError: (error: unknown) => {
-      const message = error instanceof ApiError || error instanceof Error ? error.message : "Failed to reset password";
+      const message = error instanceof ApiError || error instanceof Error ? error.message : t("errors:generic");
       toast.error(message);
     },
   });

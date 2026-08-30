@@ -2,6 +2,7 @@ import { Field, FieldContent, FieldError, FieldLabel } from "@/components/ui/fie
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import { useTranslation } from "react-i18next";
 import type { UseFormReturn } from "react-hook-form";
 import type { ProfileFormData } from "@/hooks/use-profile-form";
 
@@ -13,10 +14,11 @@ interface ProfileFormProps {
 }
 
 export function ProfileForm({ form, mutation, onSubmit, onCancel }: ProfileFormProps) {
+  const { t } = useTranslation("profile");
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
       <Field orientation="vertical">
-        <FieldLabel htmlFor="name">Name</FieldLabel>
+        <FieldLabel htmlFor="name">{t("name")}</FieldLabel>
         <FieldContent>
           <Input id="name" {...form.register("name")} aria-invalid={!!form.formState.errors.name} />
           <FieldError errors={[form.formState.errors.name]} />
@@ -24,7 +26,7 @@ export function ProfileForm({ form, mutation, onSubmit, onCancel }: ProfileFormP
       </Field>
 
       <Field orientation="vertical">
-        <FieldLabel htmlFor="email">Email</FieldLabel>
+        <FieldLabel htmlFor="email">{t("email")}</FieldLabel>
         <FieldContent>
           <Input id="email" type="email" {...form.register("email")} aria-invalid={!!form.formState.errors.email} />
           <FieldError errors={[form.formState.errors.email]} />
@@ -33,10 +35,10 @@ export function ProfileForm({ form, mutation, onSubmit, onCancel }: ProfileFormP
 
       <div className="flex gap-3">
         <Button type="submit" disabled={mutation.isPending}>
-          {mutation.isPending ? <><Spinner /> Saving...</> : "Save Changes"}
+          {mutation.isPending ? <><Spinner /> {t("saving")}</> : t("saveChanges")}
         </Button>
         <Button type="button" variant="outline" onClick={onCancel} disabled={mutation.isPending}>
-          Cancel
+          {t("cancel")}
         </Button>
       </div>
     </form>

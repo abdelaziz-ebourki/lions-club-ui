@@ -14,14 +14,16 @@ import { PageHero } from "@/components/shared/PageHero";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { SEO } from "@/components/shared/SEO";
 import { seoConfig } from "@/config/seo";
+import { useTranslation } from "react-i18next";
 
 const tabs = [
-  { value: "all", label: "All" },
-  { value: "upcoming", label: "Upcoming" },
-  { value: "past", label: "Past" },
-];
+  { value: "all", labelKey: "all" },
+  { value: "upcoming", labelKey: "upcoming" },
+  { value: "past", labelKey: "past" },
+] as const;
 
 export function EventsPage() {
+  const { t } = useTranslation(["events", "common"]);
   const [filter, setFilter] = useState("all");
 
   const { data: events, isLoading } = useQuery<Event[]>({
@@ -32,11 +34,11 @@ export function EventsPage() {
   return (
     <>
       <SEO {...seoConfig.events} />
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Events" }]} />
+      <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("events:title") }]} />
       <PageHero
-        overline="Projects"
-        heading="Projects You Can Join"
-        description="Browse our upcoming projects or see what we've accomplished together"
+        overline={t("events:overline")}
+        heading={t("events:heading")}
+        description={t("events:description")}
       />
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -44,7 +46,7 @@ export function EventsPage() {
           <TabsList>
             {tabs.map((tab) => (
               <TabsTrigger key={tab.value} value={tab.value}>
-                {tab.label}
+                {t(`events:${tab.labelKey}`)}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -108,7 +110,7 @@ export function EventsPage() {
                       to={`/events/${event.id}`}
                       className="mt-4 inline-flex items-center text-sm font-medium text-accent hover:underline group-hover:opacity-100 transition-opacity"
                     >
-                      Project Details <ArrowRight className="ml-1 size-3" />
+                      {t("events:projectDetails")} <ArrowRight className="ms-1 size-3" />
                     </Link>
                   </CardContent>
                 </Card>
@@ -118,11 +120,11 @@ export function EventsPage() {
         {events?.length === 0 && (
           <div className="py-16 text-center">
             <p className="font-body text-muted-foreground">
-              No projects match this filter.
+              {t("events:noMatch")}
             </p>
             <Link to="/contact">
               <Button variant="outline" className="mt-4">
-                Suggest a Project
+                {t("events:suggest")}
               </Button>
             </Link>
           </div>

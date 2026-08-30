@@ -5,39 +5,26 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-const faqs = [
-  {
-    q: "How can I become a member?",
-    a: "Attend one of our projects or send us a message through this form. We welcome new members who share our passion for community service — no experience needed.",
-  },
-  {
-    q: "Do I need prior volunteering experience?",
-    a: "Not at all. We provide training and guidance for every project. The only requirement is showing up.",
-  },
-  {
-    q: "How often does the club meet?",
-    a: "General meetings happen twice a month, with project-specific meetings as needed. Check our projects page for the schedule.",
-  },
-  {
-    q: "Can I donate to support your projects?",
-    a: "Yes — donations directly fund our community initiatives. Contact us and we'll walk you through how to contribute.",
-  },
-  {
-    q: "Are there membership fees?",
-    a: "A nominal annual fee covers administrative costs and supports our service projects. No one is turned away for inability to pay.",
-  },
-];
+import { useTranslation } from "react-i18next";
 
 export function ContactFaqCard() {
+  const { t } = useTranslation("contact");
+  const faqs = [
+    { q: t("faq1Q"), a: t("faq1A") },
+    { q: t("faq2Q"), a: t("faq2A") },
+    { q: t("faq3Q"), a: t("faq3A") },
+    { q: t("faq4Q"), a: t("faq4A") },
+    { q: t("faq5Q"), a: t("faq5A") },
+  ];
+
   return (
     <Card>
       <CardHeader>
         <p className="font-display text-overline text-accent mb-1">
-          FAQ
+          {t("faqOverline")}
         </p>
         <CardTitle className="font-heading text-h4">
-          Common Questions
+          {t("faqTitle")}
         </CardTitle>
       </CardHeader>
       <CardContent>

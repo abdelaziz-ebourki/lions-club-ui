@@ -12,8 +12,11 @@ import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { SEO } from "@/components/shared/SEO";
 import { seoConfig } from "@/config/seo";
 import { ArrowRight, Newspaper } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { formatDate } from "@/lib/format";
 
 export function NewsPage() {
+  const { t, i18n } = useTranslation(["news", "common"]);
   const [page, setPage] = useState(1);
   const { data, isLoading, isError, refetch } = useNewsList(page);
 
@@ -21,8 +24,8 @@ export function NewsPage() {
     return (
       <>
         <SEO {...seoConfig.news} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News" }]} />
-        <PageHero overline="Updates" heading="Latest News" description="Stay informed with club announcements, event recaps, and press releases" />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.news") }]} />
+        <PageHero overline={t("news:overline")} heading={t("news:heading")} description={t("news:description")} />
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <NewsSkeleton />
         </section>
@@ -34,10 +37,10 @@ export function NewsPage() {
     return (
       <>
         <SEO {...seoConfig.news} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News" }]} />
-        <PageHero overline="Updates" heading="Latest News" description="Stay informed with club announcements, event recaps, and press releases" />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.news") }]} />
+        <PageHero overline={t("news:overline")} heading={t("news:heading")} description={t("news:description")} />
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <ErrorState heading="Something went wrong" message="Failed to load news articles." onRetry={() => refetch()} />
+          <ErrorState heading={t("news:errorHeading")} message={t("news:errorMessage")} onRetry={() => refetch()} retryLabel={t("news:tryAgain")} />
         </section>
       </>
     );
@@ -47,13 +50,13 @@ export function NewsPage() {
     return (
       <>
         <SEO {...seoConfig.news} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News" }]} />
-        <PageHero overline="Updates" heading="Latest News" description="Stay informed with club announcements, event recaps, and press releases" />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.news") }]} />
+        <PageHero overline={t("news:overline")} heading={t("news:heading")} description={t("news:description")} />
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <EmptyState
             icon={Newspaper}
-            title="No news articles yet"
-            description="Check back soon for club updates and announcements."
+            title={t("news:emptyTitle")}
+            description={t("news:emptyDescription")}
           />
         </section>
       </>
@@ -63,8 +66,8 @@ export function NewsPage() {
   return (
     <>
       <SEO {...seoConfig.news} />
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News" }]} />
-      <PageHero overline="Updates" heading="Latest News" description="Stay informed with club announcements, event recaps, and press releases" />
+      <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.news") }]} />
+      <PageHero overline={t("news:overline")} heading={t("news:heading")} description={t("news:description")} />
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -95,14 +98,14 @@ export function NewsPage() {
               </CardHeader>
               <CardContent>
                 <div className="flex items-center justify-between text-body-sm text-muted-foreground">
-                  <span>{article.authorName}</span>
-                  <span>{article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : ""}</span>
+                  <span>{article.authorName || t("news:unknownAuthor")}</span>
+                  <span>{article.publishedAt ? formatDate(article.publishedAt, i18n.language) : ""}</span>
                 </div>
                 <Link
                   to={`/news/${article.slug}`}
                   className="mt-4 inline-flex items-center text-sm font-medium text-accent hover:underline"
                 >
-                  Read Article <ArrowRight className="ml-1 size-3" />
+                  {t("news:readArticle")} <ArrowRight className="ms-1 size-3" />
                 </Link>
               </CardContent>
             </Card>
@@ -116,17 +119,17 @@ export function NewsPage() {
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page <= 1}
             >
-              Previous
+              {t("news:previous")}
             </Button>
             <span className="text-body-sm text-muted-foreground">
-              Page {data.page} of {data.totalPages}
+              {t("news:page", { page: data.page, total: data.totalPages })}
             </span>
             <Button
               variant="outline"
               onClick={() => setPage((p) => Math.min(data.totalPages, p + 1))}
               disabled={page >= data.totalPages}
             >
-              Next
+              {t("news:next")}
             </Button>
           </div>
         )}

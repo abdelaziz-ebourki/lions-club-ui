@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { useAuth } from "@/contexts/auth";
@@ -15,6 +16,7 @@ type VerifyResult =
   | { status: "error"; message: string };
 
 export function useEmailVerification() {
+  const { t } = useTranslation(["auth", "profile"]);
   const { isEmailVerified, refreshUser } = useAuth();
   const [isCooldown, setIsCooldown] = useState(false);
   const [cooldownSeconds, setCooldownSeconds] = useState(0);
@@ -30,7 +32,7 @@ export function useEmailVerification() {
   const resendMutation = useMutation({
     mutationFn: () => api.post("/auth/resend-verification", {}),
     onSuccess: () => {
-      toast.success("Verification email sent");
+      toast.success(t("auth:verify.success"));
       setIsCooldown(true);
       setCooldownSeconds(COOLDOWN_SECONDS);
       intervalRef.current = setInterval(() => {
@@ -45,7 +47,7 @@ export function useEmailVerification() {
       }, 1000);
     },
     onError: () => {
-      toast.error("Failed to send verification email. Please try again.");
+      toast.error(t("errors:generic"));
     },
   });
 
@@ -54,10 +56,10 @@ export function useEmailVerification() {
     onSuccess: () => {
       if (isEmailVerified) {
         setVerifyResult({ status: "already-verified" });
-        toast.success("Email already verified");
+        toast.success(t("auth:verify.alreadyVerified"));
       } else {
         setVerifyResult({ status: "success" });
-        toast.success("Email verified successfully");
+        toast.success(t("auth:verify.success"));
       }
       refreshUser();
     },

@@ -13,8 +13,10 @@ import { ArrowLeft, UserCheck, Users, Loader2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { SEO } from "@/components/shared/SEO";
 import { seoConfig, getEventSeo } from "@/config/seo";
+import { useTranslation } from "react-i18next";
 
 export function EventDetailPage() {
+  const { t } = useTranslation(["events", "common"]);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
@@ -46,16 +48,16 @@ export function EventDetailPage() {
 
   const eventTitle = event?.title;
   const eventTrail = [
-    { label: "Home", href: "/" },
-    { label: "Events", href: "/events" },
-    { label: eventTitle ?? "Unknown" },
+    { label: t("breadcrumbs.home"), href: "/" },
+    { label: t("events:title"), href: "/events" },
+    { label: eventTitle ?? t("events:unknown") },
   ];
 
   if (isLoading) {
     return (
       <>
-        <SEO title="Event Details — Lions Club FSBM" description={seoConfig.events.description} ogType="website" />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Events", href: "/events" }, { label: "Loading..." }]} />
+        <SEO title={t("events:details")} description={seoConfig.events.description} ogType="website" />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("events:title"), href: "/events" }, { label: t("events:loading") }]} />
         <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
         <Skeleton className="h-8 w-64" />
         <Skeleton className="mt-4 h-4 w-96" />
@@ -68,12 +70,12 @@ export function EventDetailPage() {
   if (!event) {
     return (
       <>
-        <SEO title="Event Details — Lions Club FSBM" description={seoConfig.events.description} ogType="website" />
+        <SEO title={t("events:details")} description={seoConfig.events.description} ogType="website" />
         <Breadcrumbs trail={eventTrail} />
         <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
-        <h1 className="font-heading text-h3">Project not found</h1>
+        <h1 className="font-heading text-h3">{t("events:notFound")}</h1>
         <Link to="/events" className="mt-4 inline-block">
-          <Button>Browse Projects</Button>
+          <Button>{t("events:browseProjects")}</Button>
         </Link>
       </div>
     </>
@@ -90,7 +92,7 @@ export function EventDetailPage() {
       <article className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
       <Link to="/events">
         <Button variant="ghost" className="mb-8">
-          <ArrowLeft data-icon="inline-start" aria-hidden="true" /> All Projects
+          <ArrowLeft data-icon="inline-start" aria-hidden="true" /> {t("events:allProjects")}
         </Button>
       </Link>
 
@@ -104,7 +106,7 @@ export function EventDetailPage() {
         {event.rsvpCount !== undefined && event.rsvpCount > 0 && (
           <span className="inline-flex items-center gap-1 text-body-xs text-muted-foreground">
             <Users className="size-3.5" aria-hidden="true" />
-            {event.rsvpCount} attending
+            {t("events:attending", { count: event.rsvpCount })}
           </span>
         )}
       </div>
@@ -130,10 +132,10 @@ export function EventDetailPage() {
       <div className="mt-6 flex flex-wrap items-center gap-6 text-body-sm text-muted-foreground">
         <EventMetadata date={event.date} time={event.time} location={event.location} />
         {isUpcoming && (
-          <div className="ml-auto">
+          <div className="ms-auto">
             {isRsvpd ? (
               <Button variant="outline" disabled>
-                <UserCheck data-icon="inline-start" aria-hidden="true" /> Going
+                <UserCheck data-icon="inline-start" aria-hidden="true" /> {t("events:going")}
               </Button>
             ) : (
               <Button
@@ -141,9 +143,9 @@ export function EventDetailPage() {
                 disabled={rsvpMutation.isPending}
               >
                 {rsvpMutation.isPending ? (
-                  <><Loader2 className="mr-2 size-4 animate-spin" /> Joining...</>
+                  <><Loader2 className="me-2 size-4 animate-spin" /> {t("events:joining")}</>
                 ) : (
-                  <><UserCheck data-icon="inline-start" aria-hidden="true" /> Join Event</>
+                  <><UserCheck data-icon="inline-start" aria-hidden="true" /> {t("events:joinEvent")}</>
                 )}
               </Button>
             )}

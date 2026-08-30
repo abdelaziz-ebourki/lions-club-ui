@@ -1,0 +1,20 @@
+{
+  "placeholder": "Rechercher événements, forum, membres...",
+  "label": "Rechercher sur le site",
+  "title": "Recherche",
+  "description": "Tapez une requête dans la barre de recherche ci-dessus pour trouver événements, discussions et membres.",
+  "resultsFor": "Résultats pour \"{{query}}\"",
+  "noResults": "Aucun résultat trouvé",
+  "noResultsDesc": "Essayez d'autres mots-clés ou parcourez le site manuellement.",
+  "found": "{{count}} résultat trouvé",
+  "found_plural": "{{count}} résultats trouvés",
+  "loading": "Chargement des résultats",
+  "error": "Une erreur est survenue",
+  "tryAgain": "Réessayer",
+  "breadcrumbsHome": "Accueil",
+  "breadcrumbsSearch": "Recherche",
+  "entityEvent": "Événement",
+  "entityForumThread": "Sujet du Forum",
+  "entityMember": "Membre",
+  "entityContactMessage": "Message de Contact"
+}

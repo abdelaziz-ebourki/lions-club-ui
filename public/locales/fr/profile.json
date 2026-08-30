@@ -1,0 +1,57 @@
+{
+  "title": "Profil",
+  "heading": "Profil",
+  "accountInfo": "Informations du compte",
+  "editProfile": "Modifier le profil",
+  "name": "Nom",
+  "email": "E-mail",
+  "role": "Rôle",
+  "memberSince": "Membre depuis",
+  "adminInfo": "Informations administrateur",
+  "lastLoginIp": "Dernière IP de connexion",
+  "accountStatus": "Statut du compte",
+  "changePassword": "Changer le mot de passe",
+  "currentPassword": "Mot de passe actuel",
+  "newPassword": "Nouveau mot de passe",
+  "confirmPassword": "Confirmer le mot de passe",
+  "confirmNewPassword": "Confirmer le nouveau mot de passe",
+  "save": "Enregistrer",
+  "saveChanges": "Enregistrer les modifications",
+  "saving": "Enregistrement...",
+  "cancel": "Annuler",
+  "signInRequired": "Veuillez vous connecter pour voir votre profil.",
+  "updateSuccess": "Profil mis à jour avec succès",
+  "updateError": "Échec de la mise à jour du profil",
+  "breadcrumbs": {
+    "home": "Accueil",
+    "profile": "Profil"
+  },
+  "password": {
+    "title": "Changer le mot de passe",
+    "currentPassword": "Mot de passe actuel",
+    "newPassword": "Nouveau mot de passe",
+    "confirmNewPassword": "Confirmer le nouveau mot de passe",
+    "submit": "Mettre à jour le mot de passe",
+    "submitting": "Mise à jour...",
+    "success": "Mot de passe mis à jour avec succès",
+    "error": "Échec de la mise à jour du mot de passe",
+    "currentRequired": "Le mot de passe actuel est requis",
+    "confirmRequired": "Veuillez confirmer votre nouveau mot de passe",
+    "different": "Le nouveau mot de passe doit être différent de l'actuel"
+  },
+  "avatar": {
+    "title": "Changer l'avatar",
+    "description": "Sélectionnez une nouvelle photo de profil. PNG, JPEG ou WebP jusqu'à 5 Mo.",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "uploading": "Téléversement...",
+    "success": "Avatar mis à jour avec succès",
+    "error": "Échec du téléversement de l'avatar"
+  },
+  "verification": {
+    "notVerified": "E-mail non vérifié",
+    "description": "Veuillez vérifier votre adresse e-mail pour accéder à toutes les fonctionnalités.",
+    "resend": "Renvoyer l'e-mail de vérification",
+    "cooldown": "Renvoi disponible dans {{seconds}}s"
+  }
+}

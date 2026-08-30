@@ -12,6 +12,7 @@ import {
   ChevronRight,
   FolderOpen,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { EmptyState } from "@/components/shared/empty-state";
 import { PageHero } from "@/components/shared/PageHero";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
@@ -27,6 +28,7 @@ const iconMap: Record<string, typeof MessageSquare> = {
 };
 
 export function ForumPage() {
+  const { t } = useTranslation("forum");
   const { data: categories, isLoading, isError, refetch } = useQuery<ForumCategory[]>({
     queryKey: ["forum-categories"],
     queryFn: () => api.get("/forum/categories"),
@@ -35,18 +37,18 @@ export function ForumPage() {
   return (
     <>
       <SEO {...seoConfig.forum} />
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Forum" }]} />
+      <Breadcrumbs trail={[{ label: t("breadcrumbsHome"), href: "/" }, { label: t("breadcrumbsForum") }]} />
       <PageHero
-        overline="Conversations"
-        heading="Community Conversations"
-        description="Connect, discuss, and share with fellow members"
+        overline={t("overline")}
+        heading={t("heading")}
+        description={t("description")}
       />
 
       <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         {isError ? (
           <ErrorState
-            heading="Failed to load categories"
-            message="Something went wrong while loading categories. Please try again."
+            heading={t("failedToLoadCategories")}
+            message={t("failedToLoadCategoriesDesc")}
             onRetry={refetch}
           />
         ) : isLoading ? (
@@ -63,8 +65,8 @@ export function ForumPage() {
         ) : categories?.length === 0 ? (
           <EmptyState
             icon={FolderOpen}
-            title="No categories yet"
-            description="Forum categories will appear here once created by an administrator."
+            title={t("noCategories")}
+            description={t("noCategoriesDesc")}
           />
         ) : (
           <div className="flex flex-col gap-4">
@@ -86,8 +88,8 @@ export function ForumPage() {
                         </CardDescription>
                       </div>
                       <div className="text-right text-body-sm text-muted-foreground shrink-0">
-                        <p>{category.threadCount} threads</p>
-                        <p>{category.postCount} posts</p>
+                        <p>{t("threadsCount", { count: category.threadCount })}</p>
+                        <p>{t("postsCount", { count: category.postCount })}</p>
                       </div>
                       <ChevronRight className="size-5 shrink-0 text-muted-foreground" />
                     </CardContent>

@@ -4,6 +4,7 @@ import { NewsPage } from '../news';
 import { useNewsList } from '@/hooks/useNewsList';
 import { newsArticles } from '@/mocks/data/news';
 import { expectImagesLazyAndSized } from '@/test-utils/image-assertions';
+import { formatDate } from '@/lib/format';
 import { describe, test, vi, beforeEach, expect } from 'vitest';
 
 vi.mock('@/hooks/useNewsList');
@@ -121,7 +122,7 @@ describe('NewsPage', () => {
         expect(screen.getByText(article.excerpt)).toBeInTheDocument();
         expect(screen.getAllByText(article.category).length).toBeGreaterThanOrEqual(1);
         expect(screen.getAllByText(article.authorName).length).toBeGreaterThanOrEqual(1);
-        expect(screen.getByText(new Date(article.publishedAt!).toLocaleDateString())).toBeInTheDocument();
+        expect(screen.getByText(formatDate(article.publishedAt!, 'en'))).toBeInTheDocument();
       });
     });
 

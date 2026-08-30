@@ -5,6 +5,7 @@ import { api } from "@/lib/api";
 import type { ForumThread, ForumCategory } from "@/types";
 import type { ForumThreadStatus } from "@/types";
 import { useDebounce } from "@/hooks/use-debounce";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 import { EmptyState } from "@/components/shared/empty-state";
@@ -17,6 +18,7 @@ import { SEO } from "@/components/shared/SEO";
 import { seoConfig, getCategorySeo } from "@/config/seo";
 
 export function ThreadsPage() {
+  const { t } = useTranslation("forum");
   const { categoryId } = useParams<{ categoryId: string }>();
   const [keywordFilter, setKeywordFilter] = useState("");
   const debouncedKeyword = useDebounce(keywordFilter, 300);
@@ -41,18 +43,18 @@ export function ThreadsPage() {
     if (debouncedKeyword.trim()) {
       const lower = debouncedKeyword.toLowerCase();
       result = result.filter(
-        (t) =>
-          t.title.toLowerCase().includes(lower) ||
-          t.content.toLowerCase().includes(lower),
+        (thread) =>
+          thread.title.toLowerCase().includes(lower) ||
+          thread.content.toLowerCase().includes(lower),
       );
     }
 
     if (statusFilter !== "all") {
-      result = result.filter((t) => t.status === statusFilter);
+      result = result.filter((thread) => thread.status === statusFilter);
     }
 
     if (categoryFilter && categoryFilter !== "all") {
-      result = result.filter((t) => t.categoryId === categoryFilter);
+      result = result.filter((thread) => thread.categoryId === categoryFilter);
     }
 
     return result;
@@ -63,8 +65,8 @@ export function ThreadsPage() {
   const threadsSeo = category ? getCategorySeo(category) : categoryId ? { title: `${categoryName} — Lions Club FSBM`, description: seoConfig.forum.description, ogType: "website" as const } : seoConfig.forum;
 
   const forumTrail = [
-    { label: "Home", href: "/" },
-    { label: "Forum", href: "/forum" },
+    { label: t("breadcrumbsHome"), href: "/" },
+    { label: t("breadcrumbsForum"), href: "/forum" },
     { label: categoryName },
   ];
 
@@ -74,12 +76,12 @@ export function ThreadsPage() {
         <SEO {...seoConfig.forum} />
         <Breadcrumbs trail={forumTrail} />
         <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
-        <h1 className="font-heading text-h3 text-destructive">Failed to load categories</h1>
+        <h1 className="font-heading text-h3 text-destructive">{t("failedToLoadCategories")}</h1>
         <p className="mt-2 text-muted-foreground">
-          Something went wrong while loading categories. Please try again.
+          {t("failedToLoadCategoriesDesc")}
         </p>
         <Button onClick={() => refetchCategories()} className="mt-6">
-          Try Again
+          {t("tryAgain")}
         </Button>
       </div>
     </>
@@ -93,16 +95,16 @@ export function ThreadsPage() {
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
       <Link to="/forum">
         <Button variant="ghost" className="mb-8">
-          <ArrowLeft data-icon="inline-start" /> All Categories
+          <ArrowLeft data-icon="inline-start" /> {t("allCategories")}
         </Button>
       </Link>
 
       <div className="flex items-center justify-between mb-8">
         <h1 className="font-heading text-h2 text-foreground capitalize">
-          {categoryName} Threads
+          {t("categoryThreads", { category: categoryName })}
         </h1>
         <Link to={`/forum/${categoryId}/new`}>
-          <Button>New Thread</Button>
+          <Button>{t("newThread")}</Button>
         </Link>
       </div>
 
@@ -118,8 +120,8 @@ export function ThreadsPage() {
 
       {isError ? (
         <ErrorState
-          heading="Failed to load threads"
-          message="Something went wrong while loading threads. Please try again."
+          heading={t("failedToLoadThreads")}
+          message={t("failedToLoadThreadsDesc")}
           onRetry={refetch}
         />
       ) : isLoading ? (
@@ -135,7 +137,7 @@ export function ThreadsPage() {
       {threads && threads.length > 0 && filteredThreads.length === 0 && (
         <div className="py-16 text-center">
           <p className="font-body text-muted-foreground">
-            No threads match your filters.
+            {t("noThreadsMatch")}
           </p>
         </div>
       )}
@@ -143,11 +145,11 @@ export function ThreadsPage() {
       {threads?.length === 0 && (
         <EmptyState
           icon={MessageCircle}
-          title="No discussions yet"
-          description="Be the first to start a discussion in this category."
+          title={t("noDiscussions")}
+          description={t("noDiscussionsDesc")}
           action={
             <Link to={`/forum/${categoryId}/new`}>
-              <Button>Start a discussion</Button>
+              <Button>{t("startDiscussion")}</Button>
             </Link>
           }
         />

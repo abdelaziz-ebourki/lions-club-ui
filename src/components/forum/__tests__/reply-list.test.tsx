@@ -48,9 +48,9 @@ describe('ReplyList', () => {
 
   test('sorts top-level replies newest first', () => {
     render(<ReplyList replies={replies} isAuthenticated={false} onReply={onReply} />);
-    const replyCards = screen.getAllByText(/Jan \d+, 2026/);
-    expect(replyCards[0]).toHaveTextContent('Jan 17, 2026');
-    expect(replyCards[1]).toHaveTextContent('Jan 15, 2026');
+    const replyCards = screen.getAllByText(/January \d+, 2026/);
+    expect(replyCards[0]).toHaveTextContent('January 17, 2026');
+    expect(replyCards[1]).toHaveTextContent('January 15, 2026');
   });
 
   test('passes onReply through to ReplyItem', () => {
@@ -94,6 +94,6 @@ describe('ReplyList', () => {
     expect(items[0]).toHaveTextContent('A');
     expect(items[1]).toHaveTextContent('B');
     expect(items[2]).toHaveTextContent('C');
-    expect(items[2].style.marginLeft).toBe('64px');
+    expect(items[2].style.marginInlineStart).toBe('64px');
   });
 });

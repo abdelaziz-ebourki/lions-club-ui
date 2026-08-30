@@ -1,0 +1,16 @@
+{
+  "required": "This field is required",
+  "invalidEmail": "Enter a valid email address",
+  "passwordMin": "Password must be at least 8 characters",
+  "passwordMismatch": "Passwords do not match",
+  "nameMin": "Name must be at least 2 characters",
+  "titleMin": "Title must be at least 5 characters",
+  "contentMin": "Content must be at least 10 characters",
+  "generic": "Something went wrong. Please try again.",
+  "notFound": "Not found",
+  "boundary": {
+    "heading": "Something went wrong",
+    "message": "An unexpected error occurred",
+    "goHome": "Go Home"
+  }
+}

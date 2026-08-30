@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/auth";
 import { useEmailVerification } from "@/hooks/use-email-verification";
 import { useProfileQuery } from "@/hooks/use-profile-query";
@@ -15,6 +16,7 @@ import { ProfileForm } from "./profile-form";
 import { AvatarUploadModal } from "./avatar-upload-modal";
 import { PasswordChangeForm } from "./change-password-form";
 import { PencilIcon } from "lucide-react";
+import { formatDate } from "@/lib/format";
 
 function getInitials(name: string) {
   return name
@@ -26,6 +28,7 @@ function getInitials(name: string) {
 }
 
 export function ProfilePage() {
+  const { t, i18n } = useTranslation(["profile", "common"]);
   const { user } = useAuth();
   const { isVerified, isCooldown, cooldownSeconds, resend } = useEmailVerification();
   const { data: profile, isLoading } = useProfileQuery();
@@ -37,10 +40,10 @@ export function ProfilePage() {
     return (
       <>
         <SEO {...seoConfig.profile} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Profile" }]} />
+        <Breadcrumbs trail={[{ label: t("common:breadcrumbs.home"), href: "/" }, { label: t("profile:heading") }]} />
         <div className="mx-auto max-w-2xl px-4 py-12 text-center">
-          <h1 className="font-heading text-h2 mb-4">Profile</h1>
-          <p className="text-muted-foreground">Please sign in to view your profile.</p>
+          <h1 className="font-heading text-h2 mb-4">{t("profile:heading")}</h1>
+          <p className="text-muted-foreground">{t("profile:signInRequired")}</p>
         </div>
       </>
     );
@@ -58,15 +61,9 @@ export function ProfilePage() {
   }
 
   const memberSince = profile?.createdAt
-    ? new Date(profile.createdAt).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-      })
+    ? formatDate(profile.createdAt, i18n.language)
     : user.createdAt
-      ? new Date(user.createdAt).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-        })
+      ? formatDate(user.createdAt, i18n.language)
       : "—";
 
   const displayName = profile?.name ?? user.name;
@@ -74,9 +71,9 @@ export function ProfilePage() {
   return (
     <>
       <SEO {...seoConfig.profile} />
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Profile" }]} />
+      <Breadcrumbs trail={[{ label: t("common:breadcrumbs.home"), href: "/" }, { label: t("profile:heading") }]} />
       <div className="mx-auto max-w-2xl px-4 py-12">
-        <h1 className="font-heading text-h2 mb-8">Profile</h1>
+        <h1 className="font-heading text-h2 mb-8">{t("profile:heading")}</h1>
 
         <div className="mb-6">
           <EmailVerificationBanner
@@ -105,10 +102,10 @@ export function ProfilePage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="font-heading text-h4">Account Information</CardTitle>
+            <CardTitle className="font-heading text-h4">{t("profile:accountInfo")}</CardTitle>
             {!isEditing && (
               <Button variant="outline" size="sm" onClick={() => setIsEditing(true)}>
-                Edit Profile
+                {t("profile:editProfile")}
               </Button>
             )}
           </CardHeader>
@@ -125,19 +122,19 @@ export function ProfilePage() {
             ) : (
               <div className="space-y-4">
                 <div>
-                  <p className="text-overline text-muted-foreground text-xs tracking-widest uppercase">Name</p>
+                  <p className="text-overline text-muted-foreground text-xs tracking-widest uppercase">{t("profile:name")}</p>
                   <p className="text-body">{profile?.name ?? user.name}</p>
                 </div>
                 <div>
-                  <p className="text-overline text-muted-foreground text-xs tracking-widest uppercase">Email</p>
+                  <p className="text-overline text-muted-foreground text-xs tracking-widest uppercase">{t("profile:email")}</p>
                   <p className="text-body">{profile?.email ?? user.email}</p>
                 </div>
                 <div>
-                  <p className="text-overline text-muted-foreground text-xs tracking-widest uppercase">Role</p>
+                  <p className="text-overline text-muted-foreground text-xs tracking-widest uppercase">{t("profile:role")}</p>
                   <p className="text-body capitalize">{profile?.role ?? user.role}</p>
                 </div>
                 <div>
-                  <p className="text-overline text-muted-foreground text-xs tracking-widest uppercase">Member since</p>
+                  <p className="text-overline text-muted-foreground text-xs tracking-widest uppercase">{t("profile:memberSince")}</p>
                   <p className="text-body">{memberSince}</p>
                 </div>
               </div>
@@ -148,15 +145,15 @@ export function ProfilePage() {
         {profile?.role === "admin" && (
           <Card className="mt-6">
             <CardHeader>
-              <CardTitle className="font-heading text-h4">Admin Information</CardTitle>
+              <CardTitle className="font-heading text-h4">{t("profile:adminInfo")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <p className="text-overline text-muted-foreground text-xs tracking-widest uppercase">Last Login IP</p>
+                <p className="text-overline text-muted-foreground text-xs tracking-widest uppercase">{t("profile:lastLoginIp")}</p>
                 <p className="text-body">{profile.lastLoginIp ?? "—"}</p>
               </div>
               <div>
-                <p className="text-overline text-muted-foreground text-xs tracking-widest uppercase">Account Status</p>
+                <p className="text-overline text-muted-foreground text-xs tracking-widest uppercase">{t("profile:accountStatus")}</p>
                 <p className="text-body capitalize">{profile.accountStatus ?? "—"}</p>
               </div>
             </CardContent>

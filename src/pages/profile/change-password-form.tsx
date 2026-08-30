@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v4";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { Field, FieldContent, FieldError, FieldLabel } from "@/components/ui/field";
@@ -28,6 +29,7 @@ const passwordSchema = z
 type PasswordFormData = z.infer<typeof passwordSchema>;
 
 export function PasswordChangeForm() {
+  const { t } = useTranslation("profile");
   const form = useForm<PasswordFormData>({
     resolver: zodResolver(passwordSchema),
     defaultValues: {
@@ -45,11 +47,11 @@ export function PasswordChangeForm() {
         confirmPassword: data.confirmPassword,
       }),
     onSuccess: () => {
-      toast.success("Password updated successfully");
+      toast.success(t("password.success"));
       form.reset();
     },
     onError: (error) => {
-      const message = error instanceof Error ? error.message : "Failed to update password";
+      const message = error instanceof Error ? error.message : t("password.error");
       toast.error(message);
     },
   });
@@ -61,12 +63,12 @@ export function PasswordChangeForm() {
   return (
     <Card className="mt-6">
       <CardHeader>
-        <CardTitle className="font-heading text-h4">Change Password</CardTitle>
+        <CardTitle className="font-heading text-h4">{t("password.title")}</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <Field orientation="vertical">
-            <FieldLabel htmlFor="currentPassword">Current Password</FieldLabel>
+            <FieldLabel htmlFor="currentPassword">{t("password.currentPassword")}</FieldLabel>
             <FieldContent>
               <Input id="currentPassword" type="password" {...form.register("currentPassword")} aria-invalid={!!form.formState.errors.currentPassword} />
               <FieldError errors={[form.formState.errors.currentPassword]} />
@@ -74,7 +76,7 @@ export function PasswordChangeForm() {
           </Field>
 
           <Field orientation="vertical">
-            <FieldLabel htmlFor="newPassword">New Password</FieldLabel>
+            <FieldLabel htmlFor="newPassword">{t("password.newPassword")}</FieldLabel>
             <FieldContent>
               <Input id="newPassword" type="password" {...form.register("newPassword")} aria-invalid={!!form.formState.errors.newPassword} />
               <FieldError errors={[form.formState.errors.newPassword]} />
@@ -82,7 +84,7 @@ export function PasswordChangeForm() {
           </Field>
 
           <Field orientation="vertical">
-            <FieldLabel htmlFor="confirmPassword">Confirm New Password</FieldLabel>
+            <FieldLabel htmlFor="confirmPassword">{t("password.confirmNewPassword")}</FieldLabel>
             <FieldContent>
               <Input id="confirmPassword" type="password" {...form.register("confirmPassword")} aria-invalid={!!form.formState.errors.confirmPassword} />
               <FieldError errors={[form.formState.errors.confirmPassword]} />
@@ -90,7 +92,7 @@ export function PasswordChangeForm() {
           </Field>
 
           <Button type="submit" disabled={mutation.isPending}>
-            {mutation.isPending ? <><Spinner /> Updating...</> : "Update Password"}
+            {mutation.isPending ? <><Spinner /> {t("password.submitting")}</> : t("password.submit")}
           </Button>
         </form>
       </CardContent>

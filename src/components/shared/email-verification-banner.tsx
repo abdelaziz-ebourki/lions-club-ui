@@ -1,4 +1,5 @@
 import { AlertTriangle, Mail } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 
 interface EmailVerificationBannerProps {
@@ -14,15 +15,16 @@ export function EmailVerificationBanner({
   cooldownSeconds,
   onResend,
 }: EmailVerificationBannerProps) {
+  const { t } = useTranslation("profile");
   if (isVerified) return null;
 
   return (
     <div className="flex items-center gap-3 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-200">
       <AlertTriangle className="size-5 shrink-0" />
       <div role="status" className="flex-1">
-        <p className="font-medium">Email not verified</p>
+        <p className="font-medium">{t("verification.notVerified")}</p>
         <p className="text-amber-700 dark:text-amber-300">
-          Please verify your email address to access all features.
+          {t("verification.description")}
         </p>
       </div>
       <Button
@@ -30,17 +32,17 @@ export function EmailVerificationBanner({
         size="sm"
         onClick={onResend}
         disabled={isCooldown}
-        aria-label="Resend verification email"
+        aria-label={t("verification.resend")}
       >
         {isCooldown ? (
           <>
             <Mail className="mr-1 size-4" />
-            Resend available in {cooldownSeconds}s
+            {t("verification.cooldown", { seconds: cooldownSeconds })}
           </>
         ) : (
           <>
             <Mail className="mr-1 size-4" />
-            Resend verification email
+            {t("verification.resend")}
           </>
         )}
       </Button>

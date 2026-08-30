@@ -1,0 +1,20 @@
+{
+  "overline": "Communauté",
+  "heading": "Nos Membres",
+  "description": "Rencontrez les membres dévoués qui portent nos initiatives de service communautaire à Casablanca.",
+  "somethingWentWrong": "Un problème est survenu",
+  "failed": "Échec du chargement des membres.",
+  "failedToLoad": "Échec du chargement du membre",
+  "tryAgain": "Veuillez réessayer.",
+  "noMembers": "Aucun membre pour le moment",
+  "noMembersDesc": "Aucun membre n'a encore été ajouté. Revenez bientôt pour rencontrer notre communauté.",
+  "memberNotFound": "Membre introuvable",
+  "memberNotFoundDesc": "Le membre que vous recherchez n'existe pas.",
+  "backToMembers": "Retour aux membres",
+  "joined": "Inscrit le {{date}}",
+  "contact": "Contact",
+  "loading": "Chargement...",
+  "notFound": "Introuvable",
+  "error": "Erreur",
+  "viewProfile": "Voir le profil de {{name}}"
+}

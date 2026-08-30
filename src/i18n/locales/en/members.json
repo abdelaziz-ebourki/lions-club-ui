@@ -1,0 +1,20 @@
+{
+  "overline": "Community",
+  "heading": "Our Members",
+  "description": "Meet the dedicated members who drive our community service initiatives in Casablanca.",
+  "somethingWentWrong": "Something went wrong",
+  "failed": "Failed to load members.",
+  "failedToLoad": "Failed to load member",
+  "tryAgain": "Please try again.",
+  "noMembers": "No members yet",
+  "noMembersDesc": "No members have been added yet. Check back soon to meet our community.",
+  "memberNotFound": "Member not found",
+  "memberNotFoundDesc": "The member you're looking for doesn't exist.",
+  "backToMembers": "Back to Members",
+  "joined": "Joined {{date}}",
+  "contact": "Contact",
+  "loading": "Loading...",
+  "notFound": "Not found",
+  "error": "Error",
+  "viewProfile": "View profile of {{name}}"
+}

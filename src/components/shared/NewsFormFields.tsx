@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FieldGroup, Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
 import { FileUpload } from "@/components/ui/file-upload";
+import { useTranslation } from "react-i18next";
 import { newsCategories } from "@/config";
 import { RichTextEditor } from "@/components/shared/RichTextEditor";
 
@@ -28,14 +29,15 @@ interface NewsFormFieldsProps {
 }
 
 export function NewsFormFields({ form, title, excerpt, handleTitleChange, handleSlugChange, showSuccess, mutationPending }: NewsFormFieldsProps) {
+  const { t } = useTranslation("admin");
   return (
     <FieldGroup className={cn("transition-all duration-500", showSuccess && "ring-2 ring-green-500/50 rounded-lg")}>
       <Field data-invalid={!!form.formState.errors.title}>
-        <FieldLabel htmlFor="title">Title</FieldLabel>
+        <FieldLabel htmlFor="title">{t("news.form.fields.title")}</FieldLabel>
         <FieldContent>
           <Input
             id="title"
-            placeholder="Article title"
+            placeholder={t("news.form.fields.placeholders.title")}
             aria-invalid={!!form.formState.errors.title}
             {...form.register("title", { onChange: (e) => handleTitleChange(e.target.value) })}
           />
@@ -47,7 +49,7 @@ export function NewsFormFields({ form, title, excerpt, handleTitleChange, handle
       </Field>
 
       <Field data-invalid={!!form.formState.errors.slug}>
-        <FieldLabel htmlFor="slug">Slug</FieldLabel>
+        <FieldLabel htmlFor="slug">{t("news.form.fields.slug")}</FieldLabel>
         <FieldContent>
           <Controller
             name="slug"
@@ -55,7 +57,7 @@ export function NewsFormFields({ form, title, excerpt, handleTitleChange, handle
             render={({ field }) => (
               <Input
                 id="slug"
-                placeholder="article-slug"
+                placeholder={t("news.form.fields.placeholders.slug")}
                 aria-invalid={!!form.formState.errors.slug}
                 value={field.value}
                 onChange={(e) => handleSlugChange(e.target.value)}
@@ -67,7 +69,7 @@ export function NewsFormFields({ form, title, excerpt, handleTitleChange, handle
       </Field>
 
       <Field>
-        <FieldLabel htmlFor="featuredImage">Featured Image</FieldLabel>
+        <FieldLabel htmlFor="featuredImage">{t("news.form.fields.featuredImage")}</FieldLabel>
         <FieldContent>
           <Controller
             name="featuredImage"
@@ -87,15 +89,15 @@ export function NewsFormFields({ form, title, excerpt, handleTitleChange, handle
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Field data-invalid={!!form.formState.errors.category}>
-          <FieldLabel htmlFor="category">Category</FieldLabel>
+          <FieldLabel htmlFor="category">{t("news.form.fields.category")}</FieldLabel>
           <FieldContent>
             <Controller
               name="category"
               control={form.control}
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger aria-label="Category">
-                    <SelectValue placeholder="Select category" />
+                  <SelectTrigger aria-label={t("news.form.fields.category")}>
+                    <SelectValue placeholder={t("news.form.fields.placeholders.category")} />
                   </SelectTrigger>
                   <SelectContent>
                     {newsCategories.map((cat) => (
@@ -110,20 +112,20 @@ export function NewsFormFields({ form, title, excerpt, handleTitleChange, handle
         </Field>
 
         <Field data-invalid={!!form.formState.errors.status}>
-          <FieldLabel htmlFor="status">Status</FieldLabel>
+          <FieldLabel htmlFor="status">{t("news.form.fields.status")}</FieldLabel>
           <FieldContent>
             <Controller
               name="status"
               control={form.control}
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger aria-label="Status">
-                    <SelectValue placeholder="Select status" />
+                  <SelectTrigger aria-label={t("news.form.fields.status")}>
+                    <SelectValue placeholder={t("news.form.fields.placeholders.status")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="draft">Draft</SelectItem>
-                    <SelectItem value="published">Published</SelectItem>
-                    <SelectItem value="archived">Archived</SelectItem>
+                    <SelectItem value="draft">{t("news.form.fields.statusOptions.draft")}</SelectItem>
+                    <SelectItem value="published">{t("news.form.fields.statusOptions.published")}</SelectItem>
+                    <SelectItem value="archived">{t("news.form.fields.statusOptions.archived")}</SelectItem>
                   </SelectContent>
                 </Select>
               )}
@@ -133,7 +135,7 @@ export function NewsFormFields({ form, title, excerpt, handleTitleChange, handle
         </Field>
 
         <Field data-invalid={!!form.formState.errors.publishedAt}>
-          <FieldLabel htmlFor="publishedAt">Publish Date <span className="text-muted-foreground text-body-xs">(optional)</span></FieldLabel>
+          <FieldLabel htmlFor="publishedAt">{t("news.form.fields.publishDate")} <span className="text-muted-foreground text-body-xs">{t("news.form.fields.optional")}</span></FieldLabel>
           <FieldContent>
             <Controller
               name="publishedAt"
@@ -154,7 +156,7 @@ export function NewsFormFields({ form, title, excerpt, handleTitleChange, handle
       </div>
 
       <Field data-invalid={!!form.formState.errors.content}>
-        <FieldLabel htmlFor="content">Content</FieldLabel>
+        <FieldLabel htmlFor="content">{t("news.form.fields.content")}</FieldLabel>
         <FieldContent>
           <Controller
             name="content"
@@ -168,9 +170,9 @@ export function NewsFormFields({ form, title, excerpt, handleTitleChange, handle
       </Field>
 
       <Field data-invalid={!!form.formState.errors.excerpt}>
-        <FieldLabel htmlFor="excerpt">Excerpt <span className="text-muted-foreground text-body-xs">(optional)</span></FieldLabel>
+        <FieldLabel htmlFor="excerpt">{t("news.form.fields.excerpt")} <span className="text-muted-foreground text-body-xs">{t("news.form.fields.optional")}</span></FieldLabel>
         <FieldContent>
-          <Textarea id="excerpt" placeholder="Brief summary of the article" rows={3} aria-invalid={!!form.formState.errors.excerpt} {...form.register("excerpt")} />
+          <Textarea id="excerpt" placeholder={t("news.form.fields.placeholders.excerpt")} rows={3} aria-invalid={!!form.formState.errors.excerpt} {...form.register("excerpt")} />
           <FieldError errors={[form.formState.errors.excerpt]} />
           <span className={cn("text-body-xs", excerpt.length >= 500 ? "text-destructive" : excerpt.length >= 400 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
             {excerpt.length}/500

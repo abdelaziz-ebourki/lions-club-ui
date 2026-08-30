@@ -1,12 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
+import { formatDate } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
 import { Mail, ChevronRight } from "lucide-react";
 import type { ContactMessage } from "@/types";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 export function AdminMessagesPage() {
+  const { t, i18n } = useTranslation("admin");
   const { data: messages } = useQuery<ContactMessage[]>({
     queryKey: ["messages", "admin"],
     queryFn: () => api.get("/contact"),
@@ -14,12 +17,12 @@ export function AdminMessagesPage() {
 
   return (
     <div>
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Messages" }]} />
+      <Breadcrumbs trail={[{ label: t("messages.breadcrumbs.home"), href: "/" }, { label: t("messages.breadcrumbs.admin"), href: "/admin" }, { label: t("messages.breadcrumbs.messages") }]} />
       <div className="mb-8">
-        <p className="font-display text-overline text-accent">Messages</p>
-        <h1 className="font-heading text-h2 mt-1 text-foreground">Manage Messages</h1>
+        <p className="font-display text-overline text-accent">{t("messages.overline")}</p>
+        <h1 className="font-heading text-h2 mt-1 text-foreground">{t("messages.heading")}</h1>
         <p className="text-body text-muted-foreground mt-1">
-          View and respond to messages from visitors and members.
+          {t("messages.description")}
         </p>
       </div>
 
@@ -34,7 +37,7 @@ export function AdminMessagesPage() {
                 <div className="flex items-center gap-2">
                   <CardTitle className="font-heading text-base">{msg.name}</CardTitle>
                   {msg.status === "unread" && (
-                    <Badge variant="accent" className="text-[10px]">New</Badge>
+                    <Badge variant="accent" className="text-[10px]">{t("messages.badgeNew")}</Badge>
                   )}
                 </div>
                 <p className="text-body-sm text-muted-foreground mt-0.5">{msg.subject}</p>
@@ -42,7 +45,7 @@ export function AdminMessagesPage() {
               </div>
               <div className="text-right text-body-sm text-muted-foreground shrink-0">
                 <p>{msg.email}</p>
-                <p className="mt-1">{msg.createdAt}</p>
+                <p className="mt-1">{formatDate(msg.createdAt, i18n.language)}</p>
               </div>
               <ChevronRight className="size-5 shrink-0 text-muted-foreground mt-2" />
             </CardContent>
@@ -51,7 +54,7 @@ export function AdminMessagesPage() {
 
         {messages?.length === 0 && (
           <div className="py-16 text-center">
-            <p className="font-body text-muted-foreground">No messages yet.</p>
+            <p className="font-body text-muted-foreground">{t("messages.empty")}</p>
           </div>
         )}
       </div>

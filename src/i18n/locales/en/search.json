@@ -1,0 +1,20 @@
+{
+  "placeholder": "Search events, forum, members...",
+  "label": "Search site",
+  "title": "Search",
+  "description": "Type a query in the search bar above to find events, forum threads, members, and more.",
+  "resultsFor": "Results for \"{{query}}\"",
+  "noResults": "No results found",
+  "noResultsDesc": "Try different keywords or browse the site manually.",
+  "found": "Found {{count}} result",
+  "found_plural": "Found {{count}} results",
+  "loading": "Loading search results",
+  "error": "Something went wrong",
+  "tryAgain": "Try Again",
+  "breadcrumbsHome": "Home",
+  "breadcrumbsSearch": "Search",
+  "entityEvent": "Event",
+  "entityForumThread": "Forum Thread",
+  "entityMember": "Member",
+  "entityContactMessage": "Contact Message"
+}

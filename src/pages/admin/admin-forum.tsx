@@ -5,8 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Skeleton } from "@/components/ui/skeleton";
 import { MessageSquare } from "lucide-react";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { useTranslation } from "react-i18next";
 
 export function AdminForumPage() {
+  const { t } = useTranslation("admin");
   const { data: categories, isLoading } = useQuery<ForumCategory[]>({
     queryKey: ["forum-categories", "admin"],
     queryFn: () => api.get("/forum/categories"),
@@ -14,12 +16,12 @@ export function AdminForumPage() {
 
   return (
     <div>
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Forum" }]} />
+      <Breadcrumbs trail={[{ label: t("forum.breadcrumbs.home"), href: "/" }, { label: t("forum.breadcrumbs.admin"), href: "/admin" }, { label: t("forum.breadcrumbs.forum") }]} />
       <div className="mb-8">
-        <p className="font-display text-overline text-accent">Forum</p>
-        <h1 className="font-heading text-h2 mt-1 text-foreground">Manage Forum</h1>
+        <p className="font-display text-overline text-accent">{t("forum.overline")}</p>
+        <h1 className="font-heading text-h2 mt-1 text-foreground">{t("forum.heading")}</h1>
         <p className="text-body text-muted-foreground mt-1">
-          View and moderate forum categories and discussions.
+          {t("forum.description")}
         </p>
       </div>
 
@@ -47,8 +49,8 @@ export function AdminForumPage() {
                   </CardDescription>
                 </div>
                 <div className="text-right text-body-sm text-muted-foreground">
-                  <p>{category.threadCount} threads</p>
-                  <p>{category.postCount} posts</p>
+                  <p>{category.threadCount} {t("forum.threads")}</p>
+                  <p>{category.postCount} {t("forum.posts")}</p>
                 </div>
               </CardContent>
             </Card>

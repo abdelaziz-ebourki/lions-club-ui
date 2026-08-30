@@ -1,0 +1,378 @@
+{
+  "title": "Admin",
+  "heading": "Manage",
+  "dashboard": "Dashboard",
+  "events": "Events",
+  "news": "News",
+  "gallery": "Gallery",
+  "forum": "Forum",
+  "members": "Members",
+  "messages": "Messages",
+  "backToSite": "Back to Site",
+  "manageEvents": "Manage Events",
+  "manageMembers": "Manage Members",
+  "manageMessages": "Manage Messages",
+  "manageForum": "Manage Forum",
+  "manageNews": "Manage News",
+  "manageGallery": "Manage Gallery",
+  "newEvent": "New Event",
+  "noProjects": "No projects yet",
+  "createFirst": "Create your first community project.",
+  "createFirstBtn": "Create your first project",
+  "deleteEvent": "Delete Event",
+  "deleteConfirm": "Are you sure you want to delete \"{{title}}\"? This action cannot be undone.",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "deleting": "Deleting...",
+  "layout": {
+    "admin": "Admin",
+    "manage": "Manage",
+    "adminNavigation": "Admin navigation",
+    "nav": {
+      "dashboard": "Dashboard",
+      "events": "Events",
+      "news": "News",
+      "gallery": "Gallery",
+      "forum": "Forum",
+      "members": "Members",
+      "messages": "Messages"
+    },
+    "backToSite": "Back to Site"
+  },
+  "dashboard": {
+    "overline": "Overview",
+    "heading": "Dashboard",
+    "description": "Manage your club's projects, members, and conversations.",
+    "viewDetails": "View details",
+    "errorBanner": "Some dashboard data couldn't be loaded. Check your connection and try refreshing.",
+    "stats": {
+      "upcomingEvents": "Upcoming Events",
+      "forumThreads": "Forum Threads",
+      "activeMembers": "Active Members",
+      "newMessages": "New Messages"
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "admin": "Admin",
+      "dashboard": "Dashboard"
+    }
+  },
+  "events": {
+    "overline": "Events",
+    "heading": "Manage Events",
+    "newEvent": "New Event",
+    "caption": "Events table",
+    "headers": {
+      "title": "Title",
+      "date": "Date",
+      "category": "Category",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "empty": {
+      "title": "No projects yet",
+      "description": "Create your first community project.",
+      "action": "Create your first project"
+    },
+    "delete": {
+      "title": "Delete Event",
+      "description": "Are you sure you want to delete \"{{title}}\"? This action cannot be undone.",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "deleting": "Deleting..."
+    },
+    "toast": {
+      "deleted": "Event deleted successfully.",
+      "deleteFailed": "Failed to delete event.",
+      "created": "Project created successfully.",
+      "updated": "Project updated successfully.",
+      "saveFailed": "Failed to save project."
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "admin": "Admin",
+      "events": "Events"
+    },
+    "form": {
+      "backToEvents": "Back to Events",
+      "overlineNew": "New",
+      "overlineEdit": "Edit",
+      "overlineSuffix": "Project",
+      "headingCreate": "Create Project",
+      "headingEdit": "Edit Project",
+      "newEventBreadcrumb": "New Event",
+      "editEventBreadcrumb": "Edit Event",
+      "buttons": {
+        "saving": "Saving...",
+        "create": "Create Project",
+        "update": "Update Project"
+      },
+      "fields": {
+        "title": "Title",
+        "description": "Description",
+        "image": "Event Image",
+        "date": "Date",
+        "time": "Time",
+        "location": "Location",
+        "category": "Category",
+        "status": "Status",
+        "placeholders": {
+          "title": "Event title",
+          "description": "Describe the event",
+          "location": "Event location",
+          "category": "Select category",
+          "status": "Select status"
+        },
+        "statusOptions": {
+          "upcoming": "Upcoming",
+          "ongoing": "Ongoing",
+          "past": "Past"
+        }
+      }
+    }
+  },
+  "news": {
+    "overline": "News",
+    "heading": "Manage News",
+    "newArticle": "New Article",
+    "caption": "News table",
+    "headers": {
+      "title": "Title",
+      "category": "Category",
+      "status": "Status",
+      "author": "Author",
+      "published": "Published",
+      "actions": "Actions"
+    },
+    "empty": {
+      "title": "No articles yet",
+      "description": "Create your first news article.",
+      "action": "Create your first article"
+    },
+    "error": {
+      "heading": "Failed to load articles",
+      "message": "Please check your connection and try again.",
+      "retry": "Try Again"
+    },
+    "delete": {
+      "title": "Delete Article",
+      "description": "Are you sure you want to delete \"{{title}}\"? This action cannot be undone.",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "deleting": "Deleting..."
+    },
+    "toast": {
+      "deleted": "Article deleted successfully.",
+      "deleteFailed": "Failed to delete article.",
+      "created": "Article created successfully.",
+      "updated": "Article updated successfully.",
+      "saveFailed": "Failed to save article."
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "admin": "Admin",
+      "news": "News"
+    },
+    "form": {
+      "backToNews": "Back to News",
+      "overlineNew": "New",
+      "overlineEdit": "Edit",
+      "overlineSuffix": "Article",
+      "headingCreate": "Create Article",
+      "headingEdit": "Edit Article",
+      "newArticleBreadcrumb": "New Article",
+      "editArticleBreadcrumb": "Edit Article",
+      "buttons": {
+        "saving": "Saving...",
+        "create": "Create Article",
+        "update": "Update Article"
+      },
+      "fields": {
+        "title": "Title",
+        "slug": "Slug",
+        "featuredImage": "Featured Image",
+        "category": "Category",
+        "status": "Status",
+        "publishDate": "Publish Date",
+        "optional": "(optional)",
+        "content": "Content",
+        "excerpt": "Excerpt",
+        "placeholders": {
+          "title": "Article title",
+          "slug": "article-slug",
+          "excerpt": "Brief summary of the article",
+          "category": "Select category",
+          "status": "Select status"
+        },
+        "statusOptions": {
+          "draft": "Draft",
+          "published": "Published",
+          "archived": "Archived"
+        }
+      }
+    }
+  },
+  "gallery": {
+    "overline": "Gallery",
+    "heading": "Manage Gallery",
+    "newItem": "New Item",
+    "caption": "Gallery table",
+    "headers": {
+      "thumbnail": "Thumbnail",
+      "title": "Title",
+      "category": "Category",
+      "event": "Event",
+      "tags": "Tags",
+      "uploaded": "Uploaded",
+      "uploader": "Uploader",
+      "actions": "Actions"
+    },
+    "empty": {
+      "title": "No gallery items yet",
+      "description": "Upload your first photo to get started.",
+      "action": "Upload your first photo"
+    },
+    "error": {
+      "heading": "Failed to load gallery items",
+      "message": "Please check your connection and try again.",
+      "retry": "Try Again"
+    },
+    "delete": {
+      "title": "Delete Gallery Item",
+      "description": "Are you sure you want to delete \"{{title}}\"? This action cannot be undone.",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "deleting": "Deleting..."
+    },
+    "toast": {
+      "deleted": "Item deleted successfully.",
+      "deleteFailed": "Failed to delete item.",
+      "created": "Item created successfully.",
+      "updated": "Item updated successfully.",
+      "saveFailed": "Failed to save item."
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "admin": "Admin",
+      "gallery": "Gallery"
+    },
+    "form": {
+      "backToGallery": "Back to Gallery",
+      "overlineUpload": "Upload",
+      "overlineEdit": "Edit",
+      "overlineSuffix": "Gallery Item",
+      "headingCreate": "New Item",
+      "headingEdit": "Edit Item",
+      "newItemBreadcrumb": "New Item",
+      "editItemBreadcrumb": "Edit Item",
+      "buttons": {
+        "uploading": "Uploading...",
+        "create": "Create Item",
+        "update": "Update Item"
+      },
+      "fields": {
+        "photo": "Photo",
+        "title": "Title",
+        "description": "Description",
+        "category": "Category",
+        "eventLink": "Event link",
+        "tags": "Tags",
+        "placeholders": {
+          "title": "Photo title",
+          "description": "Optional caption",
+          "category": "Select category",
+          "eventLink": "No event",
+          "tags": "gala, fundraising"
+        },
+        "hints": {
+          "tags": "Comma-separated — duplicates removed automatically."
+        },
+        "noEvent": "No event"
+      }
+    },
+    "aria": {
+      "editItem": "Edit item {{title}}",
+      "deleteItem": "Delete item {{title}}"
+    },
+    "mobile": {
+      "eventPrefix": "Event:"
+    }
+  },
+  "members": {
+    "overline": "Members",
+    "heading": "Manage Members",
+    "addMember": "Add Member",
+    "caption": "Members table",
+    "headers": {
+      "name": "Name",
+      "role": "Role",
+      "actions": "Actions"
+    },
+    "empty": {
+      "title": "No members yet",
+      "description": "Add your first club member.",
+      "action": "Add your first member"
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "admin": "Admin",
+      "members": "Members"
+    },
+    "form": {
+      "backToMembers": "Back to Members",
+      "overlineNew": "New",
+      "overlineEdit": "Edit",
+      "overlineSuffix": "Member",
+      "headingCreate": "Add Member",
+      "headingEdit": "Edit Member",
+      "newMemberBreadcrumb": "New Member",
+      "editMemberBreadcrumb": "Edit Member",
+      "buttons": {
+        "saving": "Saving...",
+        "create": "Add Member",
+        "update": "Update Member"
+      },
+      "fields": {
+        "name": "Name",
+        "role": "Role",
+        "bio": "Bio",
+        "bioOptional": "Bio (optional)",
+        "avatar": "Avatar",
+        "placeholders": {
+          "name": "Full name",
+          "role": "e.g. Treasurer, Event Lead",
+          "bio": "Short biography"
+        }
+      }
+    },
+    "toast": {
+      "created": "Member created successfully.",
+      "updated": "Member updated successfully.",
+      "saveFailed": "Failed to save member."
+    }
+  },
+  "messages": {
+    "overline": "Messages",
+    "heading": "Manage Messages",
+    "description": "View and respond to messages from visitors and members.",
+    "badgeNew": "New",
+    "empty": "No messages yet.",
+    "breadcrumbs": {
+      "home": "Home",
+      "admin": "Admin",
+      "messages": "Messages"
+    }
+  },
+  "forum": {
+    "overline": "Forum",
+    "heading": "Manage Forum",
+    "description": "View and moderate forum categories and discussions.",
+    "threads": "threads",
+    "posts": "posts",
+    "breadcrumbs": {
+      "home": "Home",
+      "admin": "Admin",
+      "forum": "Forum"
+    }
+  }
+}

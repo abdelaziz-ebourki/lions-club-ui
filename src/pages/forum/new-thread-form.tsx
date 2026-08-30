@@ -18,17 +18,19 @@ import { useSuccessTimer } from "@/hooks/useSuccessTimer";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { SEO } from "@/components/shared/SEO";
 import { seoConfig } from "@/config/seo";
-
-const threadSchema = z.object({
-  title: z.string().min(5, "Title must be at least 5 characters").max(200, "Title must be at most 200 characters"),
-  content: z.string().min(10, "Content must be at least 10 characters").max(5000, "Content must be at most 5000 characters"),
-});
-
-type ThreadFormData = z.infer<typeof threadSchema>;
+import { useTranslation } from "react-i18next";
 
 export function NewThreadForm() {
+  const { t } = useTranslation("forum");
   const { categoryId } = useParams<{ categoryId: string }>();
   const navigate = useNavigate();
+
+  const threadSchema = z.object({
+    title: z.string().min(5, t("validationTitleMin")).max(200, t("validationTitleMax")),
+    content: z.string().min(10, t("validationContentMin")).max(5000, t("validationContentMax")),
+  });
+
+  type ThreadFormData = z.infer<typeof threadSchema>;
 
   const { data: categories } = useQuery<ForumCategory[]>({
     queryKey: ["forum-categories"],
@@ -53,11 +55,11 @@ export function NewThreadForm() {
   function onSubmit(data: ThreadFormData) {
     mutation.mutate(data, {
       onSuccess: () => {
-        toast.success("Thread created successfully!");
+        toast.success(t("threadCreatedSuccess"));
         setShowSuccess(true);
         successTimer.current = setTimeout(() => navigate(`/forum/${categoryId}`), 400);
       },
-      onError: () => toast.error("Failed to create thread. Please try again."),
+      onError: () => toast.error(t("threadCreatedError")),
     });
   }
 
@@ -65,22 +67,22 @@ export function NewThreadForm() {
     <>
       <SEO {...seoConfig.newThread} />
       <Breadcrumbs trail={[
-        { label: "Home", href: "/" },
-        { label: "Forum", href: "/forum" },
+        { label: t("breadcrumbsHome"), href: "/" },
+        { label: t("breadcrumbsForum"), href: "/forum" },
         { label: categoryName, href: `/forum/${categoryId}` },
-        { label: "New Thread" },
+        { label: t("newThreadTitle") },
       ]} />
       <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:px-8">
       <Link to={`/forum/${categoryId}`}>
         <Button variant="ghost" className="mb-8">
-          <ArrowLeft data-icon="inline-start" /> Back to Threads
+          <ArrowLeft data-icon="inline-start" /> {t("backToThreads")}
         </Button>
       </Link>
 
       <div className="mb-8">
-        <p className="font-display text-overline text-accent">New Thread</p>
+        <p className="font-display text-overline text-accent">{t("newThreadTitle")}</p>
         <h1 className="font-heading text-h2 mt-1 text-foreground">
-          Start a Conversation
+          {t("startConversation")}
         </h1>
       </div>
 
@@ -88,11 +90,11 @@ export function NewThreadForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <FieldGroup className={cn("transition-all duration-500", showSuccess && "ring-2 ring-green-500/50 rounded-lg")}>
           <Field data-invalid={!!form.formState.errors.title}>
-            <FieldLabel htmlFor="title">Thread Title</FieldLabel>
+            <FieldLabel htmlFor="title">{t("threadTitle")}</FieldLabel>
             <FieldContent>
               <Input
                 id="title"
-                placeholder="What would you like to discuss?"
+                placeholder={t("threadTitlePlaceholder")}
                 aria-invalid={!!form.formState.errors.title}
                 {...form.register("title")}
                 autoComplete="off"
@@ -104,11 +106,11 @@ export function NewThreadForm() {
             </FieldContent>
           </Field>
           <Field data-invalid={!!form.formState.errors.content}>
-            <FieldLabel htmlFor="content">Message</FieldLabel>
+            <FieldLabel htmlFor="content">{t("message")}</FieldLabel>
             <FieldContent>
               <Textarea
                 id="content"
-                placeholder="Share your thoughts with the community..."
+                placeholder={t("messagePlaceholder")}
                 rows={8}
                 aria-invalid={!!form.formState.errors.content}
                 {...form.register("content")}
@@ -123,8 +125,8 @@ export function NewThreadForm() {
         </FieldGroup>
         <Button type="submit" disabled={mutation.isPending}>
           {mutation.isPending ? (
-            <><Spinner className="mr-2" /> Posting...</>
-          ) : "Post Thread"}
+            <><Spinner className="me-2" /> {t("posting")}</>
+          ) : t("postThread")}
         </Button>
       </form>
     </div>

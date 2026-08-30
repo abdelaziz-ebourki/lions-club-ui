@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { siteConfig } from "@/config";
+import { useTranslation } from "react-i18next";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { siteConfig } from "@/config";
 
 const socialLinks = [
   {
@@ -38,6 +39,7 @@ function SocialIcon({ path }: { path: string }) {
 }
 
 export function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="border-t bg-muted/30">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -46,23 +48,30 @@ export function Footer() {
             <div className="flex items-center gap-2.5">
               <img src="/logo.png" alt="" className="h-8 w-8 rounded-full" width={32} height={32} loading="lazy" />
               <p className="font-heading text-lg font-semibold text-primary">
-                {siteConfig.name}
+                {t("site.name")}
               </p>
             </div>
             <p className="mt-2 text-sm text-muted-foreground font-body">
-              {siteConfig.description}
+              {t("site.description")}
             </p>
             <p className="mt-1 text-xs font-display uppercase tracking-widest text-accent">
-              {siteConfig.tagline}
+              {t("site.tagline")}
             </p>
           </div>
 
           <div>
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">
-              Quick Links
+              {t("footer.quickLinks")}
             </h2>
             <ul className="flex flex-col gap-2">
-              {siteConfig.nav.map((item) => (
+              {[
+                { href: "/", label: t("nav.home") },
+                { href: "/about", label: t("nav.about") },
+                { href: "/events", label: t("nav.events") },
+                { href: "/news", label: t("nav.news") },
+                { href: "/forum", label: t("nav.forum") },
+                { href: "/contact", label: t("nav.contact") },
+              ].map((item) => (
                 <li key={item.href}>
                   <Link
                     to={item.href}
@@ -77,7 +86,7 @@ export function Footer() {
                   to="/gallery"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  Gallery
+                  {t("nav.gallery")}
                 </Link>
               </li>
             </ul>
@@ -85,27 +94,27 @@ export function Footer() {
 
           <div>
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">
-              Contact
+              {t("footer.contact")}
             </h2>
             <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <MapPin className="size-4 shrink-0" aria-hidden="true" />
-                {siteConfig.address}
+                {t("site.address")}
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="size-4 shrink-0" aria-hidden="true" />
-                {siteConfig.phone}
+                {t("site.phone")}
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="size-4 shrink-0" aria-hidden="true" />
-                {siteConfig.email}
+                {t("site.email")}
               </li>
             </ul>
           </div>
 
           <div>
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-foreground">
-              Follow Us
+              {t("footer.followUs")}
             </h2>
             <div className="flex gap-3">
               {socialLinks.map((link) => (
@@ -115,7 +124,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
-                  aria-label={link.label}
+                  aria-label={t(`footer.${link.label.toLowerCase()}`, { defaultValue: link.label })}
                 >
                   <SocialIcon path={link.path} />
                 </a>
@@ -125,7 +134,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t pt-6 text-center text-xs text-muted-foreground">
-          &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+          {t("footer.rights", { year: new Date().getFullYear(), name: t("site.name") })}
         </div>
       </div>
     </footer>

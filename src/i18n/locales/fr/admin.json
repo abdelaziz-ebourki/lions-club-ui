@@ -1,0 +1,378 @@
+{
+  "title": "Admin",
+  "heading": "Gérer",
+  "dashboard": "Tableau de bord",
+  "events": "Événements",
+  "news": "Actualités",
+  "gallery": "Galerie",
+  "forum": "Forum",
+  "members": "Membres",
+  "messages": "Messages",
+  "backToSite": "Retour au Site",
+  "manageEvents": "Gérer les Événements",
+  "manageMembers": "Gérer les Membres",
+  "manageMessages": "Gérer les Messages",
+  "manageForum": "Gérer le Forum",
+  "manageNews": "Gérer les Actualités",
+  "manageGallery": "Gérer la Galerie",
+  "newEvent": "Nouvel Événement",
+  "noProjects": "Aucun projet pour le moment",
+  "createFirst": "Créez votre premier projet communautaire.",
+  "createFirstBtn": "Créer votre premier projet",
+  "deleteEvent": "Supprimer l'Événement",
+  "deleteConfirm": "Êtes-vous sûr de vouloir supprimer \"{{title}}\" ? Cette action est irréversible.",
+  "cancel": "Annuler",
+  "delete": "Supprimer",
+  "deleting": "Suppression...",
+  "layout": {
+    "admin": "Admin",
+    "manage": "Gérer",
+    "adminNavigation": "Navigation admin",
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "events": "Événements",
+      "news": "Actualités",
+      "gallery": "Galerie",
+      "forum": "Forum",
+      "members": "Membres",
+      "messages": "Messages"
+    },
+    "backToSite": "Retour au Site"
+  },
+  "dashboard": {
+    "overline": "Aperçu",
+    "heading": "Tableau de bord",
+    "description": "Gérez les projets, les membres et les conversations de votre club.",
+    "viewDetails": "Voir les détails",
+    "errorBanner": "Certaines données du tableau de bord n'ont pas pu être chargées. Vérifiez votre connexion et actualisez.",
+    "stats": {
+      "upcomingEvents": "Événements à Venir",
+      "forumThreads": "Discussions du Forum",
+      "activeMembers": "Membres Actifs",
+      "newMessages": "Nouveaux Messages"
+    },
+    "breadcrumbs": {
+      "home": "Accueil",
+      "admin": "Admin",
+      "dashboard": "Tableau de bord"
+    }
+  },
+  "events": {
+    "overline": "Événements",
+    "heading": "Gérer les Événements",
+    "newEvent": "Nouvel Événement",
+    "caption": "Tableau des événements",
+    "headers": {
+      "title": "Titre",
+      "date": "Date",
+      "category": "Catégorie",
+      "status": "Statut",
+      "actions": "Actions"
+    },
+    "empty": {
+      "title": "Aucun projet pour le moment",
+      "description": "Créez votre premier projet communautaire.",
+      "action": "Créer votre premier projet"
+    },
+    "delete": {
+      "title": "Supprimer l'Événement",
+      "description": "Êtes-vous sûr de vouloir supprimer \"{{title}}\" ? Cette action est irréversible.",
+      "cancel": "Annuler",
+      "delete": "Supprimer",
+      "deleting": "Suppression..."
+    },
+    "toast": {
+      "deleted": "Événement supprimé avec succès.",
+      "deleteFailed": "Échec de la suppression de l'événement.",
+      "created": "Projet créé avec succès.",
+      "updated": "Projet mis à jour avec succès.",
+      "saveFailed": "Échec de l'enregistrement du projet."
+    },
+    "breadcrumbs": {
+      "home": "Accueil",
+      "admin": "Admin",
+      "events": "Événements"
+    },
+    "form": {
+      "backToEvents": "Retour aux Événements",
+      "overlineNew": "Nouveau",
+      "overlineEdit": "Modifier",
+      "overlineSuffix": "Projet",
+      "headingCreate": "Créer un Projet",
+      "headingEdit": "Modifier le Projet",
+      "newEventBreadcrumb": "Nouvel Événement",
+      "editEventBreadcrumb": "Modifier l'Événement",
+      "buttons": {
+        "saving": "Enregistrement...",
+        "create": "Créer le Projet",
+        "update": "Mettre à Jour le Projet"
+      },
+      "fields": {
+        "title": "Titre",
+        "description": "Description",
+        "image": "Image de l'Événement",
+        "date": "Date",
+        "time": "Heure",
+        "location": "Lieu",
+        "category": "Catégorie",
+        "status": "Statut",
+        "placeholders": {
+          "title": "Titre de l'événement",
+          "description": "Décrivez l'événement",
+          "location": "Lieu de l'événement",
+          "category": "Sélectionner une catégorie",
+          "status": "Sélectionner un statut"
+        },
+        "statusOptions": {
+          "upcoming": "À venir",
+          "ongoing": "En cours",
+          "past": "Passé"
+        }
+      }
+    }
+  },
+  "news": {
+    "overline": "Actualités",
+    "heading": "Gérer les Actualités",
+    "newArticle": "Nouvel Article",
+    "caption": "Tableau des actualités",
+    "headers": {
+      "title": "Titre",
+      "category": "Catégorie",
+      "status": "Statut",
+      "author": "Auteur",
+      "published": "Publié",
+      "actions": "Actions"
+    },
+    "empty": {
+      "title": "Aucun article pour le moment",
+      "description": "Créez votre premier article d'actualité.",
+      "action": "Créer votre premier article"
+    },
+    "error": {
+      "heading": "Échec du chargement des articles",
+      "message": "Veuillez vérifier votre connexion et réessayer.",
+      "retry": "Réessayer"
+    },
+    "delete": {
+      "title": "Supprimer l'Article",
+      "description": "Êtes-vous sûr de vouloir supprimer \"{{title}}\" ? Cette action est irréversible.",
+      "cancel": "Annuler",
+      "delete": "Supprimer",
+      "deleting": "Suppression..."
+    },
+    "toast": {
+      "deleted": "Article supprimé avec succès.",
+      "deleteFailed": "Échec de la suppression de l'article.",
+      "created": "Article créé avec succès.",
+      "updated": "Article mis à jour avec succès.",
+      "saveFailed": "Échec de l'enregistrement de l'article."
+    },
+    "breadcrumbs": {
+      "home": "Accueil",
+      "admin": "Admin",
+      "news": "Actualités"
+    },
+    "form": {
+      "backToNews": "Retour aux Actualités",
+      "overlineNew": "Nouveau",
+      "overlineEdit": "Modifier",
+      "overlineSuffix": "Article",
+      "headingCreate": "Créer un Article",
+      "headingEdit": "Modifier l'Article",
+      "newArticleBreadcrumb": "Nouvel Article",
+      "editArticleBreadcrumb": "Modifier l'Article",
+      "buttons": {
+        "saving": "Enregistrement...",
+        "create": "Créer l'Article",
+        "update": "Mettre à Jour l'Article"
+      },
+      "fields": {
+        "title": "Titre",
+        "slug": "Slug",
+        "featuredImage": "Image à la Une",
+        "category": "Catégorie",
+        "status": "Statut",
+        "publishDate": "Date de Publication",
+        "optional": "(optionnel)",
+        "content": "Contenu",
+        "excerpt": "Extrait",
+        "placeholders": {
+          "title": "Titre de l'article",
+          "slug": "slug-article",
+          "excerpt": "Résumé bref de l'article",
+          "category": "Sélectionner une catégorie",
+          "status": "Sélectionner un statut"
+        },
+        "statusOptions": {
+          "draft": "Brouillon",
+          "published": "Publié",
+          "archived": "Archivé"
+        }
+      }
+    }
+  },
+  "gallery": {
+    "overline": "Galerie",
+    "heading": "Gérer la Galerie",
+    "newItem": "Nouvel Élément",
+    "caption": "Tableau de la galerie",
+    "headers": {
+      "thumbnail": "Miniature",
+      "title": "Titre",
+      "category": "Catégorie",
+      "event": "Événement",
+      "tags": "Étiquettes",
+      "uploaded": "Téléversé",
+      "uploader": "Auteur",
+      "actions": "Actions"
+    },
+    "empty": {
+      "title": "Aucun élément pour le moment",
+      "description": "Téléversez votre première photo pour commencer.",
+      "action": "Téléversez votre première photo"
+    },
+    "error": {
+      "heading": "Échec du chargement des éléments",
+      "message": "Veuillez vérifier votre connexion et réessayer.",
+      "retry": "Réessayer"
+    },
+    "delete": {
+      "title": "Supprimer l'Élément",
+      "description": "Êtes-vous sûr de vouloir supprimer \"{{title}}\" ? Cette action est irréversible.",
+      "cancel": "Annuler",
+      "delete": "Supprimer",
+      "deleting": "Suppression..."
+    },
+    "toast": {
+      "deleted": "Élément supprimé avec succès.",
+      "deleteFailed": "Échec de la suppression de l'élément.",
+      "created": "Élément créé avec succès.",
+      "updated": "Élément mis à jour avec succès.",
+      "saveFailed": "Échec de l'enregistrement de l'élément."
+    },
+    "breadcrumbs": {
+      "home": "Accueil",
+      "admin": "Admin",
+      "gallery": "Galerie"
+    },
+    "form": {
+      "backToGallery": "Retour à la Galerie",
+      "overlineUpload": "Téléverser",
+      "overlineEdit": "Modifier",
+      "overlineSuffix": "Élément de Galerie",
+      "headingCreate": "Nouvel Élément",
+      "headingEdit": "Modifier l'Élément",
+      "newItemBreadcrumb": "Nouvel Élément",
+      "editItemBreadcrumb": "Modifier l'Élément",
+      "buttons": {
+        "uploading": "Téléversement...",
+        "create": "Créer l'Élément",
+        "update": "Mettre à Jour l'Élément"
+      },
+      "fields": {
+        "photo": "Photo",
+        "title": "Titre",
+        "description": "Description",
+        "category": "Catégorie",
+        "eventLink": "Événement lié",
+        "tags": "Étiquettes",
+        "placeholders": {
+          "title": "Titre de la photo",
+          "description": "Légende optionnelle",
+          "category": "Sélectionner une catégorie",
+          "eventLink": "Aucun événement",
+          "tags": "gala, collecte"
+        },
+        "hints": {
+          "tags": "Séparés par des virgules — les doublons sont supprimés automatiquement."
+        },
+        "noEvent": "Aucun événement"
+      }
+    },
+    "aria": {
+      "editItem": "Modifier l'élément {{title}}",
+      "deleteItem": "Supprimer l'élément {{title}}"
+    },
+    "mobile": {
+      "eventPrefix": "Événement :"
+    }
+  },
+  "members": {
+    "overline": "Membres",
+    "heading": "Gérer les Membres",
+    "addMember": "Ajouter un Membre",
+    "caption": "Tableau des membres",
+    "headers": {
+      "name": "Nom",
+      "role": "Rôle",
+      "actions": "Actions"
+    },
+    "empty": {
+      "title": "Aucun membre pour le moment",
+      "description": "Ajoutez votre premier membre du club.",
+      "action": "Ajouter votre premier membre"
+    },
+    "breadcrumbs": {
+      "home": "Accueil",
+      "admin": "Admin",
+      "members": "Membres"
+    },
+    "form": {
+      "backToMembers": "Retour aux Membres",
+      "overlineNew": "Nouveau",
+      "overlineEdit": "Modifier",
+      "overlineSuffix": "Membre",
+      "headingCreate": "Ajouter un Membre",
+      "headingEdit": "Modifier le Membre",
+      "newMemberBreadcrumb": "Nouveau Membre",
+      "editMemberBreadcrumb": "Modifier le Membre",
+      "buttons": {
+        "saving": "Enregistrement...",
+        "create": "Ajouter un Membre",
+        "update": "Mettre à Jour le Membre"
+      },
+      "fields": {
+        "name": "Nom",
+        "role": "Rôle",
+        "bio": "Biographie",
+        "bioOptional": "Biographie (optionnel)",
+        "avatar": "Avatar",
+        "placeholders": {
+          "name": "Nom complet",
+          "role": "ex. Trésorier, Chef d'événement",
+          "bio": "Courte biographie"
+        }
+      }
+    },
+    "toast": {
+      "created": "Membre créé avec succès.",
+      "updated": "Membre mis à jour avec succès.",
+      "saveFailed": "Échec de l'enregistrement du membre."
+    }
+  },
+  "messages": {
+    "overline": "Messages",
+    "heading": "Gérer les Messages",
+    "description": "Consultez et répondez aux messages des visiteurs et membres.",
+    "badgeNew": "Nouveau",
+    "empty": "Aucun message pour le moment.",
+    "breadcrumbs": {
+      "home": "Accueil",
+      "admin": "Admin",
+      "messages": "Messages"
+    }
+  },
+  "forum": {
+    "overline": "Forum",
+    "heading": "Gérer le Forum",
+    "description": "Consultez et modérez les catégories et discussions du forum.",
+    "threads": "discussions",
+    "posts": "messages",
+    "breadcrumbs": {
+      "home": "Accueil",
+      "admin": "Admin",
+      "forum": "Forum"
+    }
+  }
+}

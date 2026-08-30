@@ -1,8 +1,9 @@
 import { memo } from 'react';
-import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import type { ForumReply } from '@/types';
+import { useTranslation } from 'react-i18next';
+import { formatDate } from '@/lib/format';
 
 interface ReplyItemProps {
   reply: ForumReply;
@@ -12,10 +13,11 @@ interface ReplyItemProps {
 }
 
 export const ReplyItem = memo(function ReplyItem({ reply, depth, isAuthenticated, onReply }: ReplyItemProps) {
+  const { t, i18n } = useTranslation('forum');
   return (
     <div
       className={cn('rounded-lg border bg-card p-4 shadow-sm')}
-      style={{ marginLeft: depth * 16 }}
+      style={{ marginInlineStart: depth * 16 }}
       data-testid="reply-item"
     >
       <div className="flex items-center gap-3 mb-3">
@@ -27,8 +29,8 @@ export const ReplyItem = memo(function ReplyItem({ reply, depth, isAuthenticated
             {reply.author}
           </p>
           <p className="text-body-xs text-muted-foreground">
-            {format(new Date(reply.createdAt), 'MMM d, yyyy')}
-            {reply.updatedAt && <span className="italic ml-1">(edited)</span>}
+            {formatDate(reply.createdAt, i18n.language)}
+            {reply.updatedAt && <span className="italic ms-1">{t("edited")}</span>}
           </p>
         </div>
       </div>
@@ -41,7 +43,7 @@ export const ReplyItem = memo(function ReplyItem({ reply, depth, isAuthenticated
           size="sm"
           onClick={() => onReply(reply.id, reply.author)}
         >
-          Reply
+          {t("reply")}
         </Button>
       )}
     </div>

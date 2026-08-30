@@ -5,6 +5,7 @@ import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { api } from "@/lib/api";
 import { useAuth } from "@/contexts/auth";
 import { Spinner } from "@/components/ui/spinner";
@@ -24,6 +25,7 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export function LoginPage() {
+  const { t } = useTranslation("auth");
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
@@ -39,7 +41,7 @@ export function LoginPage() {
     mutationFn: (data: LoginFormData & { remember_me?: boolean }) => api.post("/auth/login", data),
     onSuccess: async () => {
       await refreshUser();
-      toast.success("Welcome back!");
+      toast.success(t("login.success"));
       navigate(searchParams.get("return") || "/");
     },
   });
@@ -47,7 +49,7 @@ export function LoginPage() {
   function onSubmit(data: LoginFormData) {
     mutation.mutate({ ...data, remember_me: rememberMe }, {
       onError: (error) => {
-        toast.error(error instanceof Error ? error.message : "Invalid email or password");
+        toast.error(error instanceof Error ? error.message : t("login.error"));
       },
     });
   }
@@ -55,20 +57,20 @@ export function LoginPage() {
   return (
     <>
       <SEO {...seoConfig.login} />
-      <AuthCardFields overline="Welcome Back" title="Sign In" description="Sign in to your account to manage projects and connect with members.">
+      <AuthCardFields overline={t("login.overline")} title={t("login.title")} description={t("login.description")}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <FieldGroup>
           <AuthEmailField form={form} />
           <Field data-invalid={!!form.formState.errors.password}>
-            <FieldLabel htmlFor="password" className="after:content-['*'] after:ml-0.5 after:text-destructive">Password</FieldLabel>
+            <FieldLabel htmlFor="password" className="after:content-['*'] after:ml-0.5 after:text-destructive">{t("login.password")}</FieldLabel>
             <FieldContent>
-              <Input id="password" type="password" placeholder="Enter your password" aria-invalid={!!form.formState.errors.password} aria-required="true" {...form.register("password")} autoComplete="current-password" />
+              <Input id="password" type="password" placeholder={t("login.passwordPlaceholder")} aria-invalid={!!form.formState.errors.password} aria-required="true" {...form.register("password")} autoComplete="current-password" />
               <FieldError errors={[form.formState.errors.password]} />
             </FieldContent>
           </Field>
           <div className="flex justify-end">
             <Link to="/forgot-password" className="text-sm text-primary underline underline-offset-4 hover:text-accent">
-              Forgot password?
+              {t("login.forgotPassword")}
             </Link>
           </div>
           <Field orientation="horizontal">
@@ -88,20 +90,20 @@ export function LoginPage() {
                   }
                 }}
               />
-              Remember me
+              {t("login.rememberMe")}
             </FieldLabel>
           </Field>
         </FieldGroup>
         <Button type="submit" disabled={mutation.isPending}>
           {mutation.isPending ? (
-            <><Spinner className="mr-2" /> Signing in...</>
-          ) : "Sign In"}
+            <><Spinner className="mr-2" /> {t("login.submitting")}</>
+          ) : t("login.submit")}
         </Button>
       </form>
       <p className="mt-4 text-center text-body-sm text-muted-foreground">
-        Don't have an account?{" "}
+        {t("login.noAccount")}{" "}
         <Link to="/register" className="text-primary underline underline-offset-4 hover:text-accent">
-          Register here
+          {t("login.registerHere")}
         </Link>
       </p>
       </AuthCardFields>

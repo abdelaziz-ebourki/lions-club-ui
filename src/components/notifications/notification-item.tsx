@@ -9,9 +9,8 @@ const iconMap: Record<NotificationType, typeof MessageSquare> = {
   admin_announcement: Megaphone,
 };
 
-const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto", style: "short" });
-
-function formatRelativeTime(dateString: string): string {
+function formatRelativeTime(dateString: string, locale = "en"): string {
+  const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto", style: "short" });
   const now = Date.now();
   const then = new Date(dateString).getTime();
   const diffMs = now - then;
@@ -24,7 +23,11 @@ function formatRelativeTime(dateString: string): string {
   if (diffMinutes < 60) return rtf.format(-diffMinutes, "minute");
   if (diffHours < 24) return rtf.format(-diffHours, "hour");
   if (diffDays < 7) return rtf.format(-diffDays, "day");
-  return new Date(dateString).toLocaleDateString();
+  try {
+    return new Intl.DateTimeFormat(locale).format(new Date(dateString));
+  } catch {
+    return new Intl.DateTimeFormat("en").format(new Date(dateString));
+  }
 }
 
 interface NotificationItemProps {
@@ -34,6 +37,7 @@ interface NotificationItemProps {
 
 export function NotificationItem({ notification, onClick }: NotificationItemProps) {
   const Icon = iconMap[notification.type];
+  const locale = typeof navigator !== "undefined" ? navigator.language : "en";
 
   return (
     <Button
@@ -54,7 +58,7 @@ export function NotificationItem({ notification, onClick }: NotificationItemProp
         </p>
       </div>
       <time className="text-xs text-muted-foreground shrink-0">
-        {formatRelativeTime(notification.createdAt)}
+        {formatRelativeTime(notification.createdAt, locale)}
       </time>
     </Button>
   );

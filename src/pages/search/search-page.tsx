@@ -6,8 +6,10 @@ import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { SEO } from "@/components/shared/SEO";
 import { getSearchSeo } from "@/config/seo";
 import { SearchResults } from "@/components/search/search-results";
+import { useTranslation } from "react-i18next";
 
 export function SearchPage() {
+  const { t } = useTranslation("search");
   const [searchParams] = useSearchParams();
   const { isAdmin } = useAuth();
   const rawQuery = searchParams.get("q") ?? "";
@@ -23,11 +25,11 @@ export function SearchPage() {
     return (
       <>
         <SEO {...getSearchSeo("")} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Search" }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbsHome"), href: "/" }, { label: t("breadcrumbsSearch") }]} />
         <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
-          <h1 className="font-heading text-h3 text-foreground">Search</h1>
+          <h1 className="font-heading text-h3 text-foreground">{t("title")}</h1>
           <p className="mt-4 font-body text-muted-foreground">
-            Type a query in the search bar above to find events, forum threads, members, and more.
+            {t("description")}
           </p>
         </div>
       </>
@@ -37,10 +39,10 @@ export function SearchPage() {
   return (
     <>
       <SEO {...getSearchSeo(parsed.sanitized)} />
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Search" }]} />
+      <Breadcrumbs trail={[{ label: t("breadcrumbsHome"), href: "/" }, { label: t("breadcrumbsSearch") }]} />
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <h1 className="font-heading text-h2 text-foreground mb-8">
-          Results for &quot;{parsed.sanitized}&quot;
+          {t("resultsFor", { query: parsed.sanitized })}
         </h1>
         <SearchResults
           groups={data?.groups ?? []}

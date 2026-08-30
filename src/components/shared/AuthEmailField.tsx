@@ -1,21 +1,23 @@
 import type { Path, UseFormReturn, FieldValues } from "react-hook-form";
 import { Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { useTranslation } from "react-i18next";
 
 interface AuthEmailFieldProps<TForm extends FieldValues> {
   form: UseFormReturn<TForm>;
 }
 
 export function AuthEmailField<TForm extends FieldValues>({ form }: AuthEmailFieldProps<TForm>) {
+  const { t } = useTranslation("auth");
   const error = form.formState.errors.email as { message?: string } | undefined;
   return (
     <Field data-invalid={!!error}>
-      <FieldLabel htmlFor="email" className="after:content-['*'] after:ml-0.5 after:text-destructive">Email</FieldLabel>
+      <FieldLabel htmlFor="email" className="after:content-['*'] after:ml-0.5 after:text-destructive">{t("fields.email")}</FieldLabel>
       <FieldContent>
         <Input
           id="email"
           type="email"
-          placeholder="your@email.com"
+          placeholder={t("fields.emailPlaceholder")}
           aria-invalid={!!error}
           aria-required="true"
           {...form.register("email" as Path<TForm>)}
