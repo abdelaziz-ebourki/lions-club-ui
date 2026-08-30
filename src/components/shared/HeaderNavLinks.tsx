@@ -16,7 +16,7 @@ export function HeaderNavLinks() {
   ];
 
   return (
-    <nav aria-label={t("header.mainNavigation", { defaultValue: "Main navigation" })} className="hidden md:flex md:items-center md:gap-1">
+    <nav aria-label={t("header.mainNavigation", { defaultValue: "Main navigation" })} className="hidden lg:flex lg:items-center lg:gap-1">
       {navItems.map((item) => (
         <Link
           key={item.href}

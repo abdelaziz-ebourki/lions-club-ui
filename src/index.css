@@ -84,6 +84,49 @@
   --sidebar-ring: oklch(0.62 0.18 242);
 }
 
+@supports not (color: oklch(0% 0 0)) {
+  :root {
+    --background: hsl(204 20% 97%);
+    --foreground: hsl(213 80% 12%);
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(213 80% 12%);
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(213 80% 12%);
+    --primary: hsl(214 80% 28%);
+    --primary-foreground: hsl(40 20% 98%);
+    --secondary: hsl(214 80% 32%);
+    --secondary-foreground: hsl(0 0% 98%);
+    --muted: hsl(210 20% 92%);
+    --muted-foreground: hsl(210 10% 32%);
+    --accent: hsl(32 85% 32%);
+    --accent-foreground: hsl(0 0% 98%);
+    --destructive: hsl(0 84% 60%);
+    --border: hsl(210 30% 82%);
+    --input: hsl(210 30% 82%);
+    --ring: hsl(214 80% 28%);
+  }
+  .dark {
+    --background: hsl(214 50% 8%);
+    --foreground: hsl(40 20% 96%);
+    --card: hsl(214 40% 12%);
+    --card-foreground: hsl(40 20% 96%);
+    --popover: hsl(214 40% 12%);
+    --popover-foreground: hsl(40 20% 96%);
+    --primary: hsl(214 80% 52%);
+    --primary-foreground: hsl(220 20% 8%);
+    --secondary: hsl(214 60% 38%);
+    --secondary-foreground: hsl(0 0% 98%);
+    --muted: hsl(214 30% 16%);
+    --muted-foreground: hsl(210 15% 58%);
+    --accent: hsl(32 80% 58%);
+    --accent-foreground: hsl(220 20% 8%);
+    --destructive: hsl(0 70% 58%);
+    --border: hsl(0 0% 100% / 10%);
+    --input: hsl(0 0% 100% / 12%);
+    --ring: hsl(214 80% 52%);
+  }
+}
+
 @theme inline {
   --font-display: 'Cinzel Variable', 'Cinzel', serif;
   --font-heading: 'Cormorant Garamond Variable', 'Cormorant Garamond', serif;

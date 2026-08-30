@@ -54,7 +54,7 @@ export function Header() {
 
         <HeaderNavLinks />
 
-        <SearchBar className="hidden md:block" />
+        <SearchBar className="hidden lg:block" />
 
         <div className="flex items-center gap-1">
           <LanguageSwitcher />
@@ -83,7 +83,7 @@ export function Header() {
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
               render={
-                <Button variant="ghost" size="icon" className="md:hidden" aria-label={t("header.openMenu")} />
+                <Button variant="ghost" size="icon" className="lg:hidden" aria-label={t("header.openMenu")} />
               }
             >
               <Menu className="size-5" />
