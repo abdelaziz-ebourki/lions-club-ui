@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/shared/empty-state";
 import { SearchX } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { SearchResultGroup } from "@/types";
 import { SearchResultItem } from "./search-result-item";
 
@@ -14,14 +15,15 @@ export interface SearchResultsProps {
 }
 
 export function SearchResults({ groups, totalCount, isSearching, error, onRetry }: SearchResultsProps) {
+  const { t } = useTranslation("search");
   if (error) {
     return (
       <div className="py-16 text-center">
-        <h2 className="font-heading text-h4 text-destructive">Something went wrong</h2>
+        <h2 className="font-heading text-h4 text-destructive">{t("error")}</h2>
         <p className="mt-2 text-muted-foreground">{error}</p>
         {onRetry && (
           <Button onClick={onRetry} className="mt-6">
-            Try Again
+            {t("tryAgain")}
           </Button>
         )}
       </div>
@@ -30,7 +32,7 @@ export function SearchResults({ groups, totalCount, isSearching, error, onRetry 
 
   if (isSearching) {
     return (
-      <div className="flex flex-col gap-4" role="status" aria-label="Loading search results">
+      <div className="flex flex-col gap-4" role="status" aria-label={t("loading")}>
         {Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="flex flex-col gap-2 rounded-lg border p-4">
             <Skeleton className="h-6 w-48" />
@@ -46,8 +48,8 @@ export function SearchResults({ groups, totalCount, isSearching, error, onRetry 
     return (
       <EmptyState
         icon={SearchX}
-        title="No results found"
-        description="Try different keywords or browse the site manually."
+        title={t("noResults")}
+        description={t("noResultsDesc")}
       />
     );
   }
@@ -55,7 +57,7 @@ export function SearchResults({ groups, totalCount, isSearching, error, onRetry 
   return (
     <div className="flex flex-col gap-8">
       <p className="font-body text-sm text-muted-foreground">
-        Found {totalCount} result{totalCount !== 1 ? "s" : ""}
+        {t("found", { count: totalCount })}
       </p>
       {groups.map((group) => (
         <section key={group.entityType}>

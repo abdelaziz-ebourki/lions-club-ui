@@ -11,8 +11,11 @@ import { Separator } from "@/components/ui/separator";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { ArrowLeft, Clock, User } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { formatDate } from "@/lib/format";
 
 export function NewsDetailPage() {
+  const { t, i18n } = useTranslation(["news", "common"]);
   const { slug } = useParams<{ slug: string }>();
 
   const { data: article, isLoading, isError, error, refetch } = useQuery<NewsArticle>({
@@ -26,7 +29,7 @@ export function NewsDetailPage() {
     return (
       <>
         <SEO {...seoConfig.news} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News", href: "/news" }, { label: "Loading..." }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.news"), href: "/news" }, { label: t("news:loading") }]} />
         <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
           <Skeleton className="h-8 w-64" />
           <Skeleton className="mt-4 h-4 w-96" />
@@ -42,12 +45,12 @@ export function NewsDetailPage() {
     return (
       <>
         <SEO {...seoConfig.news} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News", href: "/news" }, { label: "Not Found" }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.news"), href: "/news" }, { label: t("news:notFoundBreadcrumb") }]} />
         <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
-          <h1 className="font-heading text-h3">Article not found</h1>
-          <p className="mt-2 text-muted-foreground">The article you're looking for doesn't exist or has been removed.</p>
+          <h1 className="font-heading text-h3">{t("news:notFound")}</h1>
+          <p className="mt-2 text-muted-foreground">{t("news:notFoundDesc")}</p>
           <Link to="/news" className="mt-6 inline-block">
-            <Button>Back to News</Button>
+            <Button>{t("news:backToNews")}</Button>
           </Link>
         </div>
       </>
@@ -58,12 +61,12 @@ export function NewsDetailPage() {
     return (
       <>
         <SEO {...seoConfig.news} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News", href: "/news" }, { label: "Error" }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.news"), href: "/news" }, { label: t("news:errorBreadcrumb") }]} />
         <ErrorState
-          heading="Failed to load article"
-          message="Please check your connection and try again."
+          heading={t("news:failedToLoad")}
+          message={t("news:checkConnection")}
           onRetry={refetch}
-          retryLabel="Try Again"
+          retryLabel={t("news:tryAgain")}
         />
       </>
     );
@@ -73,12 +76,12 @@ export function NewsDetailPage() {
     return (
       <>
         <SEO {...seoConfig.news} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "News", href: "/news" }, { label: "Not Found" }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.news"), href: "/news" }, { label: t("news:notFoundBreadcrumb") }]} />
         <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
-          <h1 className="font-heading text-h3">Article not found</h1>
-          <p className="mt-2 text-muted-foreground">The article you're looking for doesn't exist or has been removed.</p>
+          <h1 className="font-heading text-h3">{t("news:notFound")}</h1>
+          <p className="mt-2 text-muted-foreground">{t("news:notFoundDesc")}</p>
           <Link to="/news" className="mt-6 inline-block">
-            <Button>Back to News</Button>
+            <Button>{t("news:backToNews")}</Button>
           </Link>
         </div>
       </>
@@ -86,7 +89,7 @@ export function NewsDetailPage() {
   }
 
   const publishedDate = article.publishedAt
-    ? new Date(article.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
+    ? formatDate(article.publishedAt, i18n.language)
     : "";
 
   return (
@@ -94,15 +97,15 @@ export function NewsDetailPage() {
       <SEO {...getNewsSeo(article)} />
 
       <Breadcrumbs trail={[
-        { label: "Home", href: "/" },
-        { label: "News", href: "/news" },
+        { label: t("breadcrumbs.home"), href: "/" },
+        { label: t("nav.news"), href: "/news" },
         { label: article.title },
       ]} />
 
       <article className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
         <Link to="/news">
           <Button variant="ghost" className="mb-8">
-            <ArrowLeft data-icon="inline-start" /> All News
+            <ArrowLeft data-icon="inline-start" /> {t("news:allNews")}
           </Button>
         </Link>
 
@@ -129,7 +132,7 @@ export function NewsDetailPage() {
         <div className="mt-4 flex flex-wrap items-center gap-4 text-body-sm text-muted-foreground">
           <span className="inline-flex items-center gap-1">
             <User className="size-3.5" aria-hidden="true" />
-            {article.authorName}
+            {article.authorName || t("news:unknownAuthor")}
           </span>
           <span className="inline-flex items-center gap-1">
             <Clock className="size-3.5" aria-hidden="true" />

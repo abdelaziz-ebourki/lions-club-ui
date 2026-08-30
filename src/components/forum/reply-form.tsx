@@ -5,6 +5,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 
 interface ReplyFormProps {
   onSubmit: (data: { content: string; parentReplyId?: string }) => Promise<void>;
@@ -23,10 +24,11 @@ function CharacterCounter({ control, maxLength }: { control: Control<{ content: 
 }
 
 export function ReplyForm({ onSubmit, parentReplyId, quotedAuthor, maxLength = 5000 }: ReplyFormProps) {
+  const { t } = useTranslation('forum');
   const form = useForm<{ content: string }>({
     mode: 'onChange',
     resolver: zodResolver(z.object({
-      content: z.string().min(5, 'at least 5 characters').max(maxLength, `Reply cannot exceed ${maxLength} characters`),
+      content: z.string().min(5, t("replyValidationMin")).max(maxLength, t("replyValidationMax", { max: maxLength })),
     })),
     defaultValues: { content: '' },
   });
@@ -39,28 +41,28 @@ export function ReplyForm({ onSubmit, parentReplyId, quotedAuthor, maxLength = 5
       });
       form.reset({ content: '' });
     } catch {
-      toast.error('Failed to post reply. Please try again.');
+      toast.error(t("failedToPostReply"));
     }
   });
 
   return (
     <form data-testid="reply-form" onSubmit={handleSubmit} className="space-y-4">
       <div className="flex items-center justify-between mb-2">
-        <h3 className="font-heading text-h4">Reply to thread</h3>
+        <h3 className="font-heading text-h4">{t("replyToThread")}</h3>
         {quotedAuthor && (
           <span className="text-body-sm text-muted-foreground">
-            Replying to @{quotedAuthor}
+            {t("replyingTo", { author: quotedAuthor })}
           </span>
         )}
       </div>
 
       <div className="flex flex-col gap-2">
         <label htmlFor="reply-content" className="sr-only">
-          Reply content
+          {t("replyContentLabel")}
         </label>
         <Textarea
           id="reply-content"
-          placeholder="Write a reply..."
+          placeholder={t("writeReplyPlaceholder")}
           rows={3}
           className="min-h-[100px]"
           maxLength={maxLength}
@@ -73,11 +75,11 @@ export function ReplyForm({ onSubmit, parentReplyId, quotedAuthor, maxLength = 5
           <Button
             type="submit"
             disabled={form.formState.isSubmitting}
-            className="ml-auto"
+            className="ms-auto"
           >
             {form.formState.isSubmitting ? (
-              <><Spinner className="mr-2" /> Posting...</>
-            ) : 'Post Reply'}
+              <><Spinner className="me-2" /> {t("posting")}</>
+            ) : t("postReply")}
           </Button>
         </div>
       </div>

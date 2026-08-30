@@ -7,12 +7,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { TableCell, TableRow, TableHead } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Pencil, Users } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { EmptyState } from "@/components/shared/empty-state";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { AdminPageHeader } from "@/components/shared/AdminPageHeader";
 import { AdminTable } from "@/components/shared/AdminTable";
 
 export function AdminMembersPage() {
+  const { t } = useTranslation("admin");
   const { data: members, isLoading } = useQuery<Member[]>({
     queryKey: ["members", "admin"],
     queryFn: () => api.get("/members"),
@@ -20,18 +22,18 @@ export function AdminMembersPage() {
 
   const headers = (
     <>
-      <TableHead className="font-display text-overline text-xs">Name</TableHead>
-      <TableHead className="font-display text-overline text-xs">Role</TableHead>
-      <TableHead className="font-display text-overline text-xs text-right">Actions</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("members.headers.name")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("members.headers.role")}</TableHead>
+      <TableHead className="font-display text-overline text-xs text-right">{t("members.headers.actions")}</TableHead>
     </>
   );
 
   if (isLoading) {
     return (
       <div>
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Members" }]} />
-        <AdminPageHeader overline="Members" heading="Manage Members" />
-        <AdminTable headers={headers} caption="Members table" loading skeletonColumns={3} />
+        <Breadcrumbs trail={[{ label: t("members.breadcrumbs.home"), href: "/" }, { label: t("members.breadcrumbs.admin"), href: "/admin" }, { label: t("members.breadcrumbs.members") }]} />
+        <AdminPageHeader overline={t("members.overline")} heading={t("members.heading")} />
+        <AdminTable headers={headers} caption={t("members.caption")} loading skeletonColumns={3} />
       </div>
     );
   }
@@ -39,15 +41,15 @@ export function AdminMembersPage() {
   if (members?.length === 0) {
     return (
       <div>
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Members" }]} />
-        <AdminPageHeader overline="Members" heading="Manage Members" action={{ to: "/admin/members/new", label: "Add Member" }} />
+        <Breadcrumbs trail={[{ label: t("members.breadcrumbs.home"), href: "/" }, { label: t("members.breadcrumbs.admin"), href: "/admin" }, { label: t("members.breadcrumbs.members") }]} />
+        <AdminPageHeader overline={t("members.overline")} heading={t("members.heading")} action={{ to: "/admin/members/new", label: t("members.addMember") }} />
         <EmptyState
           icon={Users}
-          title="No members yet"
-          description="Add your first club member."
+          title={t("members.empty.title")}
+          description={t("members.empty.description")}
           action={
             <Link to="/admin/members/new">
-              <Button>Add your first member</Button>
+              <Button>{t("members.empty.action")}</Button>
             </Link>
           }
         />
@@ -57,10 +59,10 @@ export function AdminMembersPage() {
 
   return (
     <div>
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Members" }]} />
-      <AdminPageHeader overline="Members" heading="Manage Members" action={{ to: "/admin/members/new", label: "Add Member" }} />
+      <Breadcrumbs trail={[{ label: t("members.breadcrumbs.home"), href: "/" }, { label: t("members.breadcrumbs.admin"), href: "/admin" }, { label: t("members.breadcrumbs.members") }]} />
+      <AdminPageHeader overline={t("members.overline")} heading={t("members.heading")} action={{ to: "/admin/members/new", label: t("members.addMember") }} />
       <AdminTable
-        headers={headers} caption="Members table"
+        headers={headers} caption={t("members.caption")}
         mobileView={members?.map((member) => (
           <Card key={member.id} className="mb-3">
             <CardContent className="flex items-center justify-between py-4">

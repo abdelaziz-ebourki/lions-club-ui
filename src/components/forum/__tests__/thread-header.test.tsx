@@ -32,8 +32,8 @@ describe('ThreadHeader', () => {
 
   test('shows formatted createdAt date', () => {
     render(<ThreadHeader thread={mockThread} isAdmin={false} />);
-    // Date should be formatted (e.g., "Jan 15, 2024")
-    expect(screen.getByText(/Jan 15, 2024/i)).toBeInTheDocument();
+    // Date should be formatted via formatDate (e.g., "January 15, 2024")
+    expect(screen.getByText(/January 15, 2024/i)).toBeInTheDocument();
   });
 
   test('composes ThreadStatus badges', () => {

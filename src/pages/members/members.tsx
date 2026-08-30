@@ -9,19 +9,22 @@ import { EmptyState } from "@/components/shared/empty-state";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { MemberSkeleton } from "@/components/shared/MemberSkeleton";
 import { useMembersList } from "@/hooks/useMembersList";
+import { useTranslation } from "react-i18next";
 
 export function MembersPage() {
+  const { t } = useTranslation(["members", "common"]);
+
   const { data: members, isLoading, isError, refetch } = useMembersList();
 
   if (isLoading) {
     return (
       <>
         <SEO {...seoConfig.members} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members" }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.members") }]} />
         <PageHero
-          overline="Community"
-          heading="Our Members"
-          description="Meet the dedicated members who drive our community service initiatives in Casablanca."
+          overline={t("members:overline")}
+          heading={t("members:heading")}
+          description={t("members:description")}
         />
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <MemberSkeleton />
@@ -34,17 +37,18 @@ export function MembersPage() {
     return (
       <>
         <SEO {...seoConfig.members} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members" }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.members") }]} />
         <PageHero
-          overline="Community"
-          heading="Our Members"
-          description="Meet the dedicated members who drive our community service initiatives in Casablanca."
+          overline={t("members:overline")}
+          heading={t("members:heading")}
+          description={t("members:description")}
         />
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <ErrorState
-            heading="Something went wrong"
-            message="Failed to load members."
+            heading={t("members:somethingWentWrong")}
+            message={t("members:failed")}
             onRetry={() => refetch()}
+            retryLabel={t("retry")}
           />
         </section>
       </>
@@ -55,17 +59,17 @@ export function MembersPage() {
     return (
       <>
         <SEO {...seoConfig.members} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members" }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.members") }]} />
         <PageHero
-          overline="Community"
-          heading="Our Members"
-          description="Meet the dedicated members who drive our community service initiatives in Casablanca."
+          overline={t("members:overline")}
+          heading={t("members:heading")}
+          description={t("members:description")}
         />
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <EmptyState
             icon={Users}
-            title="No members yet"
-            description="No members have been added yet. Check back soon to meet our community."
+            title={t("members:noMembers")}
+            description={t("members:noMembersDesc")}
           />
         </section>
       </>
@@ -75,11 +79,11 @@ export function MembersPage() {
   return (
     <>
       <SEO {...seoConfig.members} />
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members" }]} />
+      <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.members") }]} />
       <PageHero
-        overline="Community"
-        heading="Our Members"
-        description="Meet the dedicated members who drive our community service initiatives in Casablanca."
+        overline={t("members:overline")}
+        heading={t("members:heading")}
+        description={t("members:description")}
       />
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -87,7 +91,7 @@ export function MembersPage() {
             <Link
               key={member.id}
               to={`/members/${member.id}`}
-              aria-label={`View profile of ${member.name}`}
+              aria-label={t("members:viewProfile", { name: member.name })}
               className="group"
             >
               <Card className="text-center transition-all hover:shadow-md">

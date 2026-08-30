@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { MessageSquare } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { ForumThread } from "@/types";
 
 interface ThreadListItemProps {
@@ -9,6 +10,7 @@ interface ThreadListItemProps {
 }
 
 export function ThreadListItem({ thread, categoryId }: ThreadListItemProps) {
+  const { t } = useTranslation("forum");
   return (
     <Link to={`/forum/${categoryId}/${thread.id}`}>
       <Card className="transition-all hover:shadow-md">
@@ -21,7 +23,7 @@ export function ThreadListItem({ thread, categoryId }: ThreadListItemProps) {
               {thread.title}
             </h3>
             <p className="text-body-sm text-muted-foreground mt-1">
-              Started by {thread.author} &middot; {thread.replyCount} replies
+              {t("startedBy", { author: thread.author, count: thread.replyCount })}
             </p>
           </div>
           <div className="text-right shrink-0">

@@ -1,0 +1,227 @@
+{
+  "site": {
+    "name": "نادي ليونز FSBM",
+    "tagline": "نحن نخدم",
+    "description": "نادي ليونز FSBM هو مجتمع من المتطوعين المخلصين يخدم منطقة الدار البيضاء الكبرى منذ عام 2015.",
+    "email": "contact@lionsclubfsbm.org",
+    "phone": "+212 5XX-XXXXXX",
+    "address": "الدار البيضاء، المغرب"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "events": "الفعاليات",
+    "news": "الأخبار",
+    "forum": "المنتدى",
+    "contact": "اتصل بنا",
+    "gallery": "المعرض",
+    "members": "الأعضاء",
+    "search": "بحث",
+    "admin": "الإدارة"
+  },
+  "header": {
+    "signIn": "تسجيل الدخول",
+    "signOut": "تسجيل الخروج",
+    "profile": "الملف الشخصي",
+    "notifications": "الإشعارات",
+    "notificationsUnread": "الإشعارات ({{count}} غير مقروءة)",
+    "toggleTheme": "تبديل السمة",
+    "openMenu": "فتح القائمة",
+    "mobileNavigation": "التنقل المحمول",
+    "mainNavigation": "التنقل الرئيسي"
+  },
+  "hero": {
+    "overline": "نحن نخدم",
+    "title": "الدار البيضاء تخدم منذ 2015.\nحان دورك.",
+    "description": "نادي ليونز FSBM يوحد الجيران والطلاب والمهنيين لمعالجة احتياجات الدار البيضاء الأكثر إلحاحاً — صحة البصر وفرص الشباب ومرونة المجتمع.",
+    "cta": "اعثر على مشروعك الأول"
+  },
+  "home": {
+    "impact": {
+      "overline": "ما أنجزناه معاً",
+      "stats": [
+        {
+          "value": "12",
+          "label": "فحوصات نظر في الربع الأخير"
+        },
+        {
+          "value": "28",
+          "label": "شاب تم توجيهه هذا العام"
+        },
+        {
+          "value": "8",
+          "label": "عمليات تنظيف الأحياء في 2024"
+        },
+        {
+          "value": "4",
+          "label": "شركاء مجتمعيون نشطون حالياً"
+        }
+      ]
+    },
+    "upcoming": {
+      "overline": "القادم",
+      "heading": "مشاريع يمكنك الانضمام إليها",
+      "allProjects": "جميع المشاريع",
+      "noProjects": "لا توجد مشاريع مجدولة حالياً. عد قريباً.",
+      "suggest": "اقترح مشروعاً",
+      "join": "انضم إلى هذا المشروع"
+    },
+    "news": {
+      "overline": "آخر الأخبار",
+      "heading": "إعلانات النادي",
+      "allNews": "جميع الأخبار",
+      "readArticle": "اقرأ المقال"
+    },
+    "gallery": {
+      "overline": "وسائط",
+      "heading": "لحظات مهمة",
+      "description": "لمحة عن خدمتنا المجتمعية وفعالياتنا والأشخاص الذين يجعلون ذلك ممكناً.",
+      "viewGallery": "عرض المعرض",
+      "noPhotos": "لا توجد صور بعد. عد قريباً.",
+      "visitGallery": "زيارة المعرض"
+    },
+    "cta": {
+      "overline": "شارك",
+      "heading": "هل أنت مستعد للخدمة؟",
+      "description": "كل مشروع يبدأ بشخص واحد يحضر. سواء كان بإمكانك تقديم ساعتين أو سنتين، هناك مكان لك هنا.",
+      "volunteer": "ابدأ التطوع",
+      "learnMore": "اعرف المزيد"
+    }
+  },
+  "footer": {
+    "quickLinks": "روابط سريعة",
+    "contact": "اتصل بنا",
+    "followUs": "تابعنا",
+    "rights": "© {{year}} {{name}}. جميع الحقوق محفوظة.",
+    "facebook": "فيسبوك",
+    "instagram": "إنستغرام",
+    "linkedin": "لينكدإن"
+  },
+  "search": {
+    "placeholder": "ابحث عن الفعاليات والمنتدى والأعضاء...",
+    "label": "بحث في الموقع",
+    "title": "بحث",
+    "description": "اكتب استعلاماً في شريط البحث أعلاه للعثور على الفعاليات ومناقشات المنتدى والأعضاء.",
+    "resultsFor": "نتائج لـ \"{{query}}\"",
+    "noResults": "لم يتم العثور على نتائج",
+    "noResultsDesc": "جرب كلمات مفتاحية مختلفة أو تصفح الموقع يدوياً.",
+    "found": "تم العثور على {{count}} نتيجة",
+    "found_plural": "تم العثور على {{count}} نتائج",
+    "loading": "جاري تحميل النتائج",
+    "error": "حدث خطأ ما"
+  },
+  "breadcrumbs": {
+    "home": "الرئيسية"
+  },
+  "language": {
+    "select": "اختر اللغة",
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "notFound": {
+    "title": "الصفحة غير موجودة",
+    "description": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    "goHome": "العودة إلى الرئيسية",
+    "error": "خطأ 404"
+  },
+  "upload": {
+    "drop": "اسحب الصورة هنا أو انقر للتصفح",
+    "hint": "PNG، JPG، WebP حتى 5 ميغابايت",
+    "preview": "معاينة الصورة المحددة",
+    "remove": "إزالة الصورة"
+  },
+  "loading": "جاري التحميل",
+  "error": "حدث خطأ ما",
+  "retry": "حاول مرة أخرى",
+  "events:overline": "المشاريع",
+  "events:heading": "مشاريع يمكنك الانضمام إليها",
+  "events:description": "تصفح مشاريعنا القادمة أو شاهد ما أنجزناه معاً",
+  "events:all": "الكل",
+  "events:upcoming": "القادمة",
+  "events:past": "السابقة",
+  "events:noMatch": "لا توجد مشاريع تطابق هذا الفلتر.",
+  "events:suggest": "اقترح مشروعاً",
+  "events:projectDetails": "تفاصيل المشروع",
+  "events:notFound": "المشروع غير موجود",
+  "events:browseProjects": "تصفح المشاريع",
+  "events:allProjects": "جميع المشاريع",
+  "events:attending": "{{count}} مشارك",
+  "events:joinEvent": "انضم إلى الفعالية",
+  "events:joining": "جاري الانضمام...",
+  "events:going": "مشارك",
+  "events:loading": "جاري التحميل...",
+  "events:unknown": "غير معروف",
+  "news:overline": "التحديثات",
+  "news:heading": "آخر الأخبار",
+  "news:description": "ابق على اطلاع بإعلانات النادي وملخصات الفعاليات والبيانات الصحفية",
+  "news:errorHeading": "حدث خطأ ما",
+  "news:errorMessage": "فشل تحميل المقالات الإخبارية.",
+  "news:emptyTitle": "لا توجد مقالات بعد",
+  "news:emptyDescription": "عد قريباً للاطلاع على تحديثات وإعلانات النادي.",
+  "news:readArticle": "اقرأ المقال",
+  "news:previous": "السابق",
+  "news:next": "التالي",
+  "news:page": "صفحة {{page}} من {{total}}",
+  "news:notFound": "المقال غير موجود",
+  "news:notFoundDesc": "المقال الذي تبحث عنه غير موجود أو تم حذفه.",
+  "news:backToNews": "العودة إلى الأخبار",
+  "news:failedToLoad": "فشل تحميل المقال",
+  "news:checkConnection": "يرجى التحقق من اتصالك والمحاولة مرة أخرى.",
+  "news:tryAgain": "حاول مرة أخرى",
+  "news:loading": "جاري التحميل...",
+  "news:allNews": "جميع الأخبار",
+  "news:notFoundBreadcrumb": "غير موجود",
+  "news:errorBreadcrumb": "خطأ",
+  "news:unknownAuthor": "مؤلف غير معروف",
+  "gallery:overline": "الوسائط",
+  "gallery:heading": "المعرض",
+  "gallery:description": "استكشف صور فعالياتنا وأنشطتنا المجتمعية",
+  "gallery:filterByCategory": "تصفية حسب الفئة",
+  "gallery:filterByEvent": "تصفية حسب الفعالية",
+  "gallery:allCategories": "جميع الفئات",
+  "gallery:allEvents": "جميع الفعاليات",
+  "gallery:noPhotos": "لا توجد صور بعد",
+  "gallery:noPhotosDescription": "عد قريباً لمشاهدة صور من أحدث أنشطتنا.",
+  "gallery:noMatch": "لا توجد صور تطابق عوامل التصفية",
+  "gallery:noMatchDescription": "حاول تعديل عوامل التصفية أو مسحها لرؤية المزيد من الصور.",
+  "gallery:clearFilters": "مسح عوامل التصفية",
+  "gallery:photoNotFound": "الصورة غير موجودة",
+  "gallery:photoNotFoundDesc": "الصورة التي تبحث عنها غير موجودة أو تمت إزالتها.",
+  "gallery:backToGallery": "العودة إلى المعرض",
+  "gallery:failedToLoad": "فشل تحميل الصورة",
+  "gallery:failedToLoadGallery": "فشل تحميل المعرض.",
+  "gallery:failedToLoadPhotoDesc": "لم نتمكن من تحميل هذه الصورة. يرجى المحاولة مرة أخرى.",
+  "gallery:somethingWentWrong": "حدث خطأ ما",
+  "gallery:previous": "السابق",
+  "gallery:next": "التالي",
+  "gallery:page": "صفحة {{page}} من {{total}}",
+  "gallery:loading": "جاري التحميل",
+  "gallery:notFound": "غير موجود",
+  "gallery:error": "خطأ",
+  "gallery:uploaded": "تم الرفع {{date}}",
+  "gallery:photoDetails": "تفاصيل الصورة: {{title}}",
+  "members:overline": "المجتمع",
+  "members:heading": "أعضاؤنا",
+  "members:description": "تعرف على الأعضاء المخلصين الذين يقودون مبادراتنا لخدمة المجتمع في الدار البيضاء.",
+  "members:somethingWentWrong": "حدث خطأ ما",
+  "members:failed": "فشل تحميل الأعضاء.",
+  "members:failedToLoad": "فشل تحميل العضو",
+  "members:tryAgain": "يرجى المحاولة مرة أخرى.",
+  "members:noMembers": "لا يوجد أعضاء بعد",
+  "members:noMembersDesc": "لم تتم إضافة أي أعضاء بعد. عد قريباً للتعرف على مجتمعنا.",
+  "members:memberNotFound": "العضو غير موجود",
+  "members:memberNotFoundDesc": "العضو الذي تبحث عنه غير موجود.",
+  "members:backToMembers": "العودة إلى الأعضاء",
+  "members:joined": "انضم {{date}}",
+  "members:contact": "اتصل",
+  "members:loading": "جاري التحميل...",
+  "members:notFound": "غير موجود",
+  "members:error": "خطأ",
+  "members:viewProfile": "عرض ملف {{name}} الشخصي",
+  "common:breadcrumbs.home": "الرئيسية",
+  "common:breadcrumbs.events": "الفعاليات",
+  "common:breadcrumbs.news": "الأخبار",
+  "common:breadcrumbs.gallery": "المعرض",
+  "common:breadcrumbs.members": "الأعضاء"
+}

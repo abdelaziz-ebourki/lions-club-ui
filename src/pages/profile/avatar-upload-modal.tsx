@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { FileUpload } from "@/components/ui/file-upload";
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,7 @@ interface AvatarUploadModalProps {
 }
 
 export function AvatarUploadModal({ open, onOpenChange }: AvatarUploadModalProps) {
+  const { t } = useTranslation("profile");
   const [file, setFile] = useState<File | null>(null);
   const queryClient = useQueryClient();
 
@@ -25,12 +27,12 @@ export function AvatarUploadModal({ open, onOpenChange }: AvatarUploadModalProps
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-      toast.success("Avatar updated successfully");
+      toast.success(t("avatar.success"));
       setFile(null);
       onOpenChange(false);
     },
     onError: () => {
-      toast.error("Failed to upload avatar");
+      toast.error(t("avatar.error"));
     },
   });
 
@@ -43,9 +45,9 @@ export function AvatarUploadModal({ open, onOpenChange }: AvatarUploadModalProps
     <Dialog open={open} onOpenChange={(v) => { if (!mutation.isPending) onOpenChange(v); }}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Change Avatar</DialogTitle>
+          <DialogTitle>{t("avatar.title")}</DialogTitle>
           <DialogDescription>
-            Select a new profile picture. PNG, JPEG, or WebP up to 5MB.
+            {t("avatar.description")}
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -58,10 +60,10 @@ export function AvatarUploadModal({ open, onOpenChange }: AvatarUploadModalProps
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={mutation.isPending}>
-            Cancel
+            {t("avatar.cancel")}
           </Button>
           <Button onClick={handleConfirm} disabled={!file || mutation.isPending}>
-            {mutation.isPending ? <><Spinner /> Uploading...</> : "Confirm"}
+            {mutation.isPending ? <><Spinner /> {t("avatar.uploading")}</> : t("avatar.confirm")}
           </Button>
         </DialogFooter>
       </DialogContent>

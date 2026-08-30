@@ -14,9 +14,12 @@ import { HomeHero } from "@/components/shared/HomeHero";
 import { HomeImpact } from "@/components/shared/HomeImpact";
 import { HomeCta } from "@/components/shared/HomeCta";
 import { SEO } from "@/components/shared/SEO";
+import { useTranslation } from "react-i18next";
+import { formatDate } from "@/lib/format";
 import { seoConfig } from "@/config/seo";
 
 export function HomePage() {
+  const { t, i18n } = useTranslation();
   const { data: featuredNews } = useFeaturedNews();
   const { data: events, isLoading } = useQuery<Event[]>({
     queryKey: ["events", "upcoming"],
@@ -35,15 +38,15 @@ export function HomePage() {
         <div className="flex items-end justify-between">
           <div>
             <p className="font-display text-overline text-accent">
-              Upcoming
+              {t("home.upcoming.overline")}
             </p>
             <h2 className="font-heading text-h2 mt-1 text-foreground">
-              Projects You Can Join
+              {t("home.upcoming.heading")}
             </h2>
           </div>
           <Link to="/events" className="hidden sm:block">
             <Button variant="ghost" size="sm">
-              All Projects <ArrowRight data-icon="inline-end" />
+              {t("home.upcoming.allProjects")} <ArrowRight data-icon="inline-end" />
             </Button>
           </Link>
         </div>
@@ -85,7 +88,7 @@ export function HomePage() {
                     to={`/events/${event.id}`}
                     className="inline-flex items-center text-sm font-medium text-accent hover:underline"
                   >
-                    Join This Project <ArrowRight className="ml-1 size-3" />
+                    {t("home.upcoming.join")} <ArrowRight className="ms-1 size-3" />
                   </Link>
                 </CardContent>
               </Card>
@@ -95,18 +98,18 @@ export function HomePage() {
 
         <Link to="/events" className="mt-6 text-center sm:hidden">
           <Button variant="ghost">
-            All Projects <ArrowRight data-icon="inline-end" />
+            {t("home.upcoming.allProjects")} <ArrowRight data-icon="inline-end" />
           </Button>
         </Link>
 
         {events?.length === 0 && (
           <div className="py-16 text-center">
             <p className="font-body text-muted-foreground">
-              No projects scheduled yet. Check back soon.
+              {t("home.upcoming.noProjects")}
             </p>
             <Link to="/contact">
               <Button variant="outline" className="mt-4">
-                Suggest a Project
+                {t("home.upcoming.suggest")}
               </Button>
             </Link>
           </div>
@@ -118,15 +121,15 @@ export function HomePage() {
           <div className="flex items-end justify-between">
             <div>
               <p className="font-display text-overline text-accent">
-                Latest News
+                {t("home.news.overline")}
               </p>
               <h2 className="font-heading text-h2 mt-1 text-foreground">
-                Club Announcements
+                {t("home.news.heading")}
               </h2>
             </div>
             <Link to="/news" className="hidden sm:block">
               <Button variant="ghost" size="sm">
-                All News <ArrowRight data-icon="inline-end" />
+                {t("home.news.allNews")} <ArrowRight data-icon="inline-end" />
               </Button>
             </Link>
           </div>
@@ -157,13 +160,13 @@ export function HomePage() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-body-sm text-muted-foreground">
-                    {article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : ""}
+                    {article.publishedAt ? formatDate(article.publishedAt, i18n.language) : ""}
                   </div>
                   <Link
                     to={`/news/${article.slug}`}
                     className="mt-4 inline-flex items-center text-sm font-medium text-accent hover:underline"
                   >
-                    Read Article <ArrowRight className="ml-1 size-3" />
+                    {t("home.news.readArticle")} <ArrowRight className="ms-1 size-3" />
                   </Link>
                 </CardContent>
               </Card>
@@ -172,7 +175,7 @@ export function HomePage() {
 
           <Link to="/news" className="mt-6 text-center sm:hidden">
             <Button variant="ghost">
-              All News <ArrowRight data-icon="inline-end" />
+              {t("home.news.allNews")} <ArrowRight data-icon="inline-end" />
             </Button>
           </Link>
         </section>
@@ -181,17 +184,17 @@ export function HomePage() {
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8" aria-labelledby="home-gallery-heading">
         <div className="flex items-end justify-between">
           <div>
-            <p className="font-display text-overline text-accent">Media</p>
+            <p className="font-display text-overline text-accent">{t("home.gallery.overline")}</p>
             <h2 id="home-gallery-heading" className="font-heading text-h2 mt-1 text-foreground">
-              Moments That Matter
+              {t("home.gallery.heading")}
             </h2>
             <p className="mt-2 max-w-2xl text-body-sm text-muted-foreground">
-              A glimpse into our community service, events, and the people who make it happen.
+              {t("home.gallery.description")}
             </p>
           </div>
           <Link to="/gallery" className="hidden sm:block">
             <Button variant="ghost" size="sm">
-              View Gallery <ArrowRight data-icon="inline-end" />
+              {t("home.gallery.viewGallery")} <ArrowRight data-icon="inline-end" />
             </Button>
           </Link>
         </div>
@@ -235,10 +238,10 @@ export function HomePage() {
           ) : (
             <div className="col-span-full flex flex-col items-center justify-center py-12 text-center">
               <Images className="size-8 text-muted-foreground mb-3" aria-hidden="true" />
-              <p className="text-sm text-muted-foreground">No photos yet. Check back soon.</p>
+              <p className="text-sm text-muted-foreground">{t("home.gallery.noPhotos")}</p>
               <Link to="/gallery" className="mt-4">
                 <Button variant="outline" size="sm">
-                  Visit Gallery
+                  {t("home.gallery.visitGallery")}
                 </Button>
               </Link>
             </div>
@@ -247,7 +250,7 @@ export function HomePage() {
 
         <Link to="/gallery" className="mt-6 flex justify-center sm:hidden">
           <Button variant="ghost">
-            View Gallery <ArrowRight data-icon="inline-end" />
+            {t("home.gallery.viewGallery")} <ArrowRight data-icon="inline-end" />
           </Button>
         </Link>
       </section>

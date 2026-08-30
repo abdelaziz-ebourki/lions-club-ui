@@ -1,0 +1,227 @@
+{
+  "site": {
+    "name": "Lions Club FSBM",
+    "tagline": "Nous Servons",
+    "description": "Lions Club FSBM est une communauté de bénévoles dévoués au service de la région du Grand Casablanca depuis 2015.",
+    "email": "contact@lionsclubfsbm.org",
+    "phone": "+212 5XX-XXXXXX",
+    "address": "Casablanca, Maroc"
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "events": "Événements",
+    "news": "Actualités",
+    "forum": "Forum",
+    "contact": "Contact",
+    "gallery": "Galerie",
+    "members": "Membres",
+    "search": "Recherche",
+    "admin": "Admin"
+  },
+  "header": {
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter",
+    "profile": "Profil",
+    "notifications": "Notifications",
+    "notificationsUnread": "Notifications ({{count}} non lues)",
+    "toggleTheme": "Changer le thème",
+    "openMenu": "Ouvrir le menu",
+    "mobileNavigation": "Navigation mobile",
+    "mainNavigation": "Navigation principale"
+  },
+  "hero": {
+    "overline": "Nous Servons",
+    "title": "Casablanca sert depuis 2015.\nÀ vous de jouer.",
+    "description": "Lions Club FSBM unit voisins, étudiants et professionnels pour répondre aux besoins les plus pressants de Casablanca — santé visuelle, opportunités jeunesse et résilience communautaire.",
+    "cta": "Trouvez Votre Premier Projet"
+  },
+  "home": {
+    "impact": {
+      "overline": "Ce Que Nous Avons Accompli Ensemble",
+      "stats": [
+        {
+          "value": "12",
+          "label": "dépistages visuels le trimestre dernier"
+        },
+        {
+          "value": "28",
+          "label": "jeunes mentorés cette année"
+        },
+        {
+          "value": "8",
+          "label": "nettoyages de quartier en 2024"
+        },
+        {
+          "value": "4",
+          "label": "partenaires communautaires actifs"
+        }
+      ]
+    },
+    "upcoming": {
+      "overline": "À venir",
+      "heading": "Projets Auxquels Vous Pouvez Participer",
+      "allProjects": "Tous les Projets",
+      "noProjects": "Aucun projet prévu pour le moment. Revenez bientôt.",
+      "suggest": "Suggérer un Projet",
+      "join": "Rejoindre Ce Projet"
+    },
+    "news": {
+      "overline": "Dernières Actualités",
+      "heading": "Annonces du Club",
+      "allNews": "Toutes les Actualités",
+      "readArticle": "Lire l'Article"
+    },
+    "gallery": {
+      "overline": "Média",
+      "heading": "Moments Qui Comptent",
+      "description": "Un aperçu de notre service communautaire, événements et personnes qui le rendent possible.",
+      "viewGallery": "Voir la Galerie",
+      "noPhotos": "Pas encore de photos. Revenez bientôt.",
+      "visitGallery": "Visiter la Galerie"
+    },
+    "cta": {
+      "overline": "Impliquez-vous",
+      "heading": "Prêt à Servir ?",
+      "description": "Chaque projet commence avec une personne qui se présente. Que vous puissiez donner deux heures ou deux ans, il y a une place pour vous ici.",
+      "volunteer": "Commencer le Bénévolat",
+      "learnMore": "En Savoir Plus"
+    }
+  },
+  "footer": {
+    "quickLinks": "Liens Rapides",
+    "contact": "Contact",
+    "followUs": "Suivez-nous",
+    "rights": "© {{year}} {{name}}. Tous droits réservés.",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "linkedin": "LinkedIn"
+  },
+  "search": {
+    "placeholder": "Rechercher événements, forum, membres...",
+    "label": "Rechercher sur le site",
+    "title": "Recherche",
+    "description": "Tapez une requête dans la barre de recherche ci-dessus pour trouver événements, discussions et membres.",
+    "resultsFor": "Résultats pour \"{{query}}\"",
+    "noResults": "Aucun résultat trouvé",
+    "noResultsDesc": "Essayez d'autres mots-clés ou parcourez le site manuellement.",
+    "found": "{{count}} résultat trouvé",
+    "found_plural": "{{count}} résultats trouvés",
+    "loading": "Chargement des résultats",
+    "error": "Une erreur est survenue"
+  },
+  "breadcrumbs": {
+    "home": "Accueil"
+  },
+  "language": {
+    "select": "Choisir la langue",
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "notFound": {
+    "title": "Page Non Trouvée",
+    "description": "La page que vous cherchez n'existe pas ou a été déplacée.",
+    "goHome": "Retour à l'Accueil",
+    "error": "Erreur 404"
+  },
+  "upload": {
+    "drop": "Déposez l'image ici ou cliquez pour parcourir",
+    "hint": "PNG, JPG, WebP jusqu'à 5 Mo",
+    "preview": "Aperçu de l'image sélectionnée",
+    "remove": "Supprimer l'image"
+  },
+  "loading": "Chargement",
+  "error": "Une erreur est survenue",
+  "retry": "Réessayer",
+  "events:overline": "Projets",
+  "events:heading": "Projets Auxquels Vous Pouvez Participer",
+  "events:description": "Parcourez nos projets à venir ou découvrez ce que nous avons accompli ensemble",
+  "events:all": "Tous",
+  "events:upcoming": "À venir",
+  "events:past": "Passés",
+  "events:noMatch": "Aucun projet ne correspond à ce filtre.",
+  "events:suggest": "Suggérer un Projet",
+  "events:projectDetails": "Détails du Projet",
+  "events:notFound": "Projet introuvable",
+  "events:browseProjects": "Parcourir les Projets",
+  "events:allProjects": "Tous les Projets",
+  "events:attending": "{{count}} participant(s)",
+  "events:joinEvent": "Rejoindre l'Événement",
+  "events:joining": "Inscription...",
+  "events:going": "Inscrit",
+  "events:loading": "Chargement...",
+  "events:unknown": "Inconnu",
+  "news:overline": "Actualités",
+  "news:heading": "Dernières Actualités",
+  "news:description": "Restez informé des annonces du club, des récapitulatifs d'événements et des communiqués de presse",
+  "news:errorHeading": "Un problème est survenu",
+  "news:errorMessage": "Échec du chargement des articles.",
+  "news:emptyTitle": "Aucun article pour le moment",
+  "news:emptyDescription": "Revenez bientôt pour les actualités et annonces du club.",
+  "news:readArticle": "Lire l'article",
+  "news:previous": "Précédent",
+  "news:next": "Suivant",
+  "news:page": "Page {{page}} sur {{total}}",
+  "news:notFound": "Article introuvable",
+  "news:notFoundDesc": "L'article que vous recherchez n'existe pas ou a été supprimé.",
+  "news:backToNews": "Retour aux actualités",
+  "news:failedToLoad": "Échec du chargement de l'article",
+  "news:checkConnection": "Veuillez vérifier votre connexion et réessayer.",
+  "news:tryAgain": "Réessayer",
+  "news:loading": "Chargement...",
+  "news:allNews": "Toutes les actualités",
+  "news:notFoundBreadcrumb": "Introuvable",
+  "news:errorBreadcrumb": "Erreur",
+  "news:unknownAuthor": "Auteur inconnu",
+  "gallery:overline": "Média",
+  "gallery:heading": "Galerie",
+  "gallery:description": "Explorez les photos de nos événements et activités communautaires",
+  "gallery:filterByCategory": "Filtrer par catégorie",
+  "gallery:filterByEvent": "Filtrer par événement",
+  "gallery:allCategories": "Toutes les catégories",
+  "gallery:allEvents": "Tous les événements",
+  "gallery:noPhotos": "Aucune photo pour le moment",
+  "gallery:noPhotosDescription": "Revenez bientôt pour découvrir les photos de nos dernières activités.",
+  "gallery:noMatch": "Aucune photo ne correspond à vos filtres",
+  "gallery:noMatchDescription": "Essayez d'ajuster vos filtres ou de les effacer pour voir plus de photos.",
+  "gallery:clearFilters": "Effacer les filtres",
+  "gallery:photoNotFound": "Photo introuvable",
+  "gallery:photoNotFoundDesc": "La photo que vous recherchez n'existe pas ou a été supprimée.",
+  "gallery:backToGallery": "Retour à la galerie",
+  "gallery:failedToLoad": "Échec du chargement de la photo",
+  "gallery:failedToLoadGallery": "Échec du chargement de la galerie.",
+  "gallery:failedToLoadPhotoDesc": "Nous n'avons pas pu charger cette photo. Veuillez réessayer.",
+  "gallery:somethingWentWrong": "Un problème est survenu",
+  "gallery:previous": "Précédent",
+  "gallery:next": "Suivant",
+  "gallery:page": "Page {{page}} sur {{total}}",
+  "gallery:loading": "Chargement",
+  "gallery:notFound": "Introuvable",
+  "gallery:error": "Erreur",
+  "gallery:uploaded": "Téléversée le {{date}}",
+  "gallery:photoDetails": "Détails de la photo : {{title}}",
+  "members:overline": "Communauté",
+  "members:heading": "Nos Membres",
+  "members:description": "Rencontrez les membres dévoués qui portent nos initiatives de service communautaire à Casablanca.",
+  "members:somethingWentWrong": "Un problème est survenu",
+  "members:failed": "Échec du chargement des membres.",
+  "members:failedToLoad": "Échec du chargement du membre",
+  "members:tryAgain": "Veuillez réessayer.",
+  "members:noMembers": "Aucun membre pour le moment",
+  "members:noMembersDesc": "Aucun membre n'a encore été ajouté. Revenez bientôt pour rencontrer notre communauté.",
+  "members:memberNotFound": "Membre introuvable",
+  "members:memberNotFoundDesc": "Le membre que vous recherchez n'existe pas.",
+  "members:backToMembers": "Retour aux membres",
+  "members:joined": "Inscrit le {{date}}",
+  "members:contact": "Contact",
+  "members:loading": "Chargement...",
+  "members:notFound": "Introuvable",
+  "members:error": "Erreur",
+  "members:viewProfile": "Voir le profil de {{name}}",
+  "common:breadcrumbs.home": "Accueil",
+  "common:breadcrumbs.events": "Événements",
+  "common:breadcrumbs.news": "Actualités",
+  "common:breadcrumbs.gallery": "Galerie",
+  "common:breadcrumbs.members": "Membres"
+}

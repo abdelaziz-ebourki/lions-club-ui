@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 
 interface ErrorStateProps {
@@ -7,14 +8,16 @@ interface ErrorStateProps {
   retryLabel?: string;
 }
 
-export function ErrorState({ heading, message, onRetry, retryLabel = "Try Again" }: ErrorStateProps) {
+export function ErrorState({ heading, message, onRetry, retryLabel }: ErrorStateProps) {
+  const { t } = useTranslation("common");
+  const label = retryLabel ?? t("retry");
   return (
     <div className="py-16 text-center">
       <h2 className="font-heading text-h4 text-destructive">{heading}</h2>
       <p className="mt-2 text-muted-foreground">{message}</p>
       {onRetry && (
         <Button onClick={onRetry} className="mt-6">
-          {retryLabel}
+          {label}
         </Button>
       )}
     </div>

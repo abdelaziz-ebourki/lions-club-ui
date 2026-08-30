@@ -4,19 +4,21 @@ import { Button } from "@/components/ui/button";
 import { LayoutDashboard, Calendar, MessageSquare, Users, Mail, Newspaper, Images, LogOut } from "lucide-react";
 import { SEO } from "@/components/shared/SEO";
 import { seoConfig } from "@/config/seo";
+import { useTranslation } from "react-i18next";
 
-const adminNav = [
-  { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { label: "Events", href: "/admin/events", icon: Calendar },
-  { label: "News", href: "/admin/news", icon: Newspaper },
-  { label: "Gallery", href: "/admin/gallery", icon: Images },
-  { label: "Forum", href: "/admin/forum", icon: MessageSquare },
-  { label: "Members", href: "/admin/members", icon: Users },
-  { label: "Messages", href: "/admin/messages", icon: Mail },
-];
+const adminNavKeys = [
+  { key: "layout.nav.dashboard", href: "/admin", icon: LayoutDashboard },
+  { key: "layout.nav.events", href: "/admin/events", icon: Calendar },
+  { key: "layout.nav.news", href: "/admin/news", icon: Newspaper },
+  { key: "layout.nav.gallery", href: "/admin/gallery", icon: Images },
+  { key: "layout.nav.forum", href: "/admin/forum", icon: MessageSquare },
+  { key: "layout.nav.members", href: "/admin/members", icon: Users },
+  { key: "layout.nav.messages", href: "/admin/messages", icon: Mail },
+] as const;
 
 export function AdminLayout() {
   const location = useLocation();
+  const { t } = useTranslation("admin");
 
   return (
     <>
@@ -24,11 +26,11 @@ export function AdminLayout() {
       <div className="mx-auto flex min-h-[60vh] max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:px-8">
       <aside className="hidden w-64 shrink-0 flex-col gap-2 md:flex">
         <div className="mb-6">
-          <p className="font-display text-overline text-accent">Admin</p>
-          <h2 className="font-heading text-h4 mt-1 text-foreground">Manage</h2>
+          <p className="font-display text-overline text-accent">{t("layout.admin")}</p>
+          <h2 className="font-heading text-h4 mt-1 text-foreground">{t("layout.manage")}</h2>
         </div>
-        <nav aria-label="Admin navigation" className="flex flex-col gap-1">
-          {adminNav.map((item) => {
+        <nav aria-label={t("layout.adminNavigation")} className="flex flex-col gap-1">
+          {adminNavKeys.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.href;
             return (
@@ -44,7 +46,7 @@ export function AdminLayout() {
                 )}
               >
                 <Icon className="size-4" />
-                {item.label}
+                {t(item.key)}
               </Link>
             );
           })}
@@ -53,7 +55,7 @@ export function AdminLayout() {
           <Link to="/">
             <Button variant="ghost" size="sm" className="w-full justify-start gap-3">
               <LogOut className="size-4" />
-              Back to Site
+              {t("layout.backToSite")}
             </Button>
           </Link>
         </div>

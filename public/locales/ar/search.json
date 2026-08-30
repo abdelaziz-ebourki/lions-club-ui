@@ -1,0 +1,20 @@
+{
+  "placeholder": "ابحث عن الفعاليات والمنتدى والأعضاء...",
+  "label": "بحث في الموقع",
+  "title": "بحث",
+  "description": "اكتب استعلاماً في شريط البحث أعلاه للعثور على الفعاليات ومناقشات المنتدى والأعضاء.",
+  "resultsFor": "نتائج لـ \"{{query}}\"",
+  "noResults": "لم يتم العثور على نتائج",
+  "noResultsDesc": "جرب كلمات مفتاحية مختلفة أو تصفح الموقع يدوياً.",
+  "found": "تم العثور على {{count}} نتيجة",
+  "found_plural": "تم العثور على {{count}} نتائج",
+  "loading": "جاري تحميل النتائج",
+  "error": "حدث خطأ ما",
+  "tryAgain": "حاول مرة أخرى",
+  "breadcrumbsHome": "الرئيسية",
+  "breadcrumbsSearch": "بحث",
+  "entityEvent": "فعالية",
+  "entityForumThread": "موضوع المنتدى",
+  "entityMember": "عضو",
+  "entityContactMessage": "رسالة اتصال"
+}

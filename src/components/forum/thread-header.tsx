@@ -1,6 +1,7 @@
 import { ThreadStatus } from './thread-status';
 import type { ForumThread, ForumThreadStatus } from '@/types';
-import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
+import { formatDate } from '@/lib/format';
 
 interface ThreadHeaderProps {
   thread: ForumThread;
@@ -10,6 +11,7 @@ interface ThreadHeaderProps {
 }
 
 export function ThreadHeader({ thread, isAdmin = false, onStatusChange, isStatusLoading }: ThreadHeaderProps) {
+  const { t, i18n } = useTranslation('forum');
   return (
     <div className="mb-6">
       <h1 className="font-heading text-h1 text-foreground mb-2">
@@ -22,13 +24,13 @@ export function ThreadHeader({ thread, isAdmin = false, onStatusChange, isStatus
           </div>
           <span className="font-medium">{thread.author}</span>
         </div>
-        <span className="hidden sm:inline">{format(new Date(thread.createdAt), 'MMM d, yyyy')}</span>
+        <span className="hidden sm:inline">{formatDate(thread.createdAt, i18n.language)}</span>
         <ThreadStatus status={thread.status} isAdmin={isAdmin} onStatusChange={onStatusChange} isLoading={isStatusLoading} />
       </div>
       {thread.viewCount !== undefined && thread.replyCount !== undefined && (
         <div className="mt-4 flex gap-6 text-body-sm text-muted-foreground">
-          <span>{thread.viewCount} views</span>
-          <span>{thread.replyCount} replies</span>
+          <span>{t("viewsCount", { count: thread.viewCount })}</span>
+          <span>{t("repliesCount", { count: thread.replyCount })}</span>
         </div>
       )}
     </div>

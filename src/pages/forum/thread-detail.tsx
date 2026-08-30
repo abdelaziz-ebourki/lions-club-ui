@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { useAuth } from "@/contexts/auth";
+import { useTranslation } from "react-i18next";
 import type { ForumThread, ForumReply, ForumThreadStatus, ForumCategory } from "@/types";
 import { ThreadHeader } from "@/components/forum/thread-header";
 import { ReplyList } from "@/components/forum/reply-list";
@@ -16,13 +17,14 @@ import { SEO } from "@/components/shared/SEO";
 import { seoConfig, getThreadSeo } from "@/config/seo";
 
 function ThreadDetailLoading() {
+  const { t } = useTranslation("forum");
   return (
     <>
       <SEO {...seoConfig.forum} />
       <Breadcrumbs trail={[
-        { label: "Home", href: "/" },
-        { label: "Forum", href: "/forum" },
-        { label: "Loading..." },
+        { label: t("breadcrumbsHome"), href: "/" },
+        { label: t("breadcrumbsForum"), href: "/forum" },
+        { label: t("loading") },
       ]} />
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <Skeleton className="h-8 w-96" />
@@ -35,17 +37,18 @@ function ThreadDetailLoading() {
 }
 
 function ThreadDetailError({ trail, onRetry }: { trail: { label: string; href?: string }[]; onRetry: () => void }) {
+  const { t } = useTranslation("forum");
   return (
     <>
       <SEO {...seoConfig.forum} />
       <Breadcrumbs trail={trail} />
       <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
-        <h1 className="font-heading text-h3 text-destructive">Failed to load thread</h1>
+        <h1 className="font-heading text-h3 text-destructive">{t("failedToLoadThread")}</h1>
         <p className="mt-2 text-muted-foreground">
-          Something went wrong while loading this thread. Please try again.
+          {t("failedToLoadThreadDesc")}
         </p>
         <Button onClick={onRetry} className="mt-6">
-          Try Again
+          {t("tryAgain")}
         </Button>
       </div>
     </>
@@ -53,14 +56,15 @@ function ThreadDetailError({ trail, onRetry }: { trail: { label: string; href?: 
 }
 
 function ThreadDetailNotFound({ trail, categoryId }: { trail: { label: string; href?: string }[]; categoryId: string }) {
+  const { t } = useTranslation("forum");
   return (
     <>
       <SEO {...seoConfig.forum} />
       <Breadcrumbs trail={trail} />
       <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
-        <h1 className="font-heading text-h3">Thread not found</h1>
+        <h1 className="font-heading text-h3">{t("threadNotFound")}</h1>
         <Link to={`/forum/${categoryId}`} className="mt-4 inline-block">
-          <Button>Back to Threads</Button>
+          <Button>{t("backToThreadsBtn")}</Button>
         </Link>
       </div>
     </>
@@ -88,6 +92,7 @@ function ThreadDetailContent({
   handleReply: (parentReplyId: string, quotedAuthor: string) => void;
   handleSubmitReply: (body: { content: string; parentReplyId?: string }) => Promise<void>;
 }) {
+  const { t } = useTranslation("forum");
   return (
     <>
       <SEO {...getThreadSeo(data.thread)} />
@@ -95,7 +100,7 @@ function ThreadDetailContent({
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <Link to={`/forum/${categoryId}`}>
           <Button variant="ghost" className="mb-8">
-            <ArrowLeft data-icon="inline-start" /> Back to Threads
+            <ArrowLeft data-icon="inline-start" /> {t("backToThreads")}
           </Button>
         </Link>
 
@@ -109,8 +114,8 @@ function ThreadDetailContent({
         {data.replies.length === 0 ? (
           <EmptyState
             icon={MessageCircle}
-            title="No replies yet"
-            description="Be the first to reply to this discussion."
+            title={t("noReplies")}
+            description={t("beFirst")}
           />
         ) : (
           <ReplyList
@@ -149,6 +154,7 @@ function useThreadDetailQuery(categoryId?: string, threadId?: string) {
 }
 
 export function ThreadDetailPage() {
+  const { t } = useTranslation("forum");
   const { categoryId, threadId } = useParams<{ categoryId: string; threadId: string }>();
   const { isAuthenticated, isAdmin } = useAuth();
 
@@ -189,11 +195,12 @@ export function ThreadDetailPage() {
     await replyMutation.mutateAsync(body);
   };
 
+  const loadingLabel = t("loading");
   const trail = [
-    { label: "Home", href: "/" },
-    { label: "Forum", href: "/forum" },
+    { label: t("breadcrumbsHome"), href: "/" },
+    { label: t("breadcrumbsForum"), href: "/forum" },
     { label: categoryName, href: `/forum/${categoryId}` },
-    { label: threadTitle ?? "Loading..." },
+    { label: threadTitle ?? loadingLabel },
   ];
 
   if (isLoading) return <ThreadDetailLoading />;

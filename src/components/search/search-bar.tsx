@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { sanitizeQuery } from "@/lib/search";
+import { useTranslation } from "react-i18next";
 
 export interface SearchBarProps {
   className?: string;
 }
 
 export function SearchBar({ className }: SearchBarProps) {
+  const { t } = useTranslation("search");
   const [value, setValue] = useState("");
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -48,17 +50,17 @@ export function SearchBar({ className }: SearchBarProps) {
   return (
     <form onSubmit={handleSubmit} className={className} role="search">
       <div className="relative">
-        <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           ref={inputRef}
           type="search"
           role="searchbox"
-          placeholder="Search events, forum, members..."
+          placeholder={t("placeholder")}
           value={value}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          className="w-64 pl-9"
-          aria-label="Search site"
+          className="w-64 ps-9"
+          aria-label={t("label")}
         />
       </div>
     </form>

@@ -1,0 +1,16 @@
+{
+  "required": "Ce champ est obligatoire",
+  "invalidEmail": "Entrez une adresse e-mail valide",
+  "passwordMin": "Le mot de passe doit contenir au moins 8 caractères",
+  "passwordMismatch": "Les mots de passe ne correspondent pas",
+  "nameMin": "Le nom doit contenir au moins 2 caractères",
+  "titleMin": "Le titre doit contenir au moins 5 caractères",
+  "contentMin": "Le contenu doit contenir au moins 10 caractères",
+  "generic": "Une erreur est survenue. Veuillez réessayer.",
+  "notFound": "Introuvable",
+  "boundary": {
+    "heading": "Un problème est survenu",
+    "message": "Une erreur inattendue s'est produite",
+    "goHome": "Retour à l'Accueil"
+  }
+}

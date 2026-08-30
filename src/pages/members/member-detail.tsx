@@ -9,8 +9,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { useMember } from "@/hooks/useMembersList";
+import { useTranslation } from "react-i18next";
+import { formatDate } from "@/lib/format";
 
 export function MemberDetailPage() {
+  const { t, i18n } = useTranslation(["members", "common"]);
   const { id } = useParams<{ id: string }>();
   const { data: member, isLoading, isError, error, refetch } = useMember(id);
 
@@ -25,7 +28,7 @@ export function MemberDetailPage() {
     return (
       <>
         <SEO {...seoConfig.members} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members", href: "/members" }, { label: "Loading..." }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.members"), href: "/members" }, { label: t("members:loading") }]} />
         <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
           <Skeleton className="h-8 w-32" />
           <Skeleton className="mx-auto mt-8 h-80 w-80 rounded-full" />
@@ -41,12 +44,12 @@ export function MemberDetailPage() {
     return (
       <>
         <SEO {...seoConfig.members} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members", href: "/members" }, { label: "Not found" }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.members"), href: "/members" }, { label: t("members:notFound") }]} />
         <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
-          <h1 className="font-heading text-h3">Member not found</h1>
-          <p className="mt-2 text-muted-foreground">The member you&apos;re looking for doesn&apos;t exist.</p>
+          <h1 className="font-heading text-h3">{t("members:memberNotFound")}</h1>
+          <p className="mt-2 text-muted-foreground">{t("members:memberNotFoundDesc")}</p>
           <Link to="/members" className="mt-6 inline-block">
-            <Button>Back to Members</Button>
+            <Button>{t("members:backToMembers")}</Button>
           </Link>
         </div>
       </>
@@ -57,9 +60,9 @@ export function MemberDetailPage() {
     return (
       <>
         <SEO {...seoConfig.members} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members", href: "/members" }, { label: "Error" }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.members"), href: "/members" }, { label: t("members:error") }]} />
         <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-          <ErrorState heading="Failed to load member" message="Please try again." onRetry={() => refetch()} />
+          <ErrorState heading={t("members:failedToLoad")} message={t("members:tryAgain")} onRetry={() => refetch()} retryLabel={t("retry")} />
         </div>
       </>
     );
@@ -69,12 +72,12 @@ export function MemberDetailPage() {
     return (
       <>
         <SEO {...seoConfig.members} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Members", href: "/members" }, { label: "Not found" }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.members"), href: "/members" }, { label: t("members:notFound") }]} />
         <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
-          <h1 className="font-heading text-h3">Member not found</h1>
-          <p className="mt-2 text-muted-foreground">The member you&apos;re looking for doesn&apos;t exist.</p>
+          <h1 className="font-heading text-h3">{t("members:memberNotFound")}</h1>
+          <p className="mt-2 text-muted-foreground">{t("members:memberNotFoundDesc")}</p>
           <Link to="/members" className="mt-6 inline-block">
-            <Button>Back to Members</Button>
+            <Button>{t("members:backToMembers")}</Button>
           </Link>
         </div>
       </>
@@ -85,12 +88,12 @@ export function MemberDetailPage() {
     <>
       <SEO {...getMemberSeo(member)} />
       <Breadcrumbs
-        trail={[{ label: "Home", href: "/" }, { label: "Members", href: "/members" }, { label: member.name }]}
+        trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.members"), href: "/members" }, { label: member.name }]}
       />
       <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <Link to="/members">
           <Button variant="ghost" className="mb-8">
-            <ArrowLeft data-icon="inline-start" /> Back to Members
+            <ArrowLeft data-icon="inline-start" /> {t("members:backToMembers")}
           </Button>
         </Link>
 
@@ -118,7 +121,7 @@ export function MemberDetailPage() {
           </Badge>
           <p className="mt-2 flex items-center gap-2 text-body-sm text-muted-foreground">
             <Calendar className="size-4" aria-hidden="true" />
-            Joined {new Date(member.joinedAt).toLocaleDateString()}
+            {t("members:joined", { date: formatDate(member.joinedAt, i18n.language) })}
           </p>
         </div>
 
@@ -128,7 +131,7 @@ export function MemberDetailPage() {
 
         {(member.email || member.phone || member.socials) && (
           <div className="mt-8 space-y-4">
-            <h2 className="font-heading text-h4">Contact</h2>
+            <h2 className="font-heading text-h4">{t("members:contact")}</h2>
             <div className="flex flex-col gap-3">
               {member.email && (
                 <a

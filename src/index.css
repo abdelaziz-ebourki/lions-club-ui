@@ -4,8 +4,10 @@
 @import "@fontsource-variable/cinzel";
 @import "@fontsource-variable/cormorant-garamond";
 @import "@fontsource-variable/crimson-pro";
+@import "@fontsource-variable/noto-sans-arabic";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant rtl (&:where([dir="rtl"], [dir="rtl"] *));
 
 @media (prefers-color-scheme: dark) {
   :root {

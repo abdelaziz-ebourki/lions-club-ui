@@ -1,0 +1,227 @@
+{
+  "site": {
+    "name": "Lions Club FSBM",
+    "tagline": "We Serve",
+    "description": "Lions Club FSBM is a community of dedicated volunteers serving the greater Casablanca area since 2015.",
+    "email": "contact@lionsclubfsbm.org",
+    "phone": "+212 5XX-XXXXXX",
+    "address": "Casablanca, Morocco"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "events": "Events",
+    "news": "News",
+    "forum": "Forum",
+    "contact": "Contact",
+    "gallery": "Gallery",
+    "members": "Members",
+    "search": "Search",
+    "admin": "Admin"
+  },
+  "header": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "profile": "Profile",
+    "notifications": "Notifications",
+    "notificationsUnread": "Notifications ({{count}} unread)",
+    "toggleTheme": "Toggle theme",
+    "openMenu": "Open menu",
+    "mobileNavigation": "Mobile navigation",
+    "mainNavigation": "Main navigation"
+  },
+  "hero": {
+    "overline": "We Serve",
+    "title": "Casablanca has served since 2015.\nYour turn.",
+    "description": "Lions Club FSBM unites neighbors, students, and professionals to tackle Casablanca's most pressing needs — vision health, youth opportunity, and community resilience.",
+    "cta": "Find Your First Project"
+  },
+  "home": {
+    "impact": {
+      "overline": "What We've Done Together",
+      "stats": [
+        {
+          "value": "12",
+          "label": "vision screenings last quarter"
+        },
+        {
+          "value": "28",
+          "label": "youth mentored this year"
+        },
+        {
+          "value": "8",
+          "label": "neighborhood clean-ups in 2024"
+        },
+        {
+          "value": "4",
+          "label": "community partners active now"
+        }
+      ]
+    },
+    "upcoming": {
+      "overline": "Upcoming",
+      "heading": "Projects You Can Join",
+      "allProjects": "All Projects",
+      "noProjects": "No projects scheduled yet. Check back soon.",
+      "suggest": "Suggest a Project",
+      "join": "Join This Project"
+    },
+    "news": {
+      "overline": "Latest News",
+      "heading": "Club Announcements",
+      "allNews": "All News",
+      "readArticle": "Read Article"
+    },
+    "gallery": {
+      "overline": "Media",
+      "heading": "Moments That Matter",
+      "description": "A glimpse into our community service, events, and the people who make it happen.",
+      "viewGallery": "View Gallery",
+      "noPhotos": "No photos yet. Check back soon.",
+      "visitGallery": "Visit Gallery"
+    },
+    "cta": {
+      "overline": "Get Involved",
+      "heading": "Ready to Serve?",
+      "description": "Every project starts with one person showing up. Whether you can give two hours or two years, there's a place for you here.",
+      "volunteer": "Start Volunteering",
+      "learnMore": "Learn More"
+    }
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "followUs": "Follow Us",
+    "rights": "© {{year}} {{name}}. All rights reserved.",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "linkedin": "LinkedIn"
+  },
+  "search": {
+    "placeholder": "Search events, forum, members...",
+    "label": "Search site",
+    "title": "Search",
+    "description": "Type a query in the search bar above to find events, forum threads, members, and more.",
+    "resultsFor": "Results for \"{{query}}\"",
+    "noResults": "No results found",
+    "noResultsDesc": "Try different keywords or browse the site manually.",
+    "found": "Found {{count}} result",
+    "found_plural": "Found {{count}} results",
+    "loading": "Loading search results",
+    "error": "Something went wrong"
+  },
+  "breadcrumbs": {
+    "home": "Home"
+  },
+  "language": {
+    "select": "Select language",
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "goHome": "Go Home",
+    "error": "Error 404"
+  },
+  "upload": {
+    "drop": "Drop image here or click to browse",
+    "hint": "PNG, JPG, WebP up to 5MB",
+    "preview": "Selected image preview",
+    "remove": "Remove image"
+  },
+  "loading": "Loading",
+  "error": "Something went wrong",
+  "retry": "Try Again",
+  "events:overline": "Projects",
+  "events:heading": "Projects You Can Join",
+  "events:description": "Browse our upcoming projects or see what we've accomplished together",
+  "events:all": "All",
+  "events:upcoming": "Upcoming",
+  "events:past": "Past",
+  "events:noMatch": "No projects match this filter.",
+  "events:suggest": "Suggest a Project",
+  "events:projectDetails": "Project Details",
+  "events:notFound": "Project not found",
+  "events:browseProjects": "Browse Projects",
+  "events:allProjects": "All Projects",
+  "events:attending": "{{count}} attending",
+  "events:joinEvent": "Join Event",
+  "events:joining": "Joining...",
+  "events:going": "Going",
+  "events:loading": "Loading...",
+  "events:unknown": "Unknown",
+  "news:overline": "Updates",
+  "news:heading": "Latest News",
+  "news:description": "Stay informed with club announcements, event recaps, and press releases",
+  "news:errorHeading": "Something went wrong",
+  "news:errorMessage": "Failed to load news articles.",
+  "news:emptyTitle": "No news articles yet",
+  "news:emptyDescription": "Check back soon for club updates and announcements.",
+  "news:readArticle": "Read Article",
+  "news:previous": "Previous",
+  "news:next": "Next",
+  "news:page": "Page {{page}} of {{total}}",
+  "news:notFound": "Article not found",
+  "news:notFoundDesc": "The article you're looking for doesn't exist or has been removed.",
+  "news:backToNews": "Back to News",
+  "news:failedToLoad": "Failed to load article",
+  "news:checkConnection": "Please check your connection and try again.",
+  "news:tryAgain": "Try Again",
+  "news:loading": "Loading...",
+  "news:allNews": "All News",
+  "news:notFoundBreadcrumb": "Not Found",
+  "news:errorBreadcrumb": "Error",
+  "news:unknownAuthor": "Unknown Author",
+  "gallery:overline": "Media",
+  "gallery:heading": "Gallery",
+  "gallery:description": "Explore photos from our events and community activities",
+  "gallery:filterByCategory": "Filter by category",
+  "gallery:filterByEvent": "Filter by event",
+  "gallery:allCategories": "All categories",
+  "gallery:allEvents": "All events",
+  "gallery:noPhotos": "No photos yet",
+  "gallery:noPhotosDescription": "Check back soon for photos from our latest activities.",
+  "gallery:noMatch": "No photos match your filters",
+  "gallery:noMatchDescription": "Try adjusting your filters or clearing them to see more photos.",
+  "gallery:clearFilters": "Clear filters",
+  "gallery:photoNotFound": "Photo not found",
+  "gallery:photoNotFoundDesc": "The photo you're looking for doesn't exist or has been removed.",
+  "gallery:backToGallery": "Back to Gallery",
+  "gallery:failedToLoad": "Failed to load photo",
+  "gallery:failedToLoadGallery": "Failed to load the gallery.",
+  "gallery:failedToLoadPhotoDesc": "We couldn't load this photo. Please try again.",
+  "gallery:somethingWentWrong": "Something went wrong",
+  "gallery:previous": "Previous",
+  "gallery:next": "Next",
+  "gallery:page": "Page {{page}} of {{total}}",
+  "gallery:loading": "Loading",
+  "gallery:notFound": "Not found",
+  "gallery:error": "Error",
+  "gallery:uploaded": "Uploaded {{date}}",
+  "gallery:photoDetails": "Photo details: {{title}}",
+  "members:overline": "Community",
+  "members:heading": "Our Members",
+  "members:description": "Meet the dedicated members who drive our community service initiatives in Casablanca.",
+  "members:somethingWentWrong": "Something went wrong",
+  "members:failed": "Failed to load members.",
+  "members:failedToLoad": "Failed to load member",
+  "members:tryAgain": "Please try again.",
+  "members:noMembers": "No members yet",
+  "members:noMembersDesc": "No members have been added yet. Check back soon to meet our community.",
+  "members:memberNotFound": "Member not found",
+  "members:memberNotFoundDesc": "The member you're looking for doesn't exist.",
+  "members:backToMembers": "Back to Members",
+  "members:joined": "Joined {{date}}",
+  "members:contact": "Contact",
+  "members:loading": "Loading...",
+  "members:notFound": "Not found",
+  "members:error": "Error",
+  "members:viewProfile": "View profile of {{name}}",
+  "common:breadcrumbs.home": "Home",
+  "common:breadcrumbs.events": "Events",
+  "common:breadcrumbs.news": "News",
+  "common:breadcrumbs.gallery": "Gallery",
+  "common:breadcrumbs.members": "Members"
+}

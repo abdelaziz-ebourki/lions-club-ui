@@ -1,5 +1,6 @@
 import { useMemo, type ReactNode } from 'react';
 import { ReplyItem } from './reply-item';
+import { useTranslation } from 'react-i18next';
 import type { ForumReply } from '@/types';
 
 interface ReplyListProps {
@@ -31,6 +32,7 @@ function renderReplyTree(
 }
 
 export function ReplyList({ replies, isAuthenticated, onReply }: ReplyListProps) {
+  const { t } = useTranslation('forum');
   const { topLevel, childrenByParent } = useMemo(() => {
     const sorted = [...replies].sort(
       (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -52,7 +54,7 @@ export function ReplyList({ replies, isAuthenticated, onReply }: ReplyListProps)
 
   return (
     <div className="space-y-4" data-testid="reply-list">
-      <h2 className="font-heading text-h4">{replies.length} {replies.length === 1 ? 'reply' : 'replies'}</h2>
+      <h2 className="font-heading text-h4">{t("repliesHeading", { count: replies.length })}</h2>
       {topLevel.map((reply) =>
         renderReplyTree(reply, childrenByParent, isAuthenticated, onReply, 0),
       )}

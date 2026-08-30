@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { XCircle } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,7 @@ const resetSchema = z
 type ResetFormData = z.infer<typeof resetSchema>;
 
 export function ResetPasswordPage() {
+  const { t } = useTranslation(["auth", "common"]);
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
   const navigate = useNavigate();
@@ -47,20 +49,20 @@ export function ResetPasswordPage() {
     return (
       <>
         <SEO {...seoConfig.resetPassword} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Reset Password" }]} />
+        <Breadcrumbs trail={[{ label: t("common:breadcrumbs.home"), href: "/" }, { label: t("reset.title") }]} />
         <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
           <Card className="w-full">
             <CardHeader className="text-center">
               <XCircle className="mx-auto size-12 text-destructive" aria-hidden="true" />
-              <h1 className="font-heading text-h3 leading-none tracking-wider uppercase">Invalid reset link</h1>
+              <h1 className="font-heading text-h3 leading-none tracking-wider uppercase">{t("reset.invalid")}</h1>
             </CardHeader>
             <CardContent className="text-center text-body-sm text-muted-foreground space-y-4">
-              <p>No reset token found in the URL.</p>
+              <p>{t("reset.noToken")}</p>
               <Link
                 to="/forgot-password"
                 className="inline-flex h-10 items-center justify-center gap-1.5 rounded-none border bg-accent px-6 text-xs font-semibold tracking-widest uppercase text-accent-foreground"
               >
-                Request new link
+                {t("reset.requestNew")}
               </Link>
             </CardContent>
           </Card>
@@ -72,16 +74,16 @@ export function ResetPasswordPage() {
   return (
     <>
       <SEO {...seoConfig.resetPassword} />
-      <AuthCardFields overline="Set New Password" title="Reset Password" description="Create a new password for your account.">
+      <AuthCardFields overline={t("reset.overline")} title={t("reset.title")} description={t("reset.description")}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <FieldGroup>
           <Field data-invalid={!!form.formState.errors.password}>
-            <FieldLabel htmlFor="password" className="after:content-['*'] after:ml-0.5 after:text-destructive">New Password</FieldLabel>
+            <FieldLabel htmlFor="password" className="after:content-['*'] after:ml-0.5 after:text-destructive">{t("reset.newPassword")}</FieldLabel>
             <FieldContent>
               <Input
                 id="password"
                 type="password"
-                placeholder="At least 8 characters"
+                placeholder={t("reset.passwordPlaceholder")}
                 aria-invalid={!!form.formState.errors.password}
                 aria-required="true"
                 {...form.register("password")}
@@ -91,12 +93,12 @@ export function ResetPasswordPage() {
             </FieldContent>
           </Field>
           <Field data-invalid={!!form.formState.errors.confirmPassword}>
-            <FieldLabel htmlFor="confirmPassword" className="after:content-['*'] after:ml-0.5 after:text-destructive">Confirm New Password</FieldLabel>
+            <FieldLabel htmlFor="confirmPassword" className="after:content-['*'] after:ml-0.5 after:text-destructive">{t("reset.confirmNewPassword")}</FieldLabel>
             <FieldContent>
               <Input
                 id="confirmPassword"
                 type="password"
-                placeholder="Repeat your password"
+                placeholder={t("reset.confirmPlaceholder")}
                 aria-invalid={!!form.formState.errors.confirmPassword}
                 aria-required="true"
                 {...form.register("confirmPassword")}
@@ -109,16 +111,16 @@ export function ResetPasswordPage() {
         <Button type="submit" disabled={isResetPending}>
           {isResetPending ? (
             <>
-              <Spinner className="mr-2" /> Resetting...
+              <Spinner className="mr-2" /> {t("reset.submitting")}
             </>
           ) : (
-            "Reset Password"
+            t("reset.submit")
           )}
         </Button>
       </form>
       <p className="mt-4 text-center text-body-sm text-muted-foreground">
         <Link to="/login" className="text-primary underline underline-offset-4 hover:text-accent">
-          Back to login
+          {t("reset.backToLogin")}
         </Link>
       </p>
       </AuthCardFields>

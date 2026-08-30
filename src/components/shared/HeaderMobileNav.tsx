@@ -1,8 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
-import { siteConfig } from "@/config";
 import { useAuth } from "@/contexts/auth";
 import { SearchBar } from "@/components/search/search-bar";
+import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 
 interface HeaderMobileNavProps {
   onClose: () => void;
@@ -11,15 +12,29 @@ interface HeaderMobileNavProps {
 
 export function HeaderMobileNav({ onClose, onLogout }: HeaderMobileNavProps) {
   const location = useLocation();
+  const { t } = useTranslation();
   const { isAuthenticated, isAdmin } = useAuth();
+
+  const navItems = [
+    { href: "/", label: t("nav.home") },
+    { href: "/about", label: t("nav.about") },
+    { href: "/events", label: t("nav.events") },
+    { href: "/news", label: t("nav.news") },
+    { href: "/forum", label: t("nav.forum") },
+    { href: "/contact", label: t("nav.contact") },
+  ];
 
   return (
     <>
-      <div className="mt-8">
+      <div className="mt-4 flex items-center justify-between">
+        <span className="text-sm text-muted-foreground">{t("language.select")}</span>
+        <LanguageSwitcher />
+      </div>
+      <div className="mt-4">
         <SearchBar className="md:hidden" />
       </div>
-      <nav aria-label="Mobile navigation" className="mt-4 flex flex-col gap-4">
-        {siteConfig.nav.map((item) => (
+      <nav aria-label={t("header.mobileNavigation")} className="mt-4 flex flex-col gap-4">
+        {navItems.map((item) => (
           <Link
             key={item.href}
             to={item.href}
@@ -39,7 +54,7 @@ export function HeaderMobileNav({ onClose, onLogout }: HeaderMobileNavProps) {
           <>
             <div className="border-t pt-4 mt-2" />
             <p className="font-display text-overline text-accent text-xs tracking-widest uppercase pb-1">
-              Admin
+              {t("nav.admin")}
             </p>
             <Link
               to="/admin"
@@ -52,7 +67,7 @@ export function HeaderMobileNav({ onClose, onLogout }: HeaderMobileNavProps) {
                   : "text-muted-foreground"
               )}
             >
-              Dashboard
+              {t("admin.dashboard")}
             </Link>
             <Link
               to="/admin/events"
@@ -65,7 +80,7 @@ export function HeaderMobileNav({ onClose, onLogout }: HeaderMobileNavProps) {
                   : "text-muted-foreground"
               )}
             >
-              Events
+              {t("admin.events")}
             </Link>
             <Link
               to="/admin/news"
@@ -78,7 +93,7 @@ export function HeaderMobileNav({ onClose, onLogout }: HeaderMobileNavProps) {
                   : "text-muted-foreground"
               )}
             >
-              News
+              {t("admin.news")}
             </Link>
             <Link
               to="/admin/gallery"
@@ -91,7 +106,7 @@ export function HeaderMobileNav({ onClose, onLogout }: HeaderMobileNavProps) {
                   : "text-muted-foreground"
               )}
             >
-              Gallery
+              {t("admin.gallery")}
             </Link>
             <Link
               to="/admin/forum"
@@ -104,7 +119,7 @@ export function HeaderMobileNav({ onClose, onLogout }: HeaderMobileNavProps) {
                   : "text-muted-foreground"
               )}
             >
-              Forum
+              {t("admin.forum")}
             </Link>
             <Link
               to="/admin/members"
@@ -117,7 +132,7 @@ export function HeaderMobileNav({ onClose, onLogout }: HeaderMobileNavProps) {
                   : "text-muted-foreground"
               )}
             >
-              Members
+              {t("admin.members")}
             </Link>
             <Link
               to="/admin/messages"
@@ -130,7 +145,7 @@ export function HeaderMobileNav({ onClose, onLogout }: HeaderMobileNavProps) {
                   : "text-muted-foreground"
               )}
             >
-              Messages
+              {t("admin.messages")}
             </Link>
           </>
         )}
@@ -142,13 +157,13 @@ export function HeaderMobileNav({ onClose, onLogout }: HeaderMobileNavProps) {
               onClick={onClose}
               className="text-lg font-medium transition-colors hover:text-primary"
             >
-              Profile
+              {t("header.profile")}
             </Link>
             <button
               onClick={onLogout}
               className="w-full text-left text-lg font-medium text-destructive transition-colors hover:text-destructive"
             >
-              Sign Out
+              {t("header.signOut")}
             </button>
           </>
         )}

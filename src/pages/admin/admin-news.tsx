@@ -19,6 +19,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Newspaper, Pencil, Trash2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { formatDate } from "@/lib/format";
 import { EmptyState } from "@/components/shared/empty-state";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
@@ -32,6 +34,7 @@ const statusVariant = {
 };
 
 export function AdminNewsPage() {
+  const { t, i18n } = useTranslation("admin");
   const queryClient = useQueryClient();
 
   const { data: articles, isLoading, isError, refetch } = useQuery<NewsArticle[]>({
@@ -44,28 +47,28 @@ export function AdminNewsPage() {
     mutationFn: (id: string) => api.delete(`/news/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["news"] });
-      toast.success("Article deleted successfully.");
+      toast.success(t("news.toast.deleted"));
     },
-    onError: () => toast.error("Failed to delete article."),
+    onError: () => toast.error(t("news.toast.deleteFailed")),
   });
 
   const headers = (
     <>
-      <TableHead className="font-display text-overline text-xs">Title</TableHead>
-      <TableHead className="font-display text-overline text-xs">Category</TableHead>
-      <TableHead className="font-display text-overline text-xs">Status</TableHead>
-      <TableHead className="font-display text-overline text-xs">Author</TableHead>
-      <TableHead className="font-display text-overline text-xs">Published</TableHead>
-      <TableHead className="font-display text-overline text-xs text-right">Actions</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("news.headers.title")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("news.headers.category")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("news.headers.status")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("news.headers.author")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("news.headers.published")}</TableHead>
+      <TableHead className="font-display text-overline text-xs text-right">{t("news.headers.actions")}</TableHead>
     </>
   );
 
   if (isLoading) {
     return (
       <div>
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "News" }]} />
-        <AdminPageHeader overline="News" heading="Manage News" />
-        <AdminTable headers={headers} caption="News table" loading skeletonColumns={6} />
+        <Breadcrumbs trail={[{ label: t("news.breadcrumbs.home"), href: "/" }, { label: t("news.breadcrumbs.admin"), href: "/admin" }, { label: t("news.breadcrumbs.news") }]} />
+        <AdminPageHeader overline={t("news.overline")} heading={t("news.heading")} />
+        <AdminTable headers={headers} caption={t("news.caption")} loading skeletonColumns={6} />
       </div>
     );
   }
@@ -73,13 +76,13 @@ export function AdminNewsPage() {
   if (isError) {
     return (
       <div>
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "News" }]} />
-        <AdminPageHeader overline="News" heading="Manage News" action={{ to: "/admin/news/new", label: "New Article" }} />
+        <Breadcrumbs trail={[{ label: t("news.breadcrumbs.home"), href: "/" }, { label: t("news.breadcrumbs.admin"), href: "/admin" }, { label: t("news.breadcrumbs.news") }]} />
+        <AdminPageHeader overline={t("news.overline")} heading={t("news.heading")} action={{ to: "/admin/news/new", label: t("news.newArticle") }} />
         <ErrorState
-          heading="Failed to load articles"
-          message="Please check your connection and try again."
+          heading={t("news.error.heading")}
+          message={t("news.error.message")}
           onRetry={refetch}
-          retryLabel="Try Again"
+          retryLabel={t("news.error.retry")}
         />
       </div>
     );
@@ -88,15 +91,15 @@ export function AdminNewsPage() {
   if (articles?.length === 0) {
     return (
       <div>
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "News" }]} />
-        <AdminPageHeader overline="News" heading="Manage News" action={{ to: "/admin/news/new", label: "New Article" }} />
+        <Breadcrumbs trail={[{ label: t("news.breadcrumbs.home"), href: "/" }, { label: t("news.breadcrumbs.admin"), href: "/admin" }, { label: t("news.breadcrumbs.news") }]} />
+        <AdminPageHeader overline={t("news.overline")} heading={t("news.heading")} action={{ to: "/admin/news/new", label: t("news.newArticle") }} />
         <EmptyState
           icon={Newspaper}
-          title="No articles yet"
-          description="Create your first news article."
+          title={t("news.empty.title")}
+          description={t("news.empty.description")}
           action={
             <Link to="/admin/news/new">
-              <Button>Create your first article</Button>
+              <Button>{t("news.empty.action")}</Button>
             </Link>
           }
         />
@@ -106,10 +109,10 @@ export function AdminNewsPage() {
 
   return (
     <div>
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "News" }]} />
-      <AdminPageHeader overline="News" heading="Manage News" action={{ to: "/admin/news/new", label: "New Article" }} />
+      <Breadcrumbs trail={[{ label: t("news.breadcrumbs.home"), href: "/" }, { label: t("news.breadcrumbs.admin"), href: "/admin" }, { label: t("news.breadcrumbs.news") }]} />
+      <AdminPageHeader overline={t("news.overline")} heading={t("news.heading")} action={{ to: "/admin/news/new", label: t("news.newArticle") }} />
       <AdminTable
-        headers={headers} caption="News table"
+        headers={headers} caption={t("news.caption")}
         mobileView={articles?.map((article) => (
           <Card key={article.id} className="mb-3">
             <CardContent className="py-4">
@@ -118,7 +121,7 @@ export function AdminNewsPage() {
                   <p className="font-body font-medium line-clamp-1">{article.title}</p>
                   <p className="text-sm text-muted-foreground">{article.authorName}</p>
                   <p className="text-xs text-muted-foreground">
-                    {article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : "—"}
+                    {article.publishedAt ? formatDate(article.publishedAt, i18n.language) : "—"}
                   </p>
                   <Badge variant="accent" className="text-[10px]">{article.category}</Badge>
                 </div>
@@ -141,15 +144,15 @@ export function AdminNewsPage() {
                     />
                     <AlertDialogContent>
                       <AlertDialogHeader>
-                        <AlertDialogTitle>Delete Article</AlertDialogTitle>
+                        <AlertDialogTitle>{t("news.delete.title")}</AlertDialogTitle>
                         <AlertDialogDescription>
-                          Are you sure you want to delete "{article.title}"? This action cannot be undone.
+                          {t("news.delete.description", { title: article.title })}
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel>{t("news.delete.cancel")}</AlertDialogCancel>
                         <AlertDialogAction onClick={() => deleteMutation.mutate(article.id)} disabled={deleteMutation.isPending}>
-                          {deleteMutation.isPending ? "Deleting..." : "Delete"}
+                          {deleteMutation.isPending ? t("news.delete.deleting") : t("news.delete.delete")}
                         </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
@@ -173,7 +176,7 @@ export function AdminNewsPage() {
             </TableCell>
             <TableCell className="text-muted-foreground">{article.authorName}</TableCell>
             <TableCell className="text-muted-foreground text-sm">
-              {article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : "—"}
+              {article.publishedAt ? formatDate(article.publishedAt, i18n.language) : "—"}
             </TableCell>
             <TableCell className="text-right">
               <div className="flex justify-end gap-2">
@@ -192,15 +195,15 @@ export function AdminNewsPage() {
                   />
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>Delete Article</AlertDialogTitle>
+                      <AlertDialogTitle>{t("news.delete.title")}</AlertDialogTitle>
                       <AlertDialogDescription>
-                        Are you sure you want to delete "{article.title}"? This action cannot be undone.
+                        {t("news.delete.description", { title: article.title })}
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogCancel>{t("news.delete.cancel")}</AlertDialogCancel>
                       <AlertDialogAction onClick={() => deleteMutation.mutate(article.id)} disabled={deleteMutation.isPending}>
-                        {deleteMutation.isPending ? "Deleting..." : "Delete"}
+                        {deleteMutation.isPending ? t("news.delete.deleting") : t("news.delete.delete")}
                       </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>

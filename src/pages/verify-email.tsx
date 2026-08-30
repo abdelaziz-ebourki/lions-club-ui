@@ -1,5 +1,6 @@
 import { useEffect, type ReactNode } from "react";
 import { useSearchParams, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { CheckCircle2, XCircle, Loader2, Clock, type LucideIcon } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useEmailVerification } from "@/hooks/use-email-verification";
@@ -8,10 +9,11 @@ import { SEO } from "@/components/shared/SEO";
 import { seoConfig } from "@/config/seo";
 
 function VerifyEmailCard({ icon: Icon, title, iconColor, children }: { icon: LucideIcon; title: string; iconColor: string; children: ReactNode }) {
+  const { t } = useTranslation(["auth", "common"]);
   return (
     <>
       <SEO {...seoConfig.verifyEmail} />
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Verify Email" }]} />
+      <Breadcrumbs trail={[{ label: t("common:breadcrumbs.home"), href: "/" }, { label: t("auth:verify.title") }]} />
       <div className="mx-auto flex min-h-[60vh] max-w-md items-center px-4 py-20">
         <Card className="w-full">
           <CardHeader className="text-center">
@@ -28,6 +30,7 @@ function VerifyEmailCard({ icon: Icon, title, iconColor, children }: { icon: Luc
 }
 
 export function VerifyEmailPage() {
+  const { t } = useTranslation(["auth", "common"]);
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
   const { verify, isVerifying, verifyResult } = useEmailVerification();
@@ -40,52 +43,52 @@ export function VerifyEmailPage() {
 
   if (!token) {
     return (
-      <VerifyEmailCard icon={XCircle} title="Invalid verification link" iconColor="text-destructive">
-        <p>No verification token found in the URL.</p>
+      <VerifyEmailCard icon={XCircle} title={t("auth:verify.invalidLink")} iconColor="text-destructive">
+        <p>{t("auth:verify.noToken")}</p>
       </VerifyEmailCard>
     );
   }
 
   if (isVerifying || verifyResult.status === "loading") {
     return (
-      <VerifyEmailCard icon={Loader2} title="Verifying your email..." iconColor="text-primary">
-        <p>Please wait while we verify your email address.</p>
+      <VerifyEmailCard icon={Loader2} title={t("auth:verify.verifying")} iconColor="text-primary">
+        <p>{t("auth:verify.wait")}</p>
       </VerifyEmailCard>
     );
   }
 
   if (verifyResult.status === "already-verified") {
     return (
-      <VerifyEmailCard icon={CheckCircle2} title="Already verified" iconColor="text-primary">
-        <p>Your email address is already verified. You can access all features.</p>
-        <Link to="/profile" className="inline-flex shrink-0 items-center justify-center h-10 gap-1.5 px-6 rounded-none border border-transparent bg-accent text-accent-foreground text-xs font-semibold tracking-widest uppercase hover:bg-accent/90 transition-all">Go to profile</Link>
+      <VerifyEmailCard icon={CheckCircle2} title={t("auth:verify.alreadyVerified")} iconColor="text-primary">
+        <p>{t("auth:verify.alreadyMsg")}</p>
+        <Link to="/profile" className="inline-flex shrink-0 items-center justify-center h-10 gap-1.5 px-6 rounded-none border border-transparent bg-accent text-accent-foreground text-xs font-semibold tracking-widest uppercase hover:bg-accent/90 transition-all">{t("auth:verify.goProfile")}</Link>
       </VerifyEmailCard>
     );
   }
 
   if (verifyResult.status === "expired") {
     return (
-      <VerifyEmailCard icon={Clock} title="Verification link expired" iconColor="text-warning">
-        <p>This verification link has expired. Request a new one.</p>
-        <Link to="/profile" className="inline-flex shrink-0 items-center justify-center h-10 gap-1.5 px-6 rounded-none border border-transparent bg-accent text-accent-foreground text-xs font-semibold tracking-widest uppercase hover:bg-accent/90 transition-all">Resend verification email</Link>
+      <VerifyEmailCard icon={Clock} title={t("auth:verify.expired")} iconColor="text-warning">
+        <p>{t("auth:verify.expiredMsg")}</p>
+        <Link to="/profile" className="inline-flex shrink-0 items-center justify-center h-10 gap-1.5 px-6 rounded-none border border-transparent bg-accent text-accent-foreground text-xs font-semibold tracking-widest uppercase hover:bg-accent/90 transition-all">{t("auth:verify.resend")}</Link>
       </VerifyEmailCard>
     );
   }
 
   if (verifyResult.status === "error") {
     return (
-      <VerifyEmailCard icon={XCircle} title="Invalid verification token" iconColor="text-destructive">
-        <p>{verifyResult.message || "Something went wrong. Please try again."}</p>
-        <Link to="/profile" className="inline-flex shrink-0 items-center justify-center h-10 gap-1.5 px-6 rounded-none border border-transparent bg-accent text-accent-foreground text-xs font-semibold tracking-widest uppercase hover:bg-accent/90 transition-all">Request new link</Link>
+      <VerifyEmailCard icon={XCircle} title={t("auth:verify.invalidToken")} iconColor="text-destructive">
+        <p>{verifyResult.message || t("auth:verify.errorMsg")}</p>
+        <Link to="/profile" className="inline-flex shrink-0 items-center justify-center h-10 gap-1.5 px-6 rounded-none border border-transparent bg-accent text-accent-foreground text-xs font-semibold tracking-widest uppercase hover:bg-accent/90 transition-all">{t("auth:verify.requestNew")}</Link>
       </VerifyEmailCard>
     );
   }
 
   if (verifyResult.status === "success") {
     return (
-      <VerifyEmailCard icon={CheckCircle2} title="Email verified successfully" iconColor="text-success">
-        <p>Your email has been verified. You can now access all features.</p>
-        <Link to="/profile" className="inline-flex shrink-0 items-center justify-center h-10 gap-1.5 px-6 rounded-none border border-transparent bg-accent text-accent-foreground text-xs font-semibold tracking-widest uppercase hover:bg-accent/90 transition-all">Continue to profile</Link>
+      <VerifyEmailCard icon={CheckCircle2} title={t("auth:verify.success")} iconColor="text-success">
+        <p>{t("auth:verify.successMsg")}</p>
+        <Link to="/profile" className="inline-flex shrink-0 items-center justify-center h-10 gap-1.5 px-6 rounded-none border border-transparent bg-accent text-accent-foreground text-xs font-semibold tracking-widest uppercase hover:bg-accent/90 transition-all">{t("auth:verify.continue")}</Link>
       </VerifyEmailCard>
     );
   }

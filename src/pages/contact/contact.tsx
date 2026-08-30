@@ -25,17 +25,19 @@ import { SEO } from "@/components/shared/SEO";
 import { seoConfig } from "@/config/seo";
 import { ContactInfoCard } from "@/components/shared/ContactInfoCard";
 import { ContactFaqCard } from "@/components/shared/ContactFaqCard";
-
-const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be at most 100 characters"),
-  email: z.string().email("Invalid email address"),
-  subject: z.string().min(5, "Subject must be at least 5 characters").max(200, "Subject must be at most 200 characters"),
-  message: z.string().min(10, "Message must be at least 10 characters").max(2000, "Message must be at most 2000 characters"),
-});
-
-type ContactFormData = z.infer<typeof contactSchema>;
+import { useTranslation } from "react-i18next";
 
 export function ContactPage() {
+  const { t } = useTranslation("contact");
+  const contactSchema = z.object({
+    name: z.string().min(2, t("validationNameMin")).max(100, t("validationNameMax")),
+    email: z.string().email(t("validationEmail")),
+    subject: z.string().min(5, t("validationSubjectMin")).max(200, t("validationSubjectMax")),
+    message: z.string().min(10, t("validationMessageMin")).max(2000, t("validationMessageMax")),
+  });
+
+  type ContactFormData = z.infer<typeof contactSchema>;
+
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: { name: "", email: "", subject: "", message: "" },
@@ -56,20 +58,20 @@ export function ContactPage() {
       onSuccess: () => {
         setShowSuccess(true);
         successTimer.current = setTimeout(() => setShowSuccess(false), 2000);
-        toast.success("Message sent! We'll get back to you soon.");
+        toast.success(t("toastSuccess"));
       },
-      onError: () => toast.error("Failed to send. Please try again."),
+      onError: () => toast.error(t("toastError")),
     });
   }
 
   return (
     <>
       <SEO {...seoConfig.contact} />
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
+      <Breadcrumbs trail={[{ label: t("breadcrumbsHome"), href: "/" }, { label: t("breadcrumbsContact") }]} />
       <PageHero
-        overline="Get in Touch"
-        heading="Let's Talk"
-        description="Questions, suggestions, or want to get involved? We'd love to hear from you."
+        overline={t("heroOverline")}
+        heading={t("heroHeading")}
+        description={t("heroDescription")}
       />
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -78,13 +80,13 @@ export function ContactPage() {
             <Card>
               <CardHeader>
                 <p className="font-display text-overline text-accent mb-1">
-                  Message
+                  {t("formOverline")}
                 </p>
                 <CardTitle className="font-heading text-h3">
-                  Send Us a Message
+                  {t("formTitle")}
                 </CardTitle>
                 <CardDescription className="text-body">
-                  Fill out the form below and we'll get back to you as soon as possible.
+                  {t("formDescription")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -96,9 +98,9 @@ export function ContactPage() {
                     <div className="grid gap-4 sm:grid-cols-2">
                       {/* fallow-ignore-next-line code-duplication */}
                       <Field data-invalid={!!form.formState.errors.name}>
-                        <FieldLabel htmlFor="name" className="after:content-['*'] after:ml-0.5 after:text-destructive">Name</FieldLabel>
+                        <FieldLabel htmlFor="name" className="after:content-['*'] after:ms-0.5 after:text-destructive">{t("fieldName")}</FieldLabel>
                         <FieldContent>
-                          <Input id="name" placeholder="Your name" aria-invalid={!!form.formState.errors.name} aria-required="true" {...form.register("name")} autoComplete="name" />
+                          <Input id="name" placeholder={t("placeholderName")} aria-invalid={!!form.formState.errors.name} aria-required="true" {...form.register("name")} autoComplete="name" />
                           <FieldError errors={[form.formState.errors.name]} />
                           <span className={cn("text-body-xs", nameCount >= 100 ? "text-destructive" : nameCount >= 80 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                             {nameCount}/100
@@ -106,17 +108,17 @@ export function ContactPage() {
                         </FieldContent>
                       </Field>
                       <Field data-invalid={!!form.formState.errors.email}>
-                        <FieldLabel htmlFor="email" className="after:content-['*'] after:ml-0.5 after:text-destructive">Email</FieldLabel>
+                        <FieldLabel htmlFor="email" className="after:content-['*'] after:ms-0.5 after:text-destructive">{t("fieldEmail")}</FieldLabel>
                         <FieldContent>
-                          <Input id="email" type="email" placeholder="your@email.com" aria-invalid={!!form.formState.errors.email} aria-required="true" {...form.register("email")} autoComplete="email" spellCheck={false} />
+                          <Input id="email" type="email" placeholder={t("placeholderEmail")} aria-invalid={!!form.formState.errors.email} aria-required="true" {...form.register("email")} autoComplete="email" spellCheck={false} />
                           <FieldError errors={[form.formState.errors.email]} />
                         </FieldContent>
                       </Field>
                     </div>
                     <Field data-invalid={!!form.formState.errors.subject}>
-                      <FieldLabel htmlFor="subject" className="after:content-['*'] after:ml-0.5 after:text-destructive">Subject</FieldLabel>
+                      <FieldLabel htmlFor="subject" className="after:content-['*'] after:ms-0.5 after:text-destructive">{t("fieldSubject")}</FieldLabel>
                       <FieldContent>
-                        <Input id="subject" placeholder="How can we help?" aria-invalid={!!form.formState.errors.subject} aria-required="true" {...form.register("subject")} autoComplete="off" />
+                        <Input id="subject" placeholder={t("placeholderSubject")} aria-invalid={!!form.formState.errors.subject} aria-required="true" {...form.register("subject")} autoComplete="off" />
                         <FieldError errors={[form.formState.errors.subject]} />
                         <span className={cn("text-body-xs", subjectCount >= 200 ? "text-destructive" : subjectCount >= 160 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                           {subjectCount}/200
@@ -124,9 +126,9 @@ export function ContactPage() {
                       </FieldContent>
                     </Field>
                     <Field data-invalid={!!form.formState.errors.message}>
-                      <FieldLabel htmlFor="message" className="after:content-['*'] after:ml-0.5 after:text-destructive">Message</FieldLabel>
+                      <FieldLabel htmlFor="message" className="after:content-['*'] after:ms-0.5 after:text-destructive">{t("fieldMessage")}</FieldLabel>
                       <FieldContent>
-                        <Textarea id="message" placeholder="Tell us more..." rows={5} aria-invalid={!!form.formState.errors.message} aria-required="true" {...form.register("message")} autoComplete="off" />
+                        <Textarea id="message" placeholder={t("placeholderMessage")} rows={5} aria-invalid={!!form.formState.errors.message} aria-required="true" {...form.register("message")} autoComplete="off" />
                         <FieldError errors={[form.formState.errors.message]} />
                         <span className={cn("text-body-xs", messageCount >= 2000 ? "text-destructive" : messageCount >= 1600 ? "text-amber-500" : "text-muted-foreground")} aria-live="polite">
                           {messageCount}/2000
@@ -140,10 +142,10 @@ export function ContactPage() {
                     className="w-full sm:w-auto"
                   >
                     {mutation.isPending ? (
-                      <><Spinner className="mr-2" /> Sending...</>
+                      <><Spinner className="me-2" /> {t("sending")}</>
                     ) : (
                       <>
-                        Send Message{" "}
+                        {t("sendMessage")}{" "}
                         <Send data-icon="inline-end" />
                       </>
                     )}

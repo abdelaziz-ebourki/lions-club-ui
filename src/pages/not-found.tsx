@@ -1,29 +1,31 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { SEO } from "@/components/shared/SEO";
 import { seoConfig } from "@/config/seo";
 
 export function NotFoundPage() {
+  const { t } = useTranslation();
   return (
     <>
       <SEO {...seoConfig.notFound} />
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Page Not Found" }]} />
+      <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("notFound.title") }]} />
       <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-4 py-20 text-center">
       <div role="alert">
         <p className="font-display text-overline text-accent mb-2">
-          Error 404
+          {t("notFound.error")}
         </p>
         <h1 className="font-heading text-h1 text-foreground">
-          Page Not Found
+          {t("notFound.title")}
         </h1>
       </div>
       <p className="mt-4 text-body text-muted-foreground">
-        The page you're looking for doesn't exist or has been moved.
+        {t("notFound.description")}
       </p>
       <div className="mt-8">
         <Link to="/">
-          <Button>Go Home</Button>
+          <Button>{t("notFound.goHome")}</Button>
         </Link>
       </div>
     </div>
