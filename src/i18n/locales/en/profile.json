@@ -1,0 +1,57 @@
+{
+  "title": "Profile",
+  "heading": "Profile",
+  "accountInfo": "Account Information",
+  "editProfile": "Edit Profile",
+  "name": "Name",
+  "email": "Email",
+  "role": "Role",
+  "memberSince": "Member since",
+  "adminInfo": "Admin Information",
+  "lastLoginIp": "Last Login IP",
+  "accountStatus": "Account Status",
+  "changePassword": "Change Password",
+  "currentPassword": "Current Password",
+  "newPassword": "New Password",
+  "confirmPassword": "Confirm Password",
+  "confirmNewPassword": "Confirm New Password",
+  "save": "Save",
+  "saveChanges": "Save Changes",
+  "saving": "Saving...",
+  "cancel": "Cancel",
+  "signInRequired": "Please sign in to view your profile.",
+  "updateSuccess": "Profile updated successfully",
+  "updateError": "Failed to update profile",
+  "breadcrumbs": {
+    "home": "Home",
+    "profile": "Profile"
+  },
+  "password": {
+    "title": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "submit": "Update Password",
+    "submitting": "Updating...",
+    "success": "Password updated successfully",
+    "error": "Failed to update password",
+    "currentRequired": "Current password is required",
+    "confirmRequired": "Please confirm your new password",
+    "different": "New password must be different from current password"
+  },
+  "avatar": {
+    "title": "Change Avatar",
+    "description": "Select a new profile picture. PNG, JPEG, or WebP up to 5MB.",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "uploading": "Uploading...",
+    "success": "Avatar updated successfully",
+    "error": "Failed to upload avatar"
+  },
+  "verification": {
+    "notVerified": "Email not verified",
+    "description": "Please verify your email address to access all features.",
+    "resend": "Resend verification email",
+    "cooldown": "Resend available in {{seconds}}s"
+  }
+}

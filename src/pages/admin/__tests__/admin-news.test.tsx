@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { AdminNewsPage } from '../admin-news';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { newsArticles } from '@/mocks/data/news';
+import { formatDate } from '@/lib/format';
 import { describe, test, vi, beforeEach, expect } from 'vitest';
 
 vi.mock('sonner', () => ({
@@ -116,7 +117,7 @@ describe('AdminNewsPage', () => {
 
       render(<AdminNewsPage />);
 
-      const dates = publishedArticles.map((a) => new Date(a.publishedAt!).toLocaleDateString());
+      const dates = publishedArticles.map((a) => formatDate(a.publishedAt!, "en"));
       dates.forEach((dateText) => {
         expect(screen.getAllByText(dateText).length).toBeGreaterThanOrEqual(1);
       });
@@ -152,7 +153,7 @@ describe('AdminNewsPage', () => {
 
       render(<AdminNewsPage />);
 
-      const dates = newsArticles.map((a) => (a.publishedAt ? new Date(a.publishedAt).toLocaleDateString() : '—'));
+      const dates = newsArticles.map((a) => (a.publishedAt ? formatDate(a.publishedAt, "en") : '—'));
       dates.forEach((dateText) => {
         expect(screen.getAllByText(dateText).length).toBeGreaterThanOrEqual(1);
       });

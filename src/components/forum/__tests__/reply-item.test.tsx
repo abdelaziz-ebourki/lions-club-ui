@@ -50,7 +50,7 @@ describe('ReplyItem', () => {
 
   test('renders formatted createdAt date', () => {
     render(<ReplyItem reply={baseReply} depth={0} isAuthenticated={false} onReply={onReply} />);
-    expect(screen.getByText(/Jan 15, 2026/i)).toBeInTheDocument();
+    expect(screen.getByText(/January 15, 2026/i)).toBeInTheDocument();
   });
 
   test('shows edited label when updatedAt is present', () => {
@@ -81,8 +81,8 @@ describe('ReplyItem', () => {
       </>
     );
     const items = screen.getAllByTestId('reply-item');
-    expect(items[0].style.marginLeft).toBe('0px');
-    expect(items[1].style.marginLeft).toBe('32px');
+    expect(items[0].style.marginInlineStart).toBe('0px');
+    expect(items[1].style.marginInlineStart).toBe('32px');
   });
 
   test('calls onReply with parentReplyId and author on click', () => {

@@ -9,6 +9,7 @@ export function SEO({ title, description, image, ogType, canonical, noindex, twi
   const resolvedImage = image ?? SEO_DEFAULT_IMAGE;
   const resolvedTwitterSite = twitterSite ?? SEO_DEFAULT_TWITTER_SITE;
   const resolvedOgUrl = resolvedCanonical;
+  const baseUrl = resolvedCanonical ? resolvedCanonical.split("?")[0] : undefined;
 
   return (
     <Helmet prioritizeSeoTags>
@@ -27,6 +28,10 @@ export function SEO({ title, description, image, ogType, canonical, noindex, twi
       <meta name="twitter:image" content={resolvedImage} />
       <meta name="twitter:site" content={resolvedTwitterSite} />
       {noindex && <meta name="robots" content="noindex" />}
+      {baseUrl && <link rel="alternate" hrefLang="en" href={baseUrl} />}
+      {baseUrl && <link rel="alternate" hrefLang="fr" href={baseUrl} />}
+      {baseUrl && <link rel="alternate" hrefLang="ar" href={baseUrl} />}
+      {baseUrl && <link rel="alternate" hrefLang="x-default" href={baseUrl} />}
     </Helmet>
   );
 }

@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { siteConfig } from "@/config";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Moon, Sun } from "lucide-react";
@@ -13,8 +13,10 @@ import { useNotifications } from "@/hooks/use-notifications";
 import { HeaderNavLinks } from "@/components/shared/HeaderNavLinks";
 import { HeaderUserActions } from "@/components/shared/HeaderUserActions";
 import { HeaderMobileNav } from "@/components/shared/HeaderMobileNav";
+import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 
 export function Header() {
+  const { t } = useTranslation();
   const { theme, toggle } = useTheme();
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
@@ -46,7 +48,7 @@ export function Header() {
         <Link to="/" className="flex items-center gap-2.5">
           <img src="/logo.png" alt="" className="h-8 w-8 rounded-full" width={32} height={32}  />
           <span className="font-heading text-xl font-semibold text-primary">
-            {siteConfig.name}
+            {t("site.name")}
           </span>
         </Link>
 
@@ -55,6 +57,7 @@ export function Header() {
         <SearchBar className="hidden md:block" />
 
         <div className="flex items-center gap-1">
+          <LanguageSwitcher />
           <HeaderUserActions onLogout={handleLogout} />
           {isAuthenticated && (
             <>
@@ -73,14 +76,14 @@ export function Header() {
               )}
             </>
           )}
-          <Button variant="ghost" size="icon" onClick={toggle} aria-label="Toggle theme">
+          <Button variant="ghost" size="icon" onClick={toggle} aria-label={t("header.toggleTheme")}>
             {theme === "dark" ? <Sun className="size-5" /> : <Moon className="size-5" />}
           </Button>
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
               render={
-                <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu" />
+                <Button variant="ghost" size="icon" className="md:hidden" aria-label={t("header.openMenu")} />
               }
             >
               <Menu className="size-5" />

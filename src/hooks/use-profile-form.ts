@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v4";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import type { UserProfile } from "@/types";
@@ -14,6 +15,7 @@ const profileSchema = z.object({
 export type ProfileFormData = z.infer<typeof profileSchema>;
 
 export function useProfileForm(profile: UserProfile | undefined) {
+  const { t } = useTranslation("profile");
   const queryClient = useQueryClient();
 
   const form = useForm<ProfileFormData>({
@@ -29,10 +31,10 @@ export function useProfileForm(profile: UserProfile | undefined) {
       api.put<UserProfile>("/user/profile", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-profile"] });
-      toast.success("Profile updated successfully");
+      toast.success(t("updateSuccess"));
     },
     onError: () => {
-      toast.error("Failed to update profile");
+      toast.error(t("updateError"));
     },
   });
 

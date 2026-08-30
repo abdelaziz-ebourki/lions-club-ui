@@ -17,10 +17,12 @@ import { LightboxViewer } from "@/components/shared/LightboxViewer";
 import { SEO } from "@/components/shared/SEO";
 import { seoConfig } from "@/config/seo";
 import { useGalleryList, useGalleryItem, type GalleryFilters } from "@/hooks/useGalleryList";
+import { useTranslation } from "react-i18next";
 
 const EMPTY_FILTERS: GalleryFilters = { category: "", eventId: "" };
 
 export function GalleryPage() {
+  const { t } = useTranslation(["gallery", "common"]);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
@@ -70,7 +72,7 @@ export function GalleryPage() {
     return (
       <>
         <SEO {...seoConfig.gallery} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Gallery", href: "/gallery" }, { label: "Loading" }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.gallery"), href: "/gallery" }, { label: t("gallery:loading") }]} />
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <GallerySkeleton />
         </section>
@@ -84,12 +86,12 @@ export function GalleryPage() {
       return (
         <>
           <SEO {...seoConfig.gallery} />
-          <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Gallery", href: "/gallery" }, { label: "Not found" }]} />
+          <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.gallery"), href: "/gallery" }, { label: t("gallery:notFound") }]} />
           <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
-            <h1 className="font-heading text-h3">Photo not found</h1>
-            <p className="mt-2 text-muted-foreground">The photo you're looking for doesn't exist or has been removed.</p>
+            <h1 className="font-heading text-h3">{t("gallery:photoNotFound")}</h1>
+            <p className="mt-2 text-muted-foreground">{t("gallery:photoNotFoundDesc")}</p>
             <Link to="/gallery" className="mt-6 inline-block">
-              <Button>Back to Gallery</Button>
+              <Button>{t("gallery:backToGallery")}</Button>
             </Link>
           </div>
         </>
@@ -98,12 +100,13 @@ export function GalleryPage() {
     return (
       <>
         <SEO {...seoConfig.gallery} />
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Gallery", href: "/gallery" }, { label: "Error" }]} />
+        <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.gallery"), href: "/gallery" }, { label: t("gallery:error") }]} />
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <ErrorState
-            heading="Failed to load photo"
-            message="We couldn't load this photo. Please try again."
+            heading={t("gallery:failedToLoad")}
+            message={t("gallery:failedToLoadPhotoDesc")}
             onRetry={() => deepLink.refetch()}
+            retryLabel={t("retry")}
           />
         </section>
       </>
@@ -113,32 +116,32 @@ export function GalleryPage() {
   return (
     <>
       <SEO {...seoConfig.gallery} />
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Gallery" }]} />
+      <Breadcrumbs trail={[{ label: t("breadcrumbs.home"), href: "/" }, { label: t("nav.gallery") }]} />
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         {!id && (
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="font-display text-overline text-accent">Media</p>
-              <h1 className="font-heading text-h2 mt-1 text-foreground">Gallery</h1>
+              <p className="font-display text-overline text-accent">{t("gallery:overline")}</p>
+              <h1 className="font-heading text-h2 mt-1 text-foreground">{t("gallery:heading")}</h1>
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              <Select value={filters.category as string} onValueChange={(v) => setFilter("category", !v || v === "All categories" ? "" : v)}>
-                <SelectTrigger aria-label="Filter by category" className="w-[180px]">
-                  <SelectValue placeholder="All categories" />
+              <Select value={filters.category as string} onValueChange={(v) => setFilter("category", !v || v === t("gallery:allCategories") ? "" : v)}>
+                <SelectTrigger aria-label={t("gallery:filterByCategory")} className="w-[180px]">
+                  <SelectValue placeholder={t("gallery:allCategories")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="All categories">All categories</SelectItem>
+                  <SelectItem value={t("gallery:allCategories")}>{t("gallery:allCategories")}</SelectItem>
                   {galleryCategories.map((c) => (
                     <SelectItem key={c} value={c}>{c}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              <Select value={filters.eventId as string} onValueChange={(v) => setFilter("eventId", !v || v === "All events" ? "" : v)}>
-                <SelectTrigger aria-label="Filter by event" className="w-[200px]">
-                  <SelectValue placeholder="All events" />
+              <Select value={filters.eventId as string} onValueChange={(v) => setFilter("eventId", !v || v === t("gallery:allEvents") ? "" : v)}>
+                <SelectTrigger aria-label={t("gallery:filterByEvent")} className="w-[200px]">
+                  <SelectValue placeholder={t("gallery:allEvents")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="All events">All events</SelectItem>
+                  <SelectItem value={t("gallery:allEvents")}>{t("gallery:allEvents")}</SelectItem>
                   {(events ?? []).map((e) => (
                     <SelectItem key={e.id} value={e.id}>{e.title}</SelectItem>
                   ))}
@@ -153,24 +156,25 @@ export function GalleryPage() {
             <GallerySkeleton />
           ) : isError ? (
             <ErrorState
-              heading="Something went wrong"
-              message="Failed to load the gallery."
+              heading={t("gallery:somethingWentWrong")}
+              message={t("gallery:failedToLoadGallery")}
               onRetry={() => refetch()}
+              retryLabel={t("retry")}
             />
           ) : !data || data.data.length === 0 ? (
             (filters.category || filters.eventId) ? (
               <EmptyState
                 icon={ImageOff}
-                title="No photos match your filters"
-                description="Try adjusting your filters or clearing them to see more photos."
+                title={t("gallery:noMatch")}
+                description={t("gallery:noMatchDescription")}
                 action={
                   <Button variant="outline" onClick={() => setFilters({ category: '', eventId: '' })}>
-                    Clear filters
+                    {t("gallery:clearFilters")}
                   </Button>
                 }
               />
             ) : (
-              <EmptyState icon={ImageOff} title="No photos yet" description="Check back soon for photos from our latest activities." />
+              <EmptyState icon={ImageOff} title={t("gallery:noPhotos")} description={t("gallery:noPhotosDescription")} />
             )
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -217,13 +221,13 @@ export function GalleryPage() {
         {data && data.totalPages > 1 && (
           <div className="mt-12 flex items-center justify-center gap-4">
             <Button variant="outline" onClick={() => { setPage((p) => Math.max(1, p - 1)); setViewerIndex(null); }} disabled={page <= 1}>
-              Previous
+              {t("gallery:previous")}
             </Button>
             <span data-testid="gallery-pagination" className="text-body-sm text-muted-foreground">
-              Page {data.page} of {data.totalPages}
+              {t("gallery:page", { page: data.page, total: data.totalPages })}
             </span>
             <Button variant="outline" onClick={() => { setPage((p) => Math.min(data.totalPages, p + 1)); setViewerIndex(null); }} disabled={page >= data.totalPages}>
-              Next
+              {t("gallery:next")}
             </Button>
           </div>
         )}

@@ -18,6 +18,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Images, Pencil, Trash2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { formatDate } from "@/lib/format";
 import { EmptyState } from "@/components/shared/empty-state";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
@@ -25,6 +27,7 @@ import { AdminPageHeader } from "@/components/shared/AdminPageHeader";
 import { AdminTable } from "@/components/shared/AdminTable";
 
 export function AdminGalleryPage() {
+  const { t, i18n } = useTranslation("admin");
   const queryClient = useQueryClient();
 
   const { data: items, isLoading, isError, refetch } = useQuery<GalleryItem[]>({
@@ -42,7 +45,7 @@ export function AdminGalleryPage() {
     mutationFn: (id: string) => api.delete(`/gallery/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["gallery"] });
-      toast.success("Item deleted successfully.");
+      toast.success(t("gallery.toast.deleted"));
     },
     onError: () => toast.error("Failed to delete item."),
   });
@@ -54,14 +57,14 @@ export function AdminGalleryPage() {
 
   const headers = (
     <>
-      <TableHead className="font-display text-overline text-xs">Thumbnail</TableHead>
-      <TableHead className="font-display text-overline text-xs">Title</TableHead>
-      <TableHead className="font-display text-overline text-xs">Category</TableHead>
-      <TableHead className="font-display text-overline text-xs">Event</TableHead>
-      <TableHead className="font-display text-overline text-xs">Tags</TableHead>
-      <TableHead className="font-display text-overline text-xs">Uploaded</TableHead>
-      <TableHead className="font-display text-overline text-xs">Uploader</TableHead>
-      <TableHead className="font-display text-overline text-xs text-right">Actions</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("gallery.headers.thumbnail")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("gallery.headers.title")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("gallery.headers.category")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("gallery.headers.event")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("gallery.headers.tags")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("gallery.headers.uploaded")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("gallery.headers.uploader")}</TableHead>
+      <TableHead className="font-display text-overline text-xs text-right">{t("gallery.headers.actions")}</TableHead>
     </>
   );
 
@@ -80,7 +83,7 @@ export function AdminGalleryPage() {
                 variant="ghost"
                 size="icon"
                 className="size-8 text-destructive hover:text-destructive"
-                aria-label={`Delete item ${item.title}`}
+                aria-label={t("gallery.aria.deleteItem", { title: item.title })}
               >
                 <Trash2 className="size-4" />
               </Button>
@@ -88,15 +91,15 @@ export function AdminGalleryPage() {
           />
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Delete Gallery Item</AlertDialogTitle>
+              <AlertDialogTitle>{t("gallery.delete.title")}</AlertDialogTitle>
               <AlertDialogDescription>
-                Are you sure you want to delete "{item.title}"? This action cannot be undone.
+                {t("gallery.delete.description", { title: item.title })}
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel>{t("gallery.delete.cancel")}</AlertDialogCancel>
               <AlertDialogAction onClick={() => deleteMutation.mutate(item.id)} disabled={deleteMutation.isPending}>
-                {deleteMutation.isPending ? "Deleting..." : "Delete"}
+                {deleteMutation.isPending ? t("gallery.delete.deleting") : t("gallery.delete.delete")}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
@@ -108,9 +111,9 @@ export function AdminGalleryPage() {
   if (isLoading) {
     return (
       <div>
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Gallery" }]} />
-        <AdminPageHeader overline="Gallery" heading="Manage Gallery" />
-        <AdminTable headers={headers} caption="Gallery table" loading skeletonColumns={8} />
+        <Breadcrumbs trail={[{ label: t("gallery.breadcrumbs.home"), href: "/" }, { label: t("gallery.breadcrumbs.admin"), href: "/admin" }, { label: t("gallery.breadcrumbs.gallery") }]} />
+        <AdminPageHeader overline={t("gallery.overline")} heading={t("gallery.heading")} />
+        <AdminTable headers={headers} caption={t("gallery.caption")} loading skeletonColumns={8} />
       </div>
     );
   }
@@ -118,13 +121,13 @@ export function AdminGalleryPage() {
   if (isError) {
     return (
       <div>
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Gallery" }]} />
-        <AdminPageHeader overline="Gallery" heading="Manage Gallery" action={{ to: "/admin/gallery/new", label: "New Item" }} />
+        <Breadcrumbs trail={[{ label: t("gallery.breadcrumbs.home"), href: "/" }, { label: t("gallery.breadcrumbs.admin"), href: "/admin" }, { label: t("gallery.breadcrumbs.gallery") }]} />
+        <AdminPageHeader overline={t("gallery.overline")} heading={t("gallery.heading")} action={{ to: "/admin/gallery/new", label: t("gallery.newItem") }} />
         <ErrorState
-          heading="Failed to load gallery items"
-          message="Please check your connection and try again."
+          heading={t("gallery.error.heading")}
+          message={t("gallery.error.message")}
           onRetry={refetch}
-          retryLabel="Try Again"
+          retryLabel={t("gallery.error.retry")}
         />
       </div>
     );
@@ -133,15 +136,15 @@ export function AdminGalleryPage() {
   if (items?.length === 0) {
     return (
       <div>
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Gallery" }]} />
-        <AdminPageHeader overline="Gallery" heading="Manage Gallery" action={{ to: "/admin/gallery/new", label: "New Item" }} />
+        <Breadcrumbs trail={[{ label: t("gallery.breadcrumbs.home"), href: "/" }, { label: t("gallery.breadcrumbs.admin"), href: "/admin" }, { label: t("gallery.breadcrumbs.gallery") }]} />
+        <AdminPageHeader overline={t("gallery.overline")} heading={t("gallery.heading")} action={{ to: "/admin/gallery/new", label: t("gallery.newItem") }} />
         <EmptyState
           icon={Images}
-          title="No gallery items yet"
-          description="Upload your first photo to get started."
+          title={t("gallery.empty.title")}
+          description={t("gallery.empty.description")}
           action={
             <Link to="/admin/gallery/new">
-              <Button>Upload your first photo</Button>
+              <Button>{t("gallery.empty.action")}</Button>
             </Link>
           }
         />
@@ -151,10 +154,10 @@ export function AdminGalleryPage() {
 
   return (
     <div>
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Gallery" }]} />
-      <AdminPageHeader overline="Gallery" heading="Manage Gallery" action={{ to: "/admin/gallery/new", label: "New Item" }} />
+      <Breadcrumbs trail={[{ label: t("gallery.breadcrumbs.home"), href: "/" }, { label: t("gallery.breadcrumbs.admin"), href: "/admin" }, { label: t("gallery.breadcrumbs.gallery") }]} />
+      <AdminPageHeader overline={t("gallery.overline")} heading={t("gallery.heading")} action={{ to: "/admin/gallery/new", label: t("gallery.newItem") }} />
       <AdminTable
-        headers={headers} caption="Gallery table"
+        headers={headers} caption={t("gallery.caption")}
         mobileView={items?.map((item) => (
           <Card key={item.id} data-testid="gallery-mobile-card" className="mb-3">
             <CardContent className="flex gap-3 py-4">
@@ -162,9 +165,9 @@ export function AdminGalleryPage() {
               <div className="min-w-0 flex-1 space-y-1">
                 <p className="font-body font-medium line-clamp-1">{item.title}</p>
                 <p className="text-xs text-muted-foreground">{item.category}</p>
-                <p className="text-xs text-muted-foreground">Event: {getEventTitle(item.eventId)}</p>
+                <p className="text-xs text-muted-foreground">{t("gallery.mobile.eventPrefix")} {getEventTitle(item.eventId)}</p>
                 <p className="text-xs text-muted-foreground">
-                  {new Date(item.uploadedAt).toLocaleDateString()}
+                  {formatDate(item.uploadedAt, i18n.language)}
                 </p>
                 <div className="flex gap-2 pt-1">{renderActions(item)}</div>
               </div>
@@ -181,7 +184,7 @@ export function AdminGalleryPage() {
             <TableCell>{item.category}</TableCell>
             <TableCell className="text-muted-foreground">{getEventTitle(item.eventId)}</TableCell>
             <TableCell className="max-w-[160px] truncate text-muted-foreground">{item.tags.join(", ")}</TableCell>
-            <TableCell className="text-muted-foreground text-sm">{new Date(item.uploadedAt).toLocaleDateString()}</TableCell>
+            <TableCell className="text-muted-foreground text-sm">{formatDate(item.uploadedAt, i18n.language)}</TableCell>
             <TableCell className="text-muted-foreground">{item.uploadedBy}</TableCell>
             <TableCell className="text-right">
               <div className="flex justify-end gap-2">{renderActions(item)}</div>

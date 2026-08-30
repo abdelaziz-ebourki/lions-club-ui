@@ -3,6 +3,8 @@ import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import type { GalleryItem } from "@/types";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "react-i18next";
+import { formatDate } from "@/lib/format";
 
 interface LightboxViewerProps {
   items: GalleryItem[];
@@ -11,6 +13,7 @@ interface LightboxViewerProps {
 }
 
 export function LightboxViewer({ items, index, onClose }: LightboxViewerProps) {
+  const { t, i18n } = useTranslation(["gallery", "common"]);
   const [current, setCurrent] = useState(index);
 
   useEffect(() => {
@@ -44,14 +47,14 @@ export function LightboxViewer({ items, index, onClose }: LightboxViewerProps) {
       >
         <div
           role="figure"
-          aria-label={`Photo details: ${item.title}`}
+          aria-label={t("gallery:photoDetails", { title: item.title })}
           className="pointer-events-auto max-w-xl rounded-xl bg-background/95 px-5 py-3 text-foreground shadow-2xl ring-1 ring-border"
         >
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
             <Badge variant="accent">{item.category}</Badge>
             <p className="font-heading text-lg leading-tight">{item.title}</p>
             <span className="text-body-xs text-muted-foreground">
-              Uploaded {new Date(item.uploadedAt).toLocaleDateString()}
+              {t("gallery:uploaded", { date: formatDate(item.uploadedAt, i18n.language) })}
             </span>
           </div>
           {item.description && (

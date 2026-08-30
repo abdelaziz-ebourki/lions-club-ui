@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { SectionDivider } from "@/components/ui/section-divider";
-import { siteConfig } from "@/config";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type { Member } from "@/types";
@@ -9,32 +8,31 @@ import { Target, Eye, Heart } from "lucide-react";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { SEO } from "@/components/shared/SEO";
 import { seoConfig } from "@/config/seo";
-
-const values = [
-  {
-    icon: Target,
-    title: "Our Mission",
-    label: "MISSION",
-    description:
-      "To empower volunteers to serve their communities, meet humanitarian needs, encourage peace, and promote international understanding.",
-  },
-  {
-    icon: Eye,
-    title: "Our Vision",
-    label: "VISION",
-    description:
-      "To be the leading service organization in Casablanca, creating lasting positive change through community-driven initiatives.",
-  },
-  {
-    icon: Heart,
-    title: "Our Values",
-    label: "VALUES",
-    description:
-      "Integrity, compassion, service, diversity, and leadership guide everything we do as we work to make our community better.",
-  },
-];
+import { useTranslation } from "react-i18next";
 
 export function AboutPage() {
+  const { t } = useTranslation("about");
+  const values = [
+    {
+      icon: Target,
+      title: t("missionTitle"),
+      label: t("missionLabel"),
+      description: t("missionDescription"),
+    },
+    {
+      icon: Eye,
+      title: t("visionTitle"),
+      label: t("visionLabel"),
+      description: t("visionDescription"),
+    },
+    {
+      icon: Heart,
+      title: t("valuesTitle"),
+      label: t("valuesLabel"),
+      description: t("valuesDescription"),
+    },
+  ];
+
   const { data: members, isLoading } = useQuery<Member[]>({
     queryKey: ["members"],
     queryFn: () => api.get("/members"),
@@ -43,18 +41,18 @@ export function AboutPage() {
   return (
     <>
       <SEO {...seoConfig.about} />
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "About" }]} />
+      <Breadcrumbs trail={[{ label: t("breadcrumbsHome"), href: "/" }, { label: t("breadcrumbsAbout") }]} />
       <section className="border-b bg-muted/50">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <p className="font-display text-overline text-accent mb-4">
-              About Us
+              {t("overline")}
             </p>
             <h1 className="font-heading text-h1 italic text-foreground">
-              A century of service. One community.
+              {t("heading")}
             </h1>
             <p className="mt-4 text-body-lg text-muted-foreground">
-              {siteConfig.description}
+              {t("description")}
             </p>
           </div>
         </div>
@@ -87,33 +85,21 @@ export function AboutPage() {
         <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="font-display text-overline text-accent">
-              Why We're Here
+              {t("storyOverline")}
             </p>
             <h2 className="font-heading text-h2 mt-1 text-foreground">
-              Our Story
+              {t("storyHeading")}
             </h2>
           </div>
           <div className="mt-8 flex flex-col gap-5 text-body-lg text-muted-foreground leading-relaxed">
-            <p className="first-letter:text-4xl first-letter:font-heading first-letter:text-accent first-letter:float-left first-letter:mr-2 first-letter:mt-1">
-              Founded in 2015, Lions Club FSBM started with a simple idea: 
-              the people of Casablanca already had what they needed to solve 
-              their own problems — they just needed to organize. A dozen 
-              neighbors in a living room became fifty members in a year.
+            <p className="first-letter:text-4xl first-letter:font-heading first-letter:text-accent first-letter:float-start first-letter:me-2 first-letter:mt-1">
+              {t("storyP1")}
             </p>
             <p>
-              Since then, we've organized health screenings that reached 
-              hundreds of families, cleaned up neighborhoods across the 
-              city, mentored young people exploring their first careers, 
-              and built partnerships with local organizations that multiply 
-              every hour of service. None of this required a large budget — 
-              just people who showed up.
+              {t("storyP2")}
             </p>
             <p>
-              Lions Clubs International has recognized our work, but the 
-              real measure is simpler: a cleaner street, a healthier child, 
-              a neighbor who found help when they needed it. That's what 
-              keeps us going. And that's what we'll keep doing, for as 
-              long as Casablanca needs us.
+              {t("storyP3")}
             </p>
           </div>
         </div>
@@ -122,13 +108,13 @@ export function AboutPage() {
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="font-display text-overline text-accent">
-            Leadership
+            {t("leadershipOverline")}
           </p>
           <h2 className="font-heading text-h2 mt-1 text-foreground">
-            People You'll Serve With
+            {t("leadershipHeading")}
           </h2>
           <p className="mt-2 text-body text-muted-foreground">
-            The members leading our projects
+            {t("leadershipDescription")}
           </p>
         </div>
         <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

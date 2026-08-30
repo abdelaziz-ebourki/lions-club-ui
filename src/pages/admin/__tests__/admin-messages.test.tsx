@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { AdminMessagesPage } from "../admin-messages";
 import { useQuery } from "@tanstack/react-query";
+import { formatDate } from "@/lib/format";
 import { describe, test, expect, vi, beforeEach } from "vitest";
 
 vi.mock("@tanstack/react-query", async () => {
@@ -33,6 +34,6 @@ describe("AdminMessagesPage", () => {
     vi.mocked(useQuery).mockReturnValue({ data: mockMessages } as any);
     render(<AdminMessagesPage />);
     expect(screen.getByText("john@test.com")).toBeInTheDocument();
-    expect(screen.getByText("2026-07-01")).toBeInTheDocument();
+    expect(screen.getByText(formatDate("2026-07-01", "en"))).toBeInTheDocument();
   });
 });

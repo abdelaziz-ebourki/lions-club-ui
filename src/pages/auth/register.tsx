@@ -4,6 +4,7 @@ import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { api } from "@/lib/api";
 import { useAuth } from "@/contexts/auth";
 import { Spinner } from "@/components/ui/spinner";
@@ -28,6 +29,7 @@ const registerSchema = z.object({
 type RegisterFormData = z.infer<typeof registerSchema>;
 
 export function RegisterPage() {
+  const { t } = useTranslation("auth");
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
@@ -40,8 +42,8 @@ export function RegisterPage() {
     mutationFn: (data: Omit<RegisterFormData, "confirmPassword">) => api.post("/auth/register", data),
     onSuccess: async () => {
       await refreshUser();
-      toast.success("Account created successfully!");
-      toast.success("Please check your email to verify your account");
+      toast.success(t("register.success"));
+      toast.success(t("register.verifySent"));
       navigate("/");
     },
   });
@@ -49,7 +51,7 @@ export function RegisterPage() {
   function onSubmit({ confirmPassword: _confirmPassword, ...data }: RegisterFormData) {
     mutation.mutate(data, {
       onError: (error) => {
-        toast.error(error instanceof Error ? error.message : "Registration failed. Please try again.");
+        toast.error(error instanceof Error ? error.message : t("register.error"));
       },
     });
   }
@@ -57,42 +59,42 @@ export function RegisterPage() {
   return (
     <>
       <SEO {...seoConfig.register} />
-      <AuthCardFields overline="Join Us" title="Create an Account" description="Register to join projects, participate in discussions, and connect with fellow members.">
+      <AuthCardFields overline={t("register.overline")} title={t("register.title")} description={t("register.description")}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <FieldGroup>
           <Field data-invalid={!!form.formState.errors.name}>
-            <FieldLabel htmlFor="name">Name <span aria-hidden="true" className="text-destructive">*</span></FieldLabel>
+            <FieldLabel htmlFor="name">{t("register.name")} <span aria-hidden="true" className="text-destructive">*</span></FieldLabel>
             <FieldContent>
-              <Input id="name" placeholder="Your full name" aria-invalid={!!form.formState.errors.name} aria-required="true" {...form.register("name")} autoComplete="name" />
+              <Input id="name" placeholder={t("register.namePlaceholder")} aria-invalid={!!form.formState.errors.name} aria-required="true" {...form.register("name")} autoComplete="name" />
               <FieldError errors={[form.formState.errors.name]} />
             </FieldContent>
           </Field>
           <AuthEmailField form={form} />
           <Field data-invalid={!!form.formState.errors.password}>
-            <FieldLabel htmlFor="password">Password <span aria-hidden="true" className="text-destructive">*</span></FieldLabel>
+            <FieldLabel htmlFor="password">{t("register.password")} <span aria-hidden="true" className="text-destructive">*</span></FieldLabel>
             <FieldContent>
-              <Input id="password" type="password" placeholder="At least 8 characters" aria-invalid={!!form.formState.errors.password} aria-required="true" {...form.register("password")} autoComplete="new-password" />
+              <Input id="password" type="password" placeholder={t("register.passwordPlaceholder")} aria-invalid={!!form.formState.errors.password} aria-required="true" {...form.register("password")} autoComplete="new-password" />
               <FieldError errors={[form.formState.errors.password]} />
             </FieldContent>
           </Field>
           <Field data-invalid={!!form.formState.errors.confirmPassword}>
-            <FieldLabel htmlFor="confirmPassword">Confirm Password <span aria-hidden="true" className="text-destructive">*</span></FieldLabel>
+            <FieldLabel htmlFor="confirmPassword">{t("register.confirmPassword")} <span aria-hidden="true" className="text-destructive">*</span></FieldLabel>
             <FieldContent>
-              <Input id="confirmPassword" type="password" placeholder="Repeat your password" aria-invalid={!!form.formState.errors.confirmPassword} aria-required="true" {...form.register("confirmPassword")} autoComplete="new-password" />
+              <Input id="confirmPassword" type="password" placeholder={t("register.confirmPlaceholder")} aria-invalid={!!form.formState.errors.confirmPassword} aria-required="true" {...form.register("confirmPassword")} autoComplete="new-password" />
               <FieldError errors={[form.formState.errors.confirmPassword]} />
             </FieldContent>
           </Field>
         </FieldGroup>
         <Button type="submit" disabled={mutation.isPending}>
           {mutation.isPending ? (
-            <><Spinner className="mr-2" /> Creating account...</>
-          ) : "Create Account"}
+            <><Spinner className="mr-2" /> {t("register.submitting")}</>
+          ) : t("register.submit")}
         </Button>
       </form>
       <p className="mt-4 text-center text-body-sm text-muted-foreground">
-        Already have an account?{" "}
+        {t("register.haveAccount")}{" "}
         <Link to="/login" className="text-primary underline underline-offset-4 hover:text-accent">
-          Sign in
+          {t("register.signIn")}
         </Link>
       </p>
       </AuthCardFields>

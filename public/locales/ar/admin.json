@@ -1,0 +1,378 @@
+{
+  "title": "الإدارة",
+  "heading": "إدارة",
+  "dashboard": "لوحة التحكم",
+  "events": "الفعاليات",
+  "news": "الأخبار",
+  "gallery": "المعرض",
+  "forum": "المنتدى",
+  "members": "الأعضاء",
+  "messages": "الرسائل",
+  "backToSite": "العودة إلى الموقع",
+  "manageEvents": "إدارة الفعاليات",
+  "manageMembers": "إدارة الأعضاء",
+  "manageMessages": "إدارة الرسائل",
+  "manageForum": "إدارة المنتدى",
+  "manageNews": "إدارة الأخبار",
+  "manageGallery": "إدارة المعرض",
+  "newEvent": "فعالية جديدة",
+  "noProjects": "لا توجد مشاريع بعد",
+  "createFirst": "أنشئ مشروعك المجتمعي الأول.",
+  "createFirstBtn": "أنشئ مشروعك الأول",
+  "deleteEvent": "حذف الفعالية",
+  "deleteConfirm": "هل أنت متأكد أنك تريد حذف \"{{title}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+  "cancel": "إلغاء",
+  "delete": "حذف",
+  "deleting": "جاري الحذف...",
+  "layout": {
+    "admin": "الإدارة",
+    "manage": "إدارة",
+    "adminNavigation": "تنقل الإدارة",
+    "nav": {
+      "dashboard": "لوحة التحكم",
+      "events": "الفعاليات",
+      "news": "الأخبار",
+      "gallery": "المعرض",
+      "forum": "المنتدى",
+      "members": "الأعضاء",
+      "messages": "الرسائل"
+    },
+    "backToSite": "العودة إلى الموقع"
+  },
+  "dashboard": {
+    "overline": "نظرة عامة",
+    "heading": "لوحة التحكم",
+    "description": "أدِر مشاريع ناديك وأعضائه ومحادثاته.",
+    "viewDetails": "عرض التفاصيل",
+    "errorBanner": "تعذر تحميل بعض بيانات لوحة التحكم. تحقق من اتصالك وحاول التحديث.",
+    "stats": {
+      "upcomingEvents": "الفعاليات القادمة",
+      "forumThreads": "نقاشات المنتدى",
+      "activeMembers": "الأعضاء النشطون",
+      "newMessages": "الرسائل الجديدة"
+    },
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "admin": "الإدارة",
+      "dashboard": "لوحة التحكم"
+    }
+  },
+  "events": {
+    "overline": "الفعاليات",
+    "heading": "إدارة الفعاليات",
+    "newEvent": "فعالية جديدة",
+    "caption": "جدول الفعاليات",
+    "headers": {
+      "title": "العنوان",
+      "date": "التاريخ",
+      "category": "الفئة",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "empty": {
+      "title": "لا توجد مشاريع بعد",
+      "description": "أنشئ مشروعك المجتمعي الأول.",
+      "action": "أنشئ مشروعك الأول"
+    },
+    "delete": {
+      "title": "حذف الفعالية",
+      "description": "هل أنت متأكد أنك تريد حذف \"{{title}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "deleting": "جاري الحذف..."
+    },
+    "toast": {
+      "deleted": "تم حذف الفعالية بنجاح.",
+      "deleteFailed": "فشل حذف الفعالية.",
+      "created": "تم إنشاء المشروع بنجاح.",
+      "updated": "تم تحديث المشروع بنجاح.",
+      "saveFailed": "فشل حفظ المشروع."
+    },
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "admin": "الإدارة",
+      "events": "الفعاليات"
+    },
+    "form": {
+      "backToEvents": "العودة إلى الفعاليات",
+      "overlineNew": "جديد",
+      "overlineEdit": "تعديل",
+      "overlineSuffix": "مشروع",
+      "headingCreate": "إنشاء مشروع",
+      "headingEdit": "تعديل المشروع",
+      "newEventBreadcrumb": "فعالية جديدة",
+      "editEventBreadcrumb": "تعديل الفعالية",
+      "buttons": {
+        "saving": "جاري الحفظ...",
+        "create": "إنشاء المشروع",
+        "update": "تحديث المشروع"
+      },
+      "fields": {
+        "title": "العنوان",
+        "description": "الوصف",
+        "image": "صورة الفعالية",
+        "date": "التاريخ",
+        "time": "الوقت",
+        "location": "الموقع",
+        "category": "الفئة",
+        "status": "الحالة",
+        "placeholders": {
+          "title": "عنوان الفعالية",
+          "description": "صِف الفعالية",
+          "location": "موقع الفعالية",
+          "category": "اختر الفئة",
+          "status": "اختر الحالة"
+        },
+        "statusOptions": {
+          "upcoming": "قادم",
+          "ongoing": "جاري",
+          "past": "منتهي"
+        }
+      }
+    }
+  },
+  "news": {
+    "overline": "الأخبار",
+    "heading": "إدارة الأخبار",
+    "newArticle": "مقال جديد",
+    "caption": "جدول الأخبار",
+    "headers": {
+      "title": "العنوان",
+      "category": "الفئة",
+      "status": "الحالة",
+      "author": "الكاتب",
+      "published": "تاريخ النشر",
+      "actions": "الإجراءات"
+    },
+    "empty": {
+      "title": "لا توجد مقالات بعد",
+      "description": "أنشئ أول مقال إخباري لك.",
+      "action": "أنشئ مقالك الأول"
+    },
+    "error": {
+      "heading": "فشل تحميل المقالات",
+      "message": "يرجى التحقق من اتصالك والمحاولة مرة أخرى.",
+      "retry": "حاول مرة أخرى"
+    },
+    "delete": {
+      "title": "حذف المقال",
+      "description": "هل أنت متأكد أنك تريد حذف \"{{title}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "deleting": "جاري الحذف..."
+    },
+    "toast": {
+      "deleted": "تم حذف المقال بنجاح.",
+      "deleteFailed": "فشل حذف المقال.",
+      "created": "تم إنشاء المقال بنجاح.",
+      "updated": "تم تحديث المقال بنجاح.",
+      "saveFailed": "فشل حفظ المقال."
+    },
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "admin": "الإدارة",
+      "news": "الأخبار"
+    },
+    "form": {
+      "backToNews": "العودة إلى الأخبار",
+      "overlineNew": "جديد",
+      "overlineEdit": "تعديل",
+      "overlineSuffix": "مقال",
+      "headingCreate": "إنشاء مقال",
+      "headingEdit": "تعديل المقال",
+      "newArticleBreadcrumb": "مقال جديد",
+      "editArticleBreadcrumb": "تعديل المقال",
+      "buttons": {
+        "saving": "جاري الحفظ...",
+        "create": "إنشاء المقال",
+        "update": "تحديث المقال"
+      },
+      "fields": {
+        "title": "العنوان",
+        "slug": "المعرّف",
+        "featuredImage": "الصورة البارزة",
+        "category": "الفئة",
+        "status": "الحالة",
+        "publishDate": "تاريخ النشر",
+        "optional": "(اختياري)",
+        "content": "المحتوى",
+        "excerpt": "الملخص",
+        "placeholders": {
+          "title": "عنوان المقال",
+          "slug": "معرف-المقال",
+          "excerpt": "ملخص موجز للمقال",
+          "category": "اختر الفئة",
+          "status": "اختر الحالة"
+        },
+        "statusOptions": {
+          "draft": "مسودة",
+          "published": "منشور",
+          "archived": "مؤرشف"
+        }
+      }
+    }
+  },
+  "gallery": {
+    "overline": "المعرض",
+    "heading": "إدارة المعرض",
+    "newItem": "عنصر جديد",
+    "caption": "جدول المعرض",
+    "headers": {
+      "thumbnail": "الصورة المصغرة",
+      "title": "العنوان",
+      "category": "الفئة",
+      "event": "الفعالية",
+      "tags": "الوسوم",
+      "uploaded": "تاريخ الرفع",
+      "uploader": "الرافع",
+      "actions": "الإجراءات"
+    },
+    "empty": {
+      "title": "لا توجد عناصر بعد",
+      "description": "ارفع صورتك الأولى للبدء.",
+      "action": "ارفع صورتك الأولى"
+    },
+    "error": {
+      "heading": "فشل تحميل عناصر المعرض",
+      "message": "يرجى التحقق من اتصالك والمحاولة مرة أخرى.",
+      "retry": "حاول مرة أخرى"
+    },
+    "delete": {
+      "title": "حذف عنصر المعرض",
+      "description": "هل أنت متأكد أنك تريد حذف \"{{title}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "deleting": "جاري الحذف..."
+    },
+    "toast": {
+      "deleted": "تم حذف العنصر بنجاح.",
+      "deleteFailed": "فشل حذف العنصر.",
+      "created": "تم إنشاء العنصر بنجاح.",
+      "updated": "تم تحديث العنصر بنجاح.",
+      "saveFailed": "فشل حفظ العنصر."
+    },
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "admin": "الإدارة",
+      "gallery": "المعرض"
+    },
+    "form": {
+      "backToGallery": "العودة إلى المعرض",
+      "overlineUpload": "رفع",
+      "overlineEdit": "تعديل",
+      "overlineSuffix": "عنصر المعرض",
+      "headingCreate": "عنصر جديد",
+      "headingEdit": "تعديل العنصر",
+      "newItemBreadcrumb": "عنصر جديد",
+      "editItemBreadcrumb": "تعديل العنصر",
+      "buttons": {
+        "uploading": "جاري الرفع...",
+        "create": "إنشاء العنصر",
+        "update": "تحديث العنصر"
+      },
+      "fields": {
+        "photo": "الصورة",
+        "title": "العنوان",
+        "description": "الوصف",
+        "category": "الفئة",
+        "eventLink": "ارتباط الفعالية",
+        "tags": "الوسوم",
+        "placeholders": {
+          "title": "عنوان الصورة",
+          "description": "تعليق اختياري",
+          "category": "اختر الفئة",
+          "eventLink": "بدون فعالية",
+          "tags": "حفل، جمع تبرعات"
+        },
+        "hints": {
+          "tags": "مفصولة بفواصل — يتم إزالة التكرار تلقائياً."
+        },
+        "noEvent": "بدون فعالية"
+      }
+    },
+    "aria": {
+      "editItem": "تعديل العنصر {{title}}",
+      "deleteItem": "حذف العنصر {{title}}"
+    },
+    "mobile": {
+      "eventPrefix": "الفعالية:"
+    }
+  },
+  "members": {
+    "overline": "الأعضاء",
+    "heading": "إدارة الأعضاء",
+    "addMember": "إضافة عضو",
+    "caption": "جدول الأعضاء",
+    "headers": {
+      "name": "الاسم",
+      "role": "الدور",
+      "actions": "الإجراءات"
+    },
+    "empty": {
+      "title": "لا يوجد أعضاء بعد",
+      "description": "أضف أول عضو في النادي.",
+      "action": "أضف أول عضو"
+    },
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "admin": "الإدارة",
+      "members": "الأعضاء"
+    },
+    "form": {
+      "backToMembers": "العودة إلى الأعضاء",
+      "overlineNew": "جديد",
+      "overlineEdit": "تعديل",
+      "overlineSuffix": "عضو",
+      "headingCreate": "إضافة عضو",
+      "headingEdit": "تعديل العضو",
+      "newMemberBreadcrumb": "عضو جديد",
+      "editMemberBreadcrumb": "تعديل العضو",
+      "buttons": {
+        "saving": "جاري الحفظ...",
+        "create": "إضافة عضو",
+        "update": "تحديث العضو"
+      },
+      "fields": {
+        "name": "الاسم",
+        "role": "الدور",
+        "bio": "السيرة",
+        "bioOptional": "السيرة (اختياري)",
+        "avatar": "الصورة الشخصية",
+        "placeholders": {
+          "name": "الاسم الكامل",
+          "role": "مثال: أمين الصندوق، مسؤول الفعاليات",
+          "bio": "سيرة مختصرة"
+        }
+      }
+    },
+    "toast": {
+      "created": "تم إنشاء العضو بنجاح.",
+      "updated": "تم تحديث العضو بنجاح.",
+      "saveFailed": "فشل حفظ العضو."
+    }
+  },
+  "messages": {
+    "overline": "الرسائل",
+    "heading": "إدارة الرسائل",
+    "description": "اعرض الرسائل الواردة من الزوار والأعضاء وقم بالرد عليها.",
+    "badgeNew": "جديد",
+    "empty": "لا توجد رسائل بعد.",
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "admin": "الإدارة",
+      "messages": "الرسائل"
+    }
+  },
+  "forum": {
+    "overline": "المنتدى",
+    "heading": "إدارة المنتدى",
+    "description": "اعرض فئات المنتدى ونقاشاته وقم بالإشراف عليها.",
+    "threads": "نقاش",
+    "posts": "منشور",
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "admin": "الإدارة",
+      "forum": "المنتدى"
+    }
+  }
+}

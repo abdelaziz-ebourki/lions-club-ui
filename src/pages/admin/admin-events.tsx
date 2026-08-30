@@ -23,8 +23,10 @@ import { EmptyState } from "@/components/shared/empty-state";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { AdminPageHeader } from "@/components/shared/AdminPageHeader";
 import { AdminTable } from "@/components/shared/AdminTable";
+import { useTranslation } from "react-i18next";
 
 export function AdminEventsPage() {
+  const { t } = useTranslation("admin");
   const queryClient = useQueryClient();
 
   const { data: events, isLoading } = useQuery<Event[]>({
@@ -36,27 +38,27 @@ export function AdminEventsPage() {
     mutationFn: (id: string) => api.delete(`/events/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["events"] });
-      toast.success("Event deleted successfully.");
+      toast.success(t("events.toast.deleted"));
     },
-    onError: () => toast.error("Failed to delete event."),
+    onError: () => toast.error(t("events.toast.deleteFailed")),
   });
 
   const headers = (
     <>
-      <TableHead className="font-display text-overline text-xs">Title</TableHead>
-      <TableHead className="font-display text-overline text-xs">Date</TableHead>
-      <TableHead className="font-display text-overline text-xs">Category</TableHead>
-      <TableHead className="font-display text-overline text-xs">Status</TableHead>
-      <TableHead className="font-display text-overline text-xs text-right">Actions</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("events.headers.title")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("events.headers.date")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("events.headers.category")}</TableHead>
+      <TableHead className="font-display text-overline text-xs">{t("events.headers.status")}</TableHead>
+      <TableHead className="font-display text-overline text-xs text-right">{t("events.headers.actions")}</TableHead>
     </>
   );
 
   if (isLoading) {
     return (
       <div>
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Events" }]} />
-        <AdminPageHeader overline="Events" heading="Manage Events" />
-        <AdminTable headers={headers} loading skeletonColumns={5} caption="Events table" />
+        <Breadcrumbs trail={[{ label: t("events.breadcrumbs.home"), href: "/" }, { label: t("events.breadcrumbs.admin"), href: "/admin" }, { label: t("events.breadcrumbs.events") }]} />
+        <AdminPageHeader overline={t("events.overline")} heading={t("events.heading")} />
+        <AdminTable headers={headers} loading skeletonColumns={5} caption={t("events.caption")} />
       </div>
     );
   }
@@ -64,15 +66,15 @@ export function AdminEventsPage() {
   if (events?.length === 0) {
     return (
       <div>
-        <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Events" }]} />
-        <AdminPageHeader overline="Events" heading="Manage Events" action={{ to: "/admin/events/new", label: "New Event" }} />
+        <Breadcrumbs trail={[{ label: t("events.breadcrumbs.home"), href: "/" }, { label: t("events.breadcrumbs.admin"), href: "/admin" }, { label: t("events.breadcrumbs.events") }]} />
+        <AdminPageHeader overline={t("events.overline")} heading={t("events.heading")} action={{ to: "/admin/events/new", label: t("events.newEvent") }} />
         <EmptyState
           icon={CalendarX}
-          title="No projects yet"
-          description="Create your first community project."
+          title={t("events.empty.title")}
+          description={t("events.empty.description")}
           action={
             <Link to="/admin/events/new">
-              <Button>Create your first project</Button>
+              <Button>{t("events.empty.action")}</Button>
             </Link>
           }
         />
@@ -82,11 +84,11 @@ export function AdminEventsPage() {
 
   return (
     <div>
-      <Breadcrumbs trail={[{ label: "Home", href: "/" }, { label: "Admin", href: "/admin" }, { label: "Events" }]} />
-      <AdminPageHeader overline="Events" heading="Manage Events" action={{ to: "/admin/events/new", label: "New Event" }} />
+      <Breadcrumbs trail={[{ label: t("events.breadcrumbs.home"), href: "/" }, { label: t("events.breadcrumbs.admin"), href: "/admin" }, { label: t("events.breadcrumbs.events") }]} />
+      <AdminPageHeader overline={t("events.overline")} heading={t("events.heading")} action={{ to: "/admin/events/new", label: t("events.newEvent") }} />
       <AdminTable
         headers={headers}
-        caption="Events table"
+        caption={t("events.caption")}
         mobileView={events?.map((event) => (
           <Card key={event.id} className="mb-3">
             <CardContent className="py-4">
@@ -115,15 +117,15 @@ export function AdminEventsPage() {
                     />
                     <AlertDialogContent>
                       <AlertDialogHeader>
-                        <AlertDialogTitle>Delete Event</AlertDialogTitle>
+                        <AlertDialogTitle>{t("events.delete.title")}</AlertDialogTitle>
                         <AlertDialogDescription>
-                          Are you sure you want to delete "{event.title}"? This action cannot be undone.
+                          {t("events.delete.description", { title: event.title })}
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel>{t("events.delete.cancel")}</AlertDialogCancel>
                         <AlertDialogAction onClick={() => deleteMutation.mutate(event.id)} disabled={deleteMutation.isPending}>
-                          {deleteMutation.isPending ? "Deleting..." : "Delete"}
+                          {deleteMutation.isPending ? t("events.delete.deleting") : t("events.delete.delete")}
                         </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
@@ -163,15 +165,15 @@ export function AdminEventsPage() {
                   />
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>Delete Event</AlertDialogTitle>
+                      <AlertDialogTitle>{t("events.delete.title")}</AlertDialogTitle>
                       <AlertDialogDescription>
-                        Are you sure you want to delete "{event.title}"? This action cannot be undone.
+                        {t("events.delete.description", { title: event.title })}
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogCancel>{t("events.delete.cancel")}</AlertDialogCancel>
                       <AlertDialogAction onClick={() => deleteMutation.mutate(event.id)} disabled={deleteMutation.isPending}>
-                        {deleteMutation.isPending ? "Deleting..." : "Delete"}
+                        {deleteMutation.isPending ? t("events.delete.deleting") : t("events.delete.delete")}
                       </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>

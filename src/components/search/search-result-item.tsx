@@ -1,20 +1,22 @@
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "react-i18next";
 import type { SearchResult } from "@/types";
 
 export interface SearchResultItemProps {
   result: SearchResult;
 }
 
-const entityLabels: Record<string, string> = {
-  event: "Event",
-  forum_thread: "Forum Thread",
-  member: "Member",
-  contact_message: "Contact Message",
-};
-
 export function SearchResultItem({ result }: SearchResultItemProps) {
+  const { t } = useTranslation("search");
+  const entityLabels: Record<string, string> = {
+    event: t("entityEvent"),
+    forum_thread: t("entityForumThread"),
+    member: t("entityMember"),
+    contact_message: t("entityContactMessage"),
+  };
+
   return (
     <Link to={result.url}>
       <Card className="transition-all hover:shadow-md">
