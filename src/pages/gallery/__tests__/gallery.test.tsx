@@ -90,7 +90,8 @@ describe('GalleryPage', () => {
       const user = userEvent.setup();
       renderPage();
       await user.click(screen.getByRole('combobox', { name: 'Filter by category' }));
-      await user.click(screen.getByRole('option', { name: 'Event' }));
+      const option = await screen.findByRole('option', { name: 'Event' });
+      await user.click(option);
       const lastCall = vi.mocked(useGalleryList).mock.calls.at(-1);
       expect(lastCall?.[2]).toMatchObject({ category: 'Event' });
     });
@@ -103,7 +104,8 @@ describe('GalleryPage', () => {
       const user = userEvent.setup();
       renderPage();
       await user.click(screen.getByRole('combobox', { name: 'Filter by event' }));
-      await user.click(screen.getByRole('option', { name: 'Annual Charity Gala 2026' }));
+      const option = await screen.findByRole('option', { name: 'Annual Charity Gala 2026' });
+      await user.click(option);
       const lastCall = vi.mocked(useGalleryList).mock.calls.at(-1);
       expect(lastCall?.[2]).toMatchObject({ eventId: '1' });
     });
@@ -112,7 +114,8 @@ describe('GalleryPage', () => {
       const user = userEvent.setup();
       renderPage();
       await user.click(screen.getByRole('combobox', { name: 'Filter by category' }));
-      await user.click(screen.getByRole('option', { name: 'All categories' }));
+      const option = await screen.findByRole('option', { name: 'All categories' });
+      await user.click(option);
       const lastCall = vi.mocked(useGalleryList).mock.calls.at(-1);
       expect(lastCall?.[2]).toMatchObject({ category: '' });
     });
@@ -130,7 +133,8 @@ describe('GalleryPage', () => {
       mockList({ data: { data: [], total: 0, page: 1, limit: 12, totalPages: 0 } });
       renderPage();
       await user.click(screen.getByRole('combobox', { name: 'Filter by category' }));
-      await user.click(screen.getByRole('option', { name: 'Event' }));
+      const option = await screen.findByRole('option', { name: 'Event' });
+      await user.click(option);
       expect(screen.getByText(/no photos match/i)).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /clear filters/i })).toBeInTheDocument();
     });
@@ -144,7 +148,8 @@ describe('GalleryPage', () => {
       mockList({ data: { data: [], total: 0, page: 1, limit: 12, totalPages: 0 } });
       renderPage();
       await user.click(screen.getByRole('combobox', { name: 'Filter by event' }));
-      await user.click(screen.getByRole('option', { name: 'Annual Charity Gala 2026' }));
+      const option = await screen.findByRole('option', { name: 'Annual Charity Gala 2026' });
+      await user.click(option);
       expect(screen.getByText(/no photos match/i)).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /clear filters/i })).toBeInTheDocument();
     });
