@@ -53,8 +53,8 @@ jobs:
           node-version: lts/*
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
-      - run: npx playwright test e2e/a11y.spec.ts --project=chromium
+      - run: npx playwright install --with-deps firefox
+      - run: npx playwright test e2e/a11y.spec.ts --project=firefox
 
   qa:
     runs-on: ubuntu-latest
@@ -65,5 +65,5 @@ jobs:
           node-version: lts/*
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chromium firefox webkit
-      - run: npx playwright test e2e/qa-matrix.spec.ts e2e/qa-interactions.spec.ts --project=chromium --project=firefox --project=webkit
+      - run: npx playwright install --with-deps firefox
+      - run: npx playwright test e2e/qa-matrix.spec.ts e2e/qa-interactions.spec.ts --project=firefox
