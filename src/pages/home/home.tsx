@@ -142,7 +142,7 @@ export function HomePage() {
                     <img
                       src={article.featuredImage}
                       alt={article.title}
-                      className="h-48 w-full object-cover transition-transform group-hover:scale-105"
+                      className="h-64 w-full object-cover transition-transform group-hover:scale-105"
                       loading="lazy"
                       width={800}
                       height={400}
@@ -218,7 +218,7 @@ export function HomePage() {
                     <img
                       src={item.thumbnailUrl ?? item.imageUrl}
                       alt={item.title}
-                      className="h-48 w-full object-cover transition-transform group-hover:scale-105"
+                      className="h-64 w-full object-cover transition-transform group-hover:scale-105"
                       loading="lazy"
                       width={400}
                       height={300}

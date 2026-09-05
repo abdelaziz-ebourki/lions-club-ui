@@ -74,7 +74,7 @@ export function EventsPage() {
                       <img
                         src={event.image}
                         alt={event.title}
-                        className="h-48 w-full object-cover transition-transform group-hover:scale-105"
+                        className="h-64 w-full object-cover transition-transform group-hover:scale-105"
                         loading="lazy"
                         width={800}
                         height={400}

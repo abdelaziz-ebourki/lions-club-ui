@@ -204,7 +204,7 @@ export function GalleryPage() {
                     loading="lazy"
                     width={400}
                     height={300}
-                    className="h-48 w-full object-cover transition-transform group-hover:scale-105"
+                    className="h-64 w-full object-cover transition-transform group-hover:scale-105"
                   />
                   <div className="space-y-2 p-4">
                     <Badge variant="accent">{item.category}</Badge>
