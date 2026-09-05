@@ -216,10 +216,10 @@ describe('GalleryPage — lightbox (US3)', () => {
     const user = userEvent.setup();
     renderAt();
     await user.click(screen.getByRole('button', { name: new RegExp(firstItem.title) }));
-    await screen.findByRole('dialog');
-    // YARL renders slides - find element with imageUrl in src or background-image
-    const allElements = document.body.querySelectorAll('*');
-    const slideElement = Array.from(allElements).find(
+    const dialog = await screen.findByRole('dialog');
+    // YARL renders slides inside the dialog - scope the search there so grid
+    // thumbnails (rendered behind the dialog) are never mistaken for the slide.
+    const slideElement = Array.from(dialog.querySelectorAll('*')).find(
       (el) => (el as HTMLImageElement).src?.includes(firstItem.imageUrl) ||
               (el as HTMLElement).style.backgroundImage?.includes(firstItem.imageUrl)
     );

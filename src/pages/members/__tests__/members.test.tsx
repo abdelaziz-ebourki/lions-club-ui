@@ -67,10 +67,9 @@ describe('MembersPage', () => {
   });
 
   test('renders avatar with lazy and sized attrs when present', () => {
+    const memberWithAvatar = { ...members[0], avatar: '/seed/blood-drive-1.jpg' };
+    mockList({ data: [memberWithAvatar] });
     renderPage();
-    const memberWithAvatar = [...members].sort(
-      (a, b) => new Date(b.joinedAt).getTime() - new Date(a.joinedAt).getTime()
-    ).find((m) => m.avatar)!;
     const img = screen.getByAltText(memberWithAvatar.name) as HTMLImageElement;
     expect(img).toBeInTheDocument();
     expect(img.getAttribute('loading')).toBe('lazy');

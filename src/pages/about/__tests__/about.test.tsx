@@ -34,7 +34,7 @@ describe("AboutPage", () => {
 describe("AboutPage images (FR-001, FR-008)", () => {
   test("member avatar images are lazy-loaded with explicit dimensions", () => {
     vi.mocked(useQuery).mockReturnValue({
-      data: members,
+      data: [{ ...members[0], avatar: '/seed/blood-drive-1.jpg' }],
       isLoading: false,
       isError: false,
       error: null,

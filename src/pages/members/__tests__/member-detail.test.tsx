@@ -38,7 +38,7 @@ beforeEach(() => {
 
 describe('MemberDetailPage', () => {
   test('renders member name, role, bio and avatar with lazy and sized attrs', () => {
-    const member = members.find((m) => m.avatar)!;
+    const member = { ...members[0], avatar: '/seed/blood-drive-1.jpg' };
     mockMember({ data: member });
     renderAt(member.id);
     expect(screen.getByRole('heading', { name: member.name })).toBeInTheDocument();
