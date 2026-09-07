@@ -92,9 +92,9 @@ export function MembersPage() {
               key={member.id}
               to={`/members/${member.id}`}
               aria-label={t("members:viewProfile", { name: member.name })}
-              className="group"
+              className="group h-full"
             >
-              <Card className="text-center transition-all hover:shadow-md">
+              <Card className="flex h-full flex-col text-center transition-all hover:shadow-md">
                 <CardContent className="pt-8">
                   {member.avatar ? (
                     <img

@@ -70,7 +70,7 @@ export function HomePage() {
             ))
           ) : (
             events?.slice(0, 3).map((event) => (
-              <Card key={event.id} className="group transition-all hover:shadow-lg">
+              <Card key={event.id} className="group flex h-full flex-col transition-all hover:shadow-lg">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <Badge variant="accent">{event.category}</Badge>
@@ -83,10 +83,10 @@ export function HomePage() {
                     {event.date}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex flex-1 flex-col">
                   <Link
                     to={`/events/${event.id}`}
-                    className="inline-flex items-center text-sm font-medium text-accent hover:underline"
+                    className="mt-auto inline-flex items-center pt-4 text-sm font-medium text-accent hover:underline"
                   >
                     {t("home.upcoming.join")} <ArrowRight className="ms-1 size-3" />
                   </Link>
@@ -136,7 +136,7 @@ export function HomePage() {
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featuredNews.map((article) => (
-              <Card key={article.id} className="group transition-all hover:shadow-lg">
+              <Card key={article.id} className="group flex h-full flex-col transition-all hover:shadow-lg">
                 {article.featuredImage && (
                   <div className="overflow-hidden rounded-t-lg">
                     <img
@@ -158,13 +158,13 @@ export function HomePage() {
                     {article.excerpt}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex flex-1 flex-col">
                   <div className="text-body-sm text-muted-foreground">
                     {article.publishedAt ? formatDate(article.publishedAt, i18n.language) : ""}
                   </div>
                   <Link
                     to={`/news/${article.slug}`}
-                    className="mt-4 inline-flex items-center text-sm font-medium text-accent hover:underline"
+                    className="mt-auto inline-flex items-center pt-4 text-sm font-medium text-accent hover:underline"
                   >
                     {t("home.news.readArticle")} <ArrowRight className="ms-1 size-3" />
                   </Link>
@@ -212,8 +212,8 @@ export function HomePage() {
             ))
           ) : galleryData?.data && galleryData.data.length > 0 ? (
             galleryData.data.slice(0, 6).map((item) => (
-              <Link key={item.id} to={`/gallery/${item.id}`} className="group">
-                <Card className="overflow-hidden transition-all hover:shadow-lg">
+              <Link key={item.id} to={`/gallery/${item.id}`} className="group h-full">
+                <Card className="flex h-full flex-col overflow-hidden transition-all hover:shadow-lg">
                   <div className="overflow-hidden">
                     <img
                       src={item.thumbnailUrl ?? item.imageUrl}

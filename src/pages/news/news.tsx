@@ -72,7 +72,7 @@ export function NewsPage() {
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {data.data.map((article) => (
-            <Card key={article.id} className="group transition-all hover:shadow-lg">
+            <Card key={article.id} className="group flex h-full flex-col transition-all hover:shadow-lg">
               {article.featuredImage && (
                 <div className="overflow-hidden rounded-t-lg">
                   <img
@@ -96,14 +96,14 @@ export function NewsPage() {
                   {article.excerpt}
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex flex-1 flex-col">
                 <div className="flex items-center justify-between text-body-sm text-muted-foreground">
                   <span>{article.authorName || t("news:unknownAuthor")}</span>
                   <span>{article.publishedAt ? formatDate(article.publishedAt, i18n.language) : ""}</span>
                 </div>
                 <Link
                   to={`/news/${article.slug}`}
-                  className="mt-4 inline-flex items-center text-sm font-medium text-accent hover:underline"
+                  className="mt-auto inline-flex items-center pt-4 text-sm font-medium text-accent hover:underline"
                 >
                   {t("news:readArticle")} <ArrowRight className="ms-1 size-3" />
                 </Link>

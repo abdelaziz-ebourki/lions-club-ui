@@ -129,7 +129,7 @@ export function AboutPage() {
                 </Card>
               ))
             : members?.map((member) => (
-                <Card key={member.id} className="text-center transition-all hover:shadow-md">
+                <Card key={member.id} className="flex h-full flex-col text-center transition-all hover:shadow-md">
                   <CardContent className="pt-8">
                     {member.avatar ? (
                       <img

@@ -68,7 +68,7 @@ export function EventsPage() {
                 </Card>
               ))
             : events?.map((event) => (
-                <Card key={event.id} className="group transition-all hover:shadow-lg">
+                <Card key={event.id} className="group flex h-full flex-col transition-all hover:shadow-lg">
                   {event.image && (
                     <div className="overflow-hidden rounded-t-lg">
                       <img
@@ -102,13 +102,13 @@ export function EventsPage() {
                       {event.description}
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="flex flex-1 flex-col">
                     <div className="flex flex-col gap-2 text-body-sm text-muted-foreground">
                       <EventMetadata date={event.date} time={event.time} location={event.location} />
                     </div>
                     <Link
                       to={`/events/${event.id}`}
-                      className="mt-4 inline-flex items-center text-sm font-medium text-accent hover:underline group-hover:opacity-100 transition-opacity"
+                      className="mt-auto inline-flex items-center pt-4 text-sm font-medium text-accent hover:underline group-hover:opacity-100 transition-opacity"
                     >
                       {t("events:projectDetails")} <ArrowRight className="ms-1 size-3" />
                     </Link>

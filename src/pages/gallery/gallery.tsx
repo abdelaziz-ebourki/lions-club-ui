@@ -196,7 +196,7 @@ export function GalleryPage() {
                       setViewerIndex(idx);
                     }
                   }}
-                  className="group cursor-pointer overflow-hidden transition-all hover:shadow-lg focus-visible:ring-2 focus-visible:ring-ring"
+                  className="group flex h-full cursor-pointer flex-col overflow-hidden transition-all hover:shadow-lg focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <img
                     src={item.thumbnailUrl ?? item.imageUrl}
@@ -206,7 +206,7 @@ export function GalleryPage() {
                     height={300}
                     className="h-64 w-full object-cover transition-transform group-hover:scale-105"
                   />
-                  <div className="space-y-2 p-4">
+                  <div className="flex-1 space-y-2 p-4">
                     <Badge variant="accent">{item.category}</Badge>
                     <p data-testid="gallery-card-title" className="font-heading text-lg text-foreground line-clamp-2">
                       {item.title}
