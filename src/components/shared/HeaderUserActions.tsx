@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/auth";
+import { cn } from "@/lib/utils";
 
 interface HeaderUserActionsProps {
   onLogout: () => void;
+  tone?: "onDark" | "onLight";
 }
 
-export function HeaderUserActions({ onLogout }: HeaderUserActionsProps) {
+export function HeaderUserActions({ onLogout, tone = "onLight" }: HeaderUserActionsProps) {
   const { isAuthenticated, isAdmin } = useAuth();
+  const linkTone = tone === "onDark"
+    ? "text-white/75 hover:text-white"
+    : "text-muted-foreground hover:text-foreground";
 
   return (
     <>
@@ -15,26 +20,34 @@ export function HeaderUserActions({ onLogout }: HeaderUserActionsProps) {
         <>
           <Link
             to="/profile"
-            className="hidden text-sm font-medium text-white/75 transition-colors hover:text-white sm:inline-block"
+            className={cn("hidden text-sm font-medium transition-colors sm:inline-block", linkTone)}
           >
             Profile
           </Link>
           {isAdmin && (
             <Link
               to="/admin"
-              className="hidden text-sm font-medium text-white/75 transition-colors hover:text-white sm:inline-block"
+              className={cn("hidden text-sm font-medium transition-colors sm:inline-block", linkTone)}
             >
               Admin
             </Link>
           )}
-          <Button variant="ghost" size="sm" onClick={onLogout} className="hidden text-white hover:bg-white/15 hover:text-white sm:inline-flex">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onLogout}
+            className={cn(
+              "hidden sm:inline-flex",
+              tone === "onDark" && "text-white hover:bg-white/15 hover:text-white"
+            )}
+          >
             Sign Out
           </Button>
         </>
       ) : (
         <Link
           to="/login"
-          className="hidden text-sm font-medium text-white/75 transition-colors hover:text-white sm:inline-block"
+          className={cn("hidden text-sm font-medium transition-colors sm:inline-block", linkTone)}
         >
           Sign In
         </Link>

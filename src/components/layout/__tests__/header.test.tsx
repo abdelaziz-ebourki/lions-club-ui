@@ -7,13 +7,14 @@ import { describe, test, expect, vi, beforeEach } from 'vitest';
 
 const mockNavigate = vi.hoisted(() => vi.fn());
 const mockLogout = vi.hoisted(() => vi.fn());
+const mockLocation = vi.hoisted(() => ({ pathname: '/' }));
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return {
     ...actual,
     useNavigate: () => mockNavigate,
-    useLocation: () => ({ pathname: '/' }),
+    useLocation: () => mockLocation,
     useParams: () => ({}),
     Link: ({ children, to, ...props }: any) =>
       React.createElement('a', { href: to, ...props }, children),
@@ -38,6 +39,8 @@ vi.mock('@/hooks/use-notifications', () => ({
 beforeEach(() => {
   mockNavigate.mockClear();
   mockLogout.mockClear();
+  mockLocation.pathname = '/';
+  Object.defineProperty(window, 'scrollY', { value: 0, configurable: true });
   vi.mocked(useAuth).mockReturnValue({
     user: null,
     isAuthenticated: false,
@@ -192,5 +195,30 @@ describe('Header', () => {
     expect(logo).toHaveAttribute('width');
     expect(logo).toHaveAttribute('height');
     expect(logo).not.toHaveAttribute('loading', 'lazy');
+  });
+
+  test('is transparent over the home hero at top', () => {
+    render(<Header />);
+    expect(screen.getByRole('banner')).toHaveAttribute('data-tone', 'onDark');
+  });
+
+  test('becomes frosted after scrolling past threshold', async () => {
+    const { fireEvent } = await import('@testing-library/react');
+    render(<Header />);
+    Object.defineProperty(window, 'scrollY', { value: 200, configurable: true });
+    fireEvent.scroll(window);
+    expect(screen.getByRole('banner')).toHaveAttribute('data-tone', 'onLight');
+  });
+
+  test('is frosted on non-home routes even at top', () => {
+    mockLocation.pathname = '/events';
+    render(<Header />);
+    expect(screen.getByRole('banner')).toHaveAttribute('data-tone', 'onLight');
+  });
+
+  test('active nav link renders animated indicator', () => {
+    render(<Header />);
+    const homeLink = screen.getByRole('link', { name: 'Home' });
+    expect(homeLink.querySelector('[data-testid="nav-indicator"]')).toBeInTheDocument();
   });
 });

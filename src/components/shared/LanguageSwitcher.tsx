@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Globe } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 const languages = [
   { code: "en", label: "EN" },
@@ -8,7 +9,7 @@ const languages = [
   { code: "ar", label: "AR" },
 ] as const;
 
-export function LanguageSwitcher() {
+export function LanguageSwitcher({ tone = "onLight" }: { tone?: "onDark" | "onLight" }) {
   const { i18n, t } = useTranslation();
 
   const current = (i18n.language?.split("-")[0] as typeof languages[number]["code"]) ?? "en";
@@ -21,7 +22,10 @@ export function LanguageSwitcher() {
     <Select value={current} onValueChange={handleChange}>
       <SelectTrigger
         aria-label={t("language.select", { defaultValue: "Select language" })}
-        className="h-9 w-[72px] gap-1.5 border-transparent bg-transparent px-2 text-xs font-medium text-white [&_svg]:text-white"
+        className={cn(
+          "h-9 w-[72px] gap-1.5 border-transparent bg-transparent px-2 text-xs font-medium",
+          tone === "onDark" && "text-white [&_svg]:text-white"
+        )}
       >
         <Globe className="size-3.5" aria-hidden="true" />
         <SelectValue />
