@@ -21,7 +21,7 @@ export function LanguageSwitcher() {
     <Select value={current} onValueChange={handleChange}>
       <SelectTrigger
         aria-label={t("language.select", { defaultValue: "Select language" })}
-        className="h-9 w-[72px] gap-1.5 border-transparent bg-transparent px-2 text-xs font-medium"
+        className="h-9 w-[72px] gap-1.5 border-transparent bg-transparent px-2 text-xs font-medium text-white [&_svg]:text-white"
       >
         <Globe className="size-3.5" aria-hidden="true" />
         <SelectValue />

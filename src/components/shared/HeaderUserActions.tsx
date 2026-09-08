@@ -15,26 +15,26 @@ export function HeaderUserActions({ onLogout }: HeaderUserActionsProps) {
         <>
           <Link
             to="/profile"
-            className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:inline-block"
+            className="hidden text-sm font-medium text-white/75 transition-colors hover:text-white sm:inline-block"
           >
             Profile
           </Link>
           {isAdmin && (
             <Link
               to="/admin"
-              className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:inline-block"
+              className="hidden text-sm font-medium text-white/75 transition-colors hover:text-white sm:inline-block"
             >
               Admin
             </Link>
           )}
-          <Button variant="ghost" size="sm" onClick={onLogout} className="hidden sm:inline-flex">
+          <Button variant="ghost" size="sm" onClick={onLogout} className="hidden text-white hover:bg-white/15 hover:text-white sm:inline-flex">
             Sign Out
           </Button>
         </>
       ) : (
         <Link
           to="/login"
-          className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:inline-block"
+          className="hidden text-sm font-medium text-white/75 transition-colors hover:text-white sm:inline-block"
         >
           Sign In
         </Link>

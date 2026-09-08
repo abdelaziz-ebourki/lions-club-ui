@@ -50,7 +50,7 @@ export function SearchBar({ className }: SearchBarProps) {
   return (
     <form onSubmit={handleSubmit} className={className} role="search">
       <div className="relative">
-        <Search className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-white/70" />
         <Input
           ref={inputRef}
           type="search"
@@ -59,7 +59,7 @@ export function SearchBar({ className }: SearchBarProps) {
           value={value}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          className="w-64 ps-9"
+          className="w-64 border-b-white/30 ps-9 text-white placeholder:text-white/60 focus-visible:border-b-white"
           aria-label={t("label")}
         />
       </div>

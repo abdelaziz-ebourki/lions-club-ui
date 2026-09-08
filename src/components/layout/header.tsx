@@ -43,11 +43,11 @@ export function Header() {
   }, [logout, navigate]);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-lg">
+    <header className="fixed inset-x-0 top-0 z-50 bg-gradient-to-b from-black/60 via-black/25 to-transparent text-white">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2.5">
           <img src="/logo.png" alt="" className="h-8 w-8 rounded-full" width={32} height={32}  />
-          <span className="font-heading text-xl font-semibold text-primary">
+          <span className="font-heading text-xl font-semibold text-white">
             {t("site.name")}
           </span>
         </Link>
@@ -64,6 +64,7 @@ export function Header() {
               <NotificationBell
                 unreadCount={unreadCount}
                 onClick={() => setNotifOpen(true)}
+                className="text-white hover:bg-white/15 hover:text-white"
               />
               {notifOpen && (
                 <NotificationPanel
@@ -76,14 +77,14 @@ export function Header() {
               )}
             </>
           )}
-          <Button variant="ghost" size="icon" onClick={toggle} aria-label={t("header.toggleTheme")}>
+          <Button variant="ghost" size="icon" onClick={toggle} aria-label={t("header.toggleTheme")} className="text-white hover:bg-white/15 hover:text-white">
             {theme === "dark" ? <Sun className="size-5" /> : <Moon className="size-5" />}
           </Button>
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
               render={
-                <Button variant="ghost" size="icon" className="lg:hidden" aria-label={t("header.openMenu")} />
+                <Button variant="ghost" size="icon" className="text-white hover:bg-white/15 hover:text-white lg:hidden" aria-label={t("header.openMenu")} />
               }
             >
               <Menu className="size-5" />
