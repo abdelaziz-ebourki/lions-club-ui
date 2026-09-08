@@ -32,9 +32,32 @@
   },
   "hero": {
     "overline": "Nous Servons",
-    "title": "Casablanca sert depuis 2015.\nÀ vous de jouer.",
-    "description": "Lions Club FSBM unit voisins, étudiants et professionnels pour répondre aux besoins les plus pressants de Casablanca — santé visuelle, opportunités jeunesse et résilience communautaire.",
-    "cta": "Trouvez Votre Premier Projet"
+    "prevSlide": "Diapositive précédente",
+    "nextSlide": "Diapositive suivante",
+    "goToSlide": "Aller à la diapositive {{index}}",
+    "slideSelector": "Choisir la diapositive",
+    "pauseAutoplay": "Suspendre le défilement",
+    "playAutoplay": "Reprendre le défilement",
+    "slides": [
+      {
+        "overline": "Qui sommes-nous",
+        "title": "Des étudiants au service de Casablanca depuis 2015.",
+        "description": "Le Lions Club FSBM unit les étudiants et bénévoles de la Faculté des Sciences Ben M'Sik pour servir notre communauté.",
+        "cta": "Le club"
+      },
+      {
+        "overline": "Nos actions",
+        "title": "Santé, jeunesse et solidarité en action.",
+        "description": "Caravanes de don du sang, visites sociales et caravanes humanitaires : découvrez nos projets sur le terrain.",
+        "cta": "Voir nos actions"
+      },
+      {
+        "overline": "Rejoignez la mission",
+        "title": "À vous de servir.",
+        "description": "Étudiant à la FSBM ? Rejoignez une équipe de bénévoles motivés et participez à la prochaine action.",
+        "cta": "Nous contacter"
+      }
+    ]
   },
   "home": {
     "impact": {
