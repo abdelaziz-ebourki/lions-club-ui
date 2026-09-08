@@ -74,16 +74,14 @@ export function NewsPage() {
           {data.data.map((article) => (
             <Card key={article.id} className="group flex h-full flex-col transition-all hover:shadow-lg">
               {article.featuredImage && (
-                <div className="overflow-hidden rounded-t-lg">
-                  <img
-                    src={article.featuredImage}
-                    alt={article.title}
-                    className="h-64 w-full object-cover transition-transform group-hover:scale-105"
-                    loading="lazy"
-                    width={800}
-                    height={400}
-                  />
-                </div>
+                <img
+                  src={article.featuredImage}
+                  alt={article.title}
+                  className="h-64 w-full object-cover transition-transform group-hover:scale-105"
+                  loading="lazy"
+                  width={800}
+                  height={400}
+                />
               )}
               <CardHeader>
                 <Badge variant="accent" className="w-fit">{article.category}</Badge>

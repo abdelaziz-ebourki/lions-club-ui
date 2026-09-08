@@ -70,16 +70,14 @@ export function EventsPage() {
             : events?.map((event) => (
                 <Card key={event.id} className="group flex h-full flex-col transition-all hover:shadow-lg">
                   {event.image && (
-                    <div className="overflow-hidden rounded-t-lg">
-                      <img
-                        src={event.image}
-                        alt={event.title}
-                        className="h-64 w-full object-cover transition-transform group-hover:scale-105"
-                        loading="lazy"
-                        width={800}
-                        height={400}
-                      />
-                    </div>
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="h-64 w-full object-cover transition-transform group-hover:scale-105"
+                      loading="lazy"
+                      width={800}
+                      height={400}
+                    />
                   )}
                   <CardHeader>
                     <div className="flex items-center justify-between">

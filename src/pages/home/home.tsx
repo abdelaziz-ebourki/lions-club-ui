@@ -138,16 +138,14 @@ export function HomePage() {
             {featuredNews.map((article) => (
               <Card key={article.id} className="group flex h-full flex-col transition-all hover:shadow-lg">
                 {article.featuredImage && (
-                  <div className="overflow-hidden rounded-t-lg">
-                    <img
-                      src={article.featuredImage}
-                      alt={article.title}
-                      className="h-64 w-full object-cover transition-transform group-hover:scale-105"
-                      loading="lazy"
-                      width={800}
-                      height={400}
-                    />
-                  </div>
+                  <img
+                    src={article.featuredImage}
+                    alt={article.title}
+                    className="h-64 w-full object-cover transition-transform group-hover:scale-105"
+                    loading="lazy"
+                    width={800}
+                    height={400}
+                  />
                 )}
                 <CardHeader>
                   <Badge variant="accent" className="w-fit">{article.category}</Badge>
@@ -214,16 +212,14 @@ export function HomePage() {
             galleryData.data.slice(0, 6).map((item) => (
               <Link key={item.id} to={`/gallery/${item.id}`} className="group h-full">
                 <Card className="flex h-full flex-col overflow-hidden transition-all hover:shadow-lg">
-                  <div className="overflow-hidden">
-                    <img
-                      src={item.thumbnailUrl ?? item.imageUrl}
-                      alt={item.title}
-                      className="h-64 w-full object-cover transition-transform group-hover:scale-105"
-                      loading="lazy"
-                      width={400}
-                      height={300}
-                    />
-                  </div>
+                  <img
+                    src={item.thumbnailUrl ?? item.imageUrl}
+                    alt={item.title}
+                    className="h-64 w-full object-cover transition-transform group-hover:scale-105"
+                    loading="lazy"
+                    width={400}
+                    height={300}
+                  />
                   <CardHeader>
                     <Badge variant="accent" className="w-fit">
                       {item.category}
