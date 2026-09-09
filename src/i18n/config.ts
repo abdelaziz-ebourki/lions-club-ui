@@ -103,6 +103,7 @@ if (!i18n.isInitialized) {
     .init({
       resources,
       defaultNS,
+      fallbackNS: "common",
       fallbackLng: "en",
       supportedLngs,
       detection: {

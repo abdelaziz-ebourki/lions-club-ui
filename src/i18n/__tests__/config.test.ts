@@ -29,6 +29,22 @@ describe("i18n config", () => {
     expect(i18n.t("nav.home", { lng: "ar" })).toBe("الرئيسية");
   });
 
+  test("array namespaces fall back to common (breadcrumb pattern)", () => {
+    // Pages use useTranslation(["news", "common"]) etc. react-i18next binds
+    // t to the FIRST namespace only, so unprefixed common keys (breadcrumbs,
+    // nav) must resolve via the common fallback instead of leaking raw keys.
+    const tNewsEn = i18n.getFixedT("en", ["news", "common"][0]);
+    expect(tNewsEn("breadcrumbs.home")).toBe("Home");
+    expect(tNewsEn("nav.news")).toBe("News");
+
+    const tNewsFr = i18n.getFixedT("fr", ["news", "common"][0]);
+    expect(tNewsFr("breadcrumbs.home")).toBe("Accueil");
+    expect(tNewsFr("nav.news")).toBe("Actualités");
+
+    const tGalleryAr = i18n.getFixedT("ar", ["gallery", "common"][0]);
+    expect(tGalleryAr("breadcrumbs.home")).not.toBe("breadcrumbs.home");
+  });
+
   test("changes language and persists to localStorage and html attrs", async () => {
     await i18n.changeLanguage("fr");
     expect(i18n.language).toBe("fr");
