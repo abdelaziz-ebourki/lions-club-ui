@@ -37,8 +37,9 @@ describe("ThreadListItem", () => {
     expect(screen.getByText(/5 replies/)).toBeInTheDocument();
   });
 
-  test("renders lastActivity date", () => {
+  test("renders lastActivity as a formatted date, not raw ISO", () => {
     render(<ThreadListItem thread={mockThread} categoryId="cat-1" />);
-    expect(screen.getByText("2026-06-15")).toBeInTheDocument();
+    expect(screen.getByText("June 15, 2026")).toBeInTheDocument();
+    expect(screen.queryByText("2026-06-15")).not.toBeInTheDocument();
   });
 });

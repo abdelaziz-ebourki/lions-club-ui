@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 import type { ForumCategory } from "@/types";
@@ -24,6 +24,7 @@ export function NewThreadForm() {
   const { t } = useTranslation("forum");
   const { categoryId } = useParams<{ categoryId: string }>();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const threadSchema = z.object({
     title: z.string().min(5, t("validationTitleMin")).max(200, t("validationTitleMax")),
@@ -55,6 +56,7 @@ export function NewThreadForm() {
   function onSubmit(data: ThreadFormData) {
     mutation.mutate(data, {
       onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["forum-threads", categoryId] });
         toast.success(t("threadCreatedSuccess"));
         setShowSuccess(true);
         successTimer.current = setTimeout(() => navigate(`/forum/${categoryId}`), 400);

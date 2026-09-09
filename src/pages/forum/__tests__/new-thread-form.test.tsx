@@ -2,7 +2,7 @@ import { describe, test, expect, vi, beforeEach } from 'vitest';
 import { z } from 'zod';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { NewThreadForm } from '../new-thread-form';
 
 vi.mock('react-router-dom', async () => {
@@ -22,6 +22,7 @@ vi.mock('@tanstack/react-query', async () => {
     ...actual,
     useMutation: vi.fn(),
     useQuery: vi.fn(),
+    useQueryClient: vi.fn(),
   };
 });
 
@@ -66,6 +67,7 @@ describe('NewThreadForm Zod Schema', () => {
 
 describe('NewThreadForm Component', () => {
   const mockMutate = vi.fn();
+  const mockInvalidateQueries = vi.fn();
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -79,6 +81,9 @@ describe('NewThreadForm Component', () => {
     vi.mocked(useQuery).mockReturnValue({
       data: [{ id: 'cat-1', name: 'General' }],
       isLoading: false,
+    } as any);
+    vi.mocked(useQueryClient).mockReturnValue({
+      invalidateQueries: mockInvalidateQueries,
     } as any);
   });
 
@@ -136,5 +141,29 @@ describe('NewThreadForm Component', () => {
       fireEvent.click(screen.getByRole('button', { name: /post thread/i }));
     });
     expect(mockMutate).toHaveBeenCalled();
+  });
+
+  test('invalidates the category thread list on successful create', async () => {
+    render(
+      <MemoryRouter>
+        <NewThreadForm />
+      </MemoryRouter>
+    );
+    const titleInput = screen.getByPlaceholderText(/what would you like to discuss/i);
+    const contentTextarea = screen.getByPlaceholderText(/share your thoughts/i);
+    await act(async () => {
+      fireEvent.change(titleInput, { target: { value: 'A valid thread title for testing' } });
+      fireEvent.change(contentTextarea, { target: { value: 'This is a valid content that is long enough for the form validation' } });
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: /post thread/i }));
+    });
+    expect(mockMutate).toHaveBeenCalled();
+    const onSuccess = mockMutate.mock.calls[0][1]?.onSuccess;
+    expect(onSuccess).toBeTypeOf('function');
+    await act(async () => {
+      onSuccess();
+    });
+    expect(mockInvalidateQueries).toHaveBeenCalledWith({ queryKey: ['forum-threads', 'cat-1'] });
   });
 });
