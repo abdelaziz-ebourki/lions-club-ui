@@ -1,7 +1,25 @@
 import { describe, test, expect, vi, afterEach, beforeEach } from "vitest";
 import { renderHook } from "@testing-library/react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "@/contexts/auth";
 import { useNotifications } from "../use-notifications";
+
+vi.mock("@/contexts/auth", () => ({
+  useAuth: vi.fn(),
+}));
+
+function mockLoggedOut() {
+  vi.mocked(useAuth).mockReturnValue({
+    user: null,
+    isAuthenticated: false,
+    isAdmin: false,
+    login: vi.fn(),
+    register: vi.fn(),
+    logout: vi.fn(),
+    refreshUser: vi.fn(),
+    loading: false,
+  } as never);
+}
 
 const mockNotifications = {
   notifications: [
@@ -29,6 +47,7 @@ const mockNotifications = {
 
 describe("use-notifications", () => {
   beforeEach(() => {
+    mockLoggedOut();
     vi.mocked(useQuery).mockReturnValue({
       data: mockNotifications,
       isLoading: false,
@@ -101,5 +120,32 @@ describe("use-notifications", () => {
     expect(result.current.markAllRead).toBeDefined();
     expect(typeof result.current.markAsRead).toBe("function");
     expect(typeof result.current.markAllRead).toBe("function");
+  });
+
+  test("disables polling when logged out so anonymous 401s never fire auth:expired", () => {
+    renderHook(() => useNotifications());
+    const options = vi.mocked(useQuery).mock.calls[0][0];
+    expect(options.enabled).toBe(false);
+  });
+
+  test("enables polling when authenticated", () => {
+    vi.mocked(useAuth).mockReturnValue({
+      user: { id: "1" },
+      isAuthenticated: true,
+      isAdmin: false,
+      login: vi.fn(),
+      register: vi.fn(),
+      logout: vi.fn(),
+      refreshUser: vi.fn(),
+      loading: false,
+    } as never);
+    renderHook(() => useNotifications());
+    const options = vi.mocked(useQuery).mock.calls[0][0];
+    expect(options.enabled).toBe(true);
+  });
+
+  test("disables retries so an expired session surfaces exactly one expired flow", () => {
+    renderHook(() => useNotifications());
+    expect(vi.mocked(useQuery).mock.calls[0][0].retry).toBe(false);
   });
 });
