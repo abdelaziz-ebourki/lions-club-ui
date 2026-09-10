@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { useAuth } from "@/contexts/auth";
 import { useTranslation } from "react-i18next";
@@ -81,6 +82,10 @@ function ThreadDetailContent({
   replyMeta,
   handleReply,
   handleSubmitReply,
+  handleDeleteReply,
+  isDeletingReply,
+  handleDeleteThread,
+  isDeletingThread,
 }: {
   data: NonNullable<ReturnType<typeof useThreadDetailQuery>["data"]>;
   trail: { label: string; href?: string }[];
@@ -91,6 +96,10 @@ function ThreadDetailContent({
   replyMeta: { parentReplyId?: string; quotedAuthor?: string };
   handleReply: (parentReplyId: string, quotedAuthor: string) => void;
   handleSubmitReply: (body: { content: string; parentReplyId?: string }) => Promise<void>;
+  handleDeleteReply: (replyId: string) => void;
+  isDeletingReply: boolean;
+  handleDeleteThread: () => void;
+  isDeletingThread: boolean;
 }) {
   const { t } = useTranslation("forum");
   return (
@@ -109,6 +118,8 @@ function ThreadDetailContent({
           isAdmin={isAdmin}
           onStatusChange={(status) => statusMutation.mutate(status)}
           isStatusLoading={statusMutation.isPending}
+          onDeleteThread={isAdmin ? handleDeleteThread : undefined}
+          isDeletingThread={isDeletingThread}
         />
 
         {data.replies.length === 0 ? (
@@ -122,6 +133,9 @@ function ThreadDetailContent({
             replies={data.replies}
             isAuthenticated={isAuthenticated}
             onReply={handleReply}
+            isAdmin={isAdmin}
+            onDeleteReply={isAdmin ? handleDeleteReply : undefined}
+            isDeletingReply={isDeletingReply}
           />
         )}
 
@@ -157,6 +171,7 @@ export function ThreadDetailPage() {
   const { t } = useTranslation("forum");
   const { categoryId, threadId } = useParams<{ categoryId: string; threadId: string }>();
   const { isAuthenticated, isAdmin } = useAuth();
+  const navigate = useNavigate();
 
   const { data: categories } = useQuery<ForumCategory[]>({
     queryKey: ["forum-categories"],
@@ -185,6 +200,26 @@ export function ThreadDetailPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["forum-thread-detail", categoryId, threadId] });
     },
+  });
+
+  const deleteReplyMutation = useMutation({
+    mutationFn: (replyId: string) => api.delete(`/forum/replies/${replyId}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["forum-thread-detail", categoryId, threadId] });
+      queryClient.invalidateQueries({ queryKey: ["forum-threads", categoryId] });
+      toast.success(t("replyDeletedSuccess"));
+    },
+    onError: () => toast.error(t("replyDeletedError")),
+  });
+
+  const deleteThreadMutation = useMutation({
+    mutationFn: () => api.delete(`/forum/threads/${threadId}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["forum-threads", categoryId] });
+      toast.success(t("threadDeletedSuccess"));
+      navigate(`/forum/${categoryId}`);
+    },
+    onError: () => toast.error(t("threadDeletedError")),
   });
 
   const handleReply = useCallback((parentReplyId: string, quotedAuthor: string) => {
@@ -218,6 +253,10 @@ export function ThreadDetailPage() {
       replyMeta={replyMeta}
       handleReply={handleReply}
       handleSubmitReply={handleSubmitReply}
+      handleDeleteReply={(replyId) => deleteReplyMutation.mutate(replyId)}
+      isDeletingReply={deleteReplyMutation.isPending}
+      handleDeleteThread={() => deleteThreadMutation.mutate()}
+      isDeletingThread={deleteThreadMutation.isPending}
     />
   );
 }

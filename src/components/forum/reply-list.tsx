@@ -7,6 +7,9 @@ interface ReplyListProps {
   replies: ForumReply[];
   isAuthenticated: boolean;
   onReply: (parentReplyId: string, quotedAuthor: string) => void;
+  isAdmin?: boolean;
+  onDeleteReply?: (replyId: string) => void;
+  isDeletingReply?: boolean;
 }
 
 function renderReplyTree(
@@ -15,6 +18,9 @@ function renderReplyTree(
   isAuthenticated: boolean,
   onReply: (parentReplyId: string, quotedAuthor: string) => void,
   depth: number,
+  isAdmin: boolean,
+  onDeleteReply?: (replyId: string) => void,
+  isDeletingReply?: boolean,
 ): ReactNode {
   return (
     <div key={reply.id} className="space-y-2">
@@ -23,15 +29,18 @@ function renderReplyTree(
         depth={depth}
         isAuthenticated={isAuthenticated}
         onReply={onReply}
+        isAdmin={isAdmin}
+        onDelete={onDeleteReply}
+        isDeleting={isDeletingReply}
       />
       {childrenByParent[reply.id]?.map((child) =>
-        renderReplyTree(child, childrenByParent, isAuthenticated, onReply, depth + 2),
+        renderReplyTree(child, childrenByParent, isAuthenticated, onReply, depth + 2, isAdmin, onDeleteReply, isDeletingReply),
       )}
     </div>
   );
 }
 
-export function ReplyList({ replies, isAuthenticated, onReply }: ReplyListProps) {
+export function ReplyList({ replies, isAuthenticated, onReply, isAdmin = false, onDeleteReply, isDeletingReply = false }: ReplyListProps) {
   const { t } = useTranslation('forum');
   const { topLevel, childrenByParent } = useMemo(() => {
     const sorted = [...replies].sort(
@@ -56,7 +65,7 @@ export function ReplyList({ replies, isAuthenticated, onReply }: ReplyListProps)
     <div className="space-y-4" data-testid="reply-list">
       <h2 className="font-heading text-h4">{t("repliesHeading", { count: replies.length })}</h2>
       {topLevel.map((reply) =>
-        renderReplyTree(reply, childrenByParent, isAuthenticated, onReply, 0),
+        renderReplyTree(reply, childrenByParent, isAuthenticated, onReply, 0, isAdmin, onDeleteReply, isDeletingReply),
       )}
     </div>
   );

@@ -1,18 +1,25 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThreadDetailPage } from '../thread-detail';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAuth } from '@/contexts/auth';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { api } from '@/lib/api';
 import { describe, test, expect, vi, beforeEach } from 'vitest';
 import type { ForumThread, ForumReply } from '@/types';
+
+vi.mock('sonner', () => ({
+  toast: { success: vi.fn(), error: vi.fn() },
+}));
+
+const actualRQ = await vi.importActual<typeof import('@tanstack/react-query')>('@tanstack/react-query');
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return {
     ...actual,
     useParams: vi.fn(),
-    useNavigate: () => vi.fn(),
+    useNavigate: vi.fn(() => vi.fn()),
     useLocation: () => ({ pathname: '/' }),
     Link: ({ children, to, ...props }: any) =>
       React.createElement('a', { href: to, ...props }, children),
@@ -255,6 +262,63 @@ describe('ThreadDetailPage', () => {
       render(<ThreadDetailPage />);
       expect(screen.getByTestId('unpin-button')).toBeDisabled();
       expect(screen.getByTestId('lock-button')).toBeDisabled();
+    });
+  });
+
+  describe('Admin delete wiring (real mutations, mocked api)', () => {
+    const mockNavigate = vi.fn();
+    let testClient: QueryClient;
+
+    function renderWithClient() {
+      testClient = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
+      return render(
+        <QueryClientProvider client={testClient}>
+          <ThreadDetailPage />
+        </QueryClientProvider>
+      );
+    }
+
+    beforeEach(() => {
+      mockNavigate.mockClear();
+      (useNavigate as ReturnType<typeof vi.fn>).mockReturnValue(mockNavigate);
+      (useAuth as ReturnType<typeof vi.fn>).mockReturnValue({
+        user: { role: 'admin' },
+        isAuthenticated: true,
+        isAdmin: true,
+        login: vi.fn(),
+        register: vi.fn(),
+        logout: vi.fn(),
+        refreshUser: vi.fn(),
+        loading: false,
+      });
+      // Real react-query mutations so mutationFn (mocked api) actually runs.
+      (useMutation as ReturnType<typeof vi.fn>).mockImplementation((options: any) =>
+        actualRQ.useMutation(options)
+      );
+      (useQueryClient as ReturnType<typeof vi.fn>).mockImplementation(() =>
+        actualRQ.useQueryClient()
+      );
+    });
+
+    test('admin reply delete calls the API', async () => {
+      renderWithClient();
+      fireEvent.click(screen.getAllByRole('button', { name: /delete reply/i })[0]);
+      fireEvent.click(screen.getByRole('button', { name: /^delete$/i }));
+      await waitFor(() => {
+        expect(vi.mocked(api.delete)).toHaveBeenCalledWith('/forum/replies/reply-1');
+      });
+    });
+
+    test('admin thread delete calls the API and navigates back to the category', async () => {
+      renderWithClient();
+      fireEvent.click(screen.getByRole('button', { name: /delete thread/i }));
+      fireEvent.click(screen.getByRole('button', { name: /^delete$/i }));
+      await waitFor(() => {
+        expect(vi.mocked(api.delete)).toHaveBeenCalledWith('/forum/threads/thread-1');
+      });
+      await waitFor(() => {
+        expect(mockNavigate).toHaveBeenCalledWith('/forum/cat-1');
+      });
     });
   });
 });

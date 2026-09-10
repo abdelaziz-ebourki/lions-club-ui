@@ -60,6 +60,21 @@ describe('ReplyList', () => {
     expect(onReply).toHaveBeenCalled();
   });
 
+  test('forwards admin delete to reply items', () => {
+    const onDeleteReply = vi.fn();
+    render(<ReplyList replies={replies} isAuthenticated={false} onReply={onReply} isAdmin onDeleteReply={onDeleteReply} />);
+    const triggers = screen.getAllByRole('button', { name: /delete reply/i });
+    expect(triggers).toHaveLength(3);
+    fireEvent.click(triggers[0]);
+    fireEvent.click(screen.getByRole('button', { name: /^delete$/i }));
+    expect(onDeleteReply).toHaveBeenCalledWith('reply-3');
+  });
+
+  test('hides delete triggers from non-admins', () => {
+    render(<ReplyList replies={replies} isAuthenticated={true} onReply={onReply} onDeleteReply={vi.fn()} />);
+    expect(screen.queryByRole('button', { name: /delete reply/i })).not.toBeInTheDocument();
+  });
+
   test('handles empty replies array', () => {
     render(<ReplyList replies={[]} isAuthenticated={false} onReply={onReply} />);
     expect(screen.getByText('0 replies')).toBeInTheDocument();

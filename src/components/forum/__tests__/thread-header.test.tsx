@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { ThreadHeader } from '../thread-header';
 import type { ForumThread } from '@/types';
 
@@ -81,5 +81,29 @@ describe('ThreadHeader', () => {
       <ThreadHeader thread={mockThread} isAdmin onStatusChange={handleStatusChange} isStatusLoading={false} />
     );
     expect(screen.getByTestId('unpin-button')).not.toBeDisabled();
+  });
+
+  test('shows delete thread trigger for admins when onDeleteThread is provided', () => {
+    render(<ThreadHeader thread={mockThread} isAdmin onDeleteThread={vi.fn()} />);
+    expect(screen.getByRole('button', { name: /delete thread/i })).toBeInTheDocument();
+  });
+
+  test('hides delete thread trigger for non-admins', () => {
+    render(<ThreadHeader thread={mockThread} onDeleteThread={vi.fn()} />);
+    expect(screen.queryByRole('button', { name: /delete thread/i })).not.toBeInTheDocument();
+  });
+
+  test('hides delete thread trigger when onDeleteThread is missing', () => {
+    render(<ThreadHeader thread={mockThread} isAdmin />);
+    expect(screen.queryByRole('button', { name: /delete thread/i })).not.toBeInTheDocument();
+  });
+
+  test('confirming delete dialog calls onDeleteThread', () => {
+    const onDeleteThread = vi.fn();
+    render(<ThreadHeader thread={mockThread} isAdmin onDeleteThread={onDeleteThread} />);
+    fireEvent.click(screen.getByRole('button', { name: /delete thread/i }));
+    expect(screen.getByText('Delete Thread')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /^delete$/i }));
+    expect(onDeleteThread).toHaveBeenCalledTimes(1);
   });
 });

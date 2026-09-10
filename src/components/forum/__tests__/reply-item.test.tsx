@@ -91,6 +91,32 @@ describe('ReplyItem', () => {
     expect(onReply).toHaveBeenCalledWith('reply-1', 'Fatima Zahra');
   });
 
+  test('shows delete trigger for admins when onDelete is provided', () => {
+    const onDelete = vi.fn();
+    render(<ReplyItem reply={baseReply} depth={0} isAuthenticated={true} onReply={onReply} isAdmin onDelete={onDelete} />);
+    expect(screen.getByRole('button', { name: /delete reply/i })).toBeInTheDocument();
+  });
+
+  test('hides delete trigger for non-admins', () => {
+    const onDelete = vi.fn();
+    render(<ReplyItem reply={baseReply} depth={0} isAuthenticated={true} onReply={onReply} onDelete={onDelete} />);
+    expect(screen.queryByRole('button', { name: /delete reply/i })).not.toBeInTheDocument();
+  });
+
+  test('hides delete trigger when onDelete is missing', () => {
+    render(<ReplyItem reply={baseReply} depth={0} isAuthenticated={true} onReply={onReply} isAdmin />);
+    expect(screen.queryByRole('button', { name: /delete reply/i })).not.toBeInTheDocument();
+  });
+
+  test('confirming delete dialog calls onDelete with reply id', () => {
+    const onDelete = vi.fn();
+    render(<ReplyItem reply={baseReply} depth={0} isAuthenticated={true} onReply={onReply} isAdmin onDelete={onDelete} />);
+    fireEvent.click(screen.getByRole('button', { name: /delete reply/i }));
+    expect(screen.getByText('Delete Reply')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /^delete$/i }));
+    expect(onDelete).toHaveBeenCalledWith('reply-1');
+  });
+
   test('does not re-render when parent state changes with stable props (React.memo, FR-004)', () => {
     const stableOnReply = vi.fn();
     const stableReply = { ...baseReply };
