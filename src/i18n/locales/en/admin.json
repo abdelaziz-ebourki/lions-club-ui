@@ -62,6 +62,10 @@
     "heading": "Manage Events",
     "newEvent": "New Event",
     "caption": "Events table",
+    "aria": {
+      "editEvent": "Edit event {{title}}",
+      "deleteEvent": "Delete event {{title}}"
+    },
     "headers": {
       "title": "Title",
       "date": "Date",
@@ -136,6 +140,10 @@
     "heading": "Manage News",
     "newArticle": "New Article",
     "caption": "News table",
+    "aria": {
+      "editArticle": "Edit article {{title}}",
+      "deleteArticle": "Delete article {{title}}"
+    },
     "headers": {
       "title": "Title",
       "category": "Category",
@@ -303,6 +311,9 @@
     "heading": "Manage Members",
     "addMember": "Add Member",
     "caption": "Members table",
+    "aria": {
+      "editMember": "Edit member {{name}}"
+    },
     "headers": {
       "name": "Name",
       "role": "Role",

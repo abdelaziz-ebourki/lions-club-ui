@@ -103,14 +103,14 @@ export function AdminEventsPage() {
                     {event.status}
                   </Badge>
                   <Link to={`/admin/events/${event.id}/edit`}>
-                    <Button variant="ghost" size="icon" className="size-8">
+                    <Button variant="ghost" size="icon" className="size-8" aria-label={t("events.aria.editEvent", { title: event.title })}>
                       <Pencil className="size-4" />
                     </Button>
                   </Link>
                   <AlertDialog>
                     <AlertDialogTrigger
                       render={
-                        <Button variant="ghost" size="icon" className="size-8 text-destructive hover:text-destructive">
+                        <Button variant="ghost" size="icon" className="size-8 text-destructive hover:text-destructive" aria-label={t("events.aria.deleteEvent", { title: event.title })}>
                           <Trash2 className="size-4" />
                         </Button>
                       }
@@ -151,14 +151,14 @@ export function AdminEventsPage() {
             <TableCell className="text-right">
               <div className="flex justify-end gap-2">
                 <Link to={`/admin/events/${event.id}/edit`}>
-                  <Button variant="ghost" size="icon" className="size-8">
+                  <Button variant="ghost" size="icon" className="size-8" aria-label={t("events.aria.editEvent", { title: event.title })}>
                     <Pencil className="size-4" />
                   </Button>
                 </Link>
                 <AlertDialog>
                   <AlertDialogTrigger
                     render={
-                      <Button variant="ghost" size="icon" className="size-8 text-destructive hover:text-destructive">
+                      <Button variant="ghost" size="icon" className="size-8 text-destructive hover:text-destructive" aria-label={t("events.aria.deleteEvent", { title: event.title })}>
                         <Trash2 className="size-4" />
                       </Button>
                     }

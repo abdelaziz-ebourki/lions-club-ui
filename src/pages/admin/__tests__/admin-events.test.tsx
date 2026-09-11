@@ -63,4 +63,14 @@ describe("AdminEventsPage", () => {
     expect(screen.getAllByText("2026-07-15")).toHaveLength(2);
     expect(screen.getAllByText("Environment")).toHaveLength(2);
   });
+
+  test("edit and delete buttons expose accessible names", () => {
+    const mockEvents = [
+      { id: "1", title: "Beach Cleanup", date: "2026-07-15", category: "Environment", status: "upcoming" as const },
+    ];
+    vi.mocked(useQuery).mockReturnValue({ data: mockEvents, isLoading: false } as any);
+    render(<AdminEventsPage />);
+    expect(screen.getAllByRole("button", { name: /edit event beach cleanup/i }).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByRole("button", { name: /delete event beach cleanup/i }).length).toBeGreaterThanOrEqual(1);
+  });
 });

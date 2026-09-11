@@ -62,6 +62,10 @@
     "heading": "Gérer les Événements",
     "newEvent": "Nouvel Événement",
     "caption": "Tableau des événements",
+    "aria": {
+      "editEvent": "Modifier l'événement {{title}}",
+      "deleteEvent": "Supprimer l'événement {{title}}"
+    },
     "headers": {
       "title": "Titre",
       "date": "Date",
@@ -136,6 +140,10 @@
     "heading": "Gérer les Actualités",
     "newArticle": "Nouvel Article",
     "caption": "Tableau des actualités",
+    "aria": {
+      "editArticle": "Modifier l'article {{title}}",
+      "deleteArticle": "Supprimer l'article {{title}}"
+    },
     "headers": {
       "title": "Titre",
       "category": "Catégorie",
@@ -303,6 +311,9 @@
     "heading": "Gérer les Membres",
     "addMember": "Ajouter un Membre",
     "caption": "Tableau des membres",
+    "aria": {
+      "editMember": "Modifier le membre {{name}}"
+    },
     "headers": {
       "name": "Nom",
       "role": "Rôle",

@@ -232,6 +232,17 @@ describe('AdminNewsPage', () => {
         expect(matchingLinks.length).toBe(2);
       });
     });
+
+    test('edit and delete buttons expose accessible names', () => {
+      vi.mocked(useQuery).mockReturnValue({ data: newsArticles, isLoading: false } as any);
+      vi.mocked(useMutation).mockReturnValue({ mutate: vi.fn(), isPending: false } as any);
+
+      render(<AdminNewsPage />);
+
+      const firstTitle = newsArticles[0].title;
+      expect(screen.getAllByRole('button', { name: new RegExp(`edit article ${firstTitle}`, 'i') }).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByRole('button', { name: new RegExp(`delete article ${firstTitle}`, 'i') }).length).toBeGreaterThanOrEqual(1);
+    });
   });
   });
 });

@@ -136,5 +136,14 @@ describe('AdminGalleryPage', () => {
       await user.click(screen.getByRole('button', { name: /try again/i }));
       expect(refetch).toHaveBeenCalled();
     });
+
+    test('edit and delete buttons expose accessible names', () => {
+      (useQuery as ReturnType<typeof vi.fn>).mockReturnValue({
+        data: galleryItems, isLoading: false, isError: false, error: null, refetch: vi.fn(),
+      });
+      render(<AdminGalleryPage />);
+      expect(screen.getAllByRole('link', { name: /edit item charity gala evening/i }).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByRole('button', { name: /delete item charity gala evening/i }).length).toBeGreaterThanOrEqual(1);
+    });
   });
 });

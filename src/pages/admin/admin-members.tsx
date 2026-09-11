@@ -71,7 +71,7 @@ export function AdminMembersPage() {
                 <Badge variant="accent" className="text-[10px]">{member.role}</Badge>
               </div>
               <Link to={`/admin/members/${member.id}/edit`}>
-                <Button variant="ghost" size="icon" className="size-8">
+                <Button variant="ghost" size="icon" className="size-8" aria-label={t("members.aria.editMember", { name: member.name })}>
                   <Pencil className="size-4" />
                 </Button>
               </Link>
@@ -87,7 +87,7 @@ export function AdminMembersPage() {
             </TableCell>
             <TableCell className="text-right">
               <Link to={`/admin/members/${member.id}/edit`}>
-                <Button variant="ghost" size="icon" className="size-8">
+                <Button variant="ghost" size="icon" className="size-8" aria-label={t("members.aria.editMember", { name: member.name })}>
                   <Pencil className="size-4" />
                 </Button>
               </Link>

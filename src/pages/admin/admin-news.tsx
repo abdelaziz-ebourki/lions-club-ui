@@ -130,14 +130,14 @@ export function AdminNewsPage() {
                     {article.status}
                   </Badge>
                   <Link to={`/admin/news/${article.id}/edit`}>
-                    <Button variant="ghost" size="icon" className="size-8">
+                    <Button variant="ghost" size="icon" className="size-8" aria-label={t("news.aria.editArticle", { title: article.title })}>
                       <Pencil className="size-4" />
                     </Button>
                   </Link>
                   <AlertDialog>
                     <AlertDialogTrigger
                       render={
-                        <Button variant="ghost" size="icon" className="size-8 text-destructive hover:text-destructive" aria-label="Delete article">
+                        <Button variant="ghost" size="icon" className="size-8 text-destructive hover:text-destructive" aria-label={t("news.aria.deleteArticle", { title: article.title })}>
                           <Trash2 className="size-4" />
                         </Button>
                       }
@@ -181,14 +181,14 @@ export function AdminNewsPage() {
             <TableCell className="text-right">
               <div className="flex justify-end gap-2">
                 <Link to={`/admin/news/${article.id}/edit`}>
-                  <Button variant="ghost" size="icon" className="size-8">
+                  <Button variant="ghost" size="icon" className="size-8" aria-label={t("news.aria.editArticle", { title: article.title })}>
                     <Pencil className="size-4" />
                   </Button>
                 </Link>
                 <AlertDialog>
                   <AlertDialogTrigger
                     render={
-                      <Button variant="ghost" size="icon" className="size-8 text-destructive hover:text-destructive" aria-label="Delete article">
+                      <Button variant="ghost" size="icon" className="size-8 text-destructive hover:text-destructive" aria-label={t("news.aria.deleteArticle", { title: article.title })}>
                         <Trash2 className="size-4" />
                       </Button>
                     }

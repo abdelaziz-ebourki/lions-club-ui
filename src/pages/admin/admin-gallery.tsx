@@ -71,7 +71,7 @@ export function AdminGalleryPage() {
   function renderActions(item: GalleryItem) {
     return (
       <>
-        <Link to={`/admin/gallery/${item.id}/edit`} aria-label={`Edit item ${item.title}`}>
+        <Link to={`/admin/gallery/${item.id}/edit`} aria-label={t("gallery.aria.editItem", { title: item.title })}>
           <Button variant="ghost" size="icon" className="size-8">
             <Pencil className="size-4" />
           </Button>

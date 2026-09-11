@@ -62,6 +62,10 @@
     "heading": "إدارة الفعاليات",
     "newEvent": "فعالية جديدة",
     "caption": "جدول الفعاليات",
+    "aria": {
+      "editEvent": "تعديل الفعالية {{title}}",
+      "deleteEvent": "حذف الفعالية {{title}}"
+    },
     "headers": {
       "title": "العنوان",
       "date": "التاريخ",
@@ -136,6 +140,10 @@
     "heading": "إدارة الأخبار",
     "newArticle": "مقال جديد",
     "caption": "جدول الأخبار",
+    "aria": {
+      "editArticle": "تعديل المقال {{title}}",
+      "deleteArticle": "حذف المقال {{title}}"
+    },
     "headers": {
       "title": "العنوان",
       "category": "الفئة",
@@ -303,6 +311,9 @@
     "heading": "إدارة الأعضاء",
     "addMember": "إضافة عضو",
     "caption": "جدول الأعضاء",
+    "aria": {
+      "editMember": "تعديل العضو {{name}}"
+    },
     "headers": {
       "name": "الاسم",
       "role": "الدور",

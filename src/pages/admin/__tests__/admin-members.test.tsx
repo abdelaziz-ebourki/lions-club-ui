@@ -52,6 +52,16 @@ describe("AdminMembersPage", () => {
     expect(screen.getAllByText("Bob")).toHaveLength(2);
   });
 
+  test("edit buttons expose accessible names", () => {
+    const mockMembers = [
+      { id: "1", name: "Alice", role: "President" },
+    ];
+    vi.mocked(useQuery).mockReturnValue({ data: mockMembers, isLoading: false } as any);
+    render(<AdminMembersPage />);
+    const editButtons = screen.getAllByRole("button", { name: /edit member alice/i });
+    expect(editButtons.length).toBeGreaterThanOrEqual(1);
+  });
+
   test("renders role in card layout on mobile view", () => {
     const mockMembers = [
       { id: "1", name: "Alice", role: "President" },

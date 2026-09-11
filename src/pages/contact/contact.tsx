@@ -56,8 +56,9 @@ export function ContactPage() {
   function onSubmit(data: ContactFormData) {
     mutation.mutate(data, {
       onSuccess: () => {
+        form.reset();
         setShowSuccess(true);
-        successTimer.current = setTimeout(() => setShowSuccess(false), 2000);
+        successTimer.current = setTimeout(() => setShowSuccess(false), 6000);
         toast.success(t("toastSuccess"));
       },
       onError: () => toast.error(t("toastError")),

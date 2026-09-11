@@ -162,4 +162,63 @@ describe('ContactPage Component', () => {
       expect(document.querySelector('[class*="ring-green-500/50"]')).toBeInTheDocument();
     });
   });
+
+  test('clears the form after successful submit', async () => {
+    vi.mocked(useMutation).mockReturnValue({
+      mutate: vi.fn((_data, options) => options?.onSuccess?.()),
+      isPending: false,
+      isSuccess: false,
+      isError: false,
+      error: null,
+    } as any);
+    render(<ContactPage />);
+    const nameInput = screen.getByPlaceholderText(/your name/i) as HTMLInputElement;
+    await act(async () => {
+      fireEvent.change(nameInput, { target: { value: 'John Doe' } });
+      fireEvent.change(screen.getByPlaceholderText(/your@email.com/i), { target: { value: 'john@example.com' } });
+      fireEvent.change(screen.getByPlaceholderText(/how can we help/i), { target: { value: 'Question about membership' } });
+      fireEvent.change(screen.getByPlaceholderText(/tell us more/i), { target: { value: 'I would like to know more about becoming a member.' } });
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: /send message/i }));
+    });
+    await waitFor(() => {
+      expect(nameInput.value).toBe('');
+    });
+    expect((screen.getByPlaceholderText(/how can we help/i) as HTMLInputElement).value).toBe('');
+  });
+
+  test('keeps the success glow visible for 6 seconds', async () => {
+    vi.useFakeTimers();
+    try {
+      vi.mocked(useMutation).mockReturnValue({
+        mutate: vi.fn((_data, options) => options?.onSuccess?.()),
+        isPending: false,
+        isSuccess: false,
+        isError: false,
+        error: null,
+      } as any);
+      render(<ContactPage />);
+      await act(async () => {
+        fireEvent.change(screen.getByPlaceholderText(/your name/i), { target: { value: 'John Doe' } });
+        fireEvent.change(screen.getByPlaceholderText(/your@email.com/i), { target: { value: 'john@example.com' } });
+        fireEvent.change(screen.getByPlaceholderText(/how can we help/i), { target: { value: 'Question about membership' } });
+        fireEvent.change(screen.getByPlaceholderText(/tell us more/i), { target: { value: 'I would like to know more about becoming a member.' } });
+      });
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name: /send message/i }));
+      });
+      expect(document.querySelector('[class*="ring-green-500/50"]')).toBeInTheDocument();
+      await act(async () => {
+        vi.advanceTimersByTime(5999);
+      });
+      expect(document.querySelector('[class*="ring-green-500/50"]')).toBeInTheDocument();
+      await act(async () => {
+        vi.advanceTimersByTime(1);
+      });
+      expect(document.querySelector('[class*="ring-green-500/50"]')).not.toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
 });
