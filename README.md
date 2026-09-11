@@ -1,75 +1,70 @@
-# React + TypeScript + Vite
+# Lions Club FSBM — Web UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Single-page application for Lions Club FSBM (Faculté des Sciences Ben M'Sik,
+Casablanca). React 19 + TypeScript + Vite, Tailwind v4, shadcn/ui,
+react-query, react-router v7, react-hook-form + Zod. Trilingual (EN/FR/AR, RTL).
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js 22
+- The backend running (see `lions-club-api/README.md` — one command)
 
-## React Compiler
+## Development
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+cp .env.example .env   # VITE_API_URL=http://localhost:8081/api
+npm run dev            # vite, default http://localhost:5173
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The dev server proxies nothing: every API call goes to `VITE_API_URL`
+(falls back to same-origin `/api`, which is what the Docker image serves
+through its nginx `/api` proxy). Auth is cookie-based (`auth_token`,
+`SameSite=Lax`), so the browser sends credentials on same-site origins —
+no extra CORS setup beyond the API defaults (`:5173`, `:5174` allowed).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Ports
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| What                  | Default               |
+| --------------------- | --------------------- |
+| Vite dev server       | `5173` (`--port` to change) |
+| API (Docker backend)  | `8081`                |
+| E2E harness UI (nginx)| `5174`                |
+| Mocked UI e2e (`e2e/`) | `5175` (own dev server) |
 
+## Commands
+
+| Command          | Action                                      |
+| ---------------- | ------------------------------------------- |
+| `npm run dev`    | Start dev server (MSW auto-starts)          |
+| `npm run build`  | Type-check (`tsc -b`) + production build    |
+| `npm run test`   | Unit tests, watch mode                      |
+| `npm run test:run` | Unit tests, single run (CI gate)          |
+| `npm run lint`   | ESLint check                                |
+| `npx tsc -b`     | Type-check only                             |
+| `npx playwright test` | Mocked browser suite in `e2e/` (Chromium) |
+| `npm run i18n:check` | Verify locale keys across EN/FR/AR       |
+
+Conventions: tests co-located in `__tests__/`, `@/` path alias, all API
+traffic through `api` from `@/lib/api.ts` (never raw `fetch()`), strict
+TypeScript (no `any`), Zod v4 for runtime validation. See `AGENTS.md`
+for the full contributor contract.
+
+## Git hooks
+
+Husky + lint-staged run on commit (lint + type checks on staged files).
+
+## Project structure
+
+```
+src/
+├── components/   # ui/ (shadcn primitives), shared/, forum/, layout/
+├── pages/        # route pages: auth, events, news, forum, gallery, admin/…
+├── hooks/        # data + behavior hooks (__tests__/ co-located)
+├── contexts/     # AuthContext, ThemeContext
+├── lib/          # api client, format, search, seo
+├── i18n/locales/ # en|fr|ar namespaces
+├── mocks/        # MSW handlers + data for dev/test
+└── types/        # shared shapes (Zod-inferred where runtime-checked)
+e2e/              # mocked Playwright suite (own vite server on :5175)
 ```
