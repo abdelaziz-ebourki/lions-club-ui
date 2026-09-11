@@ -37,6 +37,8 @@ test_e2e_gallery.py
 test_e2e_*.py
 
 # Coding-agent scaffolding (local only, purged from history)
+.agents/
+specs/
 .specify/
 .opencode/
 .openclaude/
