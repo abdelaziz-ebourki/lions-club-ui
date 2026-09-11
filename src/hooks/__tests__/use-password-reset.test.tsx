@@ -60,4 +60,24 @@ describe("usePasswordReset", () => {
     });
     expect(result.current.isResetPending).toBe(false);
   });
+
+  test("reset sends the token in the request body per the API contract", async () => {
+    const { api } = await import("@/lib/api");
+    const { useMutation: mockedUseMutation } = await import("@tanstack/react-query");
+    renderHook(() => usePasswordReset());
+    const resetCall = vi.mocked(mockedUseMutation).mock.calls
+      .find(([opts]: any[]) => String(opts?.mutationFn).includes("reset-password"));
+    expect(resetCall).toBeDefined();
+    const mutationFn = resetCall![0].mutationFn as (vars: {
+      token: string; password: string; confirmPassword: string;
+    }) => Promise<unknown>;
+    await act(async () => {
+      await mutationFn({ token: "tok-123", password: "newPassword123", confirmPassword: "newPassword123" });
+    });
+    expect(vi.mocked(api.post)).toHaveBeenCalledWith(
+      "/auth/reset-password",
+      { token: "tok-123", password: "newPassword123", confirmPassword: "newPassword123" },
+      expect.objectContaining({ skipAuthExpired: true })
+    );
+  });
 });

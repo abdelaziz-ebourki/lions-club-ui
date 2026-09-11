@@ -93,4 +93,28 @@ describe("api 401 interception", () => {
 
     expect(dispatchSpy).not.toHaveBeenCalled();
   });
+
+  test("surfaces the server message on 401 instead of a generic one", async () => {
+    const mockResponse = new Response(JSON.stringify({ error: "Invalid credentials" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(mockResponse);
+
+    const error = await api.get("/test").catch((e) => e);
+    expect(error).toBeInstanceOf(AuthError);
+    expect((error as Error).message).toBe("Invalid credentials");
+  });
+
+  test("keeps the default message when a 401 has no body", async () => {
+    const mockResponse = new Response("", {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(mockResponse);
+
+    const error = await api.get("/test").catch((e) => e);
+    expect(error).toBeInstanceOf(AuthError);
+    expect((error as Error).message).toBe("Session expired");
+  });
 });

@@ -38,7 +38,10 @@ export function LoginPage() {
   const [rememberMe, setRememberMe] = useState(() => localStorage.getItem("remember_me") === "true");
 
   const mutation = useMutation({
-    mutationFn: (data: LoginFormData & { remember_me?: boolean }) => api.post("/auth/login", data),
+    // A failed login is bad credentials, not an expired session: skip the
+    // global auth:expired dispatch so the user sees the server message.
+    mutationFn: (data: LoginFormData & { remember_me?: boolean }) =>
+      api.post("/auth/login", data, { skipAuthExpired: true }),
     onSuccess: async () => {
       await refreshUser();
       toast.success(t("login.success"));

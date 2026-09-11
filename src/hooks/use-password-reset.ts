@@ -45,8 +45,9 @@ export function usePasswordReset() {
   });
 
   const resetMutation = useMutation({
+    // API contract: token belongs in the body (query param is ignored → 400).
     mutationFn: ({ token, password, confirmPassword }: ResetPasswordRequest) =>
-      api.post<ResetPasswordRequest>(`/auth/reset-password?token=${encodeURIComponent(token)}`, { password, confirmPassword } as ResetPasswordRequest, { skipAuthExpired: true }),
+      api.post<ResetPasswordRequest>("/auth/reset-password", { token, password, confirmPassword }, { skipAuthExpired: true }),
     onSuccess: () => {
       toast.success(t("reset.success"));
     },

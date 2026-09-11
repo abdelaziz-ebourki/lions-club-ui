@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { LoginPage } from '../login';
 import { useMutation } from '@tanstack/react-query';
@@ -98,5 +98,48 @@ describe('LoginPage', () => {
     fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
     await onSuccess();
     expect(toast.success).toHaveBeenCalledWith('Welcome back!');
+  });
+
+  test('login request skips the global session-expired dispatch', async () => {
+    const { api } = await import('@/lib/api');
+    let capturedFn: ((data: unknown) => unknown) | null = null;
+    vi.mocked(useMutation).mockImplementation((opts: any) => {
+      capturedFn = opts.mutationFn ?? null;
+      return { mutate: mockMutate, isPending: false } as any;
+    });
+    renderWithRouter(<LoginPage />);
+    fireEvent.change(screen.getByPlaceholderText(/your@email.com/i), { target: { value: 'test@example.com' } });
+    fireEvent.change(screen.getByPlaceholderText(/enter your password/i), { target: { value: 'password123' } });
+    fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
+    await waitFor(() => expect(mockMutate).toHaveBeenCalled());
+    expect(capturedFn).toBeTypeOf('function');
+    await capturedFn!({ email: 'test@example.com', password: 'password123' });
+    expect(vi.mocked(api.post)).toHaveBeenCalledWith(
+      '/auth/login',
+      expect.objectContaining({ email: 'test@example.com' }),
+      expect.objectContaining({ skipAuthExpired: true })
+    );
+  });
+
+  test('failed login toasts the server message', async () => {
+    vi.spyOn(toast, 'error');
+    const { AuthError } = await import('@/types');
+    let onError: (error: unknown) => void = () => {};
+    vi.mocked(useMutation).mockImplementation((opts: any) => {
+      onError = opts.mutate ?? opts.onError ?? (() => {});
+      return { mutate: mockMutate, isPending: false } as any;
+    });
+    renderWithRouter(<LoginPage />);
+    fireEvent.change(screen.getByPlaceholderText(/your@email.com/i), { target: { value: 'test@example.com' } });
+    fireEvent.change(screen.getByPlaceholderText(/enter your password/i), { target: { value: 'password123' } });
+    fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
+    // The component passes onError via mutate options, not the hook options.
+    let mutateOptions: { onError?: (e: unknown) => void } | undefined;
+    await waitFor(() => {
+      mutateOptions = mockMutate.mock.calls[0]?.[1] as { onError?: (e: unknown) => void } | undefined;
+      expect(mutateOptions?.onError).toBeTypeOf('function');
+    });
+    (mutateOptions?.onError ?? onError)(new AuthError('Invalid credentials'));
+    expect(toast.error).toHaveBeenCalledWith('Invalid credentials');
   });
 });

@@ -147,8 +147,8 @@ export interface ResetPasswordRequest {
 }
 
 export class AuthError extends Error {
-  constructor() {
-    super("Session expired");
+  constructor(message = "Session expired") {
+    super(message);
     this.name = "AuthError";
   }
 }

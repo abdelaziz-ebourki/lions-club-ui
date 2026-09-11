@@ -4,6 +4,12 @@ import { AuthError } from "@/types";
 
 type RequestOptions = RequestInit & { skipAuthExpired?: boolean };
 
+async function readErrorMessage(res: Response): Promise<string | undefined> {
+  const body = await res.json().catch(() => null) as { message?: unknown; error?: unknown } | null;
+  const message = body?.message ?? body?.error;
+  return typeof message === "string" && message.length > 0 ? message : undefined;
+}
+
 export class ApiError extends Error {
   readonly status: number;
 
@@ -27,7 +33,7 @@ async function request<T>(
   if (!res.ok) {
     if (res.status === 401) {
       if (!skipAuthExpired) window.dispatchEvent(new CustomEvent("auth:expired"));
-      throw new AuthError();
+      throw new AuthError(await readErrorMessage(res));
     }
     const error = await res.json().catch(() => ({ message: res.statusText }));
     throw new ApiError(error.message ?? error.error ?? "Request failed", res.status);
@@ -49,7 +55,7 @@ async function uploadRequest<T>(
   if (!res.ok) {
     if (res.status === 401) {
       window.dispatchEvent(new CustomEvent("auth:expired"));
-      throw new AuthError();
+      throw new AuthError(await readErrorMessage(res));
     }
     const error = await res.json().catch(() => ({ message: res.statusText }));
     throw new ApiError(error.message ?? error.error ?? "Request failed", res.status);
