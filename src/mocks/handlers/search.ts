@@ -1,11 +1,13 @@
 import { http, HttpResponse } from "msw";
+import { withRealisticDelay } from "../utils";
 import { events } from "../data/events";
 import { threads } from "../data/forum";
 import { members } from "../data/members";
 import { contactMessages } from "../data/contact";
 
 export const searchHandlers = [
-  http.get("/api/search", ({ request }) => {
+  http.get("/api/search", async ({ request }) => {
+    await withRealisticDelay();
     const url = new URL(request.url);
     const query = url.searchParams.get("q")?.toLowerCase().trim() ?? "";
     const includeAdmin = url.searchParams.get("admin") === "true";

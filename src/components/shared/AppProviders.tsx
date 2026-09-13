@@ -7,6 +7,7 @@ import i18n from "@/i18n/config";
 import { ThemeProvider } from "@/contexts/theme";
 import { AuthProvider } from "@/contexts/auth";
 import { ErrorBoundary } from "@/components/shared/error-boundary";
+import { PrototypeNotice } from "@/components/shared/prototype-notice";
 
 const DEFAULT_STALE_TIME = 1000 * 60 * 5;
 const DEFAULT_RETRY_COUNT = 1;
@@ -28,6 +29,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
           <ThemeProvider>
             <BrowserRouter>
               <Toaster position="top-right" richColors closeButton />
+              <PrototypeNotice />
               <AuthProvider>
                 <ErrorBoundary>
                   {children}

@@ -1,4 +1,5 @@
 import { http, HttpResponse } from "msw";
+import { withRealisticDelay } from "../utils";
 import type { UserProfile, PasswordChange } from "@/types";
 
 const userPasswords: Record<string, string> = {
@@ -41,6 +42,7 @@ function getProfile(authToken: string) {
 
 export const profileHandlers = [
   http.get("/api/user/profile", async ({ cookies }) => {
+    await withRealisticDelay();
     const authToken = (cookies as Record<string, string>)["auth_token"];
     if (!authToken) {
       return HttpResponse.json({ message: "Not authenticated" }, { status: 401 });
@@ -55,6 +57,7 @@ export const profileHandlers = [
   }),
 
   http.put("/api/user/profile", async ({ request, cookies }) => {
+    await withRealisticDelay();
     const authToken = (cookies as Record<string, string>)["auth_token"];
     if (!authToken) {
       return HttpResponse.json({ message: "Not authenticated" }, { status: 401 });
@@ -89,6 +92,7 @@ export const profileHandlers = [
   }),
 
   http.put("/api/user/password", async ({ request, cookies }) => {
+    await withRealisticDelay();
     const authToken = (cookies as Record<string, string>)["auth_token"];
     if (!authToken) {
       return HttpResponse.json({ message: "Not authenticated" }, { status: 401 });

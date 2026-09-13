@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { newsArticles } from "../data/news";
-import { parseBody } from "../utils";
+import { parseBody, withRealisticDelay } from "../utils";
 import type { NewsCategory, NewsStatus } from "@/types";
 
 const articles = [...newsArticles];
@@ -25,17 +25,20 @@ function generateUniqueSlug(baseSlug: string): string {
 }
 
 export const newsHandlers = [
-  http.get("/api/news/admin", () => {
+  http.get("/api/news/admin", async () => {
+    await withRealisticDelay();
     return HttpResponse.json([...articles].sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()));
   }),
 
-  http.get("/api/news/admin/:id", ({ params }) => {
+  http.get("/api/news/admin/:id", async ({ params }) => {
+    await withRealisticDelay();
     const article = articles.find((a) => a.id === params.id);
     if (!article) return new HttpResponse(null, { status: 404 });
     return HttpResponse.json(article);
   }),
 
-  http.get("/api/news", ({ request }) => {
+  http.get("/api/news", async ({ request }) => {
+    await withRealisticDelay();
     const url = new URL(request.url);
     const page = parseInt(url.searchParams.get("page") ?? "1", 10);
     const limit = parseInt(url.searchParams.get("limit") ?? "10", 10);
@@ -48,7 +51,8 @@ export const newsHandlers = [
     return HttpResponse.json({ data, total, page, limit, totalPages: Math.ceil(total / limit) });
   }),
 
-  http.get("/api/news/featured", () => {
+  http.get("/api/news/featured", async () => {
+    await withRealisticDelay();
     const featured = articles
       .filter((a) => a.status === "published")
       .sort((a, b) => new Date(b.publishedAt ?? b.createdAt).getTime() - new Date(a.publishedAt ?? a.createdAt).getTime())
@@ -57,13 +61,15 @@ export const newsHandlers = [
     return HttpResponse.json(featured);
   }),
 
-  http.get("/api/news/:slug", ({ params }) => {
+  http.get("/api/news/:slug", async ({ params }) => {
+    await withRealisticDelay();
     const article = articles.find((a) => a.slug === params.slug && a.status === "published");
     if (!article) return new HttpResponse(null, { status: 404 });
     return HttpResponse.json(article);
   }),
 
   http.post("/api/news", async ({ request }) => {
+    await withRealisticDelay();
     const body = await parseBody(request);
     const now = new Date().toISOString();
     const baseSlug = (body.slug as string) || slugify(body.title as string);
@@ -88,6 +94,7 @@ export const newsHandlers = [
   }),
 
   http.put("/api/news/:id", async ({ params, request }) => {
+    await withRealisticDelay();
     const idx = articles.findIndex((a) => a.id === params.id);
     if (idx === -1) return new HttpResponse(null, { status: 404 });
     const body = await parseBody(request);
@@ -109,7 +116,8 @@ export const newsHandlers = [
     return HttpResponse.json(articles[idx]);
   }),
 
-  http.delete("/api/news/:id", ({ params }) => {
+  http.delete("/api/news/:id", async ({ params }) => {
+    await withRealisticDelay();
     const idx = articles.findIndex((a) => a.id === params.id);
     if (idx === -1) return new HttpResponse(null, { status: 404 });
     articles.splice(idx, 1);

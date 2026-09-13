@@ -1,4 +1,5 @@
 import { http, HttpResponse } from "msw";
+import { withRealisticDelay } from "../utils";
 import { categories, threads, replies } from "../data/forum";
 
 function createThread(body: Record<string, unknown>, categoryId?: string) {
@@ -25,16 +26,19 @@ function pushThread(newThread: ReturnType<typeof createThread>) {
 }
 
 export const forumHandlers = [
-  http.get("/api/forum/categories", () => {
+  http.get("/api/forum/categories", async () => {
+    await withRealisticDelay();
     return HttpResponse.json(categories);
   }),
 
-  http.get("/api/forum/:categoryId/threads", ({ params }) => {
+  http.get("/api/forum/:categoryId/threads", async ({ params }) => {
+    await withRealisticDelay();
     const filtered = threads.filter((t) => t.categoryId === params.categoryId);
     return HttpResponse.json(filtered);
   }),
 
-  http.get("/api/forum/threads", ({ request }) => {
+  http.get("/api/forum/threads", async ({ request }) => {
+    await withRealisticDelay();
     const url = new URL(request.url);
     const categoryId = url.searchParams.get("categoryId");
     const status = url.searchParams.get("status");
@@ -47,24 +51,28 @@ export const forumHandlers = [
     return HttpResponse.json(filtered);
   }),
 
-  http.get("/api/forum/threads/:id", ({ params }) => {
+  http.get("/api/forum/threads/:id", async ({ params }) => {
+    await withRealisticDelay();
     const thread = threads.find((t) => t.id === params.id);
     if (!thread) return new HttpResponse(null, { status: 404 });
     return HttpResponse.json(thread);
   }),
 
-  http.get("/api/forum/:categoryId/:threadId", ({ params }) => {
+  http.get("/api/forum/:categoryId/:threadId", async ({ params }) => {
+    await withRealisticDelay();
     const thread = threads.find((t) => t.id === params.threadId);
     if (!thread) return new HttpResponse(null, { status: 404 });
     return HttpResponse.json(thread);
   }),
 
   http.post("/api/forum/threads", async ({ request }) => {
+    await withRealisticDelay();
     const body = (await request.json()) as Record<string, unknown>;
     return HttpResponse.json(pushThread(createThread(body)), { status: 201 });
   }),
 
-  http.get("/api/forum/replies", ({ request }) => {
+  http.get("/api/forum/replies", async ({ request }) => {
+    await withRealisticDelay();
     const url = new URL(request.url);
     const threadId = url.searchParams.get("threadId");
     if (!threadId) return HttpResponse.json([]);
@@ -72,6 +80,7 @@ export const forumHandlers = [
   }),
 
   http.post("/api/forum/replies", async ({ request }) => {
+    await withRealisticDelay();
     const body = (await request.json()) as Record<string, unknown>;
     const now = new Date().toISOString();
     const newReply = {
@@ -91,6 +100,7 @@ export const forumHandlers = [
   }),
 
   http.patch("/api/forum/threads/:id", async ({ params, request }) => {
+    await withRealisticDelay();
     const thread = threads.find((t) => t.id === params.id);
     if (!thread) return new HttpResponse(null, { status: 404 });
     const body = (await request.json()) as Record<string, unknown>;
@@ -101,16 +111,27 @@ export const forumHandlers = [
   }),
 
   http.post("/api/forum/:categoryId/threads", async ({ params, request }) => {
+    await withRealisticDelay();
     const body = (await request.json()) as Record<string, unknown>;
     return HttpResponse.json(pushThread(createThread(body, params.categoryId as string)), { status: 201 });
   }),
 
-  http.delete("/api/forum/threads/:id", ({ params }) => {
+  http.delete("/api/forum/threads/:id", async ({ params }) => {
+    await withRealisticDelay();
     const idx = threads.findIndex((t) => t.id === params.id);
     if (idx === -1) return new HttpResponse(null, { status: 404 });
     const [removed] = threads.splice(idx, 1);
     const cat = categories.find((c) => c.id === removed.categoryId);
     if (cat) cat.threadCount--;
+    return HttpResponse.json({ success: true });
+  }),
+  http.delete("/api/forum/replies/:id", async ({ params }) => {
+    await withRealisticDelay();
+    const idx = replies.findIndex((r) => r.id === params.id);
+    if (idx === -1) return new HttpResponse(null, { status: 404 });
+    const [removed] = replies.splice(idx, 1);
+    const thread = threads.find((t) => t.id === removed.threadId);
+    if (thread) thread.replyCount = Math.max(0, thread.replyCount - 1);
     return HttpResponse.json({ success: true });
   }),
 ];

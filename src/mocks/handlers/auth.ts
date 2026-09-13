@@ -1,4 +1,5 @@
 import { http, HttpResponse } from "msw";
+import { withRealisticDelay } from "../utils";
 
 // Seeded user store for mock authentication
 // In production, this would be a database with hashed passwords
@@ -73,6 +74,7 @@ function clearAuthCookie() {
 
 export const authHandlers = [
   http.post("/api/auth/login", async ({ request }) => {
+    await withRealisticDelay();
     const { email, password } = (await request.json()) as Record<
       string,
       string
@@ -94,6 +96,7 @@ export const authHandlers = [
     return setAuthCookie(user.id);
   }),
   http.post("/api/auth/register", async ({ request }) => {
+    await withRealisticDelay();
     const { name, email } = (await request.json()) as Record<
       string,
       string
@@ -122,6 +125,7 @@ export const authHandlers = [
   }),
 
   http.get("/api/auth/me", async ({ cookies }) => {
+    await withRealisticDelay();
     const authToken = (cookies as Record<string, string>)["auth_token"];
     if (!authToken) {
       return HttpResponse.json({ message: "Not authenticated" }, { status: 401 });
@@ -142,7 +146,27 @@ export const authHandlers = [
     });
   }),
 
-  http.post("/api/auth/logout", () => {
+  http.post("/api/auth/logout", async () => {
+    await withRealisticDelay();
     return clearAuthCookie();
+  }),
+  http.post("/api/auth/refresh", async ({ cookies }) => {
+    await withRealisticDelay();
+    const authToken = (cookies as Record<string, string>)["auth_token"];
+    if (!authToken) {
+      return HttpResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const user = seededUsers.find((u) => u.id === authToken);
+    if (!user) {
+      return HttpResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    return HttpResponse.json(
+      { success: true },
+      {
+        headers: {
+          "Set-Cookie": `auth_token=${user.id}; ${Object.entries(cookieOptions).map(([k, v]) => `${k}=${v}`).join("; ")}`,
+        },
+      }
+    );
   }),
 ];

@@ -1,11 +1,13 @@
 import { http, HttpResponse } from "msw";
+import { withRealisticDelay } from "../utils";
 
 const VALID_TOKEN = "valid-token-abc123";
 const EXPIRED_TOKEN = "expired-token-xyz789";
 const VERIFIED_TOKENS = new Set<string>();
 
 export const emailVerificationHandlers = [
-  http.post("/api/auth/verify-email", ({ request }) => {
+  http.post("/api/auth/verify-email", async ({ request }) => {
+    await withRealisticDelay();
     const url = new URL(request.url);
     const token = url.searchParams.get("token");
 
@@ -40,7 +42,8 @@ export const emailVerificationHandlers = [
     );
   }),
 
-  http.post("/api/auth/resend-verification", () => {
+  http.post("/api/auth/resend-verification", async () => {
+    await withRealisticDelay();
     return HttpResponse.json({
       success: true,
       message: "Verification email sent",

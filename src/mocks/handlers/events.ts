@@ -1,9 +1,10 @@
 import { http, HttpResponse } from "msw";
 import { events } from "../data/events";
-import { parseBody } from "../utils";
+import { parseBody, withRealisticDelay } from "../utils";
 
 export const eventHandlers = [
-  http.get("/api/events", ({ request }) => {
+  http.get("/api/events", async ({ request }) => {
+    await withRealisticDelay();
     const url = new URL(request.url);
     const status = url.searchParams.get("status");
     const filtered = status
@@ -12,13 +13,15 @@ export const eventHandlers = [
     return HttpResponse.json(filtered);
   }),
 
-  http.get("/api/events/:id", ({ params }) => {
+  http.get("/api/events/:id", async ({ params }) => {
+    await withRealisticDelay();
     const event = events.find((e) => e.id === params.id);
     if (!event) return new HttpResponse(null, { status: 404 });
     return HttpResponse.json(event);
   }),
 
   http.post("/api/events", async ({ request }) => {
+    await withRealisticDelay();
     const body = await parseBody(request);
     const newEvent = {
       id: `event-${Date.now()}`,
@@ -36,6 +39,7 @@ export const eventHandlers = [
   }),
 
   http.put("/api/events/:id", async ({ params, request }) => {
+    await withRealisticDelay();
     const idx = events.findIndex((e) => e.id === params.id);
     if (idx === -1) return new HttpResponse(null, { status: 404 });
     const body = await parseBody(request);
@@ -43,7 +47,8 @@ export const eventHandlers = [
     return HttpResponse.json(events[idx]);
   }),
 
-  http.delete("/api/events/:id", ({ params }) => {
+  http.delete("/api/events/:id", async ({ params }) => {
+    await withRealisticDelay();
     const idx = events.findIndex((e) => e.id === params.id);
     if (idx === -1) return new HttpResponse(null, { status: 404 });
     events.splice(idx, 1);

@@ -246,5 +246,18 @@
   "common:breadcrumbs.events": "Événements",
   "common:breadcrumbs.news": "Actualités",
   "common:breadcrumbs.gallery": "Galerie",
-  "common:breadcrumbs.members": "Membres"
+  "common:breadcrumbs.members": "Membres",
+  "prototype": {
+    "title": "Vous consultez un prototype",
+    "body": "Ceci est un déploiement de prévisualisation du frontend Lions Club FSBM. Il fonctionne entièrement avec des données simulées et un léger délai pour vous permettre d'explorer chaque page comme si l'API était connectée.",
+    "whatWorksTitle": "Contenu du prototype",
+    "whatWorks": "Tous les parcours principaux sont simulés — authentification, événements, actualités, galerie, forum, membres, contact et recherche. Les données sont générées localement et se réinitialisent au rafraîchissement.",
+    "whatNext": "Le backend est complet, conteneurisé et entièrement testé (Spring Boot + Postgres + JWT). Il n'est simplement pas encore hébergé pour des raisons d'infrastructure et de coût. Basculer vers l'API réelle ne nécessite qu'une variable d'environnement — aucun changement de code.",
+    "dismiss": "Ne plus afficher",
+    "continue": "Continuer vers le site",
+    "links": {
+      "apiRepo": "Dépôt API",
+      "uiRepo": "Dépôt UI"
+    }
+  }
 }

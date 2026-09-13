@@ -23,7 +23,11 @@ export const siteConfig = {
 
 export const appConfig = {
   apiBaseUrl: import.meta.env.VITE_API_URL ?? "/api",
+  isMock: import.meta.env.VITE_MOCK_API === "true",
+  prototypeNoticeVersion: "v1",
 } as const;
+
+export const prototypeNoticeStorageKey = `prototypeNotice:${appConfig.prototypeNoticeVersion}:dismissed` as const;
 
 export const eventCategories = [
   "Health",

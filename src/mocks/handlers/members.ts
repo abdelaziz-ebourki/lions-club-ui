@@ -1,19 +1,22 @@
 import { http, HttpResponse } from "msw";
 import { members } from "../data/members";
-import { parseBody } from "../utils";
+import { parseBody, withRealisticDelay } from "../utils";
 
 export const memberHandlers = [
-  http.get("/api/members", () => {
+  http.get("/api/members", async () => {
+    await withRealisticDelay();
     return HttpResponse.json(members);
   }),
 
-  http.get("/api/members/:id", ({ params }) => {
+  http.get("/api/members/:id", async ({ params }) => {
+    await withRealisticDelay();
     const member = members.find((m) => m.id === params.id);
     if (!member) return new HttpResponse(null, { status: 404 });
     return HttpResponse.json(member);
   }),
 
   http.post("/api/members", async ({ request }) => {
+    await withRealisticDelay();
     const body = await parseBody(request);
     const newMember = {
       id: `member-${Date.now()}`,
@@ -31,6 +34,7 @@ export const memberHandlers = [
   }),
 
   http.put("/api/members/:id", async ({ params, request }) => {
+    await withRealisticDelay();
     const idx = members.findIndex((m) => m.id === params.id);
     if (idx === -1) return new HttpResponse(null, { status: 404 });
     const body = await parseBody(request);
@@ -38,7 +42,8 @@ export const memberHandlers = [
     return HttpResponse.json(members[idx]);
   }),
 
-  http.delete("/api/members/:id", ({ params }) => {
+  http.delete("/api/members/:id", async ({ params }) => {
+    await withRealisticDelay();
     const idx = members.findIndex((m) => m.id === params.id);
     if (idx === -1) return new HttpResponse(null, { status: 404 });
     members.splice(idx, 1);

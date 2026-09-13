@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { galleryItems } from "../data/gallery";
-import { parseBody } from "../utils";
+import { parseBody, withRealisticDelay } from "../utils";
 import type { GalleryCategory } from "@/types";
 
 const items = [...galleryItems];
@@ -11,19 +11,22 @@ function normalizeTags(tags: unknown): string[] {
 }
 
 export const galleryHandlers = [
-  http.get("/api/gallery/admin", () => {
+  http.get("/api/gallery/admin", async () => {
+    await withRealisticDelay();
     return HttpResponse.json(
       [...items].sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()),
     );
   }),
 
-  http.get("/api/gallery/admin/:id", ({ params }) => {
+  http.get("/api/gallery/admin/:id", async ({ params }) => {
+    await withRealisticDelay();
     const item = items.find((i) => i.id === params.id);
     if (!item) return new HttpResponse(null, { status: 404 });
     return HttpResponse.json(item);
   }),
 
   http.post("/api/gallery/upload", async ({ request }) => {
+    await withRealisticDelay();
     const formData = await request.formData();
     const file = formData.get("file");
     if (!(file instanceof File)) {
@@ -39,7 +42,8 @@ export const galleryHandlers = [
     );
   }),
 
-  http.get("/api/gallery", ({ request }) => {
+  http.get("/api/gallery", async ({ request }) => {
+    await withRealisticDelay();
     const url = new URL(request.url);
     const page = parseInt(url.searchParams.get("page") ?? "1", 10);
     const limit = parseInt(url.searchParams.get("limit") ?? "12", 10);
@@ -64,6 +68,7 @@ export const galleryHandlers = [
   }),
 
   http.post("/api/gallery", async ({ request }) => {
+    await withRealisticDelay();
     const body = await parseBody(request);
     if (!body.title || !body.category || !body.imageUrl) {
       return HttpResponse.json({ message: "title, category and imageUrl are required" }, { status: 400 });
@@ -85,13 +90,15 @@ export const galleryHandlers = [
     return HttpResponse.json(newItem, { status: 201 });
   }),
 
-  http.get("/api/gallery/:id", ({ params }) => {
+  http.get("/api/gallery/:id", async ({ params }) => {
+    await withRealisticDelay();
     const item = items.find((i) => i.id === params.id);
     if (!item) return new HttpResponse(null, { status: 404 });
     return HttpResponse.json(item);
   }),
 
   http.patch("/api/gallery/:id", async ({ params, request }) => {
+    await withRealisticDelay();
     const idx = items.findIndex((i) => i.id === params.id);
     if (idx === -1) return new HttpResponse(null, { status: 404 });
     const body = await parseBody(request);
@@ -103,7 +110,8 @@ export const galleryHandlers = [
     return HttpResponse.json(items[idx]);
   }),
 
-  http.delete("/api/gallery/:id", ({ params }) => {
+  http.delete("/api/gallery/:id", async ({ params }) => {
+    await withRealisticDelay();
     const idx = items.findIndex((i) => i.id === params.id);
     if (idx === -1) return new HttpResponse(null, { status: 404 });
     items.splice(idx, 1);

@@ -1,4 +1,5 @@
 import { http, HttpResponse } from "msw";
+import { withRealisticDelay } from "../utils";
 import { seededUsers } from "./auth";
 import type { ForgotPasswordRequest, ResetPasswordRequest } from "@/types";
 
@@ -24,6 +25,7 @@ resetTokens.set(EXPIRED_RESET_TOKEN, {
 
 export const passwordResetHandlers = [
   http.post("/api/auth/forgot-password", async ({ request }) => {
+    await withRealisticDelay();
     let body: ForgotPasswordRequest;
     try {
       body = (await request.json()) as ForgotPasswordRequest;
@@ -83,6 +85,7 @@ export const passwordResetHandlers = [
   }),
 
   http.post("/api/auth/reset-password", async ({ request }) => {
+    await withRealisticDelay();
     const url = new URL(request.url);
     const tokenFromQuery = url.searchParams.get("token");
 

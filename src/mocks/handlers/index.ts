@@ -11,6 +11,7 @@ import { profileHandlers } from "./profile";
 import { newsHandlers } from "./news";
 import { galleryHandlers } from "./gallery";
 import { passwordResetHandlers } from "./password-reset";
+import { rsvpHandlers } from "./rsvp";
 
 export const handlers = [
   ...eventHandlers,
@@ -26,4 +27,5 @@ export const handlers = [
   ...newsHandlers,
   ...galleryHandlers,
   ...passwordResetHandlers,
+  ...rsvpHandlers,
 ];

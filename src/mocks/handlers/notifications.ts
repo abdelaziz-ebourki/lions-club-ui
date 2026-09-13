@@ -1,4 +1,5 @@
 import { http, HttpResponse } from "msw";
+import { withRealisticDelay } from "../utils";
 import type { Notification } from "@/types";
 
 const seededNotifications: Notification[] = [
@@ -34,7 +35,8 @@ const seededNotifications: Notification[] = [
 let notifications = [...seededNotifications];
 
 export const notificationHandlers = [
-  http.get("/api/notifications", ({ request }) => {
+  http.get("/api/notifications", async ({ request }) => {
+    await withRealisticDelay();
     const url = new URL(request.url);
     const limit = Number(url.searchParams.get("limit")) || 20;
 
@@ -47,12 +49,14 @@ export const notificationHandlers = [
     return HttpResponse.json({ notifications: limited, unreadCount });
   }),
 
-  http.put("/api/notifications/read-all", () => {
+  http.put("/api/notifications/read-all", async () => {
+    await withRealisticDelay();
     notifications = notifications.map((n) => ({ ...n, read: true }));
     return HttpResponse.json({ success: true });
   }),
 
-  http.put("/api/notifications/:id/read", ({ params }) => {
+  http.put("/api/notifications/:id/read", async ({ params }) => {
+    await withRealisticDelay();
     const { id } = params;
     notifications = notifications.map((n) =>
       n.id === id ? { ...n, read: true } : n

@@ -4,7 +4,8 @@ import "./index.css";
 import App from "./App";
 
 async function start() {
-  if (import.meta.env.DEV) {
+  const enableMock = import.meta.env.DEV || import.meta.env.VITE_MOCK_API === "true";
+  if (enableMock) {
     const { worker } = await import("@/mocks/browser");
     await worker.start({ onUnhandledRequest: "bypass" });
   }

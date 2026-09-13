@@ -246,5 +246,18 @@
   "common:breadcrumbs.events": "Events",
   "common:breadcrumbs.news": "News",
   "common:breadcrumbs.gallery": "Gallery",
-  "common:breadcrumbs.members": "Members"
+  "common:breadcrumbs.members": "Members",
+  "prototype": {
+    "title": "You're viewing a prototype",
+    "body": "This is a preview deployment of the Lions Club FSBM frontend. It runs entirely against mocked data with a small simulated delay so you can explore every page as if the live API were connected.",
+    "whatWorksTitle": "What's included",
+    "whatWorks": "All major flows are mocked — authentication, events, news, gallery, forum, members, contact and search. Data is generated locally and resets on refresh.",
+    "whatNext": "The backend is complete, containerized and fully tested (Spring Boot + Postgres + JWT). It's simply not hosted yet for infrastructure and cost reasons. Switching to the live API is a one-line environment change — no code change required.",
+    "dismiss": "Don't show again",
+    "continue": "Continue to site",
+    "links": {
+      "apiRepo": "API repository",
+      "uiRepo": "UI repository"
+    }
+  }
 }
