@@ -4,8 +4,8 @@ export const siteConfig = {
   description:
     "Lions Club FSBM is a community of dedicated volunteers serving the greater Casablanca area since 2015.",
   email: "contact@lionsclubfsbm.org",
-  phone: "+212 5XX-XXXXXX",
-  address: "Casablanca, Morocco",
+  phone: "+212 522-704671",
+  address: "Bd Cdt Driss El Harti, B.P. 7955, Sidi Othmane, Casablanca",
   social: {
     facebook: "https://facebook.com/lionsclubfsbm",
     instagram: "https://instagram.com/lionsclubfsbm",
