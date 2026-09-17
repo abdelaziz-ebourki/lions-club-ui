@@ -1,13 +1,35 @@
 # Lions Club FSBM — Web UI
 
+[![CI](https://github.com/abdelaziz-ebourki/lions-club-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/abdelaziz-ebourki/lions-club-ui/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Single-page application for Lions Club FSBM (Faculté des Sciences Ben M'Sik,
 Casablanca). React 19 + TypeScript + Vite, Tailwind v4, shadcn/ui,
 react-query, react-router v7, react-hook-form + Zod. Trilingual (EN/FR/AR, RTL).
 
+**Live demo:** [https://lions-club-ui.vercel.app](https://lions-club-ui.vercel.app)
+(prototype mode — served with a mocked API, so changes are not persisted).
+
+## Screenshots
+
+![Lions Club FSBM homepage](docs/cover.png)
+
+## Architecture
+
+```
+browser ──► Vercel UI (this repo) ──► REST API ──► PostgreSQL
+                 │ mockable (MSW)      Spring Boot 3 + Java 21, cookie-JWT auth
+                                       https://github.com/abdelaziz-ebourki/lions-club-api
+```
+
+Real-API integration tests live in
+[https://github.com/abdelaziz-ebourki/lions-club-e2e](https://github.com/abdelaziz-ebourki/lions-club-e2e)
+(full Docker stack + Playwright).
+
 ## Prerequisites
 
 - Node.js 22
-- The backend running (see `lions-club-api/README.md` — one command)
+- The backend running (see the [API quickstart](https://github.com/abdelaziz-ebourki/lions-club-api#quickstart) — one command)
 
 ## Development
 
@@ -47,8 +69,8 @@ no extra CORS setup beyond the API defaults (`:5173`, `:5174` allowed).
 
 Conventions: tests co-located in `__tests__/`, `@/` path alias, all API
 traffic through `api` from `@/lib/api.ts` (never raw `fetch()`), strict
-TypeScript (no `any`), Zod v4 for runtime validation. See `AGENTS.md`
-for the full contributor contract.
+TypeScript (no `any`), Zod v4 for runtime validation. See `docs/`
+(`accessibility.md`, `i18n.md`, `qa-report.md`) for quality notes.
 
 ## Git hooks
 

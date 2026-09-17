@@ -106,11 +106,16 @@ npx lighthouse http://localhost:5175 --preset=desktop --view
 
 ## CI
 
-Added `qa` job in `.github/workflows/ci.yml:15` — runs `npm ci`, `playwright install --with-deps chromium firefox webkit`, `playwright test e2e/qa-*.spec.ts --project=chromium --project=firefox --project=webkit`. `a11y` job kept chromium-only for speed; `qa` covers cross-browser.
+The `qa` job in `.github/workflows/ci.yml` runs `npm ci`,
+`playwright install --with-deps chromium` and
+`playwright test e2e/qa-matrix.spec.ts e2e/qa-interactions.spec.ts --project=chromium`
+(chromium-only in CI for speed; run the full
+`--project=chromium --project=firefox --project=webkit` matrix locally as shown above).
+The `a11y` job is likewise chromium-only.
 
 ## Screenshots
 
-`docs/qa-screenshots/` (generated locally):
+`docs/qa-screenshots/` (local only, gitignored — regenerate with the commands above):
 - `home-375.png`, `home-1440.png`, `gallery-lightbox.png`, `admin-mobile-cards.png`, `rtl-ar.png`, `keyboard-focus.png`
 - `lh-desktop-home.html`, `lh-mobile-home.json`
 

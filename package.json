@@ -1,7 +1,13 @@
 {
   "name": "lions-club-ui",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Trilingual (EN/FR/AR) community-service web UI for Lions Club FSBM Casablanca",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abdelaziz-ebourki/lions-club-ui.git"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
