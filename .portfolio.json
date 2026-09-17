@@ -1,0 +1,46 @@
+{
+  "slug": "lions-club-fsbm",
+  "name": { "en": "Lions Club FSBM" },
+  "tagline": {
+    "en": "Trilingual community-service platform for Lions Club FSBM Casablanca — events, news, gallery, forum and admin console."
+  },
+  "status": "shipped",
+  "role": "solo",
+  "kind": "academic",
+  "period": { "start": "2026-06", "end": "2026-09" },
+  "stack": [
+    "React 19",
+    "TypeScript",
+    "Vite 8",
+    "Tailwind 4",
+    "shadcn/ui",
+    "React Query",
+    "Spring Boot 3",
+    "Java 21",
+    "PostgreSQL 16",
+    "Playwright"
+  ],
+  "repos": [
+    { "label": "ui", "url": "https://github.com/abdelaziz-ebourki/lions-club-ui" },
+    { "label": "api", "url": "https://github.com/abdelaziz-ebourki/lions-club-api" },
+    { "label": "e2e", "url": "https://github.com/abdelaziz-ebourki/lions-club-e2e" }
+  ],
+  "links": { "demo": "https://lions-club-ui.vercel.app" },
+  "highlights": {
+    "en": [
+      "Trilingual EN/FR/AR interface with RTL layout",
+      "Events with RSVPs and image uploads",
+      "Gallery with lightbox viewer and deep links",
+      "Community forum with threads and global search",
+      "Cookie-JWT auth with role-gated admin console",
+      "571 unit tests, Playwright + axe a11y, 5-job CI"
+    ]
+  },
+  "cover": {
+    "path": "docs/cover.jpg",
+    "alt": { "en": "Lions Club FSBM homepage hero" },
+    "kind": "image"
+  },
+  "featured": true,
+  "displayOrder": 0
+}

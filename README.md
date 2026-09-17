@@ -12,7 +12,7 @@ react-query, react-router v7, react-hook-form + Zod. Trilingual (EN/FR/AR, RTL).
 
 ## Screenshots
 
-![Lions Club FSBM homepage](docs/cover.png)
+![Lions Club FSBM homepage](docs/cover.jpg)
 
 ## Architecture
 
